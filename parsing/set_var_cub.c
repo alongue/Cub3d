@@ -27,7 +27,7 @@ t_segment	set_segment(int px, int py, int qx, int qy)
 void		set_cub(t_cub ***cub)
 {
 	cub[i][counter]->x = i * cub[i][counter]->wall->realside; //sommet a gauche avec vue du dessus
-	cub[i][counter]->y= counter * cub[i][counter]->wall->realside; //sommet en haut avec vue du dessus
+	cub[i][counter]->y = counter * cub[i][counter]->wall->realside; //sommet en haut avec vue du dessus
 	cub[i][counter]->stop = set_segment(cub[i][counter]->x,
 										cub[i][counter]->y,
 										cub[i][counter]->x + cub[i][counter].side,

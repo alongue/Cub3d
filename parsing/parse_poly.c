@@ -46,7 +46,7 @@ t_polygon	search_poly(t_map map, int x, int y)
 	while (cond_horizontal(map.cub[x][y], map.cub[x][y - 1], map.cub[x - 1][y - 1], map.cub[x - 1][y]))
 	{
 		p[i]->segment = join_segment(map.cub[x][y]->stop, map.cub[x - 1][y]->stop);
-		p[i]->normal = 
+		p[i]->normal = get_normal(map.cub[x][y]->stop);
 		x++;
 		if (!cond_horizontal(map.cub[x][y], map.cub[x][y - 1], map.cub[x - 1][y - 1], map.cub[x - 1][y]))
 			return (p);

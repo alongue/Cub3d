@@ -80,9 +80,7 @@ static int		parse(char *line, int i, int ret, t_cub ***cub)
 			line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 				return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[i] == '1')
-		{
 			set_cub(cub);
-		}
 		else
 			cub[i][counter] = NULL;
 	}
