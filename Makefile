@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/16 13:44:34 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/16 15:31:39 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,9 +108,10 @@ fclean	:	clean
 fcleanmax	:	fclean
 	rm -rf __.SYMDEF\ SORTED $(LIBFT)/__.SYMDEF\ SORTED
 	rm -rf a.out *.dSYM prog
-	rm -rf */.*.swp ./.*.swp
-	rm -rf .DS_Store
-	rm -rf .dist
+	rm -rf .vscode */.vscode
+	rm -rf .*.swp */.*.swp
+	rm -rf .DS_Store */.DS_Store
+	rm -rf .dist */.dist
 
 re	:	fclean all
 

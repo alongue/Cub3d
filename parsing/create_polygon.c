@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 13:37:02 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 15:10:54 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 15:31:51 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_polygon			create_polytop(t_cub *main, t_cub *top, t_cub *topleft, t_cub *left)
 		p.segment = dup_segment(main.stop);
 		p.normal = get_normal(main.stop);
 	}
+	while ()
 	return (p);
 		
 }
