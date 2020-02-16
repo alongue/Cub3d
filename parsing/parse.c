@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 14:45:30 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 17:00:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_cub	**get_malloc(t_data data)
 	return (cub);
 }
 
-static int		parse(char *line, int i, int ret, t_cub ***cub)
+static int		parse(char *line, int i, int ret, t_cub **cub)
 {
 	int		counter;
 
@@ -82,33 +82,33 @@ static int		parse(char *line, int i, int ret, t_cub ***cub)
 		if (line[i] == '1')
 			set_cub(cub);
 		else
-			cub[i][counter] = NULL;
+			cub[i][counter].exist = 0;
 	}
 	return (1);
 }
 
-t_cub			**get_coor(t_data data, t_wall wall)
+t_map			get_coor(t_data data, int wallside)
 {
 	char	*line;
 	int		ret;
 	int		fd;
 	int		counter;
-	t_cub	**cub;
+	t_map	map;
 
 	ret = 2;
 	counter = 0;
 	if (!data.file)
 		return (ft_putstrret_fd("Error\nVeuillez mettre une map\n", NULL, 0));
 	fd = open(data.file, O_RDONLY);
-	if (!(cub = get_malloc(data)))
+	if (!(map.cub = get_malloc(data)))
 		return (NULL);
 	printf("wall.realside = %d\n", wall.realside);
-	initcub(&cub, wall);
+	initcub(map.cub, wallside);
 	while (ret != 0)
 	{
 		if ((ret = get_next_line(fd, &line)) < 0)
 			return (NULL);
-		if (!(parse(line, counter++, ret, &cub)))
+		if (!(parse(line, counter++, ret, map.cub)))
 			return (NULL);
 	}
 	return (cub);

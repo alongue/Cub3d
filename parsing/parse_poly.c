@@ -6,11 +6,26 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 14:45:24 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 18:14:09 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
+
+void		search_polyverti(t_polygon *p, t_map map, int x, int y)
+{
+	static int i = 0;
+
+	if (cond_top)
+		p[i++] = create_polytop(map, x, y);
+	if (cond_bot)
+		p[i++] = create_polybot(map, x, y);
+	if (cond_right)
+		p[i++] = create_polyright(map, x, y);
+	if (cond_left)
+		p[i++] = create_polyleft(map, x, y);
+	return (p);
+}
 
 int			count(t_map map)
 {
@@ -21,37 +36,18 @@ int			count(t_map map)
 	return (counter);
 }
 
-t_polygon	search_poly(t_map map, int x, int y)
-{
-	static t_polygon	p;
-
-	while (cond_horizontal(map.cub[x][y], map.cub[x][y - 1], map.cub[x - 1][y - 1], map.cub[x - 1][y]))
-	{
-		p[i]->segment = join_segment(map.cub[x][y]->stop, map.cub[x - 1][y]->stop);
-		p[i]->normal = get_normal(map.cub[x][y]->stop);
-		x++;
-		if (!cond_horizontal(map.cub[x][y], map.cub[x][y - 1], map.cub[x - 1][y - 1], map.cub[x - 1][y]))
-			return (p);
-	}
-	return (p);
-}
-
 t_polygon	*parse_poly(t_map map)
 {
 	int			x;
 	int			y;
 	t_polygon	*p;
-	int			i;
 
 	y = 0;
-	i = 0;
 	while (++y < map.nbcuby)
 	{
 		x = 0;
 		while (++x < map.nbcubx)
-			p[i] = search_poly(map, x, y);
+				search_polyverti(map, &x, &y, p);
 	}
-	x = 0;
-	while (++x < )
 	return (p);
 }

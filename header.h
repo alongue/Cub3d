@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 15:24:16 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 18:22:00 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "get_next_line/get_next_line.h"
 # include <mlx.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -51,6 +50,7 @@ typedef struct s_wall		t_wall;
 
 struct				s_cub //ils seront tjrs visualiser du dessus
 {
+	bool		exist;
 	int			x;
 	int			y;
 	int			side;
@@ -81,9 +81,10 @@ typedef struct s_player		t_player;
 
 struct				s_map
 {
-	int		nbcubx;
-	int		nbcuby;
-	t_cub	**cub;
+	int			nbcubx;
+	int			nbcuby;
+	//t_polygon	*set;
+	t_cub		**cub;
 };
 typedef struct s_map		t_map;
 
@@ -103,20 +104,25 @@ struct				s_node
 };
 typedef struct s_node		t_node;
 
-int					create_win(t_data *data);
+bool				cond_bot(t_map map, int x, int y);
+bool				cond_left(t_map map, int x, int y);
+bool				cond_right(t_map map, int x, int y);
+bool				cond_top(t_map map, int x, int y);
 t_polygon			create_polytop(t_cub *main, t_cub *top, t_cub *topleft, t_cub *left);
-t_polygon			create_polybot(t_map map);
-t_polygon			create_polyright(t_map map);
-t_polygon			create_polyleft(t_map map);
+t_polygon			create_polybot(t_map map, int x, int y);
+t_polygon			create_polyleft(t_map map, int x, int y);
+t_polygon			create_polyright(t_map map, int x, int y);
+t_polygon			create_polytop(t_map map, int x, int y);
+int					create_win(t_data *data);
 int					display_wall(t_data *data, t_wall wall, t_player *player);
 //int					get_width(t_wall wall);
-t_cub				**get_coor(t_data data, t_wall wall);
+t_map				get_coor(t_data data, t_wall wall);
 void				grow_wall(t_data *data, t_wall *wall);
 void				init(t_player *player, t_wall *wall, t_data *data, char **av);
-void				initcub(t_cub ***cub, t_wall wall);
+void				initcub(t_cub **cub, t_wall wall);
 void				raycast(t_player *player);
 void				renderbsp(t_data *data, t_node *current, t_player *player);
-void				set_cub(t_cub ***cub);
+void				set_cub(t_cub **cub);
 void				set_north_wall(t_wall *wall, int heightleft, int heightright, int x);
 void				set_player(t_player *player, int x, int z, int angle);
 
