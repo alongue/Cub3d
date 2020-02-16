@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   orientation.c                                      :+:      :+:    :+:   */
+/*   dup_segment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 13:28:54 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 11:42:23 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/16 14:53:05 by alongcha          #+#    #+#             */
+/*   Updated: 2020/02/16 15:04:30 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-int		orientation(t_point p, t_point q, t_point r)
+t_segment	*dup_segment(t_segment *s)
 {
-	int	val;
+	t_segment	segment;
 
-	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-	if (val == 0)
-		return (COLINEAR);
-	return ((val > 0) ? CLOCKWISE : COUNTERCLOCKWISE);
+	if (!s)
+		return (NULL);
+	segment.p = dup_point(s.p);
+	segment.q = dup_point(s.q);
 }

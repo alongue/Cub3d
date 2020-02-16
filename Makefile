@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/14 15:18:14 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/16 13:44:34 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS	=	test.c							\
 			$(PARSE)/build_tree.c			\
 			$(PARSE)/parse_poly.c			\
 			$(PARSE)/set_var_cub.c			\
+			$(PARSE)/create_poly.c			\
 			$(GNL)/get_next_line.c			\
 			$(GNL)/get_next_line_utils.c	\
 

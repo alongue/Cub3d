@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   orientation.c                                      :+:      :+:    :+:   */
+/*   dup_point.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 13:28:54 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 11:42:23 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/16 15:00:53 by alongcha          #+#    #+#             */
+/*   Updated: 2020/02/16 15:05:07 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmath.h"
+#include "header.h"
 
-int		orientation(t_point p, t_point q, t_point r)
+t_point		*dup_point(t_point *p)
 {
-	int	val;
+	t_point *point;
 
-	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-	if (val == 0)
-		return (COLINEAR);
-	return ((val > 0) ? CLOCKWISE : COUNTERCLOCKWISE);
+	if (!p)
+		return (NULL);
+	point = get_point(p->x, p->y);
+	return (point);
 }

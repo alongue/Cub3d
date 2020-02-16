@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   orientation.c                                      :+:      :+:    :+:   */
+/*   get_point.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 13:28:54 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 11:42:23 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/16 11:46:24 by alongcha          #+#    #+#             */
+/*   Updated: 2020/02/16 15:04:00 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmath.h"
+#include "header.h"
 
-int		orientation(t_point p, t_point q, t_point r)
+t_point		*get_point(int x, int y)
 {
-	int	val;
+	t_point *p;
 
-	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-	if (val == 0)
-		return (COLINEAR);
-	return ((val > 0) ? CLOCKWISE : COUNTERCLOCKWISE);
+	if (!(p = malloc(sizeof(t_point))))
+		return (NULL);
+	p.x = x;
+	p.y = y;
+	return (p);
 }

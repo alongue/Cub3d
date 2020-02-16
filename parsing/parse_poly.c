@@ -6,29 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/15 13:05:00 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 14:45:24 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-bool		cond_horizontal(t_cub main, t_cub top, t_cub topleft, t_cub left)
-{
-	if (!main)
-		return (false);
-	if (left && !top && !topleft)
-		return (true);
-	return (false);
-}
-
-bool		cond_vertical(t_cub main, t_cub top, t_cub topleft, t_cub left)
-{
-	if (!main)
-		return (false);
-	if (!left && !topleft && top)
-		return (true);
-	return (false);
-}
 
 int			count(t_map map)
 {
@@ -61,17 +43,15 @@ t_polygon	*parse_poly(t_map map)
 	t_polygon	*p;
 	int			i;
 
-	y = 1;
+	y = 0;
 	i = 0;
-	while (y < map.counterx)
+	while (++y < map.nbcuby)
 	{
-		x = 1;
-		while (x < map.countery)
-		{
+		x = 0;
+		while (++x < map.nbcubx)
 			p[i] = search_poly(map, x, y);
-			x++;
-		}
-		y++;
 	}
+	x = 0;
+	while (++x < )
 	return (p);
 }

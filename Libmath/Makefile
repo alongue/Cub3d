@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/14 14:45:37 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/16 15:00:26 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,11 @@ SRCS	=	ft_abs.c		\
 			max.c			\
 			is_colinear.c	\
 			orientation.c	\
-			join_segment.c
+			join_segment.c	\
+			get_segment.c	\
+			get_point.c		\
+			dup_segment.c	\
+			dup_point.c
 
 OBJS	=	$(SRCS:.c=.o)
 

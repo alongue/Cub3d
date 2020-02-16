@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/14 15:14:15 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 15:24:16 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ struct				s_cub //ils seront tjrs visualiser du dessus
 	int			x;
 	int			y;
 	int			side;
-	t_segment	*stop;
-	t_segment	*sleft;
-	t_segment	*sbot;
-	t_segment	*sright;
-	t_wall		*wall;
+	t_segment	stop;
+	t_segment	sleft;
+	t_segment	sbot;
+	t_segment	sright;
+	t_wall		wall;
 };
 typedef struct s_cub		t_cub;
 
 struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 {
-	t_segment	*segment;
-	t_normal	*normal;
+	t_segment	segment;
+	t_normal	normal;
 };
 typedef struct s_polygon	t_polygon;
 
@@ -83,7 +83,7 @@ struct				s_map
 {
 	int		nbcubx;
 	int		nbcuby;
-	t_cub	***cub;
+	t_cub	**cub;
 };
 typedef struct s_map		t_map;
 
@@ -96,14 +96,18 @@ typedef struct s_tree		t_tree;
 struct				s_node
 {
 	t_tree			tree;
-	t_polygon		*splitter; //a polygon and a splitter at the same time
-	struct s_node	*frontchild;
-	struct s_node	*backchild;
-	t_polygon		**set; //tableau de polygon dans ce noeud
+	t_polygon		splitter; //a polygon and a splitter at the same time
+	struct s_node	frontchild;
+	struct s_node	backchild;
+	t_polygon		*set; //tableau de polygon dans ce noeud
 };
 typedef struct s_node		t_node;
 
 int					create_win(t_data *data);
+t_polygon			create_polytop(t_cub *main, t_cub *top, t_cub *topleft, t_cub *left);
+t_polygon			create_polybot(t_map map);
+t_polygon			create_polyright(t_map map);
+t_polygon			create_polyleft(t_map map);
 int					display_wall(t_data *data, t_wall wall, t_player *player);
 //int					get_width(t_wall wall);
 t_cub				**get_coor(t_data data, t_wall wall);

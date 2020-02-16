@@ -6,13 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 16:33:01 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/15 16:33:03 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 15:12:49 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-int			hardmin(t_point a, t_point b, t_point c, t_point d)
+t_point		hardmin(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point p;
 	t_point	pcop;
@@ -34,7 +34,7 @@ int			hardmin(t_point a, t_point b, t_point c, t_point d)
 	return (p);
 }
 
-int			hardmax(t_point a, t_point b, t_point c, t_point d)
+t_point		hardmax(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point p;
 	t_point	pcop;
@@ -56,21 +56,17 @@ int			hardmax(t_point a, t_point b, t_point c, t_point d)
 	return (p);
 }
 
-t_segment	join_segment(t_segment s1, t_segment s2)
+t_segment	*join_segment(t_segment *s1, t_segment *s2)
 {
-	t_segment	s;
+	t_segment	*s;
 
-	if ((!s1 && !s2) || !is_colinear(s1, s2))
+	if ((!s1 && !s2) || !is_colinear(*s1, *s2))
 		return (NULL);
 	if (!s1)
-		return (s2);
+		return (dup_segment(*s2));
 	if (!s2)
-		return (s1);
-	if (!(s.p = malloc(sizeof(t_point))))
-		return (NULL);
-	if (!(s.q = malloc(sizeof(t_point))))
-		return (NULL);
-	s.p = hardmin(s1.p, s1.q, s2.p, s2.q);
-	s.q = hardmax(s1.p, s1.q, s2.p, s2.q);
+		return (dup_segment(*s1));
+	*s.p = hardmin(*s1->p, *s1->q, *s2->p, *s2->q);
+	*s.q = hardmax(*s1->p, *s1->q, *s2->p, *s2->q);
 	return (s);
 }
