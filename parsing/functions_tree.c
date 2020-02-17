@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 02:04:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 08:00:48 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,8 @@ bool		is_convex_set(t_polygon *set)
 			if (i != j && get_side(set[i], set[j]) != FRONT)
 				return (false);
 	return (true);
+}
+
+void		split_polygon(/*qqch*/)
+{
 }
