@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 11:46:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 16:20:22 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:35:51 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libmath.h"
 
 t_point		get_point(int x, int y)
 {

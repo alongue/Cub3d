@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/17 11:02:46 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/17 17:21:25 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,16 @@ SRCS	=	test.c							\
 			raycast.c						\
 			player.c						\
 			init.c							\
+			wall_functions.c				\
 			$(PARSE)/parse.c				\
-			$(PARSE)/render_bsp.c					\
+			$(PARSE)/render_bsp.c			\
 			$(PARSE)/functions_tree.c		\
 			$(PARSE)/build_tree.c			\
 			$(PARSE)/parse_poly.c			\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/create_poly.c			\
 			$(GNL)/get_next_line.c			\
-			$(GNL)/get_next_line_utils.c	\
+			$(GNL)/get_next_line_utils.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -74,7 +75,7 @@ $(LIBFT)/.c.o	:
 $(LIBMATH)/.c.o	:
 	make -C $(LIBMATH)
 
-$(NAME)	: $(OBJS) $(LIBFT)/.c.o
+$(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	cp $(LIBFT)/$(LIBFTNAME) .
 	cp $(LIBMATH)/$(LIBMATHNAME) .
 	cp $(GNL)/*.o .

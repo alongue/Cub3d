@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 11:02:05 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:38:33 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		set_ratio(int *nb, int *relation, int side)
 	else if (side == BACK)
 		nb[1] += 1;
 	else if (side == SPANNING)
-		nb[3] += 1;
+		nb[2] += 1;
 	if (nb[0] < nb[1])
 		*relation = nb[0] / nb[1];
 	else
@@ -40,51 +40,54 @@ void		set_best_poly(t_polygon *bestpoly, t_polygon currentpoly,
 	leastsplits = INT_MAX;
 	bestrelation = 0;
 	relation = 0;
-	while (*s && *s != currentpoly)
+	while (set->exist && !is_same_segment(set->segment, currentpoly.segment))
 	{
-		set_ratio(nb, &relation, get_side(currentpoly, *s));
+		set_ratio(nb, &relation, get_side(currentpoly, *set));
 		if (relation >= minrelation &&
-			((nb[3] < leastsplits) || (relation > bestrelation)))
+			((nb[2] < leastsplits) || (relation > bestrelation)))
 		{
-			s->isused = true;
-			bestpoly = s;
-			leastsplits = nb[3];
+			set->isused = true;
+			bestpoly->exist = true;
+			bestpoly->segment = dup_segment(currentpoly.segment);
+			leastsplits = nb[2];
 			bestrelation = relation;
 		}
-		s++;
+		set++;
 	}
 }
 
 t_polygon	choose_div_polygon(t_polygon *set)
 {
-	t_polygon	*bestpoly;
+	t_polygon	bestpoly;
 	int			i;
 	float		minrelation;
 	int			len;
 
+	bestpoly.exist = true;
 	len = polysetlen(set);
-	minrelation = (ispair(len)) ? (len / 2 - 1) / (len / 2 + 1) : 1;
+	minrelation = (is_pair(len)) ? (len / 2 - 1) / (len / 2 + 1) : 1;
 	if (is_convex_set(set))
 		return (set[0]);
 	i = -1;
-	while (!bestpoly && !set[i])
+	while (!bestpoly.exist && !set[i].exist)
 	{
-		while (set[++i])
+		while (set[++i].exist)
 			if (!set[i].isused)
-				set_best_poly(bestpoly, set[i], minrelation);
-		minrelation = minrelation / minscale;
+				set_best_poly(&bestpoly, set[i], set, minrelation);
+		minrelation = minrelation / MINSCALE;
 	}
+	return (bestpoly);
 }
 
-void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en suspens
+/*void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en suspens
 {
 	int			side;
 	int			counter[3];
-	t_polygon	*frontpolyset
-	t_polygon	*backpolyset
+	t_polygon	*frontpolyset;
+	t_polygon	*backpolyset;
 
 	if (is_convex_set(node->set))
-		/*qqch*/;
+		*qqch*;
 	ft_memseti(counter, 0, 3);
 	node->splitter = choose_div_polygon(node->set);
 	i = -1;
@@ -101,4 +104,4 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 	}
 	build_tree(node->frontchild);
 	build_tree(node->backchild);
-}
+}*/

@@ -6,16 +6,16 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:00:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 16:20:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:37:19 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libmath.h"
 
 t_point		dup_point(t_point p)
 {
 	t_point point;
 
-	point = get_point(p->x, p->y);
+	point = get_point(p.x, p.y);
 	return (point);
 }

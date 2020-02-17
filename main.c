@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 13:29:50 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:44:53 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,16 @@ int	main(int ac, char **av)
 	/*if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
 	init(&player, &wall, &data, av);
-	renderbsp();
+	//renderbsp();
 	//c = {.wall->realside = 64};
-	if (!(cub = get_coor(data, wall)))
+	map = get_coor(data, 64);
+	if (!map.exist)
 		return (1);
-	map->cub = cub;
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);
 	//coor[0] = ft_memseti(coor[0], 50, 2);
-	player.y = wall.realside / 2;
-	set_north_wall(&wall, 50, 10, 10);
 	//wall.color = 0xffffff;
 	//printf("wall = %p\n", wall);
-	display_wall(&data, wall, &player);
 	param[0] = (void *)&wall;
 	param[1] = (void *)&data;
 	mlx_hook(data.mlx_win, 2, 0, funt, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion

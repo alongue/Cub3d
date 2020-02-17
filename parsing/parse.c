@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 22:07:38 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:44:44 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		count(char *line)
 	char	*str;
 
 	str = ft_rmchar(line, ' ');
-	printf("line = %s\n", line);
+	//printf("line = %s\n", line);
 	if (!ft_isonlychar(line, "01SNEW"))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
 	return (ft_strlen(str));
@@ -35,7 +35,7 @@ static int		*get_counter(int fd)
 		ret = get_next_line(fd, &line);
 		if ((counter[1] = count(line)) == -1)
 			return (NULL);
-		printf("ret = %d\n", ret);
+		//printf("ret = %d\n", ret);
 		free(line);
 		counter[0]++;
 	}
@@ -80,9 +80,9 @@ static int		parse(char *line, int i, int ret, t_cub **cub)
 			line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 				return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[i] == '1')
-			set_cub(cub);
+			set_cub(&cub[i][counter], i, counter);
 		else
-			cub[i][counter].exist = 0;
+			cub[i][counter].exist = false;
 	}
 	return (1);
 }
@@ -97,19 +97,20 @@ t_map			get_coor(t_data data, int wallside)
 
 	ret = 2;
 	counter = 0;
+	map.exist = false;
 	if (!data.file)
-		return (ft_putstrret_fd("Error\nVeuillez mettre une map\n", NULL, 0));
+		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data)))
-		return (NULL);
-	printf("wall.realside = %d\n", wall.realside);
-	initcub(map.cub, wallside);
+		return (map);
+	//printf("wall.realside = %d\n", wall.realside);
+	initcub(&map, wallside);
 	while (ret != 0)
 	{
 		if ((ret = get_next_line(fd, &line)) < 0)
-			return (NULL);
+			return (map);
 		if (!(parse(line, counter++, ret, map.cub)))
-			return (NULL);
+			return (map);
 	}
-	return (cub);
+	return (map);
 }

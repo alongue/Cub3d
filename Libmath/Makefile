@@ -6,26 +6,27 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/17 03:19:25 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/17 16:35:58 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libmath.a
 
-SRCS	=	ft_abs.c		\
-			do_intersect.c	\
-			get_normal.c	\
-			onsegment.c		\
-			min.c			\
-			max.c			\
-			is_colinear.c	\
-			orientation.c	\
-			join_segment.c	\
-			get_segment.c	\
-			get_point.c		\
-			dup_segment.c	\
-			dup_point.c		\
-			ispair.c
+SRCS	=	ft_abs.c			\
+			do_intersect.c		\
+			get_normal.c		\
+			onsegment.c			\
+			min.c				\
+			max.c				\
+			is_colinear.c		\
+			orientation.c		\
+			join_segment.c		\
+			get_segment.c		\
+			get_point.c			\
+			dup_segment.c		\
+			dup_point.c			\
+			ispair.c			\
+			is_same_segment.c
 
 OBJS	=	$(SRCS:.c=.o)
 

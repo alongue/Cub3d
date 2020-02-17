@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 02:02:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:37:41 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ void		search_polyverti(t_map map, t_polygon *p, int x, int y)
 {
 	static int i = 0;
 
-	if (cond_top)
+	if (cond_top(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polytop(map, x, y);
 	}
-	if (cond_bot)
+	if (cond_bot(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polybot(map, x, y);
 	}
-	if (cond_right)
+	if (cond_right(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyright(map, x, y);
 	}
-	if (cond_left)
+	if (cond_left(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyleft(map, x, y);
@@ -42,27 +42,27 @@ int			count(t_map map, int x, int y, int *c)
 {
 	t_polygon	p;
 
-	if (cond_top)
+	if (cond_top(map, x, y))
 	{
 		p = create_polytop(map, x, y);
 		(*c)++;
 	}
-	if (cond_bot)
+	if (cond_bot(map, x, y))
 	{
 		p = create_polybot(map, x, y);
 		(*c)++;
 	}
-	if (cond_right)
+	if (cond_right(map, x, y))
 	{
 		p = create_polyright(map, x, y);
 		(*c)++;
 	}
-	if (cond_left)
+	if (cond_left(map, x, y))
 	{
 		p = create_polyleft(map, x, y);
 		(*c)++;
 	}
-	return (counter);
+	return (*c);
 }
 
 t_polygon	*get_malloc(t_map map)

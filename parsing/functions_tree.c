@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 08:00:48 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:25:37 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			polysetlen(t_polygon *set)
 	int		i;
 
 	i = 0;
-	while (set[i])
+	while (set[i].exist)
 		i++;
 	return (i);
 }
@@ -27,7 +27,7 @@ int			classify_point(t_polygon polygon, t_point point)
 	int		testvalue;
 	int		realres;
 
-	testval = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
+	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = polygon.normal.xlen * polygon.segment.p.x + polygon.normal.ylen * polygon.segment.p.y;
 	if (testvalue == realres)
 		return (COINCIDING);
@@ -58,8 +58,8 @@ bool		is_convex_set(t_polygon *set)
 
 	i = -1;
 	j = -1;
-	while (set[++i])
-		while (set[++j])
+	while (set[++i].exist)
+		while (set[++j].exist)
 			if (i != j && get_side(set[i], set[j]) != FRONT)
 				return (false);
 	return (true);

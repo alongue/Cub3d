@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   is_same_segment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 11:41:07 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 15:35:03 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/17 16:31:28 by alongcha          #+#    #+#             */
+/*   Updated: 2020/02/17 16:35:26 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libmath.h"
 
-void	init(t_player *player, t_wall *wall, t_data *data, char **av)
+bool	is_same_segment(t_segment s1, t_segment s2)
 {
-	player->fieldvis = 60;
-	wall->realside = 64;   //enlever plus tard
-	player->fieldvis = wall->realside / 2;
-	data->file = av[1];
-	(void)data;
-}
-
-void	initcub(t_map *map, int side)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	while (++i < map->nbcubx)
-	{
-		j = -1;
-		while (++j < map->nbcuby)
-			map->cub[i][j].side = side;
-	}
+	if (s1.p.x == s2.p.x && s1.p.y == s2.p.y &&
+		s1.q.x == s2.q.x && s1.q.y == s2.q.y)
+		return (true);
+	return (false);
 }

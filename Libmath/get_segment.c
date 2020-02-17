@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:48:51 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 16:20:26 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:35:16 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libmath.h"
 
 t_segment	get_segment(t_point p, t_point q)
 {

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 15:15:11 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:32:54 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 	//return (wall);
 }*/
 
-void			set_north_wall(t_wall *wall, int heightleft, int heightright, int x) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
+void			set_north_wall(t_wall *wall, t_segment left, t_segment right) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
 {
 	//t_wall	wall;
 
-	wall->x = x;
-	wall->heightleft = heightleft;
-	wall->heightright = heightright;
+	wall->x = left.p.x;
+	wall->left = dup_segment(left);
+	wall->right = dup_segment(right);
 	wall->color = 0xCECECE; //gris
 	//return (wall);
 }
@@ -87,13 +87,13 @@ void			set_north_wall(t_wall *wall, int heightleft, int heightright, int x) //la
 	return (EXIT_SUCCESS);
 }*/
 
-int				display_wall(t_data *data, t_wall wall, t_player *player)
+int				display_wall(t_data *data, t_wall wall)
 {
 	int		i;
 	int		ptraddr;
 	int		ptraddrend;
 
-	wall.img = mlx_new_image(data->mlx_ptr, wall.width, wall.height);
+	wall.img = mlx_new_image(data->mlx_ptr, 400, 400);
 	wall.img_data = (int *)mlx_get_data_addr(wall.img, &wall.bpp, &wall.size_line, &wall.endian);
 	clip(&wall);
 	i = wall.rightcl.p.x;
@@ -108,7 +108,7 @@ int				display_wall(t_data *data, t_wall wall, t_player *player)
 			ptraddrend = /*(int)*/wall.realbot * DEFX + i;
 			while (ptraddr < ptraddrend)
 			{
-				wall.img_data[realtop] = wall.color;
+				wall.img_data[ptraddr] = wall.color;
 				ptraddr += 320;
 			}
 			wall.coldone[i] = true;
