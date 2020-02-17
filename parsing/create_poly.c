@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 13:37:02 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 18:25:29 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:07:30 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 t_polygon			create_polytop(t_map map, int x, int y)
 {

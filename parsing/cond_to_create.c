@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:06:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 18:09:51 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:07:20 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 bool		cond_top(t_map map, int x, int y)
 {

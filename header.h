@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 18:22:00 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 02:09:26 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include "get_next_line/get_next_line.h"
 # include <mlx.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FRONT 1
 # define BACK 2
+# define SPANNING 0
 
 struct				s_data
 {
@@ -66,6 +68,7 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 {
 	t_segment	segment;
 	t_normal	normal;
+	bool		isused;
 };
 typedef struct s_polygon	t_polygon;
 
@@ -104,6 +107,7 @@ struct				s_node
 };
 typedef struct s_node		t_node;
 
+int					classify_point(t_polygon polygon, t_point point);
 bool				cond_bot(t_map map, int x, int y);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
@@ -117,9 +121,12 @@ int					create_win(t_data *data);
 int					display_wall(t_data *data, t_wall wall, t_player *player);
 //int					get_width(t_wall wall);
 t_map				get_coor(t_data data, t_wall wall);
+int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				init(t_player *player, t_wall *wall, t_data *data, char **av);
 void				initcub(t_cub **cub, t_wall wall);
+bool				is_convex_set(t_polygon *set);
+int					polysetlen(t_polygon *set);
 void				raycast(t_player *player);
 void				renderbsp(t_data *data, t_node *current, t_player *player);
 void				set_cub(t_cub **cub);

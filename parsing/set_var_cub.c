@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:42:34 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 16:05:54 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:07:51 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 void		set_cub(t_cub **cub)
 {
