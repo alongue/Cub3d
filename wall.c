@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/05 11:07:59 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:09:38 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,13 @@ void			set_north_wall(t_wall *wall, int heightleft, int heightright, int x) //la
 
 int				display_wall(t_data *data, t_wall wall, t_player *player)
 {
-	/*int	bpp;
-	int	size_line;
-	int	endian;*/
-	int	x;
-	int	y;
+	int		i;
+	int		realtop;
+	int		realbot;
 
-	//wall.img = mlx_new_image(data->mlx_ptr, wall.width, wall.height);
-	//wall.img_data = (int *)mlx_get_data_addr(wall.img, &bpp, &size_line, &endian);
-	x = -1;
-	y = -1;
-	(void)data;
-	(void)wall;
-	raycast(player);
-	/*while (++x < wall.width)
-	{
-		y = -1;
-		while (++y < wall.height)
-			wall.img_data[wall.width * y + x] = wall.color;
-	}*/
+
+	wall.img = mlx_new_image(data->mlx_ptr, wall.width, wall.height);
+	wall.img_data = (int *)mlx_get_data_addr(wall.img, &wall.bpp, &wall.size_line, &wall.endian);
 	return (EXIT_SUCCESS);
 }
 

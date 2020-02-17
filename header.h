@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 04:59:59 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:34:42 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,20 @@ typedef struct s_data		t_data;
 
 struct				s_wall
 {
-	int		x;
-	int		y;
-	int		realside;
-	int		heightleft;
-	int		heightright;
-	int		deltay;
-	int		color;
-	void	*img;
-	int		*img_data;
+	int			realside;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	t_point		point;
+	t_segment	sleft;
+	t_segment	sfalseleft;
+	t_segment	sright;
+	t_segment	sfalseright;
+	int			deltatop;
+	int			deltabot;
+	int			color;
+	void		*img;
+	int			*img_data;
 };
 typedef struct s_wall		t_wall;
 
@@ -68,7 +73,9 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 {
 	t_segment	segment;
 	t_normal	normal;
+	t_wall		wall;
 	bool		isused;
+	int			nbwall; //je pense que ce sera utile pour les textures (je pense a redessiner plusieurs fois la texture)
 };
 typedef struct s_polygon	t_polygon;
 
