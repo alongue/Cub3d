@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 02:09:26 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 04:59:59 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,8 @@ struct				s_node
 {
 	t_tree			tree;
 	t_polygon		splitter; //a polygon and a splitter at the same time
-	struct s_node	frontchild;
-	struct s_node	backchild;
-	t_polygon		*set; //tableau de polygon dans ce noeud
+	struct s_node	*frontchild;
+	struct s_node	*backchild;
 };
 typedef struct s_node		t_node;
 
