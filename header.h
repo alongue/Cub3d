@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 17:31:20 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:00:05 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdio.h>
 
 # define DEFX 320
 # define DEFY 200

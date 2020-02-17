@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/17 17:21:25 by alongcha         ###   ########.fr        #
+#    Updated: 2020/02/17 17:50:23 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS	=	test.c							\
 			player.c						\
 			init.c							\
 			wall_functions.c				\
+			utils.c							\
 			$(PARSE)/parse.c				\
 			$(PARSE)/render_bsp.c			\
 			$(PARSE)/functions_tree.c		\

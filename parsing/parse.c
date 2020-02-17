@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 17:44:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:20:15 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int		*get_counter(int fd)
 	static int		counter[2];
 
 	ret = 2;
-	while (ret != 0)
+	ft_memseti(counter, 0, 2);
+	while (ret != 0 || !ft_isonlychar(line, "01SNEW"))
 	{
 		ret = get_next_line(fd, &line);
 		if ((counter[1] = count(line)) == -1)
@@ -56,6 +57,7 @@ static t_cub	**get_malloc(t_data data)
 		return (NULL);
 	if (!(cub = malloc(sizeof(t_cub *) * (counter[0] + 0))))
 		return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
+	printf("counter[0] = %d\t\tet\t\tcounter[1] = %d\n", counter[0], counter[1]);
 	while (--counter[0] >= 0)
 	{
 		if (!(cub[counter[0]] = malloc(sizeof(t_cub) * (counter[1] + 0)))) // faudra free le reste
@@ -64,7 +66,8 @@ static t_cub	**get_malloc(t_data data)
 				free(cub[counter[0]]);
 			return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 		}
-		ft_memseti(cub[counter[0]], 0, --counter[1]);
+		//ft_memseti(cub[counter[0]], 0, --counter[1]);
+		cub[counter[0]][counter[1]].exist = true;
 	}
 	return (cub);
 }
@@ -103,6 +106,7 @@ t_map			get_coor(t_data data, int wallside)
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data)))
 		return (map);
+	map.exist = true;
 	//printf("wall.realside = %d\n", wall.realside);
 	initcub(&map, wallside);
 	while (ret != 0)

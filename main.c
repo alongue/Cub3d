@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 17:44:53 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:09:12 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int ac, char **av)
 	//renderbsp();
 	//c = {.wall->realside = 64};
 	map = get_coor(data, 64);
+	printf("map.exist = %d\n", map.exist);
 	if (!map.exist)
 		return (1);
 	//wall = set_north_wall(0, 0, 100, 100);
