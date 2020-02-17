@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 20:28:58 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 03:19:08 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,16 @@ bool			do_intersect(t_segment s1, t_segment s2);
 int				ft_abs(int nb);
 t_normal		*get_normal(t_segment s);
 bool			is_colinear(t_segment s1, t_segment s2);
+bool			is_pair(int a);
 int				min(int a, int b);
 int				max(int a, int b);
 bool			onsegment(t_point s, t_point p, t_point r);
 int				orientation(t_point p, t_point q, t_point r);
-t_segment		join_segment(t_segment *s1, t_segment *s2);
-t_segment		*get_segment(t_point p, t_point q);
-t_segment		*dup_segment(t_segment *s);
-t_segment		*get_segmenti(int px, int py, int qx, int qy);
-t_point			*get_point(int x, int y);
-t_point			*dup_point(t_point *p);
+t_segment		join_segment(t_segment s1, t_segment s2);
+t_segment		get_segment(t_point p, t_point q);
+t_segment		dup_segment(t_segment s);
+t_segment		get_segmenti(int px, int py, int qx, int qy);
+t_point			get_point(int x, int y);
+t_point			dup_point(t_point p);
 
 #endif

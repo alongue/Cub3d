@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 13:34:42 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:11:09 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <fcntl.h>
 # include <limits.h>
 
+# define DEFX 320
+# define DEFY 200
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FRONT 1
@@ -43,13 +45,19 @@ struct				s_wall
 	int			size_line;
 	int			endian;
 	t_point		point;
-	t_segment	sleft;
-	t_segment	sfalseleft;
-	t_segment	sright;
-	t_segment	sfalseright;
+	t_segment	left;
+	t_segment	leftcl;
+	t_segment	right;
+	t_segment	rightcl;
+	double		top;
+	double		realtop;
+	double		bot;
+	double		realbot;
 	int			deltatop;
 	int			deltabot;
 	int			color;
+	bool		*coldone;
+	int			nbcoldone;
 	void		*img;
 	int			*img_data;
 };
