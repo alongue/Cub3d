@@ -16,7 +16,7 @@ t_segment	dup_segment(t_segment s)
 {
 	t_segment	segment;
 
-	segment.p = dup_point(s.p);
-	segment.q = dup_point(s.q);
+	segment.a = dup_point(s.a);
+	segment.b = dup_point(s.b);
 	return (segment);
 }

@@ -16,7 +16,7 @@ t_normal	get_normal(t_segment s)
 {
 	t_normal	n;
 
-	n.xlen = s.q.x - s.p.x;
-	n.ylen = s.p.y - s.q.y;
+	n.xlen = s.b.x - s.a.x;
+	n.ylen = s.a.y - s.b.y;
 	return (n);
 }

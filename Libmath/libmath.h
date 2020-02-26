@@ -33,8 +33,8 @@ typedef struct s_point		t_point;
 struct				s_segment
 {
 	bool	exist;
-	t_point	p;
-	t_point	q;
+	t_point	a;
+	t_point	b;
 	//int	len;
 };
 typedef struct s_segment	t_segment;

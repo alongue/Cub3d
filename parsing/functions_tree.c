@@ -28,7 +28,7 @@ int			classify_point(t_polygon polygon, t_point point)
 	int		realres;
 
 	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
-	realres = polygon.normal.xlen * polygon.segment.p.x + polygon.normal.ylen * polygon.segment.p.y;
+	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
 	if (testvalue == realres)
 		return (COINCIDING);
 	if (testvalue < realres)
@@ -39,14 +39,14 @@ int			classify_point(t_polygon polygon, t_point point)
 
 int			get_side(t_polygon poly1, t_polygon poly2)
 {
-	if (classify_point(poly1, poly2.segment.p) == FRONT
-		&& classify_point(poly1, poly2.segment.p) == FRONT)
+	if (classify_point(poly1, poly2.segment.a) == FRONT
+		&& classify_point(poly1, poly2.segment.a) == FRONT)
 		return (FRONT);
-	else if (classify_point(poly1, poly2.segment.p) == BACK
-			 && classify_point(poly1, poly2.segment.q) == BACK)
+	else if (classify_point(poly1, poly2.segment.a) == BACK
+			 && classify_point(poly1, poly2.segment.b) == BACK)
 		return (BACK);
-	else if (classify_point(poly1, poly2.segment.p) == COINCIDING
-			 && classify_point(poly1, poly2.segment.p) == COINCIDING)
+	else if (classify_point(poly1, poly2.segment.a) == COINCIDING
+			 && classify_point(poly1, poly2.segment.a) == COINCIDING)
 		return (COINCIDING);
 	return (SPANNING);
 }

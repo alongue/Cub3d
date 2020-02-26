@@ -14,8 +14,8 @@
 
 bool	is_same_segment(t_segment s1, t_segment s2)
 {
-	if (s1.p.x == s2.p.x && s1.p.y == s2.p.y &&
-		s1.q.x == s2.q.x && s1.q.y == s2.q.y)
+	if (s1.a.x == s2.a.x && s1.a.y == s2.a.y &&
+		s1.b.x == s2.b.x && s1.b.y == s2.b.y)
 		return (true);
 	return (false);
 }

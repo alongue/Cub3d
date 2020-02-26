@@ -17,8 +17,8 @@ bool			is_colinear(t_segment s1, t_segment s2)
 	int		o1;
 	int		o2;
 	
-	o1 = orientation(s1.p, s1.q, s2.p);
-	o2 = orientation(s1.p, s1.q, s2.q);
+	o1 = orientation(s1.a, s1.b, s2.a);
+	o2 = orientation(s1.a, s1.b, s2.b);
 	if (o1 == 0 && o2 == 0)
 		return (true);
 	return (false);

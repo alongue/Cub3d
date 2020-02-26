@@ -65,8 +65,8 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 		return (s2);
 	if (!s2.exist)
 		return (s1);
-	s.p = hardmin(s1.p, s1.q, s2.p, s2.q);
-	s.q = hardmax(s1.p, s1.q, s2.p, s2.q);
+	s.a = hardmin(s1.a, s1.b, s2.a, s2.b);
+	s.b = hardmax(s1.a, s1.b, s2.a, s2.b);
 	s.exist = true;
 	return (s);
 }

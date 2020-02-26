@@ -12,17 +12,12 @@
 
 #include "header.h"
 
-# define FIELD 60
-# define NB_PX 320
-
-
-#include <stdio.h>
-
-void		raycast(t_player *player)
+bool		raycast(t_wall *wall)
 {
-	float	angle;
-
-	(void)player;
-	angle = 0;
-	printf("60 / 320 = %f\n", (float)60 / 320);
+	wall->newleft.a.x = 160 - wall->newleft.a.y * 160 / wall->newleft.a.x;
+	wall->newright.a.x = 160 - wall->newright.a.y * 160 / wall->newright.a.x;
+	if (wall->newleft.a.x == wall->newright.a.x ||
+		wall->newright.a.x < 0 || wall->newleft.a.x > 319)
+		return (false);
+	return (true);
 }

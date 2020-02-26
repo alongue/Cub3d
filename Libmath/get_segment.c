@@ -16,7 +16,7 @@ t_segment	get_segment(t_point p, t_point q)
 {
 	t_segment	s;
 
-	s.p = get_point(p.x, p.y);
-	s.q = get_point(q.x, q.y);
+	s.a = get_point(p.x, p.y);
+	s.b = get_point(q.x, q.y);
 	return (s);
 }

@@ -19,19 +19,19 @@ bool	do_intersect(t_segment s1, t_segment s2)
 	int		o3;
 	int		o4;
 
-	o1 = orientation(s1.p, s1.q, s2.p);
-	o2 = orientation(s1.p, s1.q, s2.q);
-	o3 = orientation(s2.p, s2.q, s1.p);
-	o4 = orientation(s2.p, s2.q, s1.q);
+	o1 = orientation(s1.a, s1.b, s2.a);
+	o2 = orientation(s1.a, s1.b, s2.b);
+	o3 = orientation(s2.a, s2.b, s1.a);
+	o4 = orientation(s2.a, s2.b, s1.b);
 	if (o1 != o2 && o3 != o4)
 		return (true);
-	if (o1 == COLINEAR && onsegment(s1.p, s2.p, s1.q))
+	if (o1 == COLINEAR && onsegment(s1.a, s2.a, s1.b))
 		return (true);
-	if (o2 == COLINEAR && onsegment(s1.p, s2.q, s1.q))
+	if (o2 == COLINEAR && onsegment(s1.a, s2.b, s1.b))
 		return (true);
-	if (o3 == COLINEAR && onsegment(s2.p, s1.p, s2.q))
+	if (o3 == COLINEAR && onsegment(s2.a, s1.a, s2.b))
 		return (true);
-	if (o4 == COLINEAR && onsegment(s2.p, s1.q, s2.q))
+	if (o4 == COLINEAR && onsegment(s2.a, s1.b, s2.b))
 		return (true);
 	return (false);
 }
