@@ -29,16 +29,18 @@
 	//return (wall);
 }*/
 
-void			set_north_wall(t_wall *wall, t_segment left, t_segment right) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
+
+// ------- !!! DEPRECATED !!! ------- 
+
+/*void			set_north_wall(t_wall *wall, t_segment left, t_segment right, unsigned int color) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
 {
 	//t_wall	wall;
 
-	wall->x = left.a.x;
 	wall->left = dup_segment(left);
 	wall->right = dup_segment(right);
-	wall->color = 0xCECECE; //gris
+	wall->color = color; //gris
 	//return (wall);
-}
+}*/
 
 
 // ------- !!! DEPRECATED !!! ------- 
@@ -89,47 +91,58 @@ void			set_north_wall(t_wall *wall, t_segment left, t_segment right) //la valeur
 	return (EXIT_SUCCESS);
 }*/
 
-int				replace_wall(t_wall *wall, t_player player)
+void			replace_poly(t_polygon *polygon, t_player player)
 {
 	int	x1;
 	int	y1;
 	int	x2;
 	int	y2;
 
-	x1 = wall->left.a.x - player.x// on prend ce segment qu'on va ensuite clipper
-	y1 = wall->left.a.y - player.y
-	x2 = wall->right.a.x - player.x// on prend ce segment qu'on va ensuite clipper
-	y2 = wall->right.a.y - player.y
-	wall->newleft.a.x = (int)(x1 * cos(-player.angle)
+	x1 = polygon->segment.a.x - player.x// on prend ce segment qu'on va ensuite clipper
+	y1 = polygon->segment.a.y - player.y
+	x2 = polygon->segment.b.x - player.x// on prend ce segment qu'on va ensuite clipper
+	y2 = polygon->segment.b.y - player.y
+	polygon->newsegment.a.x = (int)(x1 * cos(-player.angle)
 							 - y1 * sin(-player.angle));
-	wall->newleft.a.y = (int)(y1 * cos(-player.angle)
+	polygon->newsegment.a.y = (int)(y1 * cos(-player.angle)
 							 + x1 * sin(-player.angle));
-	wall->newright.a.x = (int)(x2 * cos(-player.angle)
+	polygon->newsegment.b.x = (int)(x2 * cos(-player.angle)
 							 - y2 * sin(-player.angle));
-	wall->newright.a.y = (int)(y2 * cos(-player.angle)
+	polygon->newsegment.b.y = (int)(y2 * cos(-player.angle)
 							 + x2 * sin(-player.angle));
 }
 
-bool			do_display_wall(t_wall *wall)
+bool			do_display_poly(t_polygon *polygon)
 {
-	double	tanwall;
+	double	tanpoly;
 
-	tanwall = (wall->newleft.a.y - wall->newright.a.y) / (wall->newleft.a.x - wall->newright.a.x);
-	if (wall->newleft.a.x < ZMIN && wall->newright.a.x < ZMIN)
+	tanpoly = (polygon->newsegment.a.y - polygon->newsegment.b.y)
+	/ (polygon->newsegment.a.x - polygon->newsegment.b.x);
+	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return (false);
-	if (wall->newleft.a.x < ZMIN)
+	if (polygon->newsegment.a.x < ZMIN)
 	{
-		wall->newleft.a.y += (ZMIN - wall->newleft.a.x) * tanwall;
-		wall->newleft.a.x = ZMIN;
+		polygon->newsegment.a.y += (ZMIN - polygon->newsegment.a.x) * tanpoly;
+		polygon->newsegment.a.x = ZMIN;
 	}
-	if (wall->newright.a.x < ZMIN)
+	if (polygon->newsegment.b.x < ZMIN)
 	{
-		wall->newright.a.y += (ZMIN - wall->newright.a.x) * tanwall;
-		wall->newright.a.x = ZMIN;
+		polygon->newsegment.b.y += (ZMIN - polygon->newsegment.b.x) * tanpoly;
+		polygon->newsegment.b.x = ZMIN;
 	}
-	wall->newleft.a.x = min(9999, wall->newleft.a.x);
-	wall->newright.a.x = min(9999, wall->newright.a.x);
+	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
+	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
 	return (true);
+}
+
+void			replace_wall(t_wall *wall, t_polygon poly, t_player player)
+{
+	wall->left.a = get_point(poly.newsegment.a.x, wall->realside);
+	wall->left.b = get_point(poly.newsegment.a.x, 0);
+	wall->right.a = get_point(poly.newsegment.b.x, wall->realside);
+	wall->right.b = get_point(poly.newsegment.b.x, 0);
+	translate(&wall->left, 0, -player.height);
+	translate(&wall->right, 0, -player.height);
 }
 
 int				display_wall(t_data *data, t_wall wall)

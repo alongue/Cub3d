@@ -66,5 +66,6 @@ int				min(int a, int b);
 int				max(int a, int b);
 bool			onsegment(t_point s, t_point p, t_point r);
 int				orientation(t_point p, t_point q, t_point r);
+int				translate(t_segment *segment, int x, int y);
 
 #endif

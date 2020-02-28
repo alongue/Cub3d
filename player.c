@@ -12,10 +12,28 @@
 
 #include "header.h"
 
-void		set_player(t_player *player, int x, int z, int angle)
+# define HEIGHTPL 32
+
+t_player		get_player(int x, int z, double angle, double fieldvis)
 {
-	(void)player;
-	(void)x;
-	(void)z;
-	(void)angle;
+	t_player player;
+
+	player.x = x;
+	player.y = HEIGHTPL;
+	player.z = z;
+	player.angle = angle;
+	player.fieldvis = fieldvis;
+	return (player);
+}
+
+void			set_player(t_player *player, int x, int z, int y)
+{
+	player->x = x;
+	player->y = y;
+	player->z = z;
+}
+
+void			set_player_angle(t_player *player, double angle)
+{
+	player->angle = angle;
 }

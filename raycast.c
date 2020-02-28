@@ -12,12 +12,20 @@
 
 #include "header.h"
 
-bool		raycast(t_wall *wall)
+bool		raycast(t_polygon *polygon)
 {
-	wall->newleft.a.x = 160 - wall->newleft.a.y * 160 / wall->newleft.a.x;
-	wall->newright.a.x = 160 - wall->newright.a.y * 160 / wall->newright.a.x;
-	if (wall->newleft.a.x == wall->newright.a.x ||
-		wall->newright.a.x < 0 || wall->newleft.a.x > 319)
+	polygon->newsegment.a.x = 160 - polygon->newsegment.a.y * 160 / polygon->newsegment.a.x;
+	polygon->newsegment.b.x = 160 - polygon->newsegment.b.y * 160 / polygon->newsegment.b.x;
+	if (polygon->newsegment.a.x == polygon->newsegment.b.x ||
+		polygon->newsegment.b.x < 0 || polygon->newsegment.a.x > 319)
 		return (false);
 	return (true);
+}
+
+void		raycastfps(t_wall *wall)
+{
+	wall->newleft.a.y = 100 + ((wall->left.a.x - player.x) * DEFY / dfoc);
+	wall->newleft.b.y = 100 + ((wall->left.b.x - player.x) * DEFY / dfoc);
+	wall->newright.a.y = 100 + ((wall->right.a.x - player.x) * DEFY / dfoc);
+	wall->newright.b.y = 100 + ((wall->right.b.x - player.x) * DEFY / dfoc);
 }

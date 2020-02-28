@@ -24,11 +24,17 @@ void	clip(t_wall *wall)
 	}
 }
 
-void			initbe4display(t_wall *wall, int *countcol)
+void	initbe4display(t_wall *wall, int *countcol)
 {
 	wall->img = mlx_new_image(data->mlx_ptr, 400, 400);
 	wall->img_data = (int *)mlx_get_data_addr(wall.img, &wall.bpp, &wall.size_line, &wall.endian);
 	clip(wall);
 	*countcol = wall->rightcl.a.x - 1;
 	wall->nbcoldone = 0;
+}
+
+void	set_delta(t_wall *wall)
+{
+	wall->deltatop = (wall->newright.a.y - wall->newleft.a.y) / (wall->newright.a.x - wall->newleft.a.x);
+	wall->deltatop = (wall->newright.b.y - wall->newleft.b.y) / (wall->newright.a.x - wall->newleft.a.x);
 }

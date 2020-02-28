@@ -40,7 +40,7 @@ struct				s_data
 };
 typedef struct s_data		t_data;
 
-struct				s_wall
+struct				s_wall //ca concerne les polygones en vue fps uniquement
 {
 	bool		exist; //check si il existe
 	int			realside; // vrai taille du mur (64 en general)
@@ -53,13 +53,13 @@ struct				s_wall
 	double		botcl; //position du sommet bas clipé du segment actuel en y
 	t_point		pos; // position en haut a gauche
 	t_segment	left; // reel segment vertical gauche
-	t_segment	newleft; // segment vertical gauche apres modification (savoir quelle partie du mur est devant le joueur)
+	t_segment	newleft; // segment vertical gauche sur l'ecran
 	t_segment	leftcl; // faux segment vertical gauche clipé
 	t_segment	right; // reel segment vertical droite
-	t_segment	newright; // segment vertical droite apres modification (savoir quelle partie du mur est devant le joueur)
+	t_segment	newright; // segment vertical droite sur l'ecran
 	t_segment	rightcl; // faux segment vertical droite clipé
-	int			deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
-	int			deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
+	double		deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
+	double		deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
 	int			color; // la couleur
 	bool		*coldone; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 	int			nbcoldone; // le nombre de colonnes d'un mur
@@ -86,6 +86,7 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 {
 	bool		exist;
 	t_segment	segment;
+	t_segment	newsegment;
 	t_normal	normal;
 	t_wall		wall;
 	bool		isused;
@@ -99,8 +100,9 @@ struct				s_player
 	t_point	pos;
 	int		x;
 	int		y;
+	int		z;
 	int		height;
-	int		fieldvis;
+	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
 };
 typedef struct s_player		t_player;
@@ -144,7 +146,7 @@ t_polygon			create_polyright(t_map map, int x, int y);
 t_polygon			create_polytop(t_map map, int x, int y);
 int					create_win(t_data *data);
 int					display_wall(t_data *data, t_wall wall);
-bool				do_display_wall(t_wall *wall);
+bool				do_display_poly(t_polygon *polygon);
 //int					get_width(t_wall wall);
 t_map				get_coor(t_data data, int side);
 int					get_side(t_polygon poly1, t_polygon poly2);
@@ -155,11 +157,16 @@ void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
-bool				raycast(t_player *wall);
+bool				raycast(t_polygon *polygon);
+void				raycastfps(t_wall *wall);
 void				renderbsp(t_data *data, t_node current, t_player player);
-int					replace_wall(t_wall *wall);
+void				replace_poly(t_polygon *polygon, t_player player);
+void				replace_wall(t_wall *wall, t_polygon poly);
 void				set_cub(t_cub *cub, int i, int counter);
+void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
-void				set_player(t_player *player, int x, int z, int angle);
+t_player			get_player(int x, int z, double angle, double fieldvis);
+void				set_player(t_player *player, int x, int z);
+void				set_player_angle(t_player *player, double angle);
 
 #endif
