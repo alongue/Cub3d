@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/06 17:40:08 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 19:42:29 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ double			ft_atod_base(const char *str, const char *base);
 long			ft_atol_base(const char *str, const char *base);
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t count, size_t size);
+int				ft_cmpstrpart(char *str, int start, int len, char *cmp);
 char			*ft_convert_basel(const char *nbr,
 const char *base_from, const char *base_to);
 int				ft_free_ret(int myret, ...);

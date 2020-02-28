@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 10:27:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/05 11:01:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:56:58 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ bool		raycast(t_polygon *polygon)
 	return (true);
 }
 
-void		raycastfps(t_wall *wall)
+void		raycastfps(t_wall *wall, t_player player)
 {
+	double	dfoc;
+
+	dfoc = DEFX / 2 / tan(player.fieldvis);
 	wall->newleft.a.y = 100 + ((wall->left.a.x - player.x) * DEFY / dfoc);
 	wall->newleft.b.y = 100 + ((wall->left.b.x - player.x) * DEFY / dfoc);
 	wall->newright.a.y = 100 + ((wall->right.a.x - player.x) * DEFY / dfoc);

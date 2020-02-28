@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 18:20:15 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 19:41:40 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int		parse(char *line, int i, int ret, t_cub **cub)
 	counter = -1;
 	while (line[++counter])
 	{
-		if (((counter == 0 || ret == 0) && ft_get_nbchar(line, '0')) ||
+		if (((counter == 0 || ret == 0) && ft_get_nbchar(line, '0') != 0) ||
 			line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 				return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[i] == '1')
@@ -101,13 +101,12 @@ t_map			get_coor(t_data data, int wallside)
 	ret = 2;
 	counter = 0;
 	map.exist = false;
-	if (!data.file)
+	if (!data.file || ft_cmpstrpart(data.file, ft_strlen(data.file) - 4,
+									4, ".cub") != 0)
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data)))
 		return (map);
-	map.exist = true;
-	//printf("wall.realside = %d\n", wall.realside);
 	initcub(&map, wallside);
 	while (ret != 0)
 	{
@@ -116,5 +115,6 @@ t_map			get_coor(t_data data, int wallside)
 		if (!(parse(line, counter++, ret, map.cub)))
 			return (map);
 	}
+	map.exist = true;
 	return (map);
 }

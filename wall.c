@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 15:32:54 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 18:01:12 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ void			replace_poly(t_polygon *polygon, t_player player)
 	int	x2;
 	int	y2;
 
-	x1 = polygon->segment.a.x - player.x// on prend ce segment qu'on va ensuite clipper
-	y1 = polygon->segment.a.y - player.y
-	x2 = polygon->segment.b.x - player.x// on prend ce segment qu'on va ensuite clipper
-	y2 = polygon->segment.b.y - player.y
+	x1 = polygon->segment.a.x - player.x;// on prend ce segment qu'on va ensuite clipper
+	y1 = polygon->segment.a.y - player.y;
+	x2 = polygon->segment.b.x - player.x;// on prend ce segment qu'on va ensuite clipper
+	y2 = polygon->segment.b.y - player.y;
 	polygon->newsegment.a.x = (int)(x1 * cos(-player.angle)
 							 - y1 * sin(-player.angle));
 	polygon->newsegment.a.y = (int)(y1 * cos(-player.angle)
@@ -148,22 +148,21 @@ void			replace_wall(t_wall *wall, t_polygon poly, t_player player)
 int				display_wall(t_data *data, t_wall wall)
 {
 	int		i;
-	int		ptraddr;
-	int		ptraddrend;
+	int		ptraddr[2];
 
-	initbe4display(&wall, &i);
+	initbe4display(&wall, &i, data);
 	while (++i <= wall.leftcl.a.x)
 	{
 		if (!wall.coldone[i])
 		{
 			wall.topcl = fmax(wall.top, 0);
 			wall.botcl = fmin(wall.bot, 200);
-			ptraddr = /*(int)*/wall.realtop * DEFX + i;
-			ptraddrend = /*(int)*/wall.realbot * DEFX + i;
-			while (ptraddr < ptraddrend)
+			ptraddr[0] = /*(int)*/wall.topcl * DEFX + i;
+			ptraddr[1] = /*(int)*/wall.botcl * DEFX + i;
+			while (ptraddr[0] < ptraddr[1])
 			{
-				wall.img_data[ptraddr] = wall.color;
-				ptraddr += 320;
+				wall.img_data[ptraddr[0]] = wall.color;
+				ptraddr[0] += 320;
 			}
 			wall.coldone[i] = true;
 			wall.nbcoldone++;
@@ -171,6 +170,7 @@ int				display_wall(t_data *data, t_wall wall)
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, wall.leftcl.a.x, wall.leftcl.a.y);
 	return (EXIT_SUCCESS);
 }
 

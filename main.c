@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 18:09:12 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 19:17:12 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 #include <stdio.h>
 
-int		escape(t_data *data)
+/*int		escape(t_data *data)
 {
 	exit(0);
 	return (0);
-}
+}*/
 
 int		funt(int i, void **p)
 {
@@ -33,17 +33,17 @@ int		funt(int i, void **p)
 	//{
 		/**wall = set_north_wall(wall->x - 5, wall->y - 5, wall->width + 10, wall->height + 10);
 		display_wall(p[1], *wall);*/
-		grow_wall(data, wall);
+		//grow_wall(data, wall);
 	//}
 	if (i == 1)
-		
-	if (i == 53)
-		mlx_hook(data->mlx_win, 17, 0, escape, data);
+		;
+	//if (i == 53)
+	//	mlx_hook(data->mlx_win, 17, 0, escape, data);
 	printf("i = %d\n", i);
 	return (0);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_data		data;
 	t_player	player;
@@ -51,6 +51,7 @@ int	main(int ac, char **av)
 	t_map		map;
 	void		*param[2];
 
+	(void)ac;
 	if ((data.mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	data.win_width = WIDTH;
@@ -65,7 +66,7 @@ int	main(int ac, char **av)
 	map = get_coor(data, 64);
 	printf("map.exist = %d\n", map.exist);
 	if (!map.exist)
-		return (1);
+		return (3);
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);
 	//coor[0] = ft_memseti(coor[0], 50, 2);

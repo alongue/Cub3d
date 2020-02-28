@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 14:58:31 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 18:19:03 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	clip(t_wall *wall)
 	}
 }
 
-void	initbe4display(t_wall *wall, int *countcol)
+void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
 	wall->img = mlx_new_image(data->mlx_ptr, 400, 400);
-	wall->img_data = (int *)mlx_get_data_addr(wall.img, &wall.bpp, &wall.size_line, &wall.endian);
+	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
 	clip(wall);
 	*countcol = wall->rightcl.a.x - 1;
 	wall->nbcoldone = 0;

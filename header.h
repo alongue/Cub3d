@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 18:00:05 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:59:59 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,21 +152,21 @@ t_map				get_coor(t_data data, int side);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				init(t_player *player, t_wall *wall, t_data *data, char **av);
-void				initbe4display(t_wall *wall, int *countcol);
+void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 bool				raycast(t_polygon *polygon);
-void				raycastfps(t_wall *wall);
+void				raycastfps(t_wall *wall, t_player player);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
-void				replace_wall(t_wall *wall, t_polygon poly);
+void				replace_wall(t_wall *wall, t_polygon poly, t_player player);
 void				set_cub(t_cub *cub, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 t_player			get_player(int x, int z, double angle, double fieldvis);
-void				set_player(t_player *player, int x, int z);
+void				set_player(t_player *player, int x, int z, int y);
 void				set_player_angle(t_player *player, double angle);
 
 #endif
