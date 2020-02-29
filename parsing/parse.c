@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/28 19:41:40 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/29 19:31:43 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		count(char *line)
 	//printf("line = %s\n", line);
 	if (!ft_isonlychar(line, "01SNEW"))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
-	return (ft_strlen(str));
+	return ((int)ft_strlen(str));
 }
 
 static int		*get_counter(int fd)
@@ -31,9 +31,10 @@ static int		*get_counter(int fd)
 
 	ret = 2;
 	ft_memseti(counter, 0, 2);
-	while (ret != 0 || !ft_isonlychar(line, "01SNEW"))
+	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "01SNEW"))
 	{
-		ret = get_next_line(fd, &line);
+		if (ret == -1)
+			return (ft_putstrret_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
 		if ((counter[1] = count(line)) == -1)
 			return (NULL);
 		//printf("ret = %d\n", ret);
@@ -43,12 +44,11 @@ static int		*get_counter(int fd)
 	return (counter);
 }
 
-static t_cub	**get_malloc(t_data data)
+static t_cub	**get_malloc(t_data data, int *counter)
 {
 	t_cub	**cub;
 	int		fd;
 	int		ret;
-	int		*counter;
 
 	fd = open(data.file, O_RDONLY);
 	ret = 2;
@@ -72,21 +72,25 @@ static t_cub	**get_malloc(t_data data)
 	return (cub);
 }
 
-static int		parse(char *line, int i, int ret, t_cub **cub)
+static int		parse(char *line, t_cub **cub, int lastline)
 {
-	int		counter;
+	int			counter;
+	static int	i = 0;
 
 	counter = -1;
+	printf("ft_get_nbchar(line, '1') = %ld\n", ft_get_nbchar(line, '1'));
+	printf("lastline = %d\n", lastline);
 	while (line[++counter])
 	{
-		if (((counter == 0 || ret == 0) && ft_get_nbchar(line, '0') != 0) ||
-			line[0] != '1' || line[ft_strlen(line) - 1] != '1')
+		if (((i == 0 || i == lastline) && ft_get_nbchar(line, '1') != ft_strlen(line))
+			|| line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 				return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[i] == '1')
 			set_cub(&cub[i][counter], i, counter);
 		else
 			cub[i][counter].exist = false;
 	}
+	i++;
 	return (1);
 }
 
@@ -95,24 +99,24 @@ t_map			get_coor(t_data data, int wallside)
 	char	*line;
 	int		ret;
 	int		fd;
-	int		counter;
+	int		counter[2];
 	t_map	map;
 
 	ret = 2;
-	counter = 0;
+	ft_memseti(counter, 0, 2);
 	map.exist = false;
-	if (!data.file || ft_cmpstrpart(data.file, ft_strlen(data.file) - 4,
-									4, ".cub") != 0)
+	if (!data.file || !ft_strstrpart(data.file, ft_strlen(data.file) - 4,
+									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	fd = open(data.file, O_RDONLY);
-	if (!(map.cub = get_malloc(data)))
+	if (!(map.cub = get_malloc(data, counter)))
 		return (map);
 	initcub(&map, wallside);
 	while (ret != 0)
 	{
-		if ((ret = get_next_line(fd, &line)) < 0)
+		if (!(ret = get_next_line(fd, &line)))
 			return (map);
-		if (!(parse(line, counter++, ret, map.cub)))
+		if (!(parse(line, map.cub, counter[0])))
 			return (map);
 	}
 	map.exist = true;

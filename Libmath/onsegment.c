@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:29:52 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/14 14:43:11 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/29 16:24:45 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	onsegment(t_point p, t_point q, t_point r)
 {
 	if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x)
-	&&	q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
+		&& q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
 		return (true);
 	return (false);
 }

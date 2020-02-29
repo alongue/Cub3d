@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 19:27:17 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/28 19:43:45 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/02/29 15:29:09 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,9 @@ int		ft_cmpstrpart(char *str, int start, int len, char *cmp)
 		reallen--;
 	}
 	return (res);
+}
+
+int		main(int ac, char **av)
+{
+	
 }
