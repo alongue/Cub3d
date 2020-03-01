@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 15:09:35 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:01:10 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	return (bestpoly);
 }
 
+void		create_tree_node(t_map *map)
+{
+	parse_poly(map);
+	map->tree.rootnode->splitter = choose_div_polygon(node->set);
+}
+
 void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en suspens
 {
 	int			side;
@@ -86,11 +92,8 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 	t_polygon	*frontpolyset;
 	t_polygon	*backpolyset;
 
-	if (is_convex_set(node->set))
-		return ;
 	ft_memseti(counter, 0, 3);
 	node->splitter = choose_div_polygon(node->set);
-	i = -1;
 	while (node->set[counter[0]])
 	{
 		side = get_side(splitter, node->set[counter[0]]);

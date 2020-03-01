@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 15:06:40 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:01:28 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,6 @@ struct				s_player
 };
 typedef struct s_player		t_player;
 
-struct				s_map
-{
-	bool		exist;
-	int			nbcubx;
-	int			nbcuby;
-	//t_polygon	*set;
-	int			height;
-	t_cub		**cub;
-};
-typedef struct s_map		t_map;
-
 struct				s_tree
 {
 	struct s_node		*rootnode;
@@ -129,11 +118,25 @@ struct				s_node
 	bool			exist;
 	t_tree			tree;
 	t_polygon		splitter; //a polygon and a splitter at the same time
+	t_polygon		*set;
 	struct s_node	*frontchild;
 	struct s_node	*backchild;
 };
 typedef struct s_node		t_node;
 
+struct				s_map
+{
+	bool		exist;
+	int			nbcubx;
+	int			nbcuby;
+	//t_polygon	*set;
+	int			height;
+	t_cub		**cub;
+	t_tree		tree;
+};
+typedef struct s_map		t_map;
+
+void				build_tree(t_node *node, t_polygon *set);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall);
 bool				cond_bot(t_map map, int x, int y);
@@ -144,6 +147,7 @@ t_polygon			create_polybot(t_map map, int x, int y);
 t_polygon			create_polyleft(t_map map, int x, int y);
 t_polygon			create_polyright(t_map map, int x, int y);
 t_polygon			create_polytop(t_map map, int x, int y);
+void				create_tree_node(t_map *map);
 t_wall				create_wall(t_polygon poly, t_player player, t_cub cub);
 int					create_win(t_data *data);
 int					display_wall(t_data *data, t_wall wall);
@@ -156,6 +160,7 @@ void				init(t_player *player, t_wall *wall, t_data *data, char **av);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);
+void				parse_poly(t_map *map);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 bool				raycast(t_polygon *polygon);

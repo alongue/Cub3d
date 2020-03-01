@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/28 19:17:12 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:00:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		main(int ac, char **av)
 	//renderbsp();
 	//c = {.wall->realside = 64};
 	map = get_coor(data, 64);
+	create_tree_node(&map);
+	build_tree(map.tree.rootnode, map.tree.rootnode->set);
 	printf("map.exist = %d\n", map.exist);
 	if (!map.exist)
 		return (3);

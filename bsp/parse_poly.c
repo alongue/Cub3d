@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 14:10:43 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 17:54:44 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_polygon	*get_malloc(t_map map)
 	return (p);
 }
 
-t_polygon	*parse_poly(t_map map)
+void		parse_poly(t_map *map)
 {
 	int			x;
 	int			y;
@@ -99,5 +99,5 @@ t_polygon	*parse_poly(t_map map)
 		while (++x < map.nbcubx)
 			search_polyverti(map, p, x, y);
 	}
-	return (p);
+	map.set = p;
 }
