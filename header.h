@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/28 17:59:59 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 15:06:40 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ t_polygon			create_polybot(t_map map, int x, int y);
 t_polygon			create_polyleft(t_map map, int x, int y);
 t_polygon			create_polyright(t_map map, int x, int y);
 t_polygon			create_polytop(t_map map, int x, int y);
+t_wall				create_wall(t_polygon poly, t_player player, t_cub cub);
 int					create_win(t_data *data);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
@@ -161,7 +162,6 @@ bool				raycast(t_polygon *polygon);
 void				raycastfps(t_wall *wall, t_player player);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
-void				replace_wall(t_wall *wall, t_polygon poly, t_player player);
 void				set_cub(t_cub *cub, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);

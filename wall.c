@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 15:43:15 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 15:06:17 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,17 @@ bool			do_display_poly(t_polygon *polygon)
 	return (true);
 }
 
-void			replace_wall(t_wall *wall, t_polygon poly, t_player player)
+t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
 {
-	wall->left.a = get_point(poly.newsegment.a.x, wall->realside);
-	wall->left.b = get_point(poly.newsegment.a.x, 0);
-	wall->right.a = get_point(poly.newsegment.b.x, wall->realside);
-	wall->right.b = get_point(poly.newsegment.b.x, 0);
-	translate(&wall->left, 0, -player.height);
-	translate(&wall->right, 0, -player.height);
+	t_wall wall;
+
+	wall.left.a = get_point(poly.newsegment.a.x, cub.wall.realside);
+	wall.left.b = get_point(poly.newsegment.a.x, 0);
+	wall.right.a = get_point(poly.newsegment.b.x, cub.wall.realside);
+	wall.right.b = get_point(poly.newsegment.b.x, 0);
+	translate(&wall.left, 0, -player.height);
+	translate(&wall.right, 0, -player.height);
+	return (wall);
 }
 
 int				display_wall(t_data *data, t_wall wall)
