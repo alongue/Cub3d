@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   split_segment.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:27:35 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:29:43 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/02 11:52:04 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/02 15:13:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmath.h"
 
-int	ft_isdigit(int c)
+void	split_segment_inc(t_segment segment, t_point point,
+						t_segment *s1, t_segment *s2)
 {
-	return (c >= '0' && c <= '9');
+	if (!segment.exist)
+		return ;
+	*s1 = get_segment(segment.a, point);
+	*s2 = get_segment(point, segment.b);
 }

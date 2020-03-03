@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 14:45:10 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:13:19 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int		count(char *line, int *counter1)
 	char	*str;
 
 	str = ft_rmchar(line, ' ');
+	if (ft_is_in_a_row(line, ' '))
+		return (ft_putstrreti_fd("Error\nChaque element de la map doit être séparé par exactement un espace.\n", -1, 0));
 	if (!ft_isonlychar(str, "01SNEW"))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
 	*counter1 = (int)ft_strlen(str);
@@ -42,7 +44,7 @@ static int		get_counter(int fd, int *counter)
 	return (1);
 }
 
-static t_cub	**get_malloc(t_data data, int *counter)
+static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 {
 	t_cub	**cub;
 	int		fd;
@@ -67,7 +69,6 @@ static t_cub	**get_malloc(t_data data, int *counter)
 		//ft_memseti(cub[counter[0]], 0, --counter[1]);
 		cub[counter0][counter[1]].exist = true;
 	}
-	printf("counter[0] = %d\n", counter[0]);
 	return (cub);
 }
 
@@ -77,7 +78,6 @@ static int		parse(char *line, t_cub **cub, int lastline)
 	static int	i = 0;
 
 	counter = -1;
-	printf("lastline = %d\n", lastline);
 	while (line[++counter])
 	{
 		if (((i == 0 || i == lastline - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
@@ -107,7 +107,7 @@ t_map			get_coor(t_data data, int wallside)
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	fd = open(data.file, O_RDONLY);
-	if (!(map.cub = get_malloc(data, counter)))
+	if (!(map.cub = get_malloc(data, &map.nbcubx, &map.nbcuby)))
 		return (map);
 	initcub(&map, wallside);
 	while (ret != 0)

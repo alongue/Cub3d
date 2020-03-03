@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 16:25:37 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:48:38 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,24 @@ bool		is_convex_set(t_polygon *set)
 	return (true);
 }
 
-void		split_polygon(/*qqch*/)
+void		split_polygon(t_polygon poly, t_polygon splitter,
+t_polygon *frontset, t_polygon *backset)
 {
+	int		side;
+	int		oldside;
+	t_point	p;
+
+	p.x = min(poly.segment.a.x, poly.segment.b.x);
+	set_point_on_segx(poly.segment, &p);
+	side = classify_point(splitter, p);
+	oldside = side;
+	while ((side = classify_point(splitter, p)) != oldside)
+	{
+		oldside = side;
+		get_next_point(poly.segment, &p);
+	}
+	if (oldside == FRONT)
+		partition_frontset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
+	else
+		partition_backset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
 }

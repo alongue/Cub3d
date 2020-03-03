@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 13:37:02 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 16:33:18 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:31:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_polygon			create_polytop(t_map map, int x, int y)
 		p.segment = join_segment(p.segment, cub[x][y].stop);
 		p.nbwall++;
 	}
+	p.exist = true;
 	return (p);
 }
 
@@ -45,6 +46,7 @@ t_polygon			create_polybot(t_map map, int x, int y)
 		p.segment = join_segment(p.segment, cub[x][y].sbot);
 		p.nbwall++;
 	}
+	p.exist = true;
 	return (p);
 }
 
@@ -63,6 +65,7 @@ t_polygon			create_polyright(t_map map, int x, int y)
 		p.segment = join_segment(p.segment, cub[x][y].sright);
 		p.nbwall++;
 	}
+	p.exist = true;
 	return (p);
 }
 
@@ -81,5 +84,6 @@ t_polygon			create_polyleft(t_map map, int x, int y)
 		p.segment = join_segment(p.segment, cub[x][y].sleft);
 		p.nbwall++;
 	}
+	p.exist = true;
 	return (p);
 }

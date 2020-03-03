@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 19:00:46 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:39:33 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		funt(int i, void **p)
 	//printf("p[0] = %p\n", p[0]);
 	//*a = 1;
 	if (i == 13)
+		;
 	//{
 		/**wall = set_north_wall(wall->x - 5, wall->y - 5, wall->width + 10, wall->height + 10);
 		display_wall(p[1], *wall);*/

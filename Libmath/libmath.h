@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:27:55 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:56:07 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,25 @@ struct						s_segment
 	bool	exist;
 	t_point	a;
 	t_point	b;
+	double	coeff;
+	double	intercept;
 };
 typedef struct s_segment	t_segment;
 
 struct						s_normal
 {
-	int		xlen;
-	int		ylen;
-	int		xmin;
-	int		ymin;
-	int		xmax;
-	int		ymax;
+	double	xlen;
+	double	ylen;
 };
 typedef struct s_normal		t_normal;
 
 bool						do_intersect(t_segment s1, t_segment s2);
+t_normal					dup_normal(t_normal normal);
 t_point						dup_point(t_point p);
 t_segment					dup_segment(t_segment s);
 int							ft_abs(int nb);
+void						get_next_point(t_segment segment, t_point *point);
+void						get_prev_point(t_segment segment, t_point *point);
 t_normal					get_normal(t_segment s);
 t_point						get_point(int x, int y);
 t_segment					get_segment(t_point p, t_point q);
@@ -65,6 +66,13 @@ int							min(int a, int b);
 int							max(int a, int b);
 bool						onsegment(t_point s, t_point p, t_point r);
 int							orientation(t_point p, t_point q, t_point r);
+void						set_point_on_segx(t_segment segment, t_point *p);
+void						set_point_on_segy(t_segment segment, t_point *p);
+void						split_segment_inc(t_segment segment, t_point point,
+t_segment *s1, t_segment *s2);
+void						split_segment_exc(t_segment segment, t_point point,
+t_segment *s1, t_segment *s2);
+
 int							translate(t_segment *segment, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 19:01:10 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:49:42 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	float		minrelation;
 	int			len;
 
-	bestpoly.exist = true;
+	bestpoly.exist = false;
 	len = polysetlen(set);
 	minrelation = (is_pair(len)) ? (len / 2 - 1) / (len / 2 + 1) : 1;
 	if (is_convex_set(set))
 		return (set[0]);
 	i = -1;
-	while (!bestpoly.exist && !set[i].exist)
+	while (!bestpoly.exist && set[i].exist)
 	{
 		while (set[++i].exist)
 			if (!set[i].isused)
@@ -81,30 +81,37 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 void		create_tree_node(t_map *map)
 {
-	parse_poly(map);
-	map->tree.rootnode->splitter = choose_div_polygon(node->set);
+	map->tree.rootnode = malloc(sizeof(t_node) * 1);
+	map->tree.rootnode->set = parse_poly(*map);
+	map->tree.rootnode->splitter = choose_div_polygon(map->tree.rootnode->set);
 }
 
 void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en suspens
 {
 	int			side;
 	int			counter[3];
-	t_polygon	*frontpolyset;
+	t_polygon	*frontpolyset; // ne pas oublier de malloc ces 2 zigotos
 	t_polygon	*backpolyset;
 
+	if (is_convex_set(set))
+		return ;
 	ft_memseti(counter, 0, 3);
-	node->splitter = choose_div_polygon(node->set);
-	while (node->set[counter[0]])
+	node->splitter = choose_div_polygon(set);
+	frontpolyset = malloc_frontset_child(set, node->splitter);
+	backpolyset = malloc_backset_child(set, node->splitter);
+	while (set[counter[0]].exist)
 	{
-		side = get_side(splitter, node->set[counter[0]]);
-		if (side == FRONT)
-			frontpolyset[counter[1]++] = set[counter[0]];
-		else if (side == BACK)
-			backpolyset[counter[2]++] = set[counter[0]];
-		else if (side == SPANNING)
-			split_polygon(set[counter[0]], node, frontpolyset, backpolyset); //je laisse ces fonctions en suspens
+		side = get_side(node->splitter, set[counter[0]]);	/*																										*/
+		if (side == FRONT)									/*																										*/
+			frontpolyset[counter[1]++] = set[counter[0]];	/*										Peut-etre mettre												*/
+		else if (side == BACK)								/*										tout ca dans une												*/
+			backpolyset[counter[2]++] = set[counter[0]];	/*											fonction													*/
+		else if (side == SPANNING)							/*																										*/
+			split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
 		counter[0]++;
 	}
-	build_tree(node->frontchild);
-	build_tree(node->backchild);
+	build_tree(node->frontchild, frontpolyset);
+	free(frontpolyset);
+	build_tree(node->backchild, backpolyset);
+	free(backpolyset);
 }

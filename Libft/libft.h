@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:13:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:01:14 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int				ft_isonlychar(const char *main_str, const char *str);
 int				ft_isprint(int c);
 int				ft_isspace(int c);
 char			*ft_itoa(int n);
+int				ft_is_in_a_row(char *str, int c);
 char			*ft_ltoa_base(long n, const char *base);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);

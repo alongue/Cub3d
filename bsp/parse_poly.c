@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 17:54:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:49:25 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,30 @@ int			count(t_map map, int x, int y, int *c)
 {
 	t_polygon	p;
 
+	printf("cond est vrai\n");
 	if (cond_top(map, x, y))
 	{
 		p = create_polytop(map, x, y);
 		(*c)++;
+		printf("cond_top est vrai\n");
 	}
 	if (cond_bot(map, x, y))
 	{
 		p = create_polybot(map, x, y);
 		(*c)++;
+		printf("cond_top est vrai\n");
 	}
 	if (cond_right(map, x, y))
 	{
 		p = create_polyright(map, x, y);
 		(*c)++;
+		printf("cond_top est vrai\n");
 	}
 	if (cond_left(map, x, y))
 	{
 		p = create_polyleft(map, x, y);
 		(*c)++;
+		printf("cond_top est vrai\n");
 	}
 	return (*c);
 }
@@ -74,18 +79,21 @@ t_polygon	*get_malloc(t_map map)
 
 	counter = 0;
 	y = 0;
+	printf("map.nbcuby = %d\t\tet\t\tmap.nbcubx = %d\n", map.nbcuby, map.nbcubx);
 	while (++y < map.nbcuby)
 	{
 		x = 0;
 		while (++x < map.nbcubx)
 			count(map, x, y, &counter);
 	}
-	if (!(p = malloc(sizeof(t_polygon) * counter)))
+	printf("counter = %d\n", counter);
+	if (!(p = malloc(sizeof(t_polygon) * counter + 1)))
 		return (NULL);
+	p[counter].exist = false;
 	return (p);
 }
 
-void		parse_poly(t_map *map)
+t_polygon	*parse_poly(t_map map)
 {
 	int			x;
 	int			y;
@@ -99,5 +107,5 @@ void		parse_poly(t_map *map)
 		while (++x < map.nbcubx)
 			search_polyverti(map, p, x, y);
 	}
-	map.set = p;
+	return (p);
 }

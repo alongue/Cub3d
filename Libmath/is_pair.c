@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   is_pair.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:27:35 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:29:43 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/17 03:17:27 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/03 10:31:30 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmath.h"
 
-int	ft_isdigit(int c)
+bool		is_pair(int a)
 {
-	return (c >= '0' && c <= '9');
+	if (a % 2 == 0)
+		return (true);
+	else
+		return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/01 19:01:28 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:58:38 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,20 @@ int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
 //int					get_width(t_wall wall);
 t_map				get_coor(t_data data, int side);
+t_player			get_player(int x, int z, double angle, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				init(t_player *player, t_wall *wall, t_data *data, char **av);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);
-void				parse_poly(t_map *map);
+t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
+t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
+t_polygon			*parse_poly(t_map map);
+void				partition_backset(t_polygon *frontset, t_polygon *backset,
+t_point p, t_polygon poly);
+void				partition_frontset(t_polygon *frontset, t_polygon *backset,
+t_point p, t_polygon poly);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 bool				raycast(t_polygon *polygon);
@@ -170,8 +177,9 @@ void				replace_poly(t_polygon *polygon, t_player player);
 void				set_cub(t_cub *cub, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
-t_player			get_player(int x, int z, double angle, double fieldvis);
 void				set_player(t_player *player, int x, int z, int y);
 void				set_player_angle(t_player *player, double angle);
+void				split_polygon(t_polygon poly, t_polygon splitter,
+t_polygon *frontset, t_polygon *backset);
 
 #endif

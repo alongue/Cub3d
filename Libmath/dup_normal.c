@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   dup_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:27:35 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:29:43 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/02 16:51:54 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/02 16:53:52 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmath.h"
 
-int	ft_isdigit(int c)
+t_normal	dup_normal(t_normal normal)
 {
-	return (c >= '0' && c <= '9');
+	t_normal	n;
+
+	n.xlen = normal.xlen;
+	n.ylen = normal.ylen;
+	return (n);
 }

@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/17 17:50:48 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/03 10:31:47 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,16 @@ SRCS	=	ft_abs.c			\
 			get_point.c			\
 			dup_segment.c		\
 			dup_point.c			\
-			ispair.c			\
+			is_pair.c			\
 			is_same_segment.c	\
-			get_segmenti.c
+			get_segmenti.c		\
+			split_segment_inc.c	\
+			split_segment_exc.c	\
+			set_point_on_segx.c	\
+			set_point_on_segy.c	\
+			dup_normal.c		\
+			get_next_point.c	\
+			get_prev_point.c
 
 OBJS	=	$(SRCS:.c=.o)
 

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_is_in_a_row.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:27:35 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:29:43 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/03 11:57:42 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/03 12:08:18 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int		ft_is_in_a_row(char *str, int c)
 {
-	return (c >= '0' && c <= '9');
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\0')
+			return (0);
+		else if (str[i] == c && str[i] == str[i + 1])
+			return (1);
+	}
+	return (0);
 }

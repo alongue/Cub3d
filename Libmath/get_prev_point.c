@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   get_prev_point.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:27:35 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:29:43 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/02 12:16:17 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/02 17:54:32 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmath.h"
 
-int	ft_isdigit(int c)
+void	get_prev_point(t_segment segment, t_point *point)
 {
-	return (c >= '0' && c <= '9');
+	if (segment.coeff == INFINITY &&
+		point->y < max(segment.a.y, segment.b.y))
+	{
+		point->y--;
+		set_point_on_segy(segment, point);
+	}
+	else if (segment.coeff == -INFINITY)
+	{
+		point->y++;
+		set_point_on_segy(segment, point);
+	}
+	else
+	{
+		point->x--;
+		set_point_on_segx(segment, point);
+	}
 }

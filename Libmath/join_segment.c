@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 16:33:01 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 17:34:26 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/02 14:00:12 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 		return (s1);
 	s.a = hardmin(s1.a, s1.b, s2.a, s2.b);
 	s.b = hardmax(s1.a, s1.b, s2.a, s2.b);
+	if (s.b.x - s.a.x != 0)
+		s.coeff = (s.b.y - s.a.y) / (s.b.x - s.a.x);
+	else if (s.b.y - s.a.y < 0)
+		s.coeff = -INFINITY;
+	else
+		s.coeff = INFINITY;
+	if (s.coeff == INFINITY || s.coeff == -INFINITY)
+		s.intercept = NAN;
+	else
+		s.intercept = s.a.y - s.coeff * s.a.x;
 	s.exist = true;
 	return (s);
 }
