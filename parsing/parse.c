@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/03 12:21:10 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:29:10 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,23 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 	int		ret;
 	int		counter0;
 
-	fd = open(data.file, O_RDONLY);
+	fd = open(data.file, O_RDONLY);			//counter1 --> counterx
 	ret = 2;
 	if (!get_counter(fd, counterx, countery))
 		return (NULL);
-	counter0 = counter[0];
-	if (!(cub = malloc(sizeof(t_cub *) * (counter[0] + 0))))
+	counter0 = *countery;
+	if (!(cub = malloc(sizeof(t_cub *) * (*countery + 0)))) // peut-etre faire + 1
 		return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 	while (--counter0 >= 0)
 	{
-		if (!(cub[counter0] = malloc(sizeof(t_cub) * (counter[1] + 0)))) // faudra free le reste
+		if (!(cub[counter0] = malloc(sizeof(t_cub) * (*counterx + 0)))) // faudra free le reste
 		{
 			while (--counter0 >= 0)
 				free(cub[counter0]);
 			return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 		}
 		//ft_memseti(cub[counter[0]], 0, --counter[1]);
-		cub[counter0][counter[1]].exist = true;
+		cub[counter0][*counterx].exist = true;
 	}
 	return (cub);
 }
@@ -110,12 +110,13 @@ t_map			get_coor(t_data data, int wallside)
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data, &map.nbcubx, &map.nbcuby)))
 		return (map);
+	printf("map.nbcubx = %d\t\tet\t\tmap.nbcuby = %d\n", map.nbcubx, map.nbcuby);
 	initcub(&map, wallside);
 	while (ret != 0)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
 			return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-		if (!(parse(line, map.cub, counter[0])))
+		if (!(parse(line, map.cub, map.nbcuby)))
 			return (map);
 	}
 	map.exist = true;

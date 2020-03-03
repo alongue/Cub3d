@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/02/28 18:06:44 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/03 12:32:54 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,16 @@ SRCS	=	$(MAIN)							\
 			wall_functions.c				\
 			utils.c							\
 			$(PARSE)/parse.c				\
+			$(PARSE)/set_var_cub.c			\
 			$(BSP)/render_bsp.c				\
 			$(BSP)/functions_tree.c			\
 			$(BSP)/build_tree.c				\
 			$(BSP)/parse_poly.c				\
-			$(PARSE)/set_var_cub.c			\
 			$(BSP)/create_poly.c			\
+			$(BSP)/bsp.c					\
+			$(BSP)/cond_to_create.c			\
+			$(BSP)/malloc_set_child.c		\
+			$(BSP)/split_polygon_func.c		\
 			$(GNL)/get_next_line.c			\
 			$(GNL)/get_next_line_utils.c
 
