@@ -43,6 +43,7 @@ int			count(t_map map, int x, int y, int *c)
 	t_polygon	p;
 
 	printf("cond est vrai\n");
+	printf("x = %d\t\tet\t\ty = %d\nmap.cub[y][x].exist = %d\n", x, y, map.cub[y][x].exist);
 	if (cond_top(map, x, y))
 	{
 		p = create_polytop(map, x, y);

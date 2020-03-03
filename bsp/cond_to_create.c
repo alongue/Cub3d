@@ -17,10 +17,10 @@ bool		cond_top(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if ((cub[x][y].exist && !cub[x - 1][y].exist
-		&& !cub[x - 1][y - 1].exist && !cub[x][y - 1].exist)
-		|| (cub[x][y].exist && cub[x - 1][y].exist
-		&& cub[x - 1][y - 1].exist && !cub[x][y - 1].exist))
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
+		&& !cub[y - 1][x - 1].exist && !cub[y - 1][x].exist)
+		|| (cub[y][x].exist && cub[y][x - 1].exist
+		&& cub[y - 1][x - 1].exist && !cub[y - 1][x].exist))
 		return (true);
 	return (false);
 }
@@ -31,10 +31,10 @@ bool		cond_bot(t_map map, int x, int y)
 
 	cub = map.cub;
 	printf("x = %d\t\tet\t\ty = %d\ncub[x][y].exist = %d\n", x, y, cub[x][y].exist);
-	if ((cub[x][y].exist && !cub[x - 1][y].exist
-		&& !cub[x + 1][y + 1].exist && !cub[x][y + 1].exist)
-		|| (cub[x][y].exist && cub[x - 1][y].exist
-		&& cub[x - 1][y + 1].exist && !cub[x][y + 1].exist))
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
+		&& !cub[y + 1][x + 1].exist && !cub[y + 1][x].exist)
+		|| (cub[y][x].exist && cub[y][x - 1].exist
+		&& cub[y - 1][x + 1].exist && !cub[y + 1][x].exist))
 		return (true);
 	return (false);
 }
@@ -44,10 +44,10 @@ bool		cond_right(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if ((cub[x][y].exist && !cub[x + 1][y].exist
-		&& !cub[x][y - 1].exist && !cub[x + 1][y - 1].exist)
-		|| (cub[x][y].exist && cub[x][y - 1].exist
-		&& cub[x + 1][y - 1].exist && !cub[x + 1][y].exist))
+	if ((cub[y][x].exist && !cub[y][x + 1].exist
+		&& !cub[y - 1][x].exist && !cub[y + 1][x - 1].exist)
+		|| (cub[y][x].exist && cub[y - 1][x].exist
+		&& cub[y + 1][x - 1].exist && !cub[y][x + 1].exist))
 		return (true);
 	return (false);
 }
@@ -57,10 +57,10 @@ bool		cond_left(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if ((cub[x][y].exist && !cub[x - 1][y].exist
-		&& !cub[x - 1][y - 1].exist && !cub[x][y - 1].exist)
-		|| (cub[x][y].exist && cub[x][y - 1].exist
-		&& cub[x - 1][y - 1].exist && !cub[x - 1][y].exist))
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
+		&& !cub[y - 1][x - 1].exist && !cub[y - 1][x].exist)
+		|| (cub[y][x].exist && cub[y - 1][x].exist
+		&& cub[y - 1][x - 1].exist && !cub[y][x - 1].exist))
 		return (true);
 	return (false);
 }
