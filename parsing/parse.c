@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/03 12:13:19 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:21:10 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@ static int		count(char *line, int *counter1)
 	return (*counter1);
 }
 
-static int		get_counter(int fd, int *counter)
+static int		get_counter(int fd, int *counterx, int *countery)
 {
 	int				ret;
 	char			*line;
 
 	ret = 2;
-	ft_memseti(counter, 0, 2);
+	*counterx = 0;
+	*countery = 0;
 	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "01SNEW"))
 	{
 		if (ret == -1)
 			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
-		if ((count(line, &counter[1])) == -1)
+		if ((count(line, counterx)) == -1)
 			return (0);
 		free(line);
-		counter[0]++;
+		(*countery)++;
 	}
 	return (1);
 }
@@ -53,7 +54,7 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 
 	fd = open(data.file, O_RDONLY);
 	ret = 2;
-	if (!get_counter(fd, counter))
+	if (!get_counter(fd, counterx, countery))
 		return (NULL);
 	counter0 = counter[0];
 	if (!(cub = malloc(sizeof(t_cub *) * (counter[0] + 0))))
