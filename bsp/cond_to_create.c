@@ -30,6 +30,7 @@ bool		cond_bot(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
+	printf("x = %d\t\tet\t\ty = %d\ncub[x][y].exist = %d\n", x, y, cub[x][y].exist);
 	if ((cub[x][y].exist && !cub[x - 1][y].exist
 		&& !cub[x + 1][y + 1].exist && !cub[x][y + 1].exist)
 		|| (cub[x][y].exist && cub[x - 1][y].exist

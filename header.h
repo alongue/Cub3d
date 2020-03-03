@@ -158,6 +158,7 @@ t_player			get_player(int x, int z, double angle, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				init(t_player *player, t_wall *wall, t_data *data, char **av);
+void				initcub(t_map *map, int side);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);

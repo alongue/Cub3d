@@ -84,7 +84,7 @@ static int		parse(char *line, t_cub **cub, int lastline)
 		if (((i == 0 || i == lastline - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
 			|| line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 			return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
-		if (line[i] == '1')
+		if (line[counter] == '1')
 			set_cub(&cub[i][counter], i, counter);
 		else
 			cub[i][counter].exist = false;
@@ -110,7 +110,6 @@ t_map			get_coor(t_data data, int wallside)
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data, &map.nbcubx, &map.nbcuby)))
 		return (map);
-	printf("map.nbcubx = %d\t\tet\t\tmap.nbcuby = %d\n", map.nbcubx, map.nbcuby);
 	initcub(&map, wallside);
 	while (ret != 0)
 	{

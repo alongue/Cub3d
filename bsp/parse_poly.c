@@ -53,19 +53,19 @@ int			count(t_map map, int x, int y, int *c)
 	{
 		p = create_polybot(map, x, y);
 		(*c)++;
-		printf("cond_top est vrai\n");
+		printf("cond_bop est vrai\n");
 	}
 	if (cond_right(map, x, y))
 	{
 		p = create_polyright(map, x, y);
 		(*c)++;
-		printf("cond_top est vrai\n");
+		printf("cond_right est vrai\n");
 	}
 	if (cond_left(map, x, y))
 	{
 		p = create_polyleft(map, x, y);
 		(*c)++;
-		printf("cond_top est vrai\n");
+		printf("cond_left est vrai\n");
 	}
 	return (*c);
 }
@@ -80,11 +80,15 @@ t_polygon	*get_malloc(t_map map)
 	counter = 0;
 	y = 0;
 	printf("map.nbcuby = %d\t\tet\t\tmap.nbcubx = %d\n", map.nbcuby, map.nbcubx);
-	while (++y < map.nbcuby)
+	while (++y < map.nbcuby/* - 1*/)
 	{
 		x = 0;
-		while (++x < map.nbcubx)
+		while (++x < map.nbcubx/* - 1*/)
+		{
+			printf("map.nbcubx = %d\n", map.nbcubx);
+			printf("x (dans get_malloc) = %d\n", x);
 			count(map, x, y, &counter);
+		}
 	}
 	printf("counter = %d\n", counter);
 	if (!(p = malloc(sizeof(t_polygon) * counter + 1)))
@@ -101,10 +105,10 @@ t_polygon	*parse_poly(t_map map)
 
 	p = get_malloc(map);
 	y = 0;
-	while (++y < map.nbcuby)
+	while (++y < map.nbcuby/* - 1*/)
 	{
 		x = 0;
-		while (++x < map.nbcubx)
+		while (++x < map.nbcubx/* - 1*/)
 			search_polyverti(map, p, x, y);
 	}
 	return (p);

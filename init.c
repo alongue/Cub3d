@@ -29,10 +29,10 @@ void	initcub(t_map *map, int side)
 
 	i = -1;
 	j = -1;
-	while (++i < map->nbcubx)
+	while (++i < map->nbcuby)
 	{
 		j = -1;
-		while (++j < map->nbcuby)
+		while (++j < map->nbcubx)
 			map->cub[i][j].side = side;
 	}
 }

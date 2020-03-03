@@ -45,7 +45,6 @@ SRCS	=	$(MAIN)							\
 			$(BSP)/build_tree.c				\
 			$(BSP)/parse_poly.c				\
 			$(BSP)/create_poly.c			\
-			$(BSP)/bsp.c					\
 			$(BSP)/cond_to_create.c			\
 			$(BSP)/malloc_set_child.c		\
 			$(BSP)/split_polygon_func.c		\
