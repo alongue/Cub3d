@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/04 11:57:04 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:32:54 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ int			classify_point(t_polygon polygon, t_point point)
 	int		testvalue;
 	int		realres;
 
-	printf("polygon.normal.xlen = %f\t", polygon.normal.xlen);
-	printf("polygon.normal.ylen = %f\n", polygon.normal.ylen);
-	printf("point.x = %d\tet\tpoint.y = %d\n", point.x, point.y);
 	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
-	//printf("testvalue = %d\tet\trealres = %d\n", testvalue, realres);
 	if (testvalue == realres)
 		return (COINCIDING);
 	if (testvalue < realres)

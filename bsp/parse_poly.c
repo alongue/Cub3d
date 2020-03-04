@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/04 11:44:40 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 12:17:30 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,21 @@ void		search_polyverti(t_map map, t_polygon *p, int x, int y)
 	{
 		p[i].isused = false;
 		p[i++] = create_polytop(map, x, y);
-		printf("p[i( - 1)].nbwall (avec i ( -  1) = %d) = %d\n", i - 1, p[i - 1].nbwall);
 	}
 	if (cond_bot(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polybot(map, x, y);
-		printf("p[i( - 1)].nbwall (avec i ( -  1) = %d) = %d\n", i - 1, p[i - 1].nbwall);
 	}
 	if (cond_right(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyright(map, x, y);
-		printf("p[i( - 1)].nbwall (avec i ( -  1) = %d) = %d\n", i - 1, p[i - 1].nbwall);
 	}
 	if (cond_left(map, x, y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyleft(map, x, y);
-		printf("p[i( - 1)].nbwall (avec i ( -  1) = %d) = %d\n", i - 1, p[i - 1].nbwall);
 	}
 }
 
@@ -50,25 +46,21 @@ int			count(t_map map, int x, int y, int *c)
 	{
 		p = create_polytop(map, x, y);
 		(*c)++;
-		printf("cond_top est vrai avec x = %d\tet y = %d\n", x, y);
 	}
 	if (cond_bot(map, x, y))
 	{
 		p = create_polybot(map, x, y);
 		(*c)++;
-		printf("cond_bot est vrai avec x = %d\tet y = %d\n", x, y);
 	}
 	if (cond_right(map, x, y))
 	{
 		p = create_polyright(map, x, y);
 		(*c)++;
-		printf("cond_right est vrai avec x = %d\tet y = %d\n", x, y);
 	}
 	if (cond_left(map, x, y))
 	{
 		p = create_polyleft(map, x, y);
 		(*c)++;
-		printf("cond_left est vrai avec x = %d\tet y = %d\n", x, y);
 	}
 	return (*c);
 }

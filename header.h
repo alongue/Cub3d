@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/04 11:51:32 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:41:26 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				set_player(t_player *player, int x, int z, int y);
 void				set_player_angle(t_player *player, double angle);
+void				set_used_poly(t_polygon *set, t_polygon current, int counterused);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
 
