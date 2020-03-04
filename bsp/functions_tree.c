@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/02 17:48:38 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:57:04 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int			classify_point(t_polygon polygon, t_point point)
 	int		testvalue;
 	int		realres;
 
+	printf("polygon.normal.xlen = %f\t", polygon.normal.xlen);
+	printf("polygon.normal.ylen = %f\n", polygon.normal.ylen);
+	printf("point.x = %d\tet\tpoint.y = %d\n", point.x, point.y);
 	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
+	//printf("testvalue = %d\tet\trealres = %d\n", testvalue, realres);
 	if (testvalue == realres)
 		return (COINCIDING);
 	if (testvalue < realres)
@@ -40,13 +44,13 @@ int			classify_point(t_polygon polygon, t_point point)
 int			get_side(t_polygon poly1, t_polygon poly2)
 {
 	if (classify_point(poly1, poly2.segment.a) == FRONT
-		&& classify_point(poly1, poly2.segment.a) == FRONT)
+		&& classify_point(poly1, poly2.segment.b) == FRONT)
 		return (FRONT);
 	else if (classify_point(poly1, poly2.segment.a) == BACK
 			 && classify_point(poly1, poly2.segment.b) == BACK)
 		return (BACK);
 	else if (classify_point(poly1, poly2.segment.a) == COINCIDING
-			 && classify_point(poly1, poly2.segment.a) == COINCIDING)
+			 && classify_point(poly1, poly2.segment.b) == COINCIDING)
 		return (COINCIDING);
 	return (SPANNING);
 }

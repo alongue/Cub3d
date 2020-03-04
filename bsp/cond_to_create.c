@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:06:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/02 17:55:52 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:19:56 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ bool		cond_bot(t_map map, int x, int y)
 
 	cub = map.cub;
 	if ((cub[y][x].exist && !cub[y][x - 1].exist
-		&& !cub[y + 1][x + 1].exist && !cub[y + 1][x].exist)
+		&& !cub[y + 1][x - 1].exist && !cub[y + 1][x].exist)
 		|| (cub[y][x].exist && cub[y][x - 1].exist
-		&& cub[y - 1][x + 1].exist && !cub[y + 1][x].exist))
+		&& cub[y + 1][x - 1].exist && !cub[y + 1][x].exist))
 		return (true);
 	return (false);
 }
@@ -44,9 +44,9 @@ bool		cond_right(t_map map, int x, int y)
 
 	cub = map.cub;
 	if ((cub[y][x].exist && !cub[y][x + 1].exist
-		&& !cub[y - 1][x].exist && !cub[y + 1][x - 1].exist)
+		&& !cub[y - 1][x].exist && !cub[y - 1][x + 1].exist)
 		|| (cub[y][x].exist && cub[y - 1][x].exist
-		&& cub[y + 1][x - 1].exist && !cub[y][x + 1].exist))
+		&& cub[y - 1][x + 1].exist && !cub[y][x + 1].exist))
 		return (true);
 	return (false);
 }

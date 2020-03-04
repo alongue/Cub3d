@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/03 11:49:42 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:54:32 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		set_ratio(int *nb, int *relation, int side)
 		nb[1] += 1;
 	else if (side == SPANNING)
 		nb[2] += 1;
+	//printf("nb[0] = %d\tet\tnb[1] = %d\n", nb[0], nb[1]);
 	if (nb[0] < nb[1])
 		*relation = nb[0] / nb[1];
 	else
@@ -60,22 +61,26 @@ t_polygon	choose_div_polygon(t_polygon *set)
 {
 	t_polygon	bestpoly;
 	int			i;
-	float		minrelation;
+	double		minrelation;
 	int			len;
 
 	bestpoly.exist = false;
 	len = polysetlen(set);
-	minrelation = (is_pair(len)) ? (len / 2 - 1) / (len / 2 + 1) : 1;
+	minrelation = (is_pair(len)) ? (double)(len / 2 - 1) / (len / 2 + 1) : 1.;
 	if (is_convex_set(set))
 		return (set[0]);
-	i = -1;
+	i = 0;
 	while (!bestpoly.exist && set[i].exist)
 	{
-		while (set[++i].exist)
+		while (set[i].exist)
+		{
 			if (!set[i].isused)
 				set_best_poly(&bestpoly, set[i], set, minrelation);
+			i++;
+		}
 		minrelation = minrelation / MINSCALE;
 	}
+	printf("best polygon is : set[%d]\n", i);
 	return (bestpoly);
 }
 
