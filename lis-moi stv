@@ -1,1 +1,3 @@
 Ne pas oublier de ne pas faire relink le gnl dans le makefile
+
+Si un polygon a un moins bon ratio qu'un autre polygon mais quand meme au dessus du ratio tolere on va preferer celui qui a le moins de splits

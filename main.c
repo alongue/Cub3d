@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/03 10:39:33 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:20:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		main(int ac, char **av)
 	map = get_coor(data, 64);
 	create_tree_node(&map);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set);
+	renderbsp(&data, *map.tree.rootnode, player);
 	printf("map.exist = %d\n", map.exist);
 	if (!map.exist)
 		return (3);
