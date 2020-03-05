@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:08:34 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/02 15:20:03 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:16:59 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_point_on_segy(t_segment segment, t_point *p)
 			: dup_point(segment.b);
 	else //sinon on a juste besoin de changer y vu que le point en x est deja egale a un point du segment en x
 	{
-		if (segment.coeff != 0 && (segment.coeff != INFINITY || segment.coeff != -INFINITY))
+		if (isfinite(segment.coeff) && segment.coeff != 0)
 			p->x = (p->y - segment.intercept) / segment.coeff;
 		else
 			p->x = segment.a.x; // j'aurais tres bien pu l'affecter a un tout autre point sur le segment en y;

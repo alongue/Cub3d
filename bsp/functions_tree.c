@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:04:46 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:31:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool		is_convex_set(t_polygon *set)
 	j = -1;
 	while (set[++i].exist)
 		while (set[++j].exist)
-			if (i != j && get_side(set[i], set[j]) != FRONT)
+			if (i != j && (get_side(set[i], set[j]) != FRONT || get_side(set[i], set[j]) == COINCIDING))
 				return (false);
 	return (true);
 }
@@ -83,10 +83,10 @@ t_polygon *frontset, t_polygon *backset)
 		oldside = side;
 		get_next_point(poly.segment, &p);
 		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
-		sleep(1);
 	}
-	printf("side = %d\n", side);
+	/*printf("side = %d\n", side);
 	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.a.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
+	sleep(1);*/
 	if (oldside == FRONT)
 		partition_frontset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
 	else

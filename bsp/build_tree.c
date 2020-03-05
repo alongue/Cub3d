@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 18:55:33 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:31:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 	relation = 0;
 	ft_memseti(nb, 0, 3);
 	set_ratio(nb, &relation, poly[0], set);
-	printf("relation = %f\tet\tminrelation = %f\n*leastsplits = %d\nnb[0] = %d\tet\tnb[1] = %d\tet\tnb[2] = %d\n", relation, minrelation, *leastsplits, nb[0], nb[1], nb[2]);
+	printf("relation = %f\tet\tbestrelation = %f\n*leastsplits = %d\nnb[0] = %d\tet\tnb[1] = %d\tet\tnb[2] = %d\n", relation, bestrelation, *leastsplits, nb[0], nb[1], nb[2]);
 	if (relation >= minrelation &&
 		((nb[2] < *leastsplits) || (relation > bestrelation)))
 	{
@@ -59,6 +59,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		bestrelation = relation;
 		set_used_poly(set, &poly[0]);
 		poly[1] = poly[0];
+		sleep(1);
 		/*while (++i[1] != i[0])
 			set[i[1]].isused = false;
 		set[i[0]].isused = true;*/
@@ -117,6 +118,7 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 	int			counter[3];
 	t_polygon	*frontpolyset; // ne pas oublier de malloc ces 2 zigotos
 	t_polygon	*backpolyset;
+	static int	i = 0;
 
 	if (is_convex_set(set))
 	{
@@ -151,8 +153,14 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 		//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
 		counter[0]++;
 	}
+	i++;
+	printf("ca fait la %deme boucle\n", i);
+	sleep(1);
 	build_tree(node->frontchild, frontpolyset);
 	free(frontpolyset);
+	i++;
+	printf("ca fait la %deme boucle\n", i);
+	sleep(1);
 	build_tree(node->backchild, backpolyset);
 	free(backpolyset);
 }
