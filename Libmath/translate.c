@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 14:44:25 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/29 16:24:51 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:28:21 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ int	translate(t_segment *segment, int x, int y) // si le point en x ou en y fais
 	segment->a.y += y;
 	segment->b.x += x;
 	segment->b.y += y;
+	return (1);
 }

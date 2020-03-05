@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 16:16:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:55:33 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,17 +135,18 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 		if (side == FRONT)									/*																										*/
 		{
 			frontpolyset[counter[1]++] = set[counter[0]];	/*										Peut-etre mettre												*/
-			printf("set[%d] se trouve devant\n", counter[0]);
+			//printf("set[%d] se trouve devant\n", counter[0]);
 		}
 		else if (side == BACK)								/*										tout ca dans une												*/
 		{
 			backpolyset[counter[2]++] = set[counter[0]];	/*											fonction													*/
-			printf("set[%d] se trouve derriere\n", counter[0]);
+			//printf("set[%d] se trouve derriere\n", counter[0]);
 		}
 		else if (side == SPANNING)							/*																										*/
 		{
+			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
 			split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
-			printf("set[%d] se trouve devant et derriere\n", counter[0]);
+			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
 		}
 		//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
 		counter[0]++;

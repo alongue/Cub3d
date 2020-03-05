@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/03 10:31:47 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/05 16:22:42 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS	=	ft_abs.c			\
 			is_pair.c			\
 			is_same_segment.c	\
 			get_segmenti.c		\
+			translate.c			\
 			split_segment_inc.c	\
 			split_segment_exc.c	\
 			set_point_on_segx.c	\

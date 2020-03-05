@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 16:17:09 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:04:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,18 @@ t_polygon *frontset, t_polygon *backset)
 	p.x = min(poly.segment.a.x, poly.segment.b.x);
 	set_point_on_segx(poly.segment, &p);
 	side = classify_point(splitter, p);
+	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.b.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
 	oldside = side;
-	while ((side = classify_point(splitter, p)) != oldside)
+	printf("oldside = %d\n", oldside);
+	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
 		get_next_point(poly.segment, &p);
+		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
+		sleep(1);
 	}
+	printf("side = %d\n", side);
+	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.a.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
 	if (oldside == FRONT)
 		partition_frontset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
 	else

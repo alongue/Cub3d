@@ -6,11 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:16:17 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/02 17:54:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:43:12 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
+
+#include <stdio.h>
 
 void	get_next_point(t_segment segment, t_point *point)
 {
@@ -30,4 +32,5 @@ void	get_next_point(t_segment segment, t_point *point)
 		point->x++;
 		set_point_on_segx(segment, point);
 	}
+	//printf("point->x = %d\tet\tpoint->y = %d\n", point->x, point->y);
 }
