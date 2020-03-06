@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 16:20:53 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/06 12:59:21 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 {
 	int		result;
 
+	if (!current.exist)
+		return ;
 	result = classify_point(current.splitter, player.pos);
 	if (result == FRONT)
 	{

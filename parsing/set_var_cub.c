@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:42:34 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/04 12:11:05 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:15:56 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void		set_cub(t_cub *cub, int i, int counter)
 	cub->y = i * cub->side; //sommet en haut avec vue du dessus
 	cub->stop = get_segmenti(cub->x,
 							cub->y,
-							cub->x + cub->side,
+							cub->x + cub->side - 1,
 							cub->y);
-	cub->sleft = get_segmenti(cub->x,
+	cub->sright = get_segmenti(cub->x + cub->side - 1,
 							cub->y,
+							cub->x + cub->side - 1,
+							cub->y + cub->side - 1);
+	cub->sbot = get_segmenti(cub->x + cub->side - 1,
+							cub->y + cub->side - 1,
 							cub->x,
-							cub->y + cub->side);
-	cub->sbot = get_segmenti(cub->x + cub->side,
-							cub->y + cub->side,
+							cub->y + cub->side - 1);
+	cub->sleft = get_segmenti(cub->x,
+							cub->y + cub->side - 1,
 							cub->x,
-							cub->y + cub->side);
-	cub->sright = get_segmenti(cub->x + cub->side,
-								cub->y + cub->side,
-								cub->x + cub->side,
-								cub->y);
+							cub->y);
 }
