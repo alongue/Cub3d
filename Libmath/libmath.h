@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:09:55 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 19:36:36 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_segment	t_segment;
 
 struct						s_normal
 {
-	double	xlen;
-	double	ylen;
+	int		xlen;
+	int		ylen;
 };
 typedef struct s_normal		t_normal;
 

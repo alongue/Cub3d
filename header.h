@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 16:25:10 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 19:43:47 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ struct				s_wall //ca concerne les polygones en vue fps uniquement
 	double		botcl; //position du sommet bas clipé du segment actuel en y
 	t_point		pos; // position en haut a gauche
 	t_segment	left; // reel segment vertical gauche
-	t_segment	newleft; // segment vertical gauche sur l'ecran
-	t_segment	leftcl; // faux segment vertical gauche clipé
+	t_segment	leftcl; // reel segment vertical gauche
 	t_segment	right; // reel segment vertical droite
-	t_segment	newright; // segment vertical droite sur l'ecran
-	t_segment	rightcl; // faux segment vertical droite clipé
+	t_segment	rightcl; // reel segment vertical droite
 	double		deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
 	double		deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
 	int			color; // la couleur
@@ -90,6 +88,7 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 	t_normal	normal;
 	t_wall		wall;
 	bool		isused;
+	bool		dodisplay;
 	int			nbwall; //je pense que ce sera utile pour les textures (je pense a redessiner plusieurs fois la texture)
 };
 typedef struct s_polygon	t_polygon;
@@ -101,7 +100,7 @@ struct				s_player
 	int		x;
 	int		y;
 	int		z;
-	int		height;
+	//int		height;
 	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
 };
@@ -119,6 +118,7 @@ struct				s_node
 	t_tree			tree;
 	t_polygon		splitter; //a polygon and a splitter at the same time
 	t_polygon		*set;
+	bool			isleaf;
 	struct s_node	*frontchild;
 	struct s_node	*backchild;
 };
@@ -136,35 +136,34 @@ struct				s_map
 };
 typedef struct s_map		t_map;
 
-void				build_tree(t_node *node, t_polygon *set);
+void				build_tree(t_node *node, t_polygon *set, t_player player);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall);
 bool				cond_bot(t_map map, int x, int y);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
-t_polygon			create_polybot(t_map map, int x, int y);
-t_polygon			create_polyleft(t_map map, int x, int y);
-t_polygon			create_polyright(t_map map, int x, int y);
-t_polygon			create_polytop(t_map map, int x, int y);
-void				create_tree_node(t_map *map);
+t_polygon			create_polybot(t_map map, int x, int y, t_player player);
+t_polygon			create_polyleft(t_map map, int x, int y, t_player player);
+t_polygon			create_polyright(t_map map, int x, int y, t_player player);
+t_polygon			create_polytop(t_map map, int x, int y, t_player player);
+void				create_tree_node(t_map *map, t_player player);
 t_wall				create_wall(t_polygon poly, t_player player, t_cub cub);
-int					create_win(t_data *data);
+int					create_win(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
 //int					get_width(t_wall wall);
-t_map				get_coor(t_data data, int side);
-t_player			get_player(int x, int z, double angle, double fieldvis);
+t_map				get_coor(t_data data, t_player *player, int side);
+t_player			get_player(int x, int z, int c, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
-void				init(t_player *player, t_wall *wall, t_data *data, char **av);
 void				initcub(t_map *map, int side);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
-t_polygon			*parse_poly(t_map map);
+t_polygon			*parse_poly(t_map map, t_player player);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 void				partition_frontset(t_polygon *frontset, t_polygon *backset,

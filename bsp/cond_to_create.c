@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:06:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/04 12:16:55 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:02:03 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool		cond_bot(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
+	//printf("x = %d\tet\ty = %d\n", x, y);
 	if ((cub[y][x].exist && !cub[y][x - 1].exist
 		&& !cub[y + 1][x - 1].exist && !cub[y + 1][x].exist)
 		|| (cub[y][x].exist && cub[y][x - 1].exist

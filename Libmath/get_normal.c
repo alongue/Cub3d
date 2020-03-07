@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:20:49 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/02 16:50:37 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 19:36:25 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_normal	get_normal(t_segment s)
 {
 	t_normal	n;
 
-	n.xlen = s.b.x - s.a.x;
-	n.ylen = s.a.y - s.b.y;
+	n.xlen = s.a.y - s.b.y;
+	n.ylen = s.b.x - s.a.x;
 	return (n);
 }

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 12:57:05 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 18:36:52 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 	int		i;
 
 	i = -1;
-	bestrelation = 0;
-	relation = 0;
+	bestrelation = 0.;
+	relation = 0.;
 	ft_memseti(nb, 0, 3);
 	set_ratio(nb, &relation, poly[0], set);
-	printf("relation = %f\tet\tminrelation = %f\n*leastsplits = %d\nnb[0] = %d\tet\tnb[1] = %d\tet\tnb[2] = %d\n", relation, minrelation, *leastsplits, nb[0], nb[1], nb[2]);
+	//printf("relation = %f\tet\tminrelation = %f\n*leastsplits = %d\nnb[0] = %d\tet\tnb[1] = %d\tet\tnb[2] = %d\n", relation, minrelation, *leastsplits, nb[0], nb[1], nb[2]);
+	//printf("*leastsplits = %d\n", *leastsplits);
 	if (relation >= minrelation &&
 		((nb[2] < *leastsplits) || (relation > bestrelation)))
 	{
@@ -59,6 +60,8 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		bestrelation = relation;
 		set_used_poly(set, &poly[0]);
 		poly[1] = poly[0];
+		printf("relation = %f\n", relation);
+		//printf("poly[0].isused = %d\n", poly[0].isused);
 		//sleep(1);
 		/*while (++i[1] != i[0])
 			set[i[1]].isused = false;
@@ -94,7 +97,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			i++;
 		}
 		printf("bestpoly is used ? %d\n", poly[1].isused);
-		minrelation = minrelation / MINSCALE;
+		minrelation = (minrelation < 0.00000001) ? 0. : minrelation / MINSCALE;
 		i = 0;
 	}
 	counter = -1;
@@ -106,13 +109,14 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	return (poly[1]);
 }
 
-void		create_tree_node(t_map *map)
+void		create_tree_node(t_map *map, t_player player)
 {
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
-	map->tree.rootnode->set = parse_poly(*map);
+	map->tree.rootnode->set = parse_poly(*map, player);
+	printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 
-void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en suspens
+void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces fonctions en suspens
 {
 	int			side;
 	int			counter[3];
@@ -120,16 +124,28 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 	t_polygon	*backpolyset;
 	static int	i = 0;
 
+	node->exist = false;
+	node->frontchild = malloc(sizeof(t_node) * 1);
+	node->backchild = malloc(sizeof(t_node) * 1);
+	int	a;
+	a = -1;
+	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
+	{
+		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", a, round((double)set[a].segment.a.x / 64), a, round((double)set[a].segment.a.y / 64), a, round((double)set[a].segment.b.x / 64), a, round((double)set[a].segment.b.y / 64));
+	}
 	if (is_convex_set(set))
 	{
+		node->exist = true;
+		node->isleaf = true;
+		node->frontchild->exist = false;
+		node->backchild->exist = false;
 		printf("The set is convex\n");
 		return ;
 	}
 	ft_memseti(counter, 0, 3);
+	printf("set len = %d\n", polysetlen(set));
 	node->splitter = choose_div_polygon(set);
-	node->frontchild = malloc(sizeof(t_node) * 1);
 	frontpolyset = malloc_frontset_child(set, node->splitter);
-	node->backchild = malloc(sizeof(t_node) * 1);
 	backpolyset = malloc_backset_child(set, node->splitter);
 	while (set[counter[0]].exist)
 	{
@@ -153,14 +169,16 @@ void		build_tree(t_node *node, t_polygon *set) //je laisse ces fonctions en susp
 		//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
 		counter[0]++;
 	}
+	node->exist = true;
 	i++;
 	printf("ca fait la %de boucle\n", i);
-	sleep(1);
-	build_tree(node->frontchild, frontpolyset);
-	free(frontpolyset);
+	//sleep(1);
+	//free(set);
+	build_tree(node->frontchild, frontpolyset, player);
+	//free(frontpolyset);
 	i++;
 	printf("ca fait la %deme boucle\n", i);
-	sleep(1);
-	build_tree(node->backchild, backpolyset);
-	free(backpolyset);
+	//sleep(1);
+	build_tree(node->backchild, backpolyset, player);
+	//free(backpolyset);
 }

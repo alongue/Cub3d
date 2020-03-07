@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 10:27:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 15:28:27 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/06 13:08:27 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 bool		raycast(t_polygon *polygon)
 {
@@ -27,8 +27,8 @@ void		raycastfps(t_wall *wall, t_player player)
 	double	dfoc;
 
 	dfoc = DEFX / 2 / tan(player.fieldvis);
-	wall->left.a.y = 100 + ((wall->left.a.x - player.x) * DEFY / dfoc);
-	wall->left.b.y = 100 + ((wall->left.b.x - player.x) * DEFY / dfoc);
-	wall->right.a.y = 100 + ((wall->right.a.x - player.x) * DEFY / dfoc);
-	wall->right.b.y = 100 + ((wall->right.b.x - player.x) * DEFY / dfoc);
+	wall->newleft.a.y = 100 + ((wall->left.a.x - player.x) * DEFY / dfoc);
+	wall->newleft.b.y = 100 + ((wall->left.b.x - player.x) * DEFY / dfoc);
+	wall->newright.a.y = 100 + ((wall->right.a.x - player.x) * DEFY / dfoc);
+	wall->newright.b.y = 100 + ((wall->right.b.x - player.x) * DEFY / dfoc);
 }

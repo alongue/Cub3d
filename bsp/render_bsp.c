@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 12:59:21 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:48:53 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,24 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 {
 	int		result;
 
-	if (!current.exist)
+	printf("HOLA !!\n");
+	if (current.isleaf)
 		return ;
 	result = classify_point(current.splitter, player.pos);
 	if (result == FRONT)
 	{
-		if (current.backchild)
+		if (current.backchild->exist)
 			renderbsp(data, *current.backchild, player);
 		display_wall(data, current.splitter.wall);
-		if (current.frontchild)
+		if (current.frontchild->exist)
 			renderbsp(data, *current.frontchild, player);
 	}
 	else
 	{
-		if (current.frontchild)
+		if (current.frontchild->exist)
 			renderbsp(data, *current.frontchild, player);
 		display_wall(data, current.splitter.wall);
-		if (current.backchild)
+		if (current.backchild->exist)
 			renderbsp(data, *current.backchild, player);
 	}
 }

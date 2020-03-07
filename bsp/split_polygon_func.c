@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 11:41:31 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 11:59:00 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 16:36:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
-	split_segment_exc(poly.segment, p, &frontset->segment, &backset->segment);
+	split_segment_inc(poly.segment, p, &(frontset->segment), &(backset->segment));
 	frontset->normal = dup_normal(poly.normal);
 	//frontset->nbwall = poly.nbwall / 2; du coup faudrait mettre ca en double
 	frontset->exist = true;
@@ -27,7 +27,7 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 void		partition_backset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
-	split_segment_exc(poly.segment, p, &backset->segment, &frontset->segment);
+	split_segment_inc(poly.segment, p, &(backset->segment), &(frontset->segment));
 	frontset->normal = dup_normal(poly.normal);
 	//frontset->nbwall = poly.nbwall / 2; du coup faudrait mettre ca en double
 	frontset->exist = true;

@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/05 16:23:34 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/07 15:34:22 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,8 @@ fcleanmax	:	fclean
 
 re	:	fclean all
 
-reexec	:	fclean exec
+reexec	:	fclean
+	make exec $(filter-out $@, $(MAKECMDGOALS))
 
 %		:
 	@		:

@@ -6,18 +6,18 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:59:10 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 16:09:56 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 16:28:04 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
+//tout se joue ici je crois
+
 void	set_used_poly(t_polygon *set, t_polygon *current)
 {
-	int		len;
 	int		i;
 
-	len = polysetlen(set);
 	i = -1;
 	while (set[++i].exist)
 	{

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 16:04:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:21:17 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,31 @@
 
 void			replace_poly(t_polygon *polygon, t_player player)
 {
-	t_point	a;
-	t_point	b;
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
 
-	a = get_point(polygon->segment.a.x - player.x, polygon->segment.a.y - player.z);// on prend ce segment qu'on va ensuite clipper
-	b = get_point(polygon->segment.b.x - player.x, polygon->segment.b.y - player.z);// on prend ce segment qu'on va ensuite clipper
-	polygon->newsegment = get_segmenti(a.x * cos(-player.angle)
-									- a.y * sin(-player.angle),
-									a.y * cos(-player.angle)
-							 		+ a.x * sin(-player.angle),
-									b.x * cos(-player.angle)
-									 - b.y * sin(-player.angle),
-									b.y * cos(-player.angle)
-									+ b.x * sin(-player.angle));
-	printf("a.x = %d\n", a.x);
+	x1 = polygon->segment.a.x - player.x;// on prend ce segment qu'on va ensuite clipper
+	y1 = polygon->segment.a.y - player.y;
+	x2 = polygon->segment.b.x - player.x;// on prend ce segment qu'on va ensuite clipper
+	y2 = polygon->segment.b.y - player.y;
+	polygon->newsegment.a.x = (int)(x1 * cos(-player.angle)
+							 - y1 * sin(-player.angle));
+	polygon->newsegment.a.y = (int)(y1 * cos(-player.angle)
+							 + x1 * sin(-player.angle));
+	polygon->newsegment.b.x = (int)(x2 * cos(-player.angle)
+							 - y2 * sin(-player.angle));
+	polygon->newsegment.b.y = (int)(y2 * cos(-player.angle)
+							 + x2 * sin(-player.angle));
 }
 
 bool			do_display_poly(t_polygon *polygon)
 {
 	double	tanpoly;
 
-	printf("polygon->newsegment.a.x = %d\n", polygon->newsegment.a.x);
-	tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
-	(polygon->newsegment.a.y - polygon->newsegment.b.y)
-	/ (polygon->newsegment.a.x - polygon->newsegment.b.x) :
-	0;
+	tanpoly = (polygon->newsegment.a.y - polygon->newsegment.b.y)
+	/ (polygon->newsegment.a.x - polygon->newsegment.b.x);
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return (false);
 	if (polygon->newsegment.a.x < ZMIN)
@@ -139,15 +139,12 @@ t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
 {
 	t_wall wall;
 
-	wall.left = get_segmenti(poly.newsegment.a.x, cub.side,
-							 poly.newsegment.a.x, 0);
-	wall.right = get_segmenti(poly.newsegment.b.x, cub.side,
-								poly.newsegment.b.x, 0);
-	if (player.exist)
-	{
-		translate(&wall.left, 0, -player.height);
-		translate(&wall.right, 0, -player.height);
-	}
+	wall.left.a = get_point(poly.newsegment.a.x, cub.wall.realside);
+	wall.left.b = get_point(poly.newsegment.a.x, 0);
+	wall.right.a = get_point(poly.newsegment.b.x, cub.wall.realside);
+	wall.right.b = get_point(poly.newsegment.b.x, 0);
+	translate(&wall.left, 0, -player.height);
+	translate(&wall.right, 0, -player.height);
 	return (wall);
 }
 
@@ -157,7 +154,6 @@ int				display_wall(t_data *data, t_wall wall)
 	int		ptraddr[2];
 
 	initbe4display(&wall, &i, data);
-	printf("wall.leftcl.b.y = %d\n", wall.leftcl.b.y);
 	while (++i <= wall.leftcl.a.x)
 	{
 		if (!wall.coldone[i])

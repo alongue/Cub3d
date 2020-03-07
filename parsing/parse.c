@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 10:38:58 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 15:44:07 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 	return (cub);
 }
 
-static int		parse(char *line, t_cub **cub, int lastline)
+static int		parse(char *line, t_cub **cub, int lastline, t_player *player)
 {
 	int			counter;
 	static int	i = 0;
@@ -86,6 +86,11 @@ static int		parse(char *line, t_cub **cub, int lastline)
 			return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[counter] == '1')
 			set_cub(&cub[i][counter], i, counter);
+		else if (ft_get_nbchar("SNEW", line[counter]) == 1)
+		{
+			*player = get_player(counter * cub[0][0].side, i * cub[0][0].side, line[counter], 60.);
+			cub[i][counter].exist = false;
+		}
 		else
 			cub[i][counter].exist = false;
 	}
@@ -93,7 +98,7 @@ static int		parse(char *line, t_cub **cub, int lastline)
 	return (1);
 }
 
-t_map			get_coor(t_data data, int wallside)
+t_map			get_coor(t_data data, t_player *player, int wallside)
 {
 	char	*line;
 	int		ret;
@@ -114,10 +119,12 @@ t_map			get_coor(t_data data, int wallside)
 	while (ret != 0)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
-			return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-		if (!(parse(line, map.cub, map.nbcuby)))
+			return (putstrret_fd("Error\nVeuillez mettre une map (ret = -1) \n", map, 0));
+		if (!(parse(line, map.cub, map.nbcuby, player)))
 			return (map);
 	}
+	if (!player->exist)
+		return (putstrret_fd("Error\nVeuillez mettre un joueur\n", map, 0));
 	map.exist = true;
 	return (map);
 }

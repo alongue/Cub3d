@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 11:58:37 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 19:40:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int			classify_point(t_polygon polygon, t_point point)
 	int		testvalue;
 	int		realres;
 
-	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
-	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
+	testvalue = polygon.normal.ylen * point.x + polygon.normal.xlen * point.y;
+	realres = polygon.normal.ylen * polygon.segment.a.x + polygon.normal.xlen * polygon.segment.a.y;
 	if (testvalue == realres)
 		return (COINCIDING);
-	if (testvalue < realres)
-		return (BACK);
-	else
+	if (testvalue > realres)
 		return (FRONT);
+	else
+		return (BACK);
 }
 
 int			get_side(t_polygon poly1, t_polygon poly2)

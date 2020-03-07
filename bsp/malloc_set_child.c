@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:08:12 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 12:12:41 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/07 19:07:04 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 		else if (side == SPANNING)
 			counter++;
 	}
-	frontset = malloc(sizeof(t_polygon) * counter);
+	printf("counter = %d (dans frontset malloc)\n", counter);
+	frontset = malloc(sizeof(t_polygon) * counter + 1);
+	frontset[counter].exist = false;
 	return (frontset);
 }
 
@@ -50,6 +52,8 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 		else if (side == SPANNING)
 			counter++;
 	}
-	backset = malloc(sizeof(t_polygon) * counter);
+	printf("counter = %d (dans backset malloc)\n", counter);
+	backset = malloc(sizeof(t_polygon) * counter + 1);
+	backset[counter].exist = false;
 	return (backset);
 }
