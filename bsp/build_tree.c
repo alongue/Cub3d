@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 16:12:49 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:44:05 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ t_polygon	choose_div_polygon(t_polygon *set)
 				poly[0] = dup_polygon(set[i]);
 				set_best_poly(poly, set, minrelation, &leastsplits);
 				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
-				if (minrelation == 0)
+				if (minrelation == 0.)
 					sleep(5);
 			}
 		}
 		printf("TOUR SUIVANT\n");
-		minrelation = (minrelation < 0.00000001) ? 0. : minrelation / MINSCALE;
+		minrelation = (minrelation < 0.0000000000001) ? 0. : minrelation / MINSCALE;
+		//minrelation = minrelation / MINSCALE;
 	}
 	counter = -1;
 	i = -1;

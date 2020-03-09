@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 13:16:15 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:34:48 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int				display_wall(t_data *data, t_wall wall)
 			wall.botcl = fmin(wall.bot, 200);
 			ptraddr[0] = /*(int)*/wall.topcl * DEFX + i;
 			ptraddr[1] = /*(int)*/wall.botcl * DEFX + i;
+			//printf("wall.color = %u\n", wall.color);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;

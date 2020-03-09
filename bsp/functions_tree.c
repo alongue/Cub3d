@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 16:08:52 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:43:43 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int			classify_point(t_polygon polygon, t_point point)
 
 	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
+	printf("testvalue = %ld\tet\trealres = %ld\n", testvalue, realres);
 	if (testvalue == (long)realres)
 		return (COINCIDING);
 	else if (testvalue > (long)realres)
@@ -60,7 +61,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	i = -1;
 	j = -1;
 	side = 0;
-	while (set[++i].exist)//&& set[i].segment.exist)
+	while (set[++i].exist&& set[i].segment.exist)
 		while (set[++j].exist)
 			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
@@ -83,8 +84,7 @@ t_polygon *frontset, t_polygon *backset)
 	int		oldside;
 	t_point	p;
 
-	p.x = poly.segment.a.x;
-	set_point_on_segx(poly.segment, &p);
+	p = dup_point(poly.segment.a);
 	t_point	a;
 	a = dup_point(p);
 	printf("poly.segment.a.x = %d\tpoly.segment.b.x = %d\n", poly.segment.a.x, poly.segment.b.x);
