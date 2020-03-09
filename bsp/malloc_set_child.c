@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:08:12 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 19:07:04 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:20:54 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 
 	i = -1;
 	counter = 0;
-	while (nodeset[++i].exist)
+	while (nodeset[++i].exist)// && nodeset[i].segment.exist)
 	{
 		side = get_side(splitter, nodeset[i]);
 		if (side == FRONT)
@@ -30,8 +30,12 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 			counter++;
 	}
 	printf("counter = %d (dans frontset malloc)\n", counter);
+	//sleep(4);
 	frontset = malloc(sizeof(t_polygon) * counter + 1);
 	frontset[counter].exist = false;
+	//frontset[counter].segment.exist = false;
+	while (--counter >= 0)
+		frontset[counter].exist = true;
 	return (frontset);
 }
 
@@ -44,16 +48,20 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 
 	i = -1;
 	counter = 0;
-	while (nodeset[++i].exist)
+	while (nodeset[++i].exist)// && nodeset[i].segment.exist)
 	{
 		side = get_side(splitter, nodeset[i]);
-		if (side == BACK)
+		if (side == BACK || side == COINCIDING)
 			counter++;
 		else if (side == SPANNING)
 			counter++;
 	}
 	printf("counter = %d (dans backset malloc)\n", counter);
+	//sleep(4);
 	backset = malloc(sizeof(t_polygon) * counter + 1);
 	backset[counter].exist = false;
+	//backset[counter].segment.exist = false;
+	while (--counter >= 0)
+		backset[counter].exist = true;
 	return (backset);
 }

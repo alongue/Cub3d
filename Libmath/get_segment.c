@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:48:51 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:01:45 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:03:59 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ t_segment	get_segment(t_point p, t_point q)
 		return (s);
 	if (s.b.x - s.a.x != 0)
 		s.coeff = (s.b.y - s.a.y) / (s.b.x - s.a.x);
-	else if (s.b.y - s.a.y < 0)
+	else if (s.a.y > s.b.y)
 		s.coeff = -INFINITY;
-	else
+	else if (s.b.y > s.a.y)
 		s.coeff = INFINITY;
 	if (s.coeff == INFINITY || s.coeff == -INFINITY)
 		s.intercept = NAN;

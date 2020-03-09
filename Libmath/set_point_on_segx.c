@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:20:29 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:15:15 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 12:49:34 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_point_on_segx(t_segment segment, t_point *p)
 			: dup_point(segment.b);
 	else //sinon on a juste besoin de changer y vu que le point en x est deja egale a un point du segment en x
 	{
+		//printf("segment.a.y = %d\tet\tsegment.b.y = %d\n", segment.a.y, segment.b.y);
 		if (!isnan(segment.intercept))
 			p->y = segment.coeff * p->x + segment.intercept;
 		else

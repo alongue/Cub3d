@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 16:04:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/08 13:16:15 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
 								poly.newsegment.b.x, 0);
 	if (player.exist)
 	{
-		translate(&wall.left, 0, -player.height);
-		translate(&wall.right, 0, -player.height);
+		translate(&wall.left, 0, -player.y);
+		translate(&wall.right, 0, -player.y);
 	}
 	return (wall);
 }

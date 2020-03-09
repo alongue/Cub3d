@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 19:40:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:05:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int			polysetlen(t_polygon *set)
 
 int			classify_point(t_polygon polygon, t_point point)
 {
-	int		testvalue;
-	int		realres;
+	long	testvalue;
+	long	realres;
 
-	testvalue = polygon.normal.ylen * point.x + polygon.normal.xlen * point.y;
-	realres = polygon.normal.ylen * polygon.segment.a.x + polygon.normal.xlen * polygon.segment.a.y;
+	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
+	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
 	if (testvalue == realres)
 		return (COINCIDING);
-	if (testvalue > realres)
+	else if (testvalue > realres)
 		return (FRONT);
 	else
 		return (BACK);
@@ -51,17 +51,28 @@ int			get_side(t_polygon poly1, t_polygon poly2)
 	return (SPANNING);
 }
 
-bool		is_convex_set(t_polygon *set)
+bool		is_convex_set(t_polygon *set, t_node *node)
 {
 	int		i;
 	int		j;
+	int		side;
 
 	i = -1;
 	j = -1;
-	while (set[++i].exist)
+	side = 0;
+	while (set[++i].exist)//&& set[i].segment.exist)
 		while (set[++j].exist)
-			if (i != j && get_side(set[i], set[j]) != FRONT && get_side(set[i], set[j]) != COINCIDING)
-				return (false);
+			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
+			{
+				printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
+				return (false); // COINCIDING -> 0
+			}
+	if (!node)
+		return (true);
+	node->exist = true;
+	node->isleaf = true;
+	node->frontchild->exist = false;
+	node->backchild->exist = false;
 	return (true);
 }
 
@@ -72,16 +83,37 @@ t_polygon *frontset, t_polygon *backset)
 	int		oldside;
 	t_point	p;
 
-	p.x = min(poly.segment.a.x, poly.segment.b.x);
+	p.x = poly.segment.a.x;
 	set_point_on_segx(poly.segment, &p);
+	t_point	a;
+	a = dup_point(p);
+	printf("poly.segment.a.x = %d\tpoly.segment.b.x = %d\n", poly.segment.a.x, poly.segment.b.x);
+	//sleep(4);
 	side = classify_point(splitter, p);
 	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.b.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
+	sleep(4);
 	oldside = side;
 	printf("oldside = %d\n", oldside);
+	int	i;
+	i = 0;
 	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
-		get_next_point(poly.segment, &p);
+		//if (poly.segment.coeff >= 0)
+			get_next_point(poly.segment, &p);
+			printf("coeff = %f\tpoint du debut : x = %d\tet\ty = %d\n", poly.segment.coeff, a.x, a.y);
+		//else
+		//	get_prev_point(poly.segment, &p);
+		i++;
+		if (i >= 200 || !poly.exist || !poly.segment.exist)
+		{
+			printf("poly.exist = %d\tet\tpoly.segment.exist = %d\n", poly.exist, poly.segment.exist);
+			sleep(1);
+		}
+		printf("poly.segment.a.x = %d\tpoly.segment.a.y = %d\npoly.segment.b.x = %d\tpoly.segment.b.y = %d\n", poly.segment.a.x, poly.segment.a.y, poly.segment.b.x, poly.segment.b.y);
+		printf("poly.normal.xlen = %d\tpoly.normal.ylen = %d\n", poly.normal.xlen, poly.normal.ylen);
+		printf("splitter.segment.a.x = %d\tsplitter.segment.a.y = %d\nsplitter.segment.b.x = %d\tsplitter.segment.b.y = %d\n", splitter.segment.a.x, splitter.segment.a.y, splitter.segment.b.x, splitter.segment.b.y);
+		printf("splitter.normal.xlen = %d\tsplitter.normal.ylen = %d\n", splitter.normal.xlen, splitter.normal.ylen);
 		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
 	}
 	/*printf("side = %d\n", side);

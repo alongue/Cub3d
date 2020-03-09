@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 19:43:47 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/08 17:58:44 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ t_wall				create_wall(t_polygon poly, t_player player, t_cub cub);
 int					create_win(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
+t_polygon			dup_polygon(t_polygon polygon);
 //int					get_width(t_wall wall);
 t_map				get_coor(t_data data, t_player *player, int side);
 t_player			get_player(int x, int z, int c, double fieldvis);
@@ -160,7 +161,7 @@ void				grow_wall(t_data *data, t_wall *wall);
 void				initcub(t_map *map, int side);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
-bool				is_convex_set(t_polygon *set);
+bool				is_convex_set(t_polygon *set, t_node *node);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*parse_poly(t_map map, t_player player);

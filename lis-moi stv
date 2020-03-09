@@ -8,3 +8,5 @@ Ca faisait une boucle infinie d'abord a cause de frontset et backset quin'avait 
 De plus, mon split_segment_exc etait mal realise du coup ca allait jusqu'a 16 des fois et d'autres fois jusqu'a 14 (c'est ce que je croyais)
 
 le bsp est mal fait (le mauvais polygon est choisi je crois)
+
+A mon avis le cote aleatoie venait du counter[1] et counter[2] que je n'incrementais pas quand il fallait split le polygon

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 16:33:01 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:02:22 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:33:46 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 	s.b = hardmax(s1.a, s1.b, s2.a, s2.b);
 	if (s.b.x - s.a.x != 0)
 		s.coeff = (s.b.y - s.a.y) / (s.b.x - s.a.x);
-	else if (s.b.y - s.a.y < 0)
+	else if (s.a.y > s.b.y)
 		s.coeff = -INFINITY;
-	else
+	else if (s.b.y > s.a.y)
 		s.coeff = INFINITY;
 	if (s.coeff == INFINITY || s.coeff == -INFINITY)
 		s.intercept = NAN;
