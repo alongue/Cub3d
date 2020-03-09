@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:08:12 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 15:20:54 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:13:04 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 	while (nodeset[++i].exist)// && nodeset[i].segment.exist)
 	{
 		side = get_side(splitter, nodeset[i]);
-		if (side == BACK || side == COINCIDING)
+		if (side == BACK)
 			counter++;
 		else if (side == SPANNING)
 			counter++;

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 15:29:48 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:12:49 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,34 +151,31 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	backpolyset = malloc_backset_child(set, node->splitter);
 	while (set[counter[0]].exist/* && set[counter[0]].segment.exist*/)
 	{
-		if (!is_same_segment(node->splitter.segment, set[counter[0]].segment))
+		side = get_side(node->splitter, set[counter[0]]);	/*																										*/
+		if (side == FRONT)									/*																										*/
 		{
-			side = get_side(node->splitter, set[counter[0]]);	/*																										*/
-			if (side == FRONT)									/*																										*/
-			{
-				frontpolyset[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
-				
-				//frontpolyset[counter[1]].isused = false;
-				counter[1]++;
-				//printf("set[%d] se trouve devant\n", counter[0]);
-			}
-			else if (side == BACK || side == COINCIDING)			/*										tout ca dans une												*/
-			{
-				backpolyset[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
-				//backpolyset[counter[2]].isused = false;
-				counter[2]++;
-				//printf("set[%d] se trouve derriere\n", counter[0]);
-			}
-			else if (side == SPANNING)							/*																										*/
-			{
-				//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
-				split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
-				//printf("set[%d] se trouve devant et derriere\n", counter[0]);
-				counter[1]++;
-				counter[2]++;
-			}
-			//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
+			frontpolyset[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
+			
+			//frontpolyset[counter[1]].isused = false;
+			counter[1]++;
+			//printf("set[%d] se trouve devant\n", counter[0]);
 		}
+		else if (side == BACK)								/*										tout ca dans une												*/
+		{
+			backpolyset[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
+			//backpolyset[counter[2]].isused = false;
+			counter[2]++;
+			//printf("set[%d] se trouve derriere\n", counter[0]);
+		}
+		else if (side == SPANNING)							/*																										*/
+		{
+			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
+			split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
+			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
+			counter[1]++;
+			counter[2]++;
+		}
+		//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
 		counter[0]++;
 	}
 	node->exist = true;

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 16:05:01 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:08:52 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int			classify_point(t_polygon polygon, t_point point)
 
 	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
-	if (testvalue == realres)
+	if (testvalue == (long)realres)
 		return (COINCIDING);
-	else if (testvalue > realres)
+	else if (testvalue > (long)realres)
 		return (FRONT);
 	else
 		return (BACK);
