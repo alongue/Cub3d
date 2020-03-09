@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 17:49:24 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:52:16 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	j = -1;
 	side = 0;
 	while (set[++i].exist)
+	{
+		j = -1;
 		while (set[++j].exist)
 			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
 				printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
 				return (false); // COINCIDING -> 0
 			}
+	}
 	if (!node)
 		return (true);
 	node->exist = true;

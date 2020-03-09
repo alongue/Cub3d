@@ -10,3 +10,9 @@ De plus, mon split_segment_exc etait mal realise du coup ca allait jusqu'a 16 de
 le bsp est mal fait (le mauvais polygon est choisi je crois)
 
 A mon avis le cote aleatoie venait du counter[1] et counter[2] que je n'incrementais pas quand il fallait split le polygon
+Le cote aleatoire venait aussi de la 2e boucle de is_convex(set) que je ne mettais pas a 0 quand
+while (++i)
+	j = -1;  <--- fallait mettre ca
+	while (++j)
+
+
