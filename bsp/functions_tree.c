@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 17:52:16 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 18:02:16 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			classify_point(t_polygon polygon, t_point point)
 
 	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
-	printf("testvalue = %ld\tet\trealres = %ld\n", testvalue, realres);
+	//printf("testvalue = %ld\tet\trealres = %ld\n", testvalue, realres);
 	if (testvalue == (long)realres)
 		return (COINCIDING);
 	else if (testvalue > (long)realres)
@@ -67,7 +67,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 		while (set[++j].exist)
 			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
-				printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
+				//printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
 				return (false); // COINCIDING -> 0
 			}
 	}
@@ -90,13 +90,13 @@ t_polygon *frontset, t_polygon *backset)
 	p = dup_point(poly.segment.a);
 	t_point	a;
 	a = dup_point(p);
-	printf("poly.segment.a.x = %d\tpoly.segment.b.x = %d\n", poly.segment.a.x, poly.segment.b.x);
+	//printf("poly.segment.a.x = %d\tpoly.segment.b.x = %d\n", poly.segment.a.x, poly.segment.b.x);
 	//sleep(4);
 	side = classify_point(splitter, p);
-	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.b.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
+	//printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.b.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
 	sleep(4);
 	oldside = side;
-	printf("oldside = %d\n", oldside);
+	//printf("oldside = %d\n", oldside);
 	int	i;
 	i = 0;
 	while ((side = classify_point(splitter, p)) == oldside)
@@ -108,7 +108,7 @@ t_polygon *frontset, t_polygon *backset)
 		//else
 		//	get_prev_point(poly.segment, &p);
 		i++;
-		if (i >= 200 || !poly.exist || !poly.segment.exist)
+		/*if (i >= 200 || !poly.exist || !poly.segment.exist)
 		{
 			printf("poly.exist = %d\tet\tpoly.segment.exist = %d\n", poly.exist, poly.segment.exist);
 			sleep(1);
@@ -117,7 +117,7 @@ t_polygon *frontset, t_polygon *backset)
 		printf("poly.normal.xlen = %d\tpoly.normal.ylen = %d\n", poly.normal.xlen, poly.normal.ylen);
 		printf("splitter.segment.a.x = %d\tsplitter.segment.a.y = %d\nsplitter.segment.b.x = %d\tsplitter.segment.b.y = %d\n", splitter.segment.a.x, splitter.segment.a.y, splitter.segment.b.x, splitter.segment.b.y);
 		printf("splitter.normal.xlen = %d\tsplitter.normal.ylen = %d\n", splitter.normal.xlen, splitter.normal.ylen);
-		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
+		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);*/
 	}
 	/*printf("side = %d\n", side);
 	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.a.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);

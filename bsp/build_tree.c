@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 17:47:35 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:59:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 	ft_memseti(nb, 0, 3);
 	set_ratio(nb, &relation, poly[0], set);
 	//printf("relation = %f\tet\tminrelation = %f\n*leastsplits = %d\nnb[0] = %d\tet\tnb[1] = %d\tet\tnb[2] = %d\n", relation, minrelation, *leastsplits, nb[0], nb[1], nb[2]);
-	printf("*leastsplits = %d\n", *leastsplits);
+	//printf("*leastsplits = %d\n", *leastsplits);
 	if (relation >= minrelation &&
 		((nb[2] < *leastsplits) || (relation > bestrelation)))
 	{
@@ -60,9 +60,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		bestrelation = relation;
 		set_used_poly(set, &poly[0]);
 		poly[1] = dup_polygon(poly[0]);
-		printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
-		if (relation == 0)
-			sleep(4);
+		//printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
 		//printf("poly[0].isused = %d\n", poly[0].isused);
 		//sleep(1);
 		/*while (++i[1] != i[0])
@@ -96,12 +94,12 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			{
 				poly[0] = dup_polygon(set[i]);
 				set_best_poly(poly, set, minrelation, &leastsplits);
-				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
+				//printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
 				if (minrelation == 0.)
 					sleep(5);
 			}
 		}
-		printf("TOUR SUIVANT\n");
+		//printf("TOUR SUIVANT\n");
 		minrelation = (minrelation < 0.0000000000001) ? 0. : (float)minrelation / MINSCALE;
 		//minrelation = (float)minrelation / MINSCALE;
 	}
@@ -110,7 +108,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	while (set[++i].exist)
 		if (set[i].isused)
 			counter = i;
-	printf("best polygon is set[%d]\n", counter);
+	//printf("best polygon is set[%d]\n", counter);
 	return (poly[1]);
 }
 
@@ -118,7 +116,7 @@ void		create_tree_node(t_map *map, t_player player)
 {
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
 	map->tree.rootnode->set = parse_poly(*map, player);
-	printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
+	//printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 
 void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces fonctions en suspens
@@ -134,19 +132,17 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	node->backchild = malloc(sizeof(t_node) * 1);
 	int	a;
 	a = -1;
-	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
-	{
-		printf("set[%d].segment.a.x = %d\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\tset[%d].segment.b.y = %d\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
-		if (i == 1923)
-			sleep(100);
-	}
+	//while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
+	//{
+		//printf("set[%d].segment.a.x = %d\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\tset[%d].segment.b.y = %d\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
+	//}
 	if (is_convex_set(set, node))
 	{
 		printf("The set is convex\n");
 		return ;
 	}
 	ft_memseti(counter, 0, 3);
-	printf("set len = %d\n", polysetlen(set));
+	//printf("set len = %d\n", polysetlen(set));
 	node->splitter = choose_div_polygon(set);
 	frontpolyset = malloc_frontset_child(set, node->splitter);
 	backpolyset = malloc_backset_child(set, node->splitter);
