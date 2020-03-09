@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 16:44:05 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:47:35 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			}
 		}
 		printf("TOUR SUIVANT\n");
-		minrelation = (minrelation < 0.0000000000001) ? 0. : minrelation / MINSCALE;
-		//minrelation = minrelation / MINSCALE;
+		minrelation = (minrelation < 0.0000000000001) ? 0. : (float)minrelation / MINSCALE;
+		//minrelation = (float)minrelation / MINSCALE;
 	}
 	counter = -1;
 	i = -1;
@@ -136,7 +136,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	a = -1;
 	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
 	{
-		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", a, round((float)set[a].segment.a.x / 64), a, round((float)set[a].segment.a.y / 64), a, round((float)set[a].segment.b.x / 64), a, round((float)set[a].segment.b.y / 64));
+		printf("set[%d].segment.a.x = %d\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\tset[%d].segment.b.y = %d\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
 		if (i == 1923)
 			sleep(100);
 	}

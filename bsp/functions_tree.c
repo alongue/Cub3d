@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 17:43:43 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:49:24 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	i = -1;
 	j = -1;
 	side = 0;
-	while (set[++i].exist&& set[i].segment.exist)
+	while (set[++i].exist)
 		while (set[++j].exist)
 			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
