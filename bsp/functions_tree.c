@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 18:02:16 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:04:17 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	i = -1;
 	j = -1;
 	side = 0;
+	if (node)
+		node->isleaf = false;
 	while (set[++i].exist)
 	{
 		j = -1;

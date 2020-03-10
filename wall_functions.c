@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 13:45:22 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:01:10 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	clip(t_wall *wall)
 	wall->rightcl.a.x = min(wall->right.a.x, 319);
 	wall->rightcl.b.x = min(wall->right.b.x, 319);
 	wall->leftcl = dup_segment(wall->left);
-	printf("wall.leftcl.b.y (dans le clip) = %d\n", wall->left.b.y);
+	printf("wall.rightcl.b.y (dans le clip) = %d\n", wall->rightcl.b.y);
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
 	{
 		wall->top -= (double)wall->leftcl.a.x * wall->deltatop;
