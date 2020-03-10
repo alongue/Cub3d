@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 19:36:36 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:23:31 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_normal					dup_normal(t_normal normal);
 t_point						dup_point(t_point p);
 t_segment					dup_segment(t_segment s);
 int							ft_abs(int nb);
+int							get_extremity(t_segment segment, t_point *first, t_point *end);
 void						get_next_point(t_segment segment, t_point *point);
 void						get_prev_point(t_segment segment, t_point *point);
 t_normal					get_normal(t_segment s);
@@ -73,6 +74,7 @@ t_segment *s1, t_segment *s2);
 void						split_segment_exc(t_segment segment, t_point point,
 t_segment *s1, t_segment *s2);
 
-int							translate(t_segment *segment, int x, int y);
+int							translate_point(t_point *point, int x, int y);
+int							translate_segment(t_segment *segment, int x, int y);
 
 #endif

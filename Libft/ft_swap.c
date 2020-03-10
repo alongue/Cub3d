@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prev_point.c                                   :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 12:16:17 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 15:17:45 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/10 11:28:04 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/10 12:06:21 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmath.h"
+#include "libft.h"
 
-void	get_prev_point(t_segment segment, t_point *point)
+int	ft_swap(void **a, void **b)
 {
-	if (segment.coeff == INFINITY &&
-		point->y <= max(segment.a.y, segment.b.y))
-	{
-		point->y--;
-		set_point_on_segy(segment, point);
-	}
-	else if (segment.coeff == -INFINITY)
-	{
-		point->y++;
-		set_point_on_segy(segment, point);
-	}
-	else
-	{
-		point->x--;
-		set_point_on_segx(segment, point);
-	}
+	void	*c;
+
+	if (!a || !b)
+		return (0);
+	c = *b;
+	*b = *a;
+	*a = c;
+	return (1);
 }

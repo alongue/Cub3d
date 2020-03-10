@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_point.c                                   :+:      :+:    :+:   */
+/*   get_extremity.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 12:16:17 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 15:17:37 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/10 11:08:44 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/10 12:35:52 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void	get_next_point(t_segment segment, t_point *point)
+int		get_extremity(t_segment segment, t_point *first, t_point *end)
 {
-	if (segment.coeff == INFINITY &&
-		point->y >= min(segment.a.y, segment.b.y))
-	{
-		point->y++;
-		set_point_on_segy(segment, point);
-	}
-	else if (segment.coeff == -INFINITY)
-	{
-		point->y--;
-		set_point_on_segy(segment, point);
-	}
-	else
-	{
-		point->x++;
-		set_point_on_segx(segment, point);
-	}
+	*first = dup_point(segment.a);
+	*end = dup_point(segment.b); //tjrs les cas d'erreurs en mode overflow a gerer
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 18:01:43 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/09 18:17:02 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	if (current.isleaf)
 		return ;
 	result = classify_point(current.splitter, player.pos);
-	if (result == FRONT)
+	if (result == FRONT || result == COINCIDING)
 	{
 		if (current.backchild->exist)
 			renderbsp(data, *current.backchild, player);

@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/03 12:09:18 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/10 11:32:53 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,8 @@ SRCS	=	ft_atoi.c		\
 		ft_putstrret_fd.c	\
 		ft_putstrreti_fd.c	\
 		ft_strstrpart.c		\
-		ft_is_in_a_row.c
+		ft_is_in_a_row.c	\
+		ft_swap.c
 
 SRCS_B	=	ft_lstnew_bonus.c	\
 		ft_lstadd_front_bonus.c	\

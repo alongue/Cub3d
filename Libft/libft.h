@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/03 12:01:14 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:06:58 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int				ft_strstrpart(char *str, size_t start, char *cmp);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+int				ft_swap(void **a, void **b);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 struct			s_list

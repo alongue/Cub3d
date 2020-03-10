@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   orientation.c                                      :+:      :+:    :+:   */
+/*   translate_point.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 13:28:54 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/16 11:42:23 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/10 11:22:54 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/10 11:24:09 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-int		orientation(t_point p, t_point q, t_point r)
+int	translate_point(t_point *point, int x, int y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
 {
-	int	val;
-
-	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-	if (val == 0)
-		return (COLINEAR);
-	return ((val > 0) ? CLOCKWISE : COUNTERCLOCKWISE);
+	point->x += x;
+	point->y += y;
+	return (1);
 }

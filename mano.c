@@ -5,26 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:31:27 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 17:16:54 by alongcha         ###   ########.fr       */
+/*   Created: 2020/03/10 12:12:43 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/10 13:18:28 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libmath.h"
-
-# include <stdio.h>
+# include "header.h"
 
 int		main()
 {
-	t_point		p;
-	t_segment	segment;
+	t_point		a;
+	t_point		b; //mettre les points en float a mon avis
+	t_point		*acop;
+	t_point		*bcop;
+	t_segment	s;
 
-	segment = get_segmenti(576, 255, 576, 193);
-	//p.x = min(segment.a.x, segment.b.x) + 5;
-	printf("segment.intercept = %f\n", segment.intercept);
-	p.x = min(segment.a.x, segment.b.x);
-	set_point_on_segx(segment, &p);
-	printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
-	get_next_point(segment, &p);
-	printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
+	s = get_segmenti(10, 20, 30, 40);
+	get_extremity(s, &a, &b);
+	printf("a.y = %d\tet\ta.x =%d\nb.y = %d\tet\tb.x = %d\n", a.y, a.x, b.y, b.x);
+	acop = &a;
+	bcop = &b;
+	if (a.y < b.y)
+	{
+		printf("je suis rentre\n");
+		ft_swap((void *)&acop, (void *)&bcop);
+		a = dup_point(*acop);
+		b = dup_point(*bcop);
+	}
+	printf("a.y = %d\tet\ta.x =%d\nb.y = %d\tet\tb.x = %d\n", a.y, a.x, b.y, b.x);
 }
