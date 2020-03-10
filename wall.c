@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 14:01:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:14:18 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,10 @@ t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
 {
 	t_wall wall;
 
-	wall.left = get_segmenti(poly.newsegment.a.x, cub.side,
-							 poly.newsegment.a.x, 0);
-	wall.right = get_segmenti(poly.newsegment.b.x, cub.side,
-								poly.newsegment.b.x, 0);
+	wall.left = get_segmenti(poly.newsegment.a.x, 0,
+							 poly.newsegment.a.x, cub.side);
+	wall.right = get_segmenti(poly.newsegment.b.x, 0,
+								poly.newsegment.b.x, cub.side);
 	if (player.exist)
 	{
 		translate_segment(&wall.left, 0, -player.y);

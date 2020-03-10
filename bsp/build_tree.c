@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 14:04:13 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:22:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	while (set[++i].exist)
 		if (set[i].isused)
 			counter = i;
-	//printf("best polygon is set[%d]\n", counter);
+	printf("best polygon is set[%d]\n", counter);
 	return (poly[1]);
 }
 
@@ -167,6 +167,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 		else if (side == SPANNING)							/*																										*/
 		{
 			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
+			printf("\n-- JE VAIS SPLIT --\n\n");
 			split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
 			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
 			counter[1]++;

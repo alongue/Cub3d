@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:05:13 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 14:04:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:36:20 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int			classify_point(t_polygon polygon, t_point point)
 	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
 	//printf("testvalue = %ld\tet\trealres = %ld\n", testvalue, realres);
-	if (testvalue == (long)realres)
+	if (testvalue == realres)
 		return (COINCIDING);
-	else if (testvalue > (long)realres)
+	else if (testvalue > realres)
 		return (FRONT);
 	else
 		return (BACK);
@@ -101,12 +101,13 @@ t_polygon *frontset, t_polygon *backset)
 	//printf("oldside = %d\n", oldside);
 	int	i;
 	i = 0;
+	printf("Extremites sont : %d\t\tet\t\t%d\n", poly.segment.a.y, poly.segment.b.y);
 	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
 		//if (poly.segment.coeff >= 0)
 			get_next_point(poly.segment, &p);
-			printf("coeff = %f\tpoint du debut : x = %d\tet\ty = %d\n", poly.segment.coeff, a.x, a.y);
+			printf("coeff = %f\tpoint : x = %d\tet\ty = %d\n", poly.segment.coeff, p.x, p.y);
 		//else
 		//	get_prev_point(poly.segment, &p);
 		i++;

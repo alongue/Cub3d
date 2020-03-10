@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:59:10 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 12:14:53 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:08:03 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 	i = 0;
 	while (set[i].exist)
 	{
-		if (set[i].isused)
+		//if (set[i].isused)
 			set[i].isused = false;
 		printf("set[%d].segment.exist = %d\t\tet\t\tcurrent->segent.exist = %d\n", i, set[i].segment.exist, current->segment.exist);
 		printf("set[%d].segment.a.x = %d\t\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\t\tset[%d].segment.b.y = %d\n", i, set[i].segment.a.x, i, set[i].segment.a.y, i, set[i].segment.b.x, i, set[i].segment.b.y);
