@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 22:06:15 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 15:22:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:20:24 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 {
 	int			side;
 	int			counter[3];
-	t_polygon	*frontpolyset; // ne pas oublier de malloc ces 2 zigotos
-	t_polygon	*backpolyset;
 	static int	i = 0;
 
 	node->exist = false;
@@ -144,22 +142,24 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	ft_memseti(counter, 0, 3);
 	//printf("set len = %d\n", polysetlen(set));
 	node->splitter = choose_div_polygon(set);
-	frontpolyset = malloc_frontset_child(set, node->splitter);
-	backpolyset = malloc_backset_child(set, node->splitter);
+	node->frontchild->set = malloc_frontset_child(set, node->splitter);
+	node->backchild->set = malloc_backset_child(set, node->splitter);
 	while (set[counter[0]].exist/* && set[counter[0]].segment.exist*/)
 	{
 		side = get_side(node->splitter, set[counter[0]]);	/*																										*/
 		if (side == FRONT)									/*																										*/
 		{
-			frontpolyset[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
-			
+			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
+
+			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, 64); //trouver un moyen de recuperer la valeur
 			//frontpolyset[counter[1]].isused = false;
 			counter[1]++;
 			//printf("set[%d] se trouve devant\n", counter[0]);
 		}
 		else if (side == BACK)								/*										tout ca dans une												*/
 		{
-			backpolyset[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
+			node->backchild->set[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
+			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, 64); //trouver un moyen de recuperer la valeur
 			//backpolyset[counter[2]].isused = false;
 			counter[2]++;
 			//printf("set[%d] se trouve derriere\n", counter[0]);
@@ -168,7 +168,9 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 		{
 			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
 			printf("\n-- JE VAIS SPLIT --\n\n");
-			split_polygon(set[counter[0]], node->splitter, &frontpolyset[counter[1]], &backpolyset[counter[2]]);/*													*/
+			split_polygon(set[counter[0]], node->splitter, &node->frontchild->set[counter[1]], &node->backchild->set[counter[2]]);/*													*/
+			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, 64); //trouver un moyen de recuperer la valeur
+			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, 64); //trouver un moyen de recuperer la valeur
 			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
 			counter[1]++;
 			counter[2]++;
@@ -181,11 +183,11 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	printf("ca fait la %de boucle\n", i);
 	//sleep(1);
 	//free(set);
-	build_tree(node->frontchild, frontpolyset, player);
+	build_tree(node->frontchild, node->frontchild->set, player);
 	//free(frontpolyset);
 	i++;
 	printf("ca fait la %deme boucle\n", i);
 	//sleep(1);
-	build_tree(node->backchild, backpolyset, player);
+	build_tree(node->backchild, node->backchild->set, player);
 	//free(backpolyset);
 }

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 13:37:02 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 15:43:00 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:23:24 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_polygon			create_polytop(t_map map, int x, int y, t_player player)
 	}
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0]);
+	p.wall = create_wall(p, player, map.cub[0][0].side);
 	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -66,7 +66,7 @@ t_polygon			create_polybot(t_map map, int x, int y, t_player player)
 	}
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0]);
+	p.wall = create_wall(p, player, map.cub[0][0].side);
 	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -97,7 +97,7 @@ t_polygon			create_polyright(t_map map, int x, int y, t_player player)
 	replace_poly(&p, player);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0]);
+	p.wall = create_wall(p, player, map.cub[0][0].side);
 	//printf("p.segment.exist (right) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -127,7 +127,7 @@ t_polygon			create_polyleft(t_map map, int x, int y, t_player player)
 	}
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0]);
+	p.wall = create_wall(p, player, map.cub[0][0].side);
 	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 14:30:22 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:31:02 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,39 @@
 void	clip(t_wall *wall)
 {
 	printf("--- JE SUIS DANS LE CLIP ---\n");
-	wall->rightcl = dup_segment(wall->right);
-	wall->rightcl.a.x = min(wall->right.a.x, 319);
-	wall->rightcl.b.x = min(wall->right.b.x, 319);
-	wall->leftcl = dup_segment(wall->left);
-	printf("wall.leftcl.b.y (dans le clip) = %d\n", wall->left.b.y);
+	wall->rightcl.a.x = min(wall->rightcl.a.x, 319);
+	wall->rightcl.b.x = min(wall->rightcl.b.x, 319);
+	printf("wall.leftcl.b.y (dans le clip) = %d\n", wall->leftcl.b.y);
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
 	{
 		wall->leftcl.a.x = 0;
 		wall->leftcl.b.x = 0;
 	}
-	wall->top = (double)wall->left.a.y;
-	wall->bot = (double)wall->left.b.y;
-	wall->top -= (double)wall->left.a.x * wall->deltatop;
-	wall->bot -= (double)wall->left.a.x * wall->deltabot;
+	wall->top = (double)wall->leftcl.a.y;
+	wall->bot = (double)wall->leftcl.b.y;
 	printf("wall->top = %f\n", wall->top);
 	printf("wall->bot = %f\n", wall->bot);
 }
 
 void	set_delta(t_wall *wall)
 {
-	//printf("wall->right.a.x = %d\n", wall->right.a.x);
-	wall->deltatop = (double)(wall->right.a.y - wall->left.a.y) / (wall->right.a.x - wall->left.a.x);
-	wall->deltabot = (double)(wall->right.b.y - wall->left.b.y) / (wall->right.a.x - wall->left.a.x);
+	printf("wall->rightcl.a.y = %d\t\tet\t\twall->leftcl.a.y = %d\n", wall->rightcl.a.y, wall->leftcl.a.y);
+	wall->deltatop = (double)(wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	printf("wall->deltatop = %f\tet\twall->deltabot = %f\n", wall->deltatop, wall->deltabot);
 }
 
 void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
+	int		maxi;
+
 	printf("--- JE SUIS DANS LE INIT DISPL ---\n");
-	wall->img = mlx_new_image(data->mlx_ptr, wall->realside, wall->realside);
-	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
 	clip(wall);
-	*countcol = wall->rightcl.a.x - 1;
+	maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
+	printf("wall->rightcl.a.x = %d\tet\twall->leftcl.a.x = %d\n", wall->rightcl.a.x, wall->leftcl.a.x);
+	printf("fmin(wall->bot, 200) - fmax(wall->top, 0) = %f\n", fmin(wall->bot, 200) - fmax(wall->top, 0));
+	wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, fmin(wall->bot, 200) - fmax(wall->top, 0));
+	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
+	*countcol = wall->leftcl.a.x - 1;
 	wall->nbcoldone = 0;
 }

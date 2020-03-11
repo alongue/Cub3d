@@ -6,13 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 11:41:31 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 15:38:20 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:49:07 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-t_polygon	dup_polygon(t_polygon polygon)
+t_polygon	dup_polygon(t_polygon polygon) //mettre peut etre le param cubside mais y aura plus de 4 param
 {
 	t_polygon	poly;
 
@@ -35,6 +35,9 @@ t_polygon	dup_polygon(t_polygon polygon)
 void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
+	t_player	player;
+
+	player.exist = false;
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
 	frontset->isused = false;
@@ -47,6 +50,9 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 void		partition_backset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
+	t_player	player;
+
+	player.exist = false;
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
 	frontset->isused = false;

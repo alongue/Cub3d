@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 15:14:18 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:58:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,34 @@
 
 void			replace_poly(t_polygon *polygon, t_player player)
 {
-	t_point	*a;
-	t_point	*b; //mettre les points en float a mon avis
+	t_point	a;
+	t_point	b;
+	t_point	tmp; //mettre les points en float a mon avis
 
-	a = malloc(sizeof(t_point));
-	b = malloc(sizeof(t_point));
-	get_extremity(polygon->segment, a, b);
-	translate_point(a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	translate_point(b, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	if (a->y < b->y)
-		ft_swap((void *)&a, (void *)&b);
-	polygon->newsegment = get_segmenti(a->x * cos(-player.angle)
-									- a->y * sin(-player.angle),
-									a->y * cos(-player.angle)
-							 		+ a->x * sin(-player.angle),
-									b->x * cos(-player.angle)
-									 - b->y * sin(-player.angle),
-									b->y * cos(-player.angle)
-									+ b->x * sin(-player.angle));
+	get_extremity(polygon->segment, &a, &b);
+	translate_point(&a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
+	translate_point(&b, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
+	polygon->newsegment = get_segmenti(a.x * cos(-player.angle)
+									- a.y * sin(-player.angle),
+									a.y * cos(-player.angle)
+							 		+ a.x * sin(-player.angle),
+									b.x * cos(-player.angle)
+									 - b.y * sin(-player.angle),
+									b.y * cos(-player.angle)
+									+ b.x * sin(-player.angle));
+	if (polygon->newsegment.a.y < polygon->newsegment.b.y)
+	{
+		tmp = dup_point(polygon->newsegment.b);
+		polygon->newsegment.b = dup_point(polygon->newsegment.a);
+		polygon->newsegment.a = dup_point(tmp);
+	}
+	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y);
 }
 
 bool			do_display_poly(t_polygon *polygon)
 {
 	double	tanpoly;
 
-	printf("polygon->newsegment.a.x = %d\n", polygon->newsegment.a.x);
 	tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
 	(polygon->newsegment.a.y - polygon->newsegment.b.y)
 	/ (polygon->newsegment.a.x - polygon->newsegment.b.x) :
@@ -129,32 +132,30 @@ bool			do_display_poly(t_polygon *polygon)
 		polygon->newsegment.a.y += (ZMIN - polygon->newsegment.a.x) * tanpoly;
 		polygon->newsegment.a.x = ZMIN;
 	}
-	if (polygon->newsegment.b.x < ZMIN)
-	{
-		polygon->newsegment.b.y += (ZMIN - polygon->newsegment.b.x) * tanpoly;
-		polygon->newsegment.b.x = ZMIN;
-	}
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
-	return (polygon->dodisplay = raycast(polygon));
+	polygon->dodisplay = raycastx(&polygon->wall, *polygon);
+	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
+	return (polygon->dodisplay);
 }
 
-t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
+t_wall			create_wall(t_polygon poly, t_player player, int cubside)
 {
-	t_wall wall;
+	t_wall	wall;
 
-	wall.left = get_segmenti(poly.newsegment.a.x, 0,
-							 poly.newsegment.a.x, cub.side);
-	wall.right = get_segmenti(poly.newsegment.b.x, 0,
-								poly.newsegment.b.x, cub.side);
+	wall.color = 0xff00ff;
+	wall.left = get_segmenti(poly.wall.left.a.x, 0,
+							 poly.wall.left.a.x, cubside); //on met left.b.x = left.a.x
+	wall.right = get_segmenti(poly.wall.right.a.x, 0,
+								poly.wall.right.a.x, cubside);
 	if (player.exist)
 	{
 		translate_segment(&wall.left, 0, -player.y);
 		translate_segment(&wall.right, 0, -player.y);
 	}
-	raycastfps(&wall, player);
+	raycastfps(&wall, player, poly, cubside);
+	printf("wall.left.a.y (apres la translation) = %d\t\tet\t\tb.y = %d\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
-	printf("wall.left.b.x (apres la translation) = %d\n", wall.left.b.x);
 	return (wall);
 }
 
@@ -166,15 +167,18 @@ int				display_wall(t_data *data, t_wall wall)
 	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	printf("wall.leftcl.a.x = %d\n", wall.leftcl.a.x);
-	while (++i <= wall.leftcl.a.x)
+	while (++i <= wall.rightcl.a.x)
 	{
+		printf("i = %d\n", i);
 		if (!wall.coldone[i])
 		{
+			wall.top -= (double)wall.leftcl.a.x * wall.deltatop;
+			wall.bot -= (double)wall.leftcl.a.x * wall.deltabot;
 			wall.topcl = fmax(wall.top, 0);
 			wall.botcl = fmin(wall.bot, 200);
 			ptraddr[0] = /*(int)*/wall.topcl * DEFX + i;
 			ptraddr[1] = /*(int)*/wall.botcl * DEFX + i;
-			//printf("wall.color = %u\n", wall.color);
+			printf("wall.color = %u\n", wall.color);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;

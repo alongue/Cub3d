@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/07 15:34:22 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/11 10:57:18 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS	=	$(MAIN)							\
 			raycast.c						\
 			player.c						\
 			wall_functions.c				\
-			utils.c							\
+			$(PARSE)/utils.c				\
 			$(PARSE)/parse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\

@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 17:58:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 17:02:17 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_polygon			create_polyleft(t_map map, int x, int y, t_player player);
 t_polygon			create_polyright(t_map map, int x, int y, t_player player);
 t_polygon			create_polytop(t_map map, int x, int y, t_player player);
 void				create_tree_node(t_map *map, t_player player);
-t_wall				create_wall(t_polygon poly, t_player player, t_cub cub);
+t_wall				create_wall(t_polygon poly, t_player player, int cubside);
 int					create_win(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
@@ -171,8 +171,8 @@ void				partition_frontset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
-bool				raycast(t_polygon *polygon);
-void				raycastfps(t_wall *wall, t_player player);
+int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, int cubside);
+bool				raycastx(t_wall *wall, t_polygon polygon);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				set_cub(t_cub *cub, int i, int counter);

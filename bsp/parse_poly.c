@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:04:58 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/08 17:15:37 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:57:25 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		create_polywall(t_map map, t_polygon *p, t_player player, int *coor)
 		replace_poly(&p[i], player);
 		printf("p[i].newsegment.a.x = %d\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i]);
-		p[i].wall = create_wall(p[i], player, map.cub[0][0]);
+		p[i].wall = create_wall(p[i], player, map.cub[0][0].side);
 		i++; //enlever toutes les incrementations comme ca
 	}
 	if (cond_bot(map, x, y))
@@ -70,7 +70,7 @@ void		create_polywall(t_map map, t_polygon *p, t_player player, int *coor)
 		replace_poly(&p[i], player);
 		printf("p[i].newsegment.a.x = %d\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i]);
-		p[i].wall = create_wall(p[i], player, map.cub[0][0]);
+		p[i].wall = create_wall(p[i], player, map.cub[0][0].side);
 		i++;
 	}
 	if (cond_right(map, x, y))
@@ -78,7 +78,7 @@ void		create_polywall(t_map map, t_polygon *p, t_player player, int *coor)
 		replace_poly(&p[i], player);
 		printf("p[i].newsegment.a.x = %d\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i]);
-		p[i].wall = create_wall(p[i], player, map.cub[0][0]);
+		p[i].wall = create_wall(p[i], player, map.cub[0][0].side);
 		i++;
 	}
 	if (cond_left(map, x, y))
@@ -86,7 +86,7 @@ void		create_polywall(t_map map, t_polygon *p, t_player player, int *coor)
 		replace_poly(&p[i], player);
 		printf("p[i].newsegment.a.x = %d\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i]);
-		p[i].wall = create_wall(p[i], player, map.cub[0][0]);
+		p[i].wall = create_wall(p[i], player, map.cub[0][0].side);
 		i++;
 	}
 }
