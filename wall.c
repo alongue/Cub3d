@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 18:58:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:28:14 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,14 +163,16 @@ int				display_wall(t_data *data, t_wall wall)
 {
 	int		i;
 	int		ptraddr[2];
+	bool	coldone[320]; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 
 	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
-	printf("wall.leftcl.a.x = %d\n", wall.leftcl.a.x);
+	ft_memseti(ptraddr, 0, 2);
+	printf("wall.leftcl.a.x = %d\tet\twall.rightcl.a.x = %d\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= wall.rightcl.a.x)
 	{
 		printf("i = %d\n", i);
-		if (!wall.coldone[i])
+		if (!coldone[i])
 		{
 			wall.top -= (double)wall.leftcl.a.x * wall.deltatop;
 			wall.bot -= (double)wall.leftcl.a.x * wall.deltabot;
@@ -179,18 +181,20 @@ int				display_wall(t_data *data, t_wall wall)
 			ptraddr[0] = /*(int)*/wall.topcl * DEFX + i;
 			ptraddr[1] = /*(int)*/wall.botcl * DEFX + i;
 			printf("wall.color = %u\n", wall.color);
-			while (ptraddr[0] < ptraddr[1])
+			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			while (ptraddr[0] <= ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += 320;
 			}
-			wall.coldone[i] = true;
+			printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			coldone[i] = true;
 			wall.nbcoldone++;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, wall.leftcl.a.x, wall.leftcl.a.y);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (EXIT_SUCCESS);
 }
 
