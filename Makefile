@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/11 10:57:18 by alongcha         ###   ########.fr        #
+#    Updated: 2020/03/11 19:34:40 by alongcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ MAIN	=	main.c
 BS	=	bonus
 
 SRCS	=	$(MAIN)							\
-			test.c							\
+			data.c							\
 			wall.c							\
 			raycast.c						\
 			player.c						\

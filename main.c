@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 19:57:24 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:35:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	data.win_width = WIDTH;
 	data.win_height = HEIGHT;
-	if (create_win(&data, av) == EXIT_FAILURE)
+	if (create_data(&data, av) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	/*if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/

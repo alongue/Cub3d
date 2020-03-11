@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 18:31:02 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:46:48 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ void	clip(t_wall *wall)
 	wall->rightcl.a.x = min(wall->rightcl.a.x, 319);
 	wall->rightcl.b.x = min(wall->rightcl.b.x, 319);
 	printf("wall.leftcl.b.y (dans le clip) = %d\n", wall->leftcl.b.y);
+	wall->top = (double)wall->leftcl.a.y;
+	wall->bot = (double)wall->leftcl.b.y;
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
 	{
+		wall->top -= (double)wall->leftcl.a.x * wall->deltatop;
+		wall->bot -= (double)wall->leftcl.a.x * wall->deltabot;
 		wall->leftcl.a.x = 0;
 		wall->leftcl.b.x = 0;
 	}
-	wall->top = (double)wall->leftcl.a.y;
-	wall->bot = (double)wall->leftcl.b.y;
 	printf("wall->top = %f\n", wall->top);
 	printf("wall->bot = %f\n", wall->bot);
 }

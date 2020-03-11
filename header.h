@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 17:02:17 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:34:55 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ struct				s_data
 	int		win_width;
 	int		win_height;
 	char	*file;
+	bool	coldone[320]; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
 
@@ -149,7 +150,7 @@ t_polygon			create_polyright(t_map map, int x, int y, t_player player);
 t_polygon			create_polytop(t_map map, int x, int y, t_player player);
 void				create_tree_node(t_map *map, t_player player);
 t_wall				create_wall(t_polygon poly, t_player player, int cubside);
-int					create_win(t_data *data, char **av);
+int					create_data(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
 t_polygon			dup_polygon(t_polygon polygon);
