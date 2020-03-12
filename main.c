@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 13:13:51 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:47:08 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,27 @@ int		main(int ac, char **av)
 {
 	t_data		data;
 	t_player	player;
-	t_map		*map;
-	//t_map		map;
+	//t_map		*map;
+	t_map		map;
 
 	(void)ac;
-	map = malloc(sizeof(t_map) * 1);
+	//map = malloc(sizeof(t_map) * 1);
 	if ((data.mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	data.win_width = WIDTH;
 	data.win_height = HEIGHT;
 	if (create_data(&data, av) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	printf("(dans le main) data.file = %s\n", data.file);
 	/*if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
-	*map = get_coor(data, &player, 64);
-	if (!map->exist)
+	map = get_coor(data, &player, 64);
+	if (!map.exist)
 		return (3);
-	create_tree_node(map, player);
-	build_tree(map->tree.rootnode, map->tree.rootnode->set, player);
-	printf("map.tree.rootnode.exist : %d\n", map->tree.rootnode->exist);
-	renderbsp(&data, *map->tree.rootnode, player);
+	create_tree_node(&map, player);
+	build_tree(map.tree.rootnode, map.tree.rootnode->set, player);
+	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);
+	renderbsp(&data, *map.tree.rootnode, player);
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);
 	//coor[0] = ft_memseti(coor[0], 50, 2);

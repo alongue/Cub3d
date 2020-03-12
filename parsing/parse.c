@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/07 15:44:07 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:40:25 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_map			get_coor(t_data data, t_player *player, int wallside)
 	ret = 2;
 	ft_memseti(counter, 0, 2);
 	map.exist = false;
+	printf("data.file = %s\n", data.file);
 	if (!data.file || !ft_strstrpart(data.file, ft_strlen(data.file) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
