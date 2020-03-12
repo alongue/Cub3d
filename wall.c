@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 12:34:22 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:54:34 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,15 +177,15 @@ int				display_wall(t_data *data, t_wall wall)
 		printf("i = %d\n", i);
 		if (!data->coldone[i])
 		{
-			wall.topcl = fmax(wall.top, 0);
-			wall.botcl = fmin(wall.bot, 200); // faut peut etre pas aller jusqu'a 200
+			wall.topcl = fmax(wall.top, 0.);
+			wall.botcl = fmin(wall.bot, 200.); // faut peut etre pas aller jusqu'a 200
 			ptraddr[0] = (int)wall.topcl * DEFX + i;
 			ptraddr[1] = (int)wall.botcl * DEFX + i;
-			printf("max = %u\n", DEFX * (DEFY - 1) + (DEFX - 1));
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
-				printf("wall.top = %f\n", wall.top);
+				printf("ptraddr[0] = %d\n", ptraddr[0]);
+				printf("max = %u\n", DEFX * (DEFY - 1) + (DEFX - 1));
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += 320;
 			}
@@ -196,6 +196,7 @@ int				display_wall(t_data *data, t_wall wall)
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
+	printf("Je suis sorti");
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (EXIT_SUCCESS);
 }

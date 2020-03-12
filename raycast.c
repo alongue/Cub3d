@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 10:27:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 12:40:44 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 13:06:01 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, int cubside)
 	dfoc = DEFX / 2 / tan(player.fieldvis / 2);
 	(void)res;
 	printf("dfoc = %f\n", dfoc);
-	wall->leftcl.b.y = (int)sqrt(pow((dfoc * sqrt(pow(polygon.newsegment.a.x, 2) + pow(cubside / 2, 2)) / cubside), 2) - pow(dfoc, 2));
+	wall->leftcl.b.y = dfoc * (cubside / 2) / polygon.newsegment.a.x;
 	wall->leftcl.a.y = -wall->leftcl.b.y;
 	ret = translate_segment(&wall->leftcl, 0, 100);
-	wall->rightcl.b.y = (int)sqrt(pow((dfoc * sqrt(pow(polygon.newsegment.b.x, 2) + pow(cubside / 2, 2)) / cubside), 2) - pow(dfoc, 2));
+	wall->rightcl.b.y = dfoc * (cubside / 2) / polygon.newsegment.b.x;
 	wall->rightcl.a.y = -wall->rightcl.b.y;
 	ret = translate_segment(&wall->rightcl, 0, 100);
 	printf("ret = %d\n", ret);
 	printf("(dans raycastfps) polygon.newsegment.a.x = %d\n", polygon.newsegment.a.x);
-	printf("(dans raycastfps) wall->rightcl.a.y = %d\tet\twall->leftcl.a.y = %d\n", wall->rightcl.a.y, wall->leftcl.a.y);
+	printf("(dans raycastfps) wall->rightcl.a.y = %d\tet\twall->rightcl.b.y = %d\n", wall->rightcl.a.y, wall->rightcl.b.y);
 	return (ret);
 }
