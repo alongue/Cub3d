@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 12:33:20 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:34:22 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int				display_wall(t_data *data, t_wall wall)
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
+				printf("wall.top = %f\n", wall.top);
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += 320;
 			}
