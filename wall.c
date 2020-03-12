@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 19:46:06 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 11:44:39 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,17 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
-	if (polygon->newsegment.a.y < polygon->newsegment.b.y)
+	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\na.x = %d\tet\tb.x = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	if (polygon->newsegment.a.y < polygon->newsegment.b.y ||
+		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) ||
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
 	}
-	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y);
+	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\na.x = %d\tet\tb.x = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 }
 
 bool			do_display_poly(t_polygon *polygon)

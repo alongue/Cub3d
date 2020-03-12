@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 10:27:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 18:50:20 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 11:48:35 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@ bool		raycastx(t_wall *wall, t_polygon polygon)
 
 	wall->left.a.x = 160 - polygon.newsegment.a.y * DEFX / 2 / polygon.newsegment.a.x;
 	wall->right.a.x = 160 - polygon.newsegment.b.y * DEFX / 2 / polygon.newsegment.b.x;
-	if (wall->left.a.x > wall->right.a.x) // je suis pas cense mettre de code comme ca
-	{
-		mini = wall->left.a.x;
-		wall->left.a.x = wall->right.a.x;
-		wall->right.a.x = mini;
-	}
-	printf("(dans raycastx) wall->right.a.x = %d\tet\twall->left.a.x = %d\n", wall->right.a.x, wall->left.a.x);
+	printf("(dans raycastx) wall->left.a.x = %d\tet\twall->right.a.x = %d\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x == wall->right.a.x ||
 		wall->right.a.x < 0 || wall->left.a.x > 319)
 		return (false);
