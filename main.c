@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:26 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 15:47:08 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:20:34 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,13 @@ int		main(int ac, char **av)
 	//t_map		*map;
 	t_map		map;
 
-	(void)ac;
 	//map = malloc(sizeof(t_map) * 1);
 	if ((data.mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	data.win_width = WIDTH;
 	data.win_height = HEIGHT;
 	if (create_data(&data, av) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	printf("(dans le main) data.file = %s\n", data.file);
+		return (ft_putstrreti_fd("Error\nLa window n'a pas pu etre cree\n", 0, EXIT_FAILURE));
 	/*if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
 	map = get_coor(data, &player, 64);
@@ -73,6 +71,7 @@ int		main(int ac, char **av)
 	//wall.color = 0xffffff;
 	//printf("wall = %p\n", wall);
 	//param[0] = (void *)&data;
+	(void)ac;
 	//mlx_hook(data.mlx_win, 2, 0, funt, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
 	mlx_loop(data.mlx_ptr);
 	return (EXIT_SUCCESS);

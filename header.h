@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 15:28:54 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:22:31 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon);
 t_polygon			dup_polygon(t_polygon polygon);
 //int					get_width(t_wall wall);
-t_map				get_coor(t_data data, t_player *player, int side);
+t_map				get_coor(t_data data, t_player *player, int wallside);
 t_player			get_player(int x, int z, int c, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
