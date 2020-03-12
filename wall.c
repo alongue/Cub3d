@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 12:54:34 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 13:21:57 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int				display_wall(t_data *data, t_wall wall)
 			ptraddr[0] = (int)wall.topcl * DEFX + i;
 			ptraddr[1] = (int)wall.botcl * DEFX + i;
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
-			while (ptraddr[0] < ptraddr[1])
+			while (ptraddr[0] < ptraddr[1] - 1)
 			{
 				printf("ptraddr[0] = %d\n", ptraddr[0]);
 				printf("max = %u\n", DEFX * (DEFY - 1) + (DEFX - 1));
