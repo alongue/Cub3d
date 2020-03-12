@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 11:44:39 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:33:20 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,12 @@ int				display_wall(t_data *data, t_wall wall)
 		if (!data->coldone[i])
 		{
 			wall.topcl = fmax(wall.top, 0);
-			wall.botcl = fmin(wall.bot, 200);
+			wall.botcl = fmin(wall.bot, 200); // faut peut etre pas aller jusqu'a 200
 			ptraddr[0] = (int)wall.topcl * DEFX + i;
 			ptraddr[1] = (int)wall.botcl * DEFX + i;
-			printf("wall.color = %u\n", wall.color);
+			printf("max = %u\n", DEFX * (DEFY - 1) + (DEFX - 1));
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
-			while (ptraddr[0] <= ptraddr[1])
+			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += 320;

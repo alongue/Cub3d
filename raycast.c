@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 10:27:18 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 11:48:35 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:11:50 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 bool		raycastx(t_wall *wall, t_polygon polygon)
 {
-	int		mini;
-
 	wall->left.a.x = 160 - polygon.newsegment.a.y * DEFX / 2 / polygon.newsegment.a.x;
 	wall->right.a.x = 160 - polygon.newsegment.b.y * DEFX / 2 / polygon.newsegment.b.x;
 	printf("(dans raycastx) wall->left.a.x = %d\tet\twall->right.a.x = %d\n", wall->left.a.x, wall->right.a.x);
