@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 13:17:42 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:27:47 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	clip(t_wall *wall)
 	wall->bot = (double)wall->leftcl.b.y;
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
 	{
-		wall->top -= (double)wall->leftcl.a.x * wall->deltatop;
-		wall->bot -= (double)wall->leftcl.a.x * wall->deltabot;
+		wall->top -= (double)(wall->leftcl.a.x * wall->deltatop);
+		wall->bot -= (double)(wall->leftcl.a.x * wall->deltabot);
 		wall->leftcl.a.x = 0;
 		wall->leftcl.b.x = 0;
 	}
@@ -73,9 +73,8 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 	clip(wall);
 	maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
 	printf("wall->rightcl.a.x = %d\tet\twall->leftcl.a.x = %d\n", wall->rightcl.a.x, wall->leftcl.a.x);
-	wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, (int)fmin(wall->bot, 199.) - fmax(wall->top, 0.));
+	wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, maxi);
 	//wall->img = mlx_new_image(data->mlx_ptr, DEFX, DEFY);
 	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
 	*countcol = wall->leftcl.a.x - 1;
-	wall->nbcoldone = 0;
 }

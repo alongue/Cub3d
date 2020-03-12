@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:43 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 19:34:55 by alongcha         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:28:54 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ struct				s_data
 	int		win_width;
 	int		win_height;
 	char	*file;
+	int		nbcoldone;
 	bool	coldone[320]; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
@@ -60,8 +61,6 @@ struct				s_wall //ca concerne les polygones en vue fps uniquement
 	double		deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
 	double		deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
 	int			color; // la couleur
-	bool		*coldone; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
-	int			nbcoldone; // le nombre de colonnes d'un mur
 	void		*img; // l'image du mur
 	int			*img_data; // les infos du mur de l'image
 };
