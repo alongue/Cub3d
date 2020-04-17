@@ -108,7 +108,7 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
-	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\na.x = %d\tet\tb.x = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (polygon->newsegment.a.y < polygon->newsegment.b.y ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) ||
@@ -118,10 +118,10 @@ void			replace_poly(t_polygon *polygon, t_player player)
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
 	}
-	printf("(dans replace_poly) polygon->newsegment.a.y = %d\tet\tb.y = %d\na.x = %d\tet\tb.x = %d\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 }
 
-bool			do_display_poly(t_polygon *polygon)
+bool			do_display_poly(t_polygon *polygon, t_data data)
 {
 	double	tanpoly;
 
@@ -138,27 +138,27 @@ bool			do_display_poly(t_polygon *polygon)
 	}
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
-	polygon->dodisplay = raycastx(&polygon->wall, *polygon);
+	polygon->dodisplay = raycastx(&polygon->wall, *polygon, data);
 	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
 
-t_wall			create_wall(t_polygon poly, t_player player, int cubside)
+t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 {
 	t_wall	wall;
 
 	wall.color = 0xff00ff;
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
-							 poly.wall.left.a.x, cubside); //on met left.b.x = left.a.x
+							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
 	wall.right = get_segmenti(poly.wall.right.a.x, 0,
-								poly.wall.right.a.x, cubside);
+								poly.wall.right.a.x, data.cubside);
 	if (player.exist)
 	{
 		translate_segment(&wall.left, 0, -player.y);
 		translate_segment(&wall.right, 0, -player.y);
 	}
-	raycastfps(&wall, player, poly, cubside);
-	printf("wall.left.a.y (apres la translation) = %d\t\tet\t\tb.y = %d\n", wall.left.b.y, wall.left.a.y);
+	raycastfps(&wall, player, poly, data);
+	printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
 	return (wall);
 }
@@ -171,22 +171,22 @@ int				display_wall(t_data *data, t_wall wall)
 	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
-	printf("wall.leftcl.a.x = %d\tet\twall.rightcl.a.x = %d\n", wall.leftcl.a.x, wall.rightcl.a.x);
+	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= wall.rightcl.a.x)
 	{
-		printf("i = %d\n", i);
+		printf("i = %d\tand col is done ? %d\n", i, data->coldone[i]);
 		if (!data->coldone[i])
 		{
 			wall.topcl = fmax(wall.top, 0.);
-			wall.botcl = fmin(wall.bot, 200.); // faut peut etre pas aller jusqu'a 200
-			ptraddr[0] = (int)(wall.topcl * DEFX + i);
-			ptraddr[1] = (int)(wall.botcl * DEFX + i);
-			printf("topcl = %f\tet\tbotcl = %f\n", wall.top, wall.bot);
+			wall.botcl = fmin(wall.bot, data->win_height);
+			ptraddr[0] = (int)(wall.topcl * data->win_width + i);
+			ptraddr[1] = (int)(wall.botcl * data->win_width + i);
+			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;
-				ptraddr[0] += 320;
+				ptraddr[0] += data->win_width;
 			}
 			printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = true;
@@ -195,8 +195,8 @@ int				display_wall(t_data *data, t_wall wall)
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	printf("Je suis sorti");
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
+	printf("Je suis sorti\n");
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (EXIT_SUCCESS);
 }
 

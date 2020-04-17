@@ -64,7 +64,7 @@ GCC	=	gcc
 
 INC	=	-I /usr/X11/include
 
-LIBFL	=	-g -L /usr/X11/lib -l mlx
+LIBFL	=	-g -L /usr/X11/lib -lX11 -lmlx -lXext
 
 FWFL	=	-framework OpenGL -framework AppKit
 
@@ -75,7 +75,7 @@ DEBG	=	-fsanitize=address
 all	:	$(NAME)
 
 .c.o	:
-	$(GCC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(GCC) $(INC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(LIBFT)/.c.o	:
 	make -C $(LIBFT)
@@ -97,11 +97,11 @@ $(BS)	: $(OBJS_B)
 	$(LIB) $(NAME)
 
 exec	: $(NAME)
-	$(GCC) $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
+	$(GCC) $(INC) $(LIBFL) $(NAME) $(MAIN)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 debug	:	$(NAME)
-	$(GCC) $(INC) $(LIBFL) $(FWFL) $(DEBG) $(NAME) $(MAIN)
+	$(GCC) $(INC) $(LIBFL) $(DEBG) $(NAME) $(MAIN)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 clean	:
@@ -116,7 +116,7 @@ fclean	:	clean
 	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 
 fcleanmax	:	fclean
-	rm -rf __.SYMDEF\ SORTED $(LIBFT)/__.SYMDEF\ SORTED
+	rm -rf __.SYMDEF\ SORTED $(LIBFT)/__.SYMDEF\ SORTED __.SYMDEF
 	rm -rf a.out *.dSYM prog
 	rm -rf .vscode */.vscode
 	rm -rf .*.swp */.*.swp

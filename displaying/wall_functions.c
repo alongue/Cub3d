@@ -40,7 +40,7 @@
 
 void	clip(t_wall *wall)
 {
-	wall->rightcl.a.x = min(wall->rightcl.a.x, 319);
+	wall->rightcl.a.x = min(wall->rightcl.a.x, data->win_width - 1);
 	if (wall->leftcl.a.x < 0)
 	{
 		wall->leftcl.a.x = 0;

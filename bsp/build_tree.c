@@ -112,14 +112,14 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	return (poly[1]);
 }
 
-void		create_tree_node(t_map *map, t_player player)
+void		create_tree_node(t_map *map, t_player player, t_data data)
 {
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
-	map->tree.rootnode->set = parse_poly(*map, player);
+	map->tree.rootnode->set = parse_poly(*map, player, data);
 	//printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 
-void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces fonctions en suspens
+void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //je laisse ces fonctions en suspens
 {
 	int			side;
 	int			counter[3];
@@ -150,8 +150,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 		if (side == FRONT)									/*																										*/
 		{
 			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
-
-			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, 64); //trouver un moyen de recuperer la valeur
+			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
 			//frontpolyset[counter[1]].isused = false;
 			counter[1]++;
 			//printf("set[%d] se trouve devant\n", counter[0]);
@@ -159,7 +158,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 		else if (side == BACK)								/*										tout ca dans une												*/
 		{
 			node->backchild->set[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
-			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, 64); //trouver un moyen de recuperer la valeur
+			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
 			//backpolyset[counter[2]].isused = false;
 			counter[2]++;
 			//printf("set[%d] se trouve derriere\n", counter[0]);
@@ -169,8 +168,8 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
 			printf("\n-- JE VAIS SPLIT --\n\n");
 			split_polygon(set[counter[0]], node->splitter, &node->frontchild->set[counter[1]], &node->backchild->set[counter[2]]);/*													*/
-			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, 64); //trouver un moyen de recuperer la valeur
-			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, 64); //trouver un moyen de recuperer la valeur
+			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
+			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
 			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
 			counter[1]++;
 			counter[2]++;
@@ -183,11 +182,11 @@ void		build_tree(t_node *node, t_polygon *set, t_player player) //je laisse ces 
 	printf("ca fait la %de boucle\n", i);
 	//sleep(1);
 	//free(set);
-	build_tree(node->frontchild, node->frontchild->set, player);
+	build_tree(node->frontchild, node->frontchild->set, player, data);
 	//free(frontpolyset);
 	i++;
 	printf("ca fait la %deme boucle\n", i);
 	//sleep(1);
-	build_tree(node->backchild, node->backchild->set, player);
+	build_tree(node->backchild, node->backchild->set, player, data);
 	//free(backpolyset);
 }

@@ -98,7 +98,7 @@ static int		parse(char *line, t_cub **cub, int lastline, t_player *player)
 	return (1);
 }
 
-t_map			get_coor(t_data data, t_player *player, int wallside)
+t_map			get_coor(t_data data, t_player *player)
 {
 	char	*line;
 	int		ret;
@@ -116,7 +116,7 @@ t_map			get_coor(t_data data, t_player *player, int wallside)
 	fd = open(data.file, O_RDONLY);
 	if (!(map.cub = get_malloc(data, &map.nbcubx, &map.nbcuby)))
 		return (map);
-	initcub(&map, wallside);
+	initcub(&map, data.cubside);
 	while (ret != 0)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)

@@ -101,13 +101,13 @@ t_polygon *frontset, t_polygon *backset)
 	//printf("oldside = %d\n", oldside);
 	int	i;
 	i = 0;
-	printf("Extremites sont : %d\t\tet\t\t%d\n", poly.segment.a.y, poly.segment.b.y);
+	printf("Extremites sont : %f\t\tet\t\t%f\n", poly.segment.a.y, poly.segment.b.y);
 	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
 		//if (poly.segment.coeff >= 0)
 			get_next_point(poly.segment, &p);
-			printf("coeff = %f\tpoint : x = %d\tet\ty = %d\n", poly.segment.coeff, p.x, p.y);
+			printf("coeff = %f\tpoint : x = %f\tet\ty = %f\n", poly.segment.coeff, p.x, p.y);
 		//else
 		//	get_prev_point(poly.segment, &p);
 		i++;

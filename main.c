@@ -12,8 +12,6 @@
 
 #include "header.h"
 
-#include <stdio.h>
-
 /*int		escape(t_data *data)
 {
 	exit(0);
@@ -58,12 +56,14 @@ int		main(int ac, char **av)
 		return (ft_putstrreti_fd("Error\nLa window n'a pas pu etre cree\n", 0, EXIT_FAILURE));
 	/*if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
-	map = get_coor(data, &player, 64);
+	data.cubside = 64;
+	map = get_coor(data, &player);
 	if (!map.exist)
 		return (3);
-	create_tree_node(&map, player);
-	build_tree(map.tree.rootnode, map.tree.rootnode->set, player);
+	create_tree_node(&map, player, data);
+	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);
 	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);
+	ft_memseti(data.coldone, false, data.win_width);
 	renderbsp(&data, *map.tree.rootnode, player);
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);

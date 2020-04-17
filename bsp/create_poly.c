@@ -12,11 +12,15 @@
 
 #include "../header.h"
 
-t_polygon			create_polytop(t_map map, int x, int y, t_player player)
+t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 {
 	t_polygon	p;
 	t_cub		**cub;
+	int			x;
+	int			y;
 
+	x = coor[0];
+	y = coor[1];
 	cub = map.cub;
 	p.segment = dup_segment(cub[y][x].stop);
 	p.normal = get_normal(cub[y][x].stop);
@@ -35,18 +39,22 @@ t_polygon			create_polytop(t_map map, int x, int y, t_player player)
 		}
 	}
 	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0].side);
+	p.dodisplay = do_display_poly(&p, data);
+	p.wall = create_wall(p, player, data);
 	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
 }
 
-t_polygon			create_polybot(t_map map, int x, int y, t_player player)
+t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 {
 	t_polygon	p;
 	t_cub		**cub;
+	int			x;
+	int			y;
 
+	x = coor[0];
+	y = coor[1];
 	cub = map.cub;
 	p.segment = dup_segment(cub[y][x].sbot);
 	p.normal = get_normal(cub[y][x].sbot);
@@ -60,23 +68,27 @@ t_polygon			create_polybot(t_map map, int x, int y, t_player player)
 		if (p.segment.a.x > 3000 || p.segment.a.y > 3000 || p.segment.b.x > 3000 || p.segment.b.y > 3000)
 		{
 			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %d || p.segment.a.y = %d || p.segment.b.x = %d || bot.b.y = %d\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
+			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || p.segment.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
 			sleep(10);
 		}
 	}
 	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0].side);
+	p.dodisplay = do_display_poly(&p, data);
+	p.wall = create_wall(p, player, data);
 	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
 }
 
-t_polygon			create_polyright(t_map map, int x, int y, t_player player)
+t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 {
 	t_polygon	p;
 	t_cub		**cub;
+	int			x;
+	int			y;
 
+	x = coor[0];
+	y = coor[1];
 	cub = map.cub;
 	p.segment = dup_segment(cub[y][x].sright);
 	p.normal = get_normal(cub[y][x].sright);
@@ -90,24 +102,28 @@ t_polygon			create_polyright(t_map map, int x, int y, t_player player)
 		if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
 		{
 			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %d || p.segment.a.y = %d || p.segment.b.x = %d || right.b.y = %d\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
+			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || right.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
 			sleep(10);
 		}
 	}
 	replace_poly(&p, player);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
-	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0].side);
+	p.dodisplay = do_display_poly(&p, data);
+	p.wall = create_wall(p, player, data);
 	//printf("p.segment.exist (right) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
 }
 
-t_polygon			create_polyleft(t_map map, int x, int y, t_player player)
+t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 {
 	t_polygon	p;
 	t_cub		**cub;
+	int			x;
+	int			y;
 
+	x = coor[0];
+	y = coor[1];
 	cub = map.cub;
 	p.segment = dup_segment(cub[y][x].sleft);
 	p.normal = get_normal(cub[y][x].sleft);
@@ -121,13 +137,13 @@ t_polygon			create_polyleft(t_map map, int x, int y, t_player player)
 		if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
 		{
 			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %d || p.segment.a.y = %d || p.segment.b.x = %d || left.b.y = %d\n", cub[y][x].sleft.a.x, cub[y][x].sleft.a.y, cub[y][x].sleft.b.x, cub[y][x].sleft.b.y);
+			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || left.b.y = %f\n", cub[y][x].sleft.a.x, cub[y][x].sleft.a.y, cub[y][x].sleft.b.x, cub[y][x].sleft.b.y);
 			sleep(10);
 		}
 	}
 	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p);
-	p.wall = create_wall(p, player, map.cub[0][0].side);
+	p.dodisplay = do_display_poly(&p, data);
+	p.wall = create_wall(p, player, data);
 	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);

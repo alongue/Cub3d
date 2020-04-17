@@ -25,7 +25,7 @@ t_polygon	dup_polygon(t_polygon polygon) //mettre peut etre le param cubside mai
 	poly.nbwall = polygon.nbwall;
 	if (polygon.segment.a.x  > 3000|| polygon.segment.a.y  > 3000|| polygon.segment.b.x  > 3000|| polygon.segment.b.y > 3000)
 		{
-			printf("p.segment.a.x = %d || p.segment.a.y = %d || p.segment.b.x = %d || polygon.b.y = %d\n", polygon.segment.a.x, polygon.segment.a.y, polygon.segment.b.x, polygon.segment.b.y);
+			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || polygon.b.y = %f\n", polygon.segment.a.x, polygon.segment.a.y, polygon.segment.b.x, polygon.segment.b.y);
 			sleep(10);
 		}
 

@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_point		get_point(int x, int y)
+t_point		get_point(float x, float y)
 {
 	t_point p;
 

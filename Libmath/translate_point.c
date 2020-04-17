@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-int	translate_point(t_point *point, int x, int y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
+int	translate_point(t_point *point, float x, float y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
 {
 	int		ret;
 	bool	ispos[2];

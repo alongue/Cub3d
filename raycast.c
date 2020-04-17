@@ -12,18 +12,18 @@
 
 #include "header.h"
 
-bool		raycastx(t_wall *wall, t_polygon polygon)
+bool		raycastx(t_wall *wall, t_polygon polygon, t_data data)
 {
-	wall->left.a.x = 160 - polygon.newsegment.a.y * DEFX / 2 / polygon.newsegment.a.x;
-	wall->right.a.x = 160 - polygon.newsegment.b.y * DEFX / 2 / polygon.newsegment.b.x;
-	printf("(dans raycastx) wall->left.a.x = %d\tet\twall->right.a.x = %d\n", wall->left.a.x, wall->right.a.x);
+	wall->left.a.x = data.win_width / 2 - polygon.newsegment.a.y * data.win_width / 2 / polygon.newsegment.a.x;
+	wall->right.a.x = data.win_width / 2 - polygon.newsegment.b.y * data.win_width / 2 / polygon.newsegment.b.x;
+	printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x == wall->right.a.x ||
-		wall->right.a.x < 0 || wall->left.a.x > 319)
+		wall->right.a.x < 0 || wall->left.a.x > data.win_width)
 		return (false);
 	return (true);
 }
 
-int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, int cubside)
+int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 {
 	double	dfoc;
 	int		ret;
@@ -32,17 +32,17 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, int cubside)
 	ret = 1;
 	wall->leftcl = dup_segment(wall->left);
 	wall->rightcl = dup_segment(wall->right);
-	dfoc = DEFX / 2 / tan(player.fieldvis / 2);
+	dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
 	(void)res;
 	printf("dfoc = %f\n", dfoc);
-	wall->leftcl.b.y = dfoc * (cubside / 2) / polygon.newsegment.a.x;
+	wall->leftcl.b.y = dfoc * (data.cubside / 2) / polygon.newsegment.a.x;
 	wall->leftcl.a.y = -wall->leftcl.b.y;
-	ret = translate_segment(&wall->leftcl, 0, 100);
-	wall->rightcl.b.y = dfoc * (cubside / 2) / polygon.newsegment.b.x;
+	ret = translate_segment(&wall->leftcl, 0, data.win_height / 2);
+	wall->rightcl.b.y = dfoc * (data.cubside / 2) / polygon.newsegment.b.x;
 	wall->rightcl.a.y = -wall->rightcl.b.y;
-	ret = translate_segment(&wall->rightcl, 0, 100);
+	ret = translate_segment(&wall->rightcl, 0, data.win_height / 2);
 	printf("ret = %d\n", ret);
-	printf("(dans raycastfps) polygon.newsegment.a.x = %d\n", polygon.newsegment.a.x);
-	printf("(dans raycastfps) wall->rightcl.a.y = %d\tet\twall->rightcl.b.y = %d\n", wall->rightcl.a.y, wall->rightcl.b.y);
+	printf("(dans raycastfps) polygon.newsegment.a.x = %f\n", polygon.newsegment.a.x);
+	printf("(dans raycastfps) wall->rightcl.a.y = %f\tet\twall->rightcl.b.y = %f\n", wall->rightcl.a.y, wall->rightcl.b.y);
 	return (ret);
 }

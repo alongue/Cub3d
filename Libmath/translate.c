@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-int	translate(t_segment *segment, int x, int y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
+int	translate(t_segment *segment, float x, float y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
 {
 	segment->a.x += x;
 	segment->a.y += y;

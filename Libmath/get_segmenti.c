@@ -12,14 +12,14 @@
 
 #include "libmath.h"
 
-t_segment	get_segmenti(int px, int py, int qx, int qy)
+t_segment	get_segmenti(float px, float py, float qx, float qy)
 {
 	t_segment	s;
 
 	s.exist = false;
 	s.a = get_point(px, py);
 	s.b = get_point(qx, qy);
-	if (s.b.x - s.a.x == 0 && s.b.y - s.a.y == 0)
+	if (s.b.x - s.a.x == 0 && s.b.y - s.a.y == 0) // a mon avis, si le resultat est tres proche de 0, ca risque d'enregistrer la valeur INFINITY ou -INFINITY
 		return (s);
 	if (s.b.x - s.a.x != 0)
 		s.coeff = (s.b.y - s.a.y) / (s.b.x - s.a.x);

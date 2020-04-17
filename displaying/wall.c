@@ -159,13 +159,13 @@ int				display_wall(t_data *data, t_wall wall)
 		if (!wall.coldone[i])
 		{
 			wall.topcl = fmax(wall.top, 0);
-			wall.botcl = fmin(wall.bot, 200);
+			wall.botcl = fmin(wall.bot, data->win_height);
 			ptraddr[0] = /*(int)*/wall.topcl * DEFX + i;
 			ptraddr[1] = /*(int)*/wall.botcl * DEFX + i;
 			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;
-				ptraddr[0] += 320;
+				ptraddr[0] += data->win_width;
 			}
 			wall.coldone[i] = true;
 			wall.nbcoldone++;

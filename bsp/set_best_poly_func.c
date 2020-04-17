@@ -24,8 +24,8 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 		//if (set[i].isused)
 			set[i].isused = false;
 		printf("set[%d].segment.exist = %d\t\tet\t\tcurrent->segent.exist = %d\n", i, set[i].segment.exist, current->segment.exist);
-		printf("set[%d].segment.a.x = %d\t\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\t\tset[%d].segment.b.y = %d\n", i, set[i].segment.a.x, i, set[i].segment.a.y, i, set[i].segment.b.x, i, set[i].segment.b.y);
-		printf("current->segment.a.x = %d\tcurrent->segment.a.y = %d\tcurrent->segment.b.x = %d\tcurrent->segment.b.y = %d\n", current->segment.a.x, current->segment.a.y, current->segment.b.x, current->segment.b.y);
+		printf("set[%d].segment.a.x = %f\t\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\t\tset[%d].segment.b.y = %f\n", i, set[i].segment.a.x, i, set[i].segment.a.y, i, set[i].segment.b.x, i, set[i].segment.b.y);
+		printf("current->segment.a.x = %f\tcurrent->segment.a.y = %f\tcurrent->segment.b.x = %f\tcurrent->segment.b.y = %f\n", current->segment.a.x, current->segment.a.y, current->segment.b.x, current->segment.b.y);
 		if (is_same_segment(set[i].segment, current->segment))
 		{
 			set[i].isused = true;

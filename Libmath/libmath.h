@@ -25,8 +25,8 @@
 
 struct						s_point
 {
-	int		x;
-	int		y;
+	float	x;
+	float	y;
 };
 typedef struct s_point		t_point;
 
@@ -42,8 +42,8 @@ typedef struct s_segment	t_segment;
 
 struct						s_normal
 {
-	int		xlen;
-	int		ylen;
+	float	xlen;
+	float	ylen;
 };
 typedef struct s_normal		t_normal;
 
@@ -56,9 +56,9 @@ int							get_extremity(t_segment segment, t_point *first, t_point *end);
 void						get_next_point(t_segment segment, t_point *point);
 void						get_prev_point(t_segment segment, t_point *point);
 t_normal					get_normal(t_segment s);
-t_point						get_point(int x, int y);
+t_point						get_point(float x, float y);
 t_segment					get_segment(t_point p, t_point q);
-t_segment					get_segmenti(int px, int py, int qx, int qy);
+t_segment					get_segmenti(float px, float py, float qx, float qy);
 bool						is_colinear(t_segment s1, t_segment s2);
 bool						is_pair(int a);
 bool						is_same_segment(t_segment s1, t_segment s2);
@@ -74,7 +74,7 @@ t_segment *s1, t_segment *s2);
 void						split_segment_exc(t_segment segment, t_point point,
 t_segment *s1, t_segment *s2);
 
-int							translate_point(t_point *point, int x, int y);
-int							translate_segment(t_segment *segment, int x, int y);
+int							translate_point(t_point *point, float x, float y);
+int							translate_segment(t_segment *segment, float x, float y);
 
 #endif

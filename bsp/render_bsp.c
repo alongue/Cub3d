@@ -17,9 +17,10 @@ void	display_polygon(t_data *data, t_node node)
 	int	counter;
 
 	counter = -1;
+	printf("node.set[counter].exist = %d\n", node.set[counter + 1].exist);
 	while (node.set[++counter].exist && node.set[counter].dodisplay)
 	{
-		printf("node.set[counter].wall.left.a.x = %d\ta.y = %d\nb.x = %d\tb.y = %d\n", node.set[counter].wall.left.a.x, node.set[counter].wall.left.a.y, node.set[counter].wall.left.b.x, node.set[counter].wall.left.b.y);
+		printf("node.set[counter].wall.left.a.x = %f\ta.y = %f\nb.x = %f\tb.y = %f\n", node.set[counter].wall.left.a.x, node.set[counter].wall.left.a.y, node.set[counter].wall.left.b.x, node.set[counter].wall.left.b.y);
 		display_wall(data, node.set[counter].wall);
 	}
 }

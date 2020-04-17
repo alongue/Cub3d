@@ -21,7 +21,7 @@
 # include <limits.h>
 # include <stdio.h>
 
-# define DEFX 320
+# define DEFX 100
 # define DEFY 200
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -34,11 +34,14 @@ struct				s_data
 	bool	exist;
 	void	*mlx_ptr;
 	void	*mlx_win;
+	void	*img;
 	int		win_width;
 	int		win_height;
+	int		cubside;
+	int		currentCubIndex[2]; // sert uniquement a parse_poly
 	char	*file;
 	int		nbcoldone;
-	bool	coldone[320]; //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
+	bool	*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
 
@@ -136,25 +139,25 @@ struct				s_map
 };
 typedef struct s_map		t_map;
 
-void				build_tree(t_node *node, t_polygon *set, t_player player);
+void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
 int					classify_point(t_polygon polygon, t_point point);
-void				clip(t_wall *wall);
+void				clip(t_wall *wall, t_data data);
 bool				cond_bot(t_map map, int x, int y);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
-t_polygon			create_polybot(t_map map, int x, int y, t_player player);
-t_polygon			create_polyleft(t_map map, int x, int y, t_player player);
-t_polygon			create_polyright(t_map map, int x, int y, t_player player);
-t_polygon			create_polytop(t_map map, int x, int y, t_player player);
-void				create_tree_node(t_map *map, t_player player);
-t_wall				create_wall(t_polygon poly, t_player player, int cubside);
+t_polygon			create_polybot(t_map map, int *coor, t_data, t_player player);
+t_polygon			create_polyleft(t_map map, int *coor, t_data, t_player player);
+t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
+t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
+void				create_tree_node(t_map *map, t_player player, t_data data);
+t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					create_data(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
-bool				do_display_poly(t_polygon *polygon);
+bool				do_display_poly(t_polygon *polygon, t_data data);
 t_polygon			dup_polygon(t_polygon polygon);
 //int					get_width(t_wall wall);
-t_map				get_coor(t_data data, t_player *player, int wallside);
+t_map				get_coor(t_data data, t_player *player);
 t_player			get_player(int x, int z, int c, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
@@ -164,15 +167,15 @@ void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
-t_polygon			*parse_poly(t_map map, t_player player);
+t_polygon			*parse_poly(t_map map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 void				partition_frontset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
-int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, int cubside);
-bool				raycastx(t_wall *wall, t_polygon polygon);
+int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
+bool				raycastx(t_wall *wall, t_polygon polygon, t_data data);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				set_cub(t_cub *cub, int i, int counter);

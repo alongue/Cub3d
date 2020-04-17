@@ -38,12 +38,12 @@
 	//return (wall);
 }*/
 
-void	clip(t_wall *wall)
+void	clip(t_wall *wall, t_data data)
 {
 	printf("--- JE SUIS DANS LE CLIP ---\n");
-	wall->rightcl.a.x = min(wall->rightcl.a.x, 319);
-	wall->rightcl.b.x = min(wall->rightcl.b.x, 319);
-	printf("wall.leftcl.b.y (dans le clip) = %d\n", wall->leftcl.b.y);
+	wall->rightcl.a.x = min(wall->rightcl.a.x, data.win_width - 1);
+	wall->rightcl.b.x = min(wall->rightcl.b.x, data.win_width - 1);
+	printf("wall.leftcl.b.y (dans le clip) = %f\n", wall->leftcl.b.y);
 	wall->top = (double)wall->leftcl.a.y;
 	wall->bot = (double)wall->leftcl.b.y;
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
@@ -59,7 +59,7 @@ void	clip(t_wall *wall)
 
 void	set_delta(t_wall *wall)
 {
-	printf("wall->rightcl.a.y = %d\t\tet\t\twall->leftcl.a.y = %d\n", wall->rightcl.a.y, wall->leftcl.a.y);
+	printf("wall->rightcl.a.y = %f\t\tet\t\twall->leftcl.a.y = %f\n", wall->rightcl.a.y, wall->leftcl.a.y);
 	wall->deltatop = (double)(wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	printf("wall->deltatop = %f\tet\twall->deltabot = %f\n", wall->deltatop, wall->deltabot);
@@ -70,11 +70,10 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 	int		maxi;
 
 	printf("--- JE SUIS DANS LE INIT DISPL ---\n");
-	clip(wall);
+	clip(wall, *data);
 	maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
-	printf("wall->rightcl.a.x = %d\tet\twall->leftcl.a.x = %d\n", wall->rightcl.a.x, wall->leftcl.a.x);
+	printf("wall->rightcl.a.x = %f\tet\twall->leftcl.a.x = %f\n", wall->rightcl.a.x, wall->leftcl.a.x);
 	//wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, maxi);
-	wall->img = mlx_new_image(data->mlx_ptr, DEFX, DEFY);
-	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
+	wall->img_data = (int *)mlx_get_data_addr(data->img, &wall->bpp, &wall->size_line, &wall->endian);
 	*countcol = wall->leftcl.a.x - 1;
 }
