@@ -67,7 +67,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	{
 		j = -1;
 		while (set[++j].exist)
-			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
+			if (i != j && (side = get_side(set[i], set[j])) != FRONT)
 			{
 				//printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
 				return (false); // COINCIDING -> 0

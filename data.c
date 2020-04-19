@@ -14,7 +14,7 @@
 
 int		create_data(t_data *data, char **av)
 {
-	data->nbcoldone = 0;
+	//data->nbcoldone = 0;
 	(void)av;
 	data->file = ft_strdup(av[1]);
 	data->coldone = malloc(sizeof(bool) * data->win_width);

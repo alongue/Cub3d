@@ -40,7 +40,7 @@ struct				s_data
 	int		cubside;
 	int		currentCubIndex[2]; // sert uniquement a parse_poly
 	char	*file;
-	int		nbcoldone;
+	//int		nbcoldone;
 	bool	*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
@@ -140,6 +140,7 @@ struct				s_map
 typedef struct s_map		t_map;
 
 void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
+bool				can_draw(t_wall wall, t_data *data, int index);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
 bool				cond_bot(t_map map, int x, int y);

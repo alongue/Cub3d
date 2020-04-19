@@ -75,5 +75,19 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 	printf("wall->rightcl.a.x = %f\tet\twall->leftcl.a.x = %f\n", wall->rightcl.a.x, wall->leftcl.a.x);
 	//wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, maxi);
 	wall->img_data = (int *)mlx_get_data_addr(data->img, &wall->bpp, &wall->size_line, &wall->endian);
-	*countcol = wall->leftcl.a.x - 1;
+	*countcol = (int)round(wall->leftcl.a.x) - 1;
+}
+
+bool	can_draw(t_wall wall, t_data *data, int index)
+{
+	float	dist[data->win_width];
+
+	if (!data->coldone[index] ||
+		wall.bot - wall.top > dist[index])
+	{
+		dist[index] = wall.bot - wall.top;
+		return (true);
+	}
+	else
+		return (false);
 }

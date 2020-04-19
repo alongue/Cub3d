@@ -63,8 +63,9 @@ int		main(int ac, char **av)
 	create_tree_node(&map, player, data);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);
 	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);
-	ft_memseti(data.coldone, false, data.win_width);
+	//ft_memseti(data.coldone, false, data.win_width);
 	renderbsp(&data, *map.tree.rootnode, player);
+	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);
 	//coor[0] = ft_memseti(coor[0], 50, 2);

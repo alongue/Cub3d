@@ -111,8 +111,8 @@ void			replace_poly(t_polygon *polygon, t_player player)
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (polygon->newsegment.a.y < polygon->newsegment.b.y ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) ||
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
@@ -168,19 +168,20 @@ int				display_wall(t_data *data, t_wall wall)
 	int		i;
 	int		ptraddr[2];
 
+	sleep(5);
 	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
-	while (++i <= wall.rightcl.a.x)
+	while (++i <= (int)round(wall.rightcl.a.x))
 	{
-		printf("i = %d\tand col is done ? %d\n", i, data->coldone[i]);
-		if (!data->coldone[i])
+		//printf("i = %d\tand col is done ? %d\n", i, data->coldone[i]);
+		if (can_draw(wall, data, i))
 		{
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
-			ptraddr[0] = (int)(wall.topcl * data->win_width + i);
-			ptraddr[1] = (int)(wall.botcl * data->win_width + i);
+			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
+			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
 			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
@@ -190,13 +191,12 @@ int				display_wall(t_data *data, t_wall wall)
 			}
 			printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = true;
-			data->nbcoldone++;
+			//data->nbcoldone++;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
 	printf("Je suis sorti\n");
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (EXIT_SUCCESS);
 }
 

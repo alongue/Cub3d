@@ -125,6 +125,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	int			counter[3];
 	static int	i = 0;
 
+	printf("------ !!!!! JE RENTRE DANS LE BUILD TREE !!!!! ------\n");
 	node->exist = false;
 	node->frontchild = malloc(sizeof(t_node) * 1);
 	node->backchild = malloc(sizeof(t_node) * 1);

@@ -88,7 +88,7 @@ static int		parse(char *line, t_cub **cub, int lastline, t_player *player)
 			set_cub(&cub[i][counter], i, counter);
 		else if (ft_get_nbchar("SNEW", line[counter]) == 1)
 		{
-			*player = get_player(counter * cub[0][0].side, i * cub[0][0].side, line[counter], 60.);
+			*player = get_player(counter * cub[0][0].side, i * cub[0][0].side, line[counter], 90.);
 			cub[i][counter].exist = false;
 		}
 		else
