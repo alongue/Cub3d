@@ -25,9 +25,16 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 	{
 		side = get_side(splitter, nodeset[i]);
 		if (side == FRONT)
+		{
+			printf("i = %d (dans frontset)\n", i);
 			counter++;
+		}
 		else if (side == SPANNING)
+
+		{
+			printf("i = %d (dans frontset)\n", i);
 			counter++;
+		}
 	}
 	printf("counter = %d (dans frontset malloc)\n", counter);
 	//sleep(4);
@@ -52,9 +59,15 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 	{
 		side = get_side(splitter, nodeset[i]);
 		if (side == BACK)
+		{
+			printf("i = %d (dans backset)\n", i);
 			counter++;
+		}
 		else if (side == SPANNING)
+		{
+			printf("i = %d (dans backset)\n", i);
 			counter++;
+		}
 	}
 	printf("counter = %d (dans backset malloc)\n", counter);
 	//sleep(4);

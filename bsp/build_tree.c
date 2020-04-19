@@ -151,7 +151,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		if (side == FRONT)									/*																										*/
 		{
 			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
-			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
+			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
 			//frontpolyset[counter[1]].isused = false;
 			counter[1]++;
 			//printf("set[%d] se trouve devant\n", counter[0]);
@@ -159,7 +159,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		else if (side == BACK)								/*										tout ca dans une												*/
 		{
 			node->backchild->set[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
-			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
+			//node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
 			//backpolyset[counter[2]].isused = false;
 			counter[2]++;
 			//printf("set[%d] se trouve derriere\n", counter[0]);
@@ -169,8 +169,8 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
 			printf("\n-- JE VAIS SPLIT --\n\n");
 			split_polygon(set[counter[0]], node->splitter, &node->frontchild->set[counter[1]], &node->backchild->set[counter[2]]);/*													*/
-			node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
-			node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
+			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
+			//node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
 			//printf("set[%d] se trouve devant et derriere\n", counter[0]);
 			counter[1]++;
 			counter[2]++;

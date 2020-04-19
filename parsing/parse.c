@@ -16,9 +16,9 @@ static int		count(char *line, int *counter1)
 {
 	char	*str;
 
-	str = ft_rmchar(line, ' ');
 	if (ft_is_in_a_row(line, ' '))
 		return (ft_putstrreti_fd("Error\nChaque element de la map doit être séparé par exactement un espace.\n", -1, 0));
+	str = ft_rmchar(line, ' ');
 	if (!ft_isonlychar(str, "01SNEW"))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
 	*counter1 = (int)ft_strlen(str);

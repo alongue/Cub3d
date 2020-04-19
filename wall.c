@@ -100,6 +100,7 @@ void			replace_poly(t_polygon *polygon, t_player player)
 	get_extremity(polygon->segment, &a, &b);
 	translate_point(&a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
 	translate_point(&b, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
+	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", a.y, b.y, a.x, b.x);
 	polygon->newsegment = get_segmenti(a.x * cos(-player.angle)
 									- a.y * sin(-player.angle),
 									a.y * cos(-player.angle)
@@ -108,11 +109,12 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
+	printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
-	if (polygon->newsegment.a.y < polygon->newsegment.b.y ||
+	if (polygon->newsegment.a.y > polygon->newsegment.b.y ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
@@ -148,6 +150,7 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 	t_wall	wall;
 
 	wall.color = 0xff00ff;
+	printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
 							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
 	wall.right = get_segmenti(poly.wall.right.a.x, 0,
@@ -168,7 +171,7 @@ int				display_wall(t_data *data, t_wall wall)
 	int		i;
 	int		ptraddr[2];
 
-	sleep(5);
+	//sleep(5);
 	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);

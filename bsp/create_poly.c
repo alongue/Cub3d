@@ -107,6 +107,7 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 		}
 	}
 	replace_poly(&p, player);
+	printf("p.segment.a.x (right) = %f\n", p.segment.a.x);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.dodisplay = do_display_poly(&p, data);
 	p.wall = create_wall(p, player, data);
@@ -146,5 +147,6 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 	p.wall = create_wall(p, player, data);
 	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = true;
+	printf("p.segment.a.x = %f (left)\n", p.segment.a.x);
 	return (p);
 }

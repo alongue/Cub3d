@@ -14,8 +14,8 @@
 
 bool		raycastx(t_wall *wall, t_polygon polygon, t_data data)
 {
-	wall->left.a.x = data.win_width / 2 - polygon.newsegment.a.y * data.win_width / 2 / polygon.newsegment.a.x;
-	wall->right.a.x = data.win_width / 2 - polygon.newsegment.b.y * data.win_width / 2 / polygon.newsegment.b.x;
+	wall->left.a.x = data.win_width / 2 + polygon.newsegment.a.y * data.win_width / 2 / polygon.newsegment.a.x;
+	wall->right.a.x = data.win_width / 2 + polygon.newsegment.b.y * data.win_width / 2 / polygon.newsegment.b.x;
 	printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x == wall->right.a.x ||
 		wall->right.a.x < 0 || wall->left.a.x > data.win_width)
