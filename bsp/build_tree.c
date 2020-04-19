@@ -148,7 +148,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	while (set[counter[0]].exist/* && set[counter[0]].segment.exist*/)
 	{
 		side = get_side(node->splitter, set[counter[0]]);	/*																										*/
-		if (side == FRONT)									/*																										*/
+		if (side == FRONT || side == COINCIDING)									/*																										*/
 		{
 			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
 			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
