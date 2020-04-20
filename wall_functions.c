@@ -61,7 +61,8 @@ void	set_delta(t_wall *wall)
 {
 	printf("wall->rightcl.a.y = %f\t\tet\t\twall->leftcl.a.y = %f\n", wall->rightcl.a.y, wall->leftcl.a.y);
 	wall->deltatop = (double)(wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
-	wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltabot = -wall->deltatop;
+	//wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	printf("wall->deltatop = %f\tet\twall->deltabot = %f\n", wall->deltatop, wall->deltabot);
 }
 
@@ -80,12 +81,10 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 
 bool	can_draw(t_wall wall, t_data *data, int index)
 {
-	float	dist[data->win_width];
-
 	if (!data->coldone[index] ||
-		wall.bot - wall.top > dist[index])
+		wall.bot - wall.top > data->heightCol[index])
 	{
-		dist[index] = wall.bot - wall.top;
+		data->heightCol[index] = wall.bot - wall.top;
 		return (true);
 	}
 	else

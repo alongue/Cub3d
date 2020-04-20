@@ -28,6 +28,7 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 		printf("current->segment.a.x = %f\tcurrent->segment.a.y = %f\tcurrent->segment.b.x = %f\tcurrent->segment.b.y = %f\n", current->segment.a.x, current->segment.a.y, current->segment.b.x, current->segment.b.y);
 		if (is_same_segment(set[i].segment, current->segment))
 		{
+			printf("TROUVEE !!!\n");
 			set[i].isused = true;
 			current->isused = true;
 		}

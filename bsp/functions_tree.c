@@ -12,6 +12,8 @@
 
 #include "../header.h"
 
+#define POINT_SCALE 0.001
+
 int			polysetlen(t_polygon *set)
 {
 	int		i;
@@ -24,11 +26,11 @@ int			polysetlen(t_polygon *set)
 
 int			classify_point(t_polygon polygon, t_point point)
 {
-	long	testvalue;
-	long	realres;
+	float	testvalue;
+	float	realres;
 
-	testvalue = (long)polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
-	realres = (long)polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
+	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
+	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
 	//printf("testvalue = %ld\tet\trealres = %ld\n", testvalue, realres);
 	if (testvalue == realres)
 		return (COINCIDING);
@@ -40,14 +42,21 @@ int			classify_point(t_polygon polygon, t_point point)
 
 int			get_side(t_polygon poly1, t_polygon poly2)
 {
-	if (classify_point(poly1, poly2.segment.a) == FRONT
-		&& classify_point(poly1, poly2.segment.b) == FRONT)
+	t_point	a;
+	t_point	b;
+
+	a = poly2.segment.a;
+	get_next_point(poly2.segment, &a, POINT_SCALE);
+	b = poly2.segment.b;
+	get_prev_point(poly2.segment, &b, POINT_SCALE);
+	if (classify_point(poly1, a) == FRONT
+		&& classify_point(poly1, b) == FRONT)
 		return (FRONT);
-	else if (classify_point(poly1, poly2.segment.a) == BACK
-			 && classify_point(poly1, poly2.segment.b) == BACK)
+	else if (classify_point(poly1, a) == BACK
+			 && classify_point(poly1, b) == BACK)
 		return (BACK);
-	else if (classify_point(poly1, poly2.segment.a) == COINCIDING
-			 && classify_point(poly1, poly2.segment.b) == COINCIDING)
+	else if (classify_point(poly1, a) == COINCIDING
+			 && classify_point(poly1, b) == COINCIDING)
 		return (COINCIDING);
 	return (SPANNING);
 }
@@ -92,21 +101,23 @@ t_polygon *frontset, t_polygon *backset)
 	p = dup_point(poly.segment.a);
 	t_point	a;
 	a = dup_point(p);
-	//printf("poly.segment.a.x = %d\tpoly.segment.b.x = %d\n", poly.segment.a.x, poly.segment.b.x);
+	printf("poly.segment.a.x = %f\tpoly.segment.b.x = %f\n", poly.segment.a.x, poly.segment.b.x);
 	//sleep(4);
 	side = classify_point(splitter, p);
-	//printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.b.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
-	sleep(4);
+	printf("p.x = %f\tet\tp.y = %f\tseg.b.x = %f\tet\tseg.b.y = %f\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
 	oldside = side;
-	//printf("oldside = %d\n", oldside);
+	printf("oldside = %d\n", oldside);
 	int	i;
 	i = 0;
 	printf("Extremites sont : %f\t\tet\t\t%f\n", poly.segment.a.y, poly.segment.b.y);
+	//sleep(4);
 	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
 		//if (poly.segment.coeff >= 0)
-			get_next_point(poly.segment, &p);
+		//printf("side = %d\n", poly.wall.realside);
+		//sleep(4);
+			get_next_point(poly.segment, &p, 64);
 			printf("coeff = %f\tpoint : x = %f\tet\ty = %f\n", poly.segment.coeff, p.x, p.y);
 		//else
 		//	get_prev_point(poly.segment, &p);
@@ -125,8 +136,9 @@ t_polygon *frontset, t_polygon *backset)
 	/*printf("side = %d\n", side);
 	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.a.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);
 	sleep(1);*/
+	//sleep(4);
 	if (oldside == FRONT)
 		partition_frontset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
-	else
+	else if (oldside == BACK)
 		partition_backset(frontset, backset, p, poly); // on met oldside pcq c le moment ou ca coincide a ce moment la
 }

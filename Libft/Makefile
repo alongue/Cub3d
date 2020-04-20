@@ -69,7 +69,8 @@ SRCS	=	ft_atoi.c		\
 		ft_putstrreti_fd.c	\
 		ft_strstrpart.c		\
 		ft_is_in_a_row.c	\
-		ft_swap.c
+		ft_swap.c			\
+		ft_strcpy.c
 
 SRCS_B	=	ft_lstnew_bonus.c	\
 		ft_lstadd_front_bonus.c	\

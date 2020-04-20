@@ -17,20 +17,20 @@ void		set_cub(t_cub *cub, int i, int counter)
 	cub->exist = true;
 	cub->x = counter * cub->side; //sommet a gauche avec vue du dessus
 	cub->y = i * cub->side; //sommet en haut avec vue du dessus
-	cub->stop = get_segmenti(cub->x + 0.1,
+	cub->stop = get_segmenti(cub->x + 0.1*0,
 							cub->y,
-							cub->x + cub->side - 0.1,
+							cub->x + cub->side - 0.1*0,
 							cub->y);
 	cub->sright = get_segmenti(cub->x + cub->side,
-							cub->y + 0.1,
+							cub->y + 0.1*0,
 							cub->x + cub->side,
-							cub->y + cub->side - 0.1);
-	cub->sbot = get_segmenti(cub->x + cub->side - 0.1,
+							cub->y + cub->side - 0.1*0);
+	cub->sbot = get_segmenti(cub->x + cub->side - 0.1*0,
 							cub->y + cub->side,
-							cub->x + 0.1,
+							cub->x + 0.1*0,
 							cub->y + cub->side);
 	cub->sleft = get_segmenti(cub->x,
-							cub->y + cub->side - 0.1,
+							cub->y + cub->side - 0.1*0,
 							cub->x,
-							cub->y + 0.1);
+							cub->y + 0.1*0);
 }

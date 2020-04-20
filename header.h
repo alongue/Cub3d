@@ -38,6 +38,7 @@ struct				s_data
 	int		win_width;
 	int		win_height;
 	int		cubside;
+	float	*heightCol;
 	int		currentCubIndex[2]; // sert uniquement a parse_poly
 	char	*file;
 	//int		nbcoldone;

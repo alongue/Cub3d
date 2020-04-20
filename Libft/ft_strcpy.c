@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_segment.c                                      :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/16 14:53:05 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/05 19:01:54 by alongcha         ###   ########.fr       */
+/*   Created: 2019/12/02 15:22:34 by alongcha          #+#    #+#             */
+/*   Updated: 2019/12/11 20:30:08 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmath.h"
+#include "libft.h"
 
-t_segment	dup_segment(t_segment s)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	t_segment	segment;
+	int		i;
 
-	segment.a = dup_point(s.a);
-	segment.b = dup_point(s.b);
-	segment.coeff = s.coeff;
-	segment.intercept = s.intercept;
-	segment.exist = s.exist;
-	return (segment);
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

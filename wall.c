@@ -149,7 +149,6 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 {
 	t_wall	wall;
 
-	wall.color = 0xff00ff;
 	printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
 							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
@@ -178,7 +177,7 @@ int				display_wall(t_data *data, t_wall wall)
 	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
-		//printf("i = %d\tand col is done ? %d\n", i, data->coldone[i]);
+		printf("i = %d\n", i);
 		if (can_draw(wall, data, i))
 		{
 			wall.topcl = fmax(wall.top, 0.);

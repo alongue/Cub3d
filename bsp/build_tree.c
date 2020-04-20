@@ -94,9 +94,12 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			{
 				poly[0] = dup_polygon(set[i]);
 				set_best_poly(poly, set, minrelation, &leastsplits);
-				//printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
+				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
 				if (minrelation == 0.)
+				{
+					printf("minrelation = 0000000000\n");
 					sleep(5);
+				}
 			}
 		}
 		//printf("TOUR SUIVANT\n");
@@ -166,8 +169,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		}
 		else if (side == SPANNING)							/*																										*/
 		{
-			//printf("set[%d].segment.a.x = %d\tet\tset[%d].a.x = %d\tet\tset[%d].b.y = %d\tet\tset[%d].b.y = %d\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
-			printf("\n-- JE VAIS SPLIT --\n\n");
+			printf(" !!!!!!!!! JE VAIS SPLIT !!!!!!!!! \n");
 			split_polygon(set[counter[0]], node->splitter, &node->frontchild->set[counter[1]], &node->backchild->set[counter[2]]);/*													*/
 			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
 			//node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur

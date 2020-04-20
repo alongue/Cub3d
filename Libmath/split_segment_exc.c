@@ -21,8 +21,8 @@ void	split_segment_exc(t_segment segment, t_point point,
 	newpoint[1] = dup_point(point);
 	if (!segment.exist)
 		return ;
-	get_prev_point(segment, &newpoint[0]);
-	get_next_point(segment, &newpoint[1]);
+	get_prev_point(segment, &newpoint[0], 0.1);
+	get_next_point(segment, &newpoint[1], 0.1);
 	if (segment.a.x < segment.b.x)
 	{
 		*s1 = get_segment(segment.a, newpoint[0]);

@@ -43,7 +43,11 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 	*backset = dup_polygon(poly);
 	frontset->isused = false;
 	backset->isused = false;
-	split_segment_exc(poly.segment, p, &(frontset->segment), &(backset->segment));
+	split_segment_inc(poly.segment, p, &(frontset->segment), &(backset->segment));
+	printf("FRONT\n");
+	printf("seg front a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", frontset->segment.a.x, frontset->segment.b.x, frontset->segment.a.y, frontset->segment.b.y);
+	printf("seg back a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", backset->segment.a.x, backset->segment.b.x, backset->segment.a.y, backset->segment.b.y);
+	//sleep(3);
 	//frontset->nbwall = poly.nbwall / 2; du coup faudrait mettre ca en double
 	//backset->nbwall = poly.nbwall / 2;
 }
@@ -58,7 +62,12 @@ void		partition_backset(t_polygon *frontset, t_polygon *backset,
 	*backset = dup_polygon(poly);
 	frontset->isused = false;
 	backset->isused = false;
-	split_segment_exc(poly.segment, p, &(backset->segment), &(frontset->segment));
+	split_segment_inc(poly.segment, p, &(backset->segment), &(frontset->segment));
+	printf("BACK\n");
+	printf("p.x = %f\tp.y = %f\n", p.x, p.y);
+	printf("seg front a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", frontset->segment.a.x, frontset->segment.b.x, frontset->segment.a.y, frontset->segment.b.y);
+	printf("seg back a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", backset->segment.a.x, backset->segment.b.x, backset->segment.a.y, backset->segment.b.y);
+	//sleep(3);
 	//frontset->nbwall = poly.nbwall / 2; du coup faudrait mettre ca en double
 	//backset->nbwall = poly.nbwall / 2;
 }

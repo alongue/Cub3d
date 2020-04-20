@@ -41,6 +41,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p, data);
 	p.wall = create_wall(p, player, data);
+	p.wall.color = 0xFF0000;
 	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -75,6 +76,7 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p, data);
 	p.wall = create_wall(p, player, data);
+	p.wall.color = 0x00FF00;
 	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -111,6 +113,7 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.dodisplay = do_display_poly(&p, data);
 	p.wall = create_wall(p, player, data);
+	p.wall.color = 0x0000FF;
 	//printf("p.segment.exist (right) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -145,6 +148,7 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 	replace_poly(&p, player);
 	p.dodisplay = do_display_poly(&p, data);
 	p.wall = create_wall(p, player, data);
+	p.wall.color = 0xFFFFFF;
 	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = true;
 	printf("p.segment.a.x = %f (left)\n", p.segment.a.x);

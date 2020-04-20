@@ -16,14 +16,18 @@ void	display_polygons(t_data *data, t_node node)
 {
 	int	counter;
 
+	printf("!!! DISPL POLY !!!\n");
+	//sleep(3);
 	//counter = polysetlen(node.set);
 	counter = -1;
 	//printf("node.set[counter].exist = %d\n", node.set[counter + 1].exist);
 	while (node.set[++counter].exist && node.set[counter].dodisplay)
 	{
-		printf("node.set[counter].wall.left.a.x = %f\ta.y = %f\nb.x = %f\tb.y = %f\n", node.set[counter].wall.left.a.x, node.set[counter].wall.left.a.y, node.set[counter].wall.left.b.x, node.set[counter].wall.left.b.y);
+		printf("node.set[counter].wall.leftcl.a.x = %f\ta.y = %f\nrightcl.b.x = %f\tb.y = %f\n", node.set[counter].wall.leftcl.a.x, node.set[counter].wall.leftcl.a.y, node.set[counter].wall.rightcl.b.x, node.set[counter].wall.rightcl.b.y);
 		display_wall(data, node.set[counter].wall);
 	}
+	printf("\nLes poly du node sont passes\n");
+	//sleep(4);
 }
 
 /*void	display_polygons(t_data *data, t_node node)

@@ -12,23 +12,28 @@
 
 #include "libmath.h"
 
-void	get_prev_point(t_segment segment, t_point *point)
+void	get_prev_point(t_segment segment, t_point *point, float iterator)
 {
 	if (segment.coeff == INFINITY &&
-		point->y <= segment.a.y && point->y >= segment.b.y)
+		point->y >= segment.a.y && point->y <= segment.b.y)
 	{
-		point->y--;
+		point->y -= iterator;
 		set_point_on_segy(segment, point);
 	}
 	else if (segment.coeff == -INFINITY &&
-		point->y >= segment.a.y && point->y <= segment.b.y)
+		point->y >= segment.b.y && point->y <= segment.a.y)
 	{
-		point->y++;
+		point->y += iterator;
 		set_point_on_segy(segment, point);
 	}
-	else if (point->x >= segment.a.x && point->x <= segment.b.x)
+	else if (point->x >= segment.a.x && point->x <= segment.b.x && segment.a.x < segment.b.x)
 	{
-		point->x--;
+		point->x -= iterator;
+		set_point_on_segx(segment, point);
+	}
+	else if (point->x <= segment.a.x && point->x >= segment.b.x && segment.a.x > segment.b.x)
+	{
+		point->x += iterator;
 		set_point_on_segx(segment, point);
 	}
 }
