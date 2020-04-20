@@ -20,9 +20,9 @@ t_player		get_player(int x, int z, int c, double fieldvis)
 	double		angle;
 
 	player.exist = false;
-	if (c == 'S')
+	if (c == 'N')
 		angle = 270. * M_PI / 180;
-	else if (c == 'N')
+	else if (c == 'S')
 		angle = 90. * M_PI / 180;
 	else if (c == 'E')
 		angle = 0. * M_PI / 180;

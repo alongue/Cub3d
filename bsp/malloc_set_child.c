@@ -24,7 +24,7 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 	while (nodeset[++i].exist)// && nodeset[i].segment.exist)
 	{
 		side = get_side(splitter, nodeset[i]);
-		if (side == FRONT)
+		if (side == FRONT || side == COINCIDING)
 		{
 			printf("i = %d (dans frontset)\n", i);
 			counter++;
