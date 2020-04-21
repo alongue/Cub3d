@@ -45,12 +45,9 @@ int		funt(int i, void **p)
 	if (i == 2)
 		move_right(player);
 	if (i == 124)
-	{
-		turn_right(player);
-		sleep(41);
-	}
+		;//turn_right(player);
 	if (i == 123)
-		turn_left(player);
+		;//turn_left(player);
 	if (i == 53)
 		mlx_hook(data->mlx_win, 17, 0, escape, data);
 	printf("keycode = %d\n", i);
