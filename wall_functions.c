@@ -81,7 +81,7 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 
 bool	can_draw(t_wall wall, t_data *data, int index)
 {
-	printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
+	//printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
 	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
 		wall.bot - wall.top > data->heightcol[index]))
 	{

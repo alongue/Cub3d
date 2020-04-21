@@ -14,25 +14,21 @@
 
 void			move_forward(t_player *player)
 {
-	player->speed = fabsf(player->speed);
 	set_player_pos(player, cos(player->angle) * player->speed, sin(player->angle) * player->speed);
 }
 
 void			move_backward(t_player *player)
 {
-	player->speed = -fabsf(player->speed);
-	set_player_pos(player, cos(player->angle) * player->speed, sin(player->angle) * player->speed);
+	set_player_pos(player, -cos(player->angle) * player->speed, -sin(player->angle) * player->speed);
 }
 
 void			move_right(t_player *player)
 {
-	player->speed = fabsf(player->speed);
 	set_player_pos(player, cos(player->angle + 90 * M_PI / 180) * player->speed, sin(player->angle + 90 * M_PI / 180) * player->speed);
 }
 
 void			move_left(t_player *player)
 {
-	player->speed = fabsf(player->speed);
 	set_player_pos(player, cos(player->angle - 90 * M_PI / 180) * player->speed, sin(player->angle - 90 * M_PI / 180) * player->speed);
 }
 

@@ -111,10 +111,14 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									+ b.x * sin(-player.angle));
 	printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
-	if (polygon->newsegment.a.y > polygon->newsegment.b.y ||
+	if (((player.angle <= M_PI / 2 && player.angle > 3 * M_PI / 2) && (polygon->newsegment.a.y > polygon->newsegment.b.y ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))) ||
+		(((player.angle <= 3 * M_PI / 2 && player.angle > M_PI / 2) && (polygon->newsegment.a.y < polygon->newsegment.b.y ||
+		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0)))))))
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
@@ -177,7 +181,7 @@ int				display_wall(t_data *data, t_wall wall)
 //	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
-		printf("i = %d\n", i);
+		//printf("i = %d\n", i);
 		if (can_draw(wall, data, i))
 		{
 			wall.topcl = fmax(wall.top, 0.);
@@ -185,13 +189,13 @@ int				display_wall(t_data *data, t_wall wall)
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
 			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
 //			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
-			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			//printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += data->win_width;
 			}
-			printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			//printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = true;
 			//data->nbcoldone++;
 		}
