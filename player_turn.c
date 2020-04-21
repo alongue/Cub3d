@@ -12,6 +12,8 @@
 
 #include "header.h"
 
+#define LIMIT_ANGLE 359.99
+
 void			turn_left(t_player *player)
 {
 	player->angle += (float)(player->sensi * M_PI / 180);
@@ -19,7 +21,14 @@ void			turn_left(t_player *player)
 
 void			turn_right(t_player *player)
 {
-	printf("player->angle = %f\n", player->angle);
 	player->angle -= (float)(player->sensi * M_PI / 180);
-	printf("player->angle = %f\n", player->angle);
+}
+
+void			set_player_angle(t_player *player, float angle)
+{
+	player->angle += angle;
+	if (player->angle < 0)
+		player->angle = LIMIT_ANGLE;
+	if (player->angle > LIMIT_ANGLE)
+		player->angle = 0;
 }
