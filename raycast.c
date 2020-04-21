@@ -12,12 +12,24 @@
 
 #include "header.h"
 
-bool		raycastx(t_wall *wall, t_polygon polygon, t_data data)
+bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 {
-	wall->left.a.x = data.win_width / 2 + polygon.newsegment.a.y * data.win_width / 2 / polygon.newsegment.a.x;
-	wall->right.a.x = data.win_width / 2 + polygon.newsegment.b.y * data.win_width / 2 / polygon.newsegment.b.x;
+	t_point		tmp;
+	t_segment	tmpsegment;
+
+	wall->left.a.x = data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x;
+	wall->right.a.x = data.win_width / 2 + polygon->newsegment.b.y * data.win_width / 2 / polygon->newsegment.b.x;
+	if (wall->left.a.x > wall->right.a.x)
+	{
+		tmpsegment = dup_segment(wall->left);
+		wall->left = dup_segment(wall->right);
+		wall->right = dup_segment(tmpsegment);
+		tmp = dup_point(polygon->newsegment.b);
+		polygon->newsegment.b = dup_point(polygon->newsegment.a);
+		polygon->newsegment.a = dup_point(tmp);
+	}
 	printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
-	if (wall->left.a.x == wall->right.a.x ||
+	if (wall->left.a.x >= wall->right.a.x ||
 		wall->right.a.x < 0 || wall->left.a.x > data.win_width)
 		return (false);
 	return (true);

@@ -189,7 +189,7 @@ t_point p, t_polygon poly);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
-bool				raycastx(t_wall *wall, t_polygon polygon, t_data data);
+bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				reset_data(t_data *data);

@@ -111,14 +111,14 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									+ b.x * sin(-player.angle));
 	printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
-	if (((player.angle <= M_PI / 2 && player.angle > 3 * M_PI / 2) && (polygon->newsegment.a.y > polygon->newsegment.b.y ||
+	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))) ||
-		(((player.angle <= 3 * M_PI / 2 && player.angle > M_PI / 2) && (polygon->newsegment.a.y < polygon->newsegment.b.y ||
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))/*) ||
+		(((player.angle >= M_PI / 2 && player.angle < 3 * M_PI / 2) && ((polygon->newsegment.a.y < polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x)||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0)))))))
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))))*/)
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
@@ -137,14 +137,14 @@ bool			do_display_poly(t_polygon *polygon, t_data data)
 	0;
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = false));
-	if (polygon->newsegment.a.x < ZMIN)
+	/*if (polygon->newsegment.a.x < ZMIN)
 	{
 		polygon->newsegment.a.y += (ZMIN - polygon->newsegment.a.x) * tanpoly;
 		polygon->newsegment.a.x = ZMIN;
-	}
+	}*/
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
-	polygon->dodisplay = raycastx(&polygon->wall, *polygon, data);
+	polygon->dodisplay = raycastx(&polygon->wall, polygon, data);
 	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
