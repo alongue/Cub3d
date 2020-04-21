@@ -45,12 +45,12 @@ int		funt(int i, void **p)
 	if (i == 2)
 		move_right(player);
 	if (i == 124)
-		;//turn_right(player);
+		turn_right(player);
 	if (i == 123)
-		;//turn_left(player);
+		turn_left(player);
 	if (i == 53)
 		mlx_hook(data->mlx_win, 17, 0, escape, data);
-	printf("keycode = %d\n", i);
+	//printf("keycode = %d\n", i);
 	renderbsp(data, *map->tree.rootnode, *player);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (0);

@@ -41,13 +41,3 @@ t_player		get_player(int x, int z, int c, double fieldvis)
 	player.exist = true;
 	return (player);
 }
-
-void			turn_left(t_player *player)
-{
-	player->angle -= (float)(player->sensi * M_PI / 180);
-}
-
-void			turn_right(t_player *player)
-{
-	player->angle -= (float)(player->sensi * M_PI / 180);
-}
