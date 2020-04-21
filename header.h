@@ -35,12 +35,16 @@ struct				s_data
 	void	*mlx_ptr;
 	void	*mlx_win;
 	void	*img;
+	int		*img_data; // les infos du mur de l'image
+	int		bpp; // blk
+	int		size_line; // blk
+	int		endian; // blk
 	int		win_width;
 	int		win_height;
 	int		cubside;
-	float	*heightCol;
+	float	*heightcol;
 	int		currentCubIndex[2]; // sert uniquement a parse_poly
-	char	*file;
+	char	*filename;
 	//int		nbcoldone;
 	bool	*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
@@ -104,6 +108,8 @@ struct				s_player
 	int		x;
 	int		y;
 	int		z;
+	float	speed;
+	float	sensi;
 	//int		height;
 	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
@@ -169,6 +175,12 @@ void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
+void				move_backward(t_player *player);
+void				move_forward(t_player *player);
+void				move_left(t_player *player);
+void				move_right(t_player *player);
+void				turn_left(t_player *player);
+void				turn_right(t_player *player);
 t_polygon			*parse_poly(t_map map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
@@ -180,11 +192,10 @@ int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data
 bool				raycastx(t_wall *wall, t_polygon polygon, t_data data);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
+void				reset_data(t_data *data);
 void				set_cub(t_cub *cub, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
-void				set_player(t_player *player, int x, int z, int y);
-void				set_player_angle(t_player *player, double angle);
 void				set_used_poly(t_polygon *set, t_polygon *current);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);

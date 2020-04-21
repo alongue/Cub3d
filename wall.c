@@ -171,10 +171,10 @@ int				display_wall(t_data *data, t_wall wall)
 	int		ptraddr[2];
 
 	//sleep(5);
-	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
+//	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
-	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
+//	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
 		printf("i = %d\n", i);
@@ -184,7 +184,7 @@ int				display_wall(t_data *data, t_wall wall)
 			wall.botcl = fmin(wall.bot, data->win_height);
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
 			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
-			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
+//			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
 			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
@@ -198,7 +198,7 @@ int				display_wall(t_data *data, t_wall wall)
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	printf("Je suis sorti\n");
+//	printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
 

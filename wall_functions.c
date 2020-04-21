@@ -40,10 +40,10 @@
 
 void	clip(t_wall *wall, t_data data)
 {
-	printf("--- JE SUIS DANS LE CLIP ---\n");
+//	printf("--- JE SUIS DANS LE CLIP ---\n");
 	wall->rightcl.a.x = min(wall->rightcl.a.x, data.win_width - 1);
 	wall->rightcl.b.x = min(wall->rightcl.b.x, data.win_width - 1);
-	printf("wall.leftcl.b.y (dans le clip) = %f\n", wall->leftcl.b.y);
+//	printf("wall.leftcl.b.y (dans le clip) = %f\n", wall->leftcl.b.y);
 	wall->top = (double)wall->leftcl.a.y;
 	wall->bot = (double)wall->leftcl.b.y;
 	if (wall->leftcl.a.x < 0 || wall->leftcl.b.x < 0)
@@ -53,8 +53,8 @@ void	clip(t_wall *wall, t_data data)
 		wall->leftcl.a.x = 0;
 		wall->leftcl.b.x = 0;
 	}
-	printf("wall->top = %f\n", wall->top);
-	printf("wall->bot = %f\n", wall->bot);
+//	printf("wall->top = %f\n", wall->top);
+//	printf("wall->bot = %f\n", wall->bot);
 }
 
 void	set_delta(t_wall *wall)
@@ -70,10 +70,10 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
 	int		maxi;
 
-	printf("--- JE SUIS DANS LE INIT DISPL ---\n");
+//	printf("--- JE SUIS DANS LE INIT DISPL ---\n");
 	clip(wall, *data);
 	maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
-	printf("wall->rightcl.a.x = %f\tet\twall->leftcl.a.x = %f\n", wall->rightcl.a.x, wall->leftcl.a.x);
+//	printf("wall->rightcl.a.x = %f\tet\twall->leftcl.a.x = %f\n", wall->rightcl.a.x, wall->leftcl.a.x);
 	//wall->img = mlx_new_image(data->mlx_ptr, wall->rightcl.a.x - wall->leftcl.a.x, maxi);
 	wall->img_data = (int *)mlx_get_data_addr(data->img, &wall->bpp, &wall->size_line, &wall->endian);
 	*countcol = (int)round(wall->leftcl.a.x) - 1;
@@ -81,10 +81,11 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 
 bool	can_draw(t_wall wall, t_data *data, int index)
 {
+	printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
 	if (!data->coldone[index] ||
-		wall.bot - wall.top > data->heightCol[index])
+		wall.bot - wall.top > data->heightcol[index])
 	{
-		data->heightCol[index] = wall.bot - wall.top;
+		data->heightcol[index] = wall.bot - wall.top;
 		return (true);
 	}
 	else

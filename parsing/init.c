@@ -18,7 +18,7 @@ void	init(t_player *player, t_wall *wall, t_data *data, char **av)
 	player->fieldvis = 60;
 	wall->realside = 64;   //enlever plus tard
 	player->fieldvis = wall->realside / 2;
-	data->file = av[1];
+	data->filename = av[1];
 	(void)data;
 }
 

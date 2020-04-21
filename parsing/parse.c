@@ -52,7 +52,7 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 	int		ret;
 	int		counter0;
 
-	fd = open(data.file, O_RDONLY);			//counter1 --> counterx
+	fd = open(data.filename, O_RDONLY);			//counter1 --> counterx
 	ret = 2;
 	if (!get_counter(fd, counterx, countery))
 		return (NULL);
@@ -109,11 +109,11 @@ t_map			get_coor(t_data data, t_player *player)
 	ret = 2;
 	ft_memseti(counter, 0, 2);
 	map.exist = false;
-	printf("data.file = %s\n", data.file);
-	if (!data.file || !ft_strstrpart(data.file, ft_strlen(data.file) - 4,
+	printf("data.filename = %s\n", data.filename);
+	if (!data.filename || !ft_strstrpart(data.filename, ft_strlen(data.filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-	fd = open(data.file, O_RDONLY);
+	fd = open(data.filename, O_RDONLY);
 	if (!(map.cub = get_malloc(data, &map.nbcubx, &map.nbcuby)))
 		return (map);
 	initcub(&map, data.cubside);

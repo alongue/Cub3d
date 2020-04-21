@@ -12,21 +12,33 @@
 
 #include "../header.h"
 
-void	display_polygons(t_data *data, t_node node)
+void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
+{
+	replace_poly(polygon, player);
+	polygon->dodisplay = do_display_poly(polygon, data);
+	polygon->wall = create_wall(*polygon, player, data);
+	polygon->wall.color = 0xff00ff;
+}
+
+void	display_polygons(t_data *data, t_node node, t_player player)
 {
 	int	counter;
 
-	printf("!!! DISPL POLY !!!\n");
+	//printf("!!! DISPL POLY !!!\n");
 	//sleep(3);
 	//counter = polysetlen(node.set);
 	counter = -1;
 	//printf("node.set[counter].exist = %d\n", node.set[counter + 1].exist);
-	while (node.set[++counter].exist && node.set[counter].dodisplay)
+	//(void)player;
+	while (node.set[++counter].exist)
 	{
-		printf("node.set[counter].wall.leftcl.a.x = %f\ta.y = %f\nrightcl.b.x = %f\tb.y = %f\n", node.set[counter].wall.leftcl.a.x, node.set[counter].wall.leftcl.a.y, node.set[counter].wall.rightcl.b.x, node.set[counter].wall.rightcl.b.y);
-		display_wall(data, node.set[counter].wall);
+		reset_polygons(&node.set[counter], player, *data);
+//		printf("node.set[counter].wall.leftcl.a.x = %f\ta.y = %f\nrightcl.b.x = %f\tb.y = %f\n", node.set[counter].wall.leftcl.a.x, node.set[counter].wall.leftcl.a.y, node.set[counter].wall.rightcl.b.x, node.set[counter].wall.rightcl.b.y);
+		printf("node.set[counter].dodisplay = %d\n", node.set[counter].dodisplay);
+		if (node.set[counter].dodisplay)
+			display_wall(data, node.set[counter].wall);
 	}
-	printf("\nLes poly du node sont passes\n");
+//	printf("\nLes poly du node sont passes\n");
 	//sleep(4);
 }
 
@@ -56,7 +68,7 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	//if (!current.backchild->exist && !current.frontchild->exist)
 	if (current.isleaf)
 	{
-		display_polygons(data, current);
+		display_polygons(data, current, player);
 		return ;
 	}
 	result = classify_point(current.splitter, player.pos);

@@ -15,18 +15,33 @@
 int		create_data(t_data *data, char **av)
 {
 	//data->nbcoldone = 0;
-	(void)av;
 	data->coldone = malloc(sizeof(bool) * data->win_width);
 	ft_memseti(data->coldone, 0, data->win_width);
-	data->heightCol = malloc(sizeof(float) * data->win_width);
-	ft_memseti(data->heightCol, 0, data->win_width);
+	data->heightcol = malloc(sizeof(float) * data->win_width);
+	ft_memseti(data->heightcol, 0, data->win_width);
 	printf("av[1] = %s\n", av[1]);
-	data->file = malloc(sizeof(char) * ft_strlen(av[1]) + 1);
-	ft_strcpy(data->file, av[1]);
+	data->filename = malloc(sizeof(char) * ft_strlen(av[1]) + 1);
+	data->filename = ft_strcpy(data->filename, av[1]);
 	if (((*data).mlx_win = mlx_new_window((*data).mlx_ptr, data->win_width, data->win_height, "Hello World")) == NULL)
 		return (EXIT_FAILURE);
 	data->img = mlx_new_image(data->mlx_ptr, data->win_width, data->win_height);
+	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
 	return (EXIT_SUCCESS);
 }
 
-//void	reset_data(t_data *data)
+void	reset_data(t_data *data)
+{
+	int	x;
+	int	y;
+
+	ft_memseti(data->coldone, 0, data->win_width);
+	ft_memseti(data->heightcol, 0, data->win_width);
+	x = -1;
+	y = -1;
+	while (++y < data->win_height)
+	{
+		x = -1;
+		while (++x < data->win_width)
+			data->img_data[y * data->win_width + x] = 0x000000;
+	}
+}

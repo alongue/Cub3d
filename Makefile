@@ -36,6 +36,8 @@ SRCS	=	$(MAIN)							\
 			raycast.c						\
 			player.c						\
 			wall_functions.c				\
+			player_move.c					\
+			player_turn.c					\
 			$(PARSE)/utils.c				\
 			$(PARSE)/parse.c				\
 			$(PARSE)/set_var_cub.c			\
@@ -64,7 +66,7 @@ GCC	=	gcc
 
 INC	=	-I /usr/X11/include
 
-LIBFL	=	-g -L /usr/X11/lib -lX11 -lmlx -lXext
+LIBFL	=	-g -L /usr/X11/lib -lmlx
 
 FWFL	=	-framework OpenGL -framework AppKit
 
@@ -97,11 +99,11 @@ $(BS)	: $(OBJS_B)
 	$(LIB) $(NAME)
 
 exec	: $(NAME)
-	$(GCC) $(INC) $(LIBFL) $(NAME) $(MAIN)
+	$(GCC) $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 debug	:	$(NAME)
-	$(GCC) $(INC) $(LIBFL) $(DEBG) $(NAME) $(MAIN)
+	$(GCC) $(INC) $(LIBFL) $(FWFL) $(DEBG) $(NAME) $(MAIN)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 clean	:

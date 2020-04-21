@@ -94,10 +94,10 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			{
 				poly[0] = dup_polygon(set[i]);
 				set_best_poly(poly, set, minrelation, &leastsplits);
-				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
+//				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
 				if (minrelation == 0.)
 				{
-					printf("minrelation = 0000000000\n");
+//					printf("minrelation = 0000000000\n");
 					sleep(5);
 				}
 			}
@@ -111,7 +111,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	while (set[++i].exist)
 		if (set[i].isused)
 			counter = i;
-	printf("best polygon is set[%d]\n", counter);
+//	printf("best polygon is set[%d]\n", counter);
 	return (poly[1]);
 }
 
@@ -128,7 +128,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	int			counter[3];
 	static int	i = 0;
 
-	printf("------ !!!!! JE RENTRE DANS LE BUILD TREE !!!!! ------\n");
+//	printf("------ !!!!! JE RENTRE DANS LE BUILD TREE !!!!! ------\n");
 	node->exist = false;
 	node->frontchild = malloc(sizeof(t_node) * 1);
 	node->backchild = malloc(sizeof(t_node) * 1);
@@ -140,7 +140,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	//}
 	if (is_convex_set(set, node))
 	{
-		printf("The set is convex\n");
+//		printf("The set is convex\n");
 		return ;
 	}
 	ft_memseti(counter, 0, 3);
@@ -169,7 +169,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		}
 		else if (side == SPANNING)							/*																										*/
 		{
-			printf(" !!!!!!!!! JE VAIS SPLIT !!!!!!!!! \n");
+//			printf(" !!!!!!!!! JE VAIS SPLIT !!!!!!!!! \n");
 			split_polygon(set[counter[0]], node->splitter, &node->frontchild->set[counter[1]], &node->backchild->set[counter[2]]);/*													*/
 			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
 			//node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
@@ -182,13 +182,13 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	}
 	node->exist = true;
 	i++;
-	printf("ca fait la %de boucle\n", i);
+//	printf("ca fait la %de boucle\n", i);
 	//sleep(1);
 	//free(set);
 	build_tree(node->frontchild, node->frontchild->set, player, data);
 	//free(frontpolyset);
 	i++;
-	printf("ca fait la %deme boucle\n", i);
+//	printf("ca fait la %deme boucle\n", i);
 	//sleep(1);
 	build_tree(node->backchild, node->backchild->set, player, data);
 	//free(backpolyset);
