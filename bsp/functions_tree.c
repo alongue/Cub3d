@@ -26,8 +26,8 @@ int			polysetlen(t_polygon *set)
 
 int			classify_point(t_polygon polygon, t_point point)
 {
-	float	testvalue;
-	float	realres;
+	double	testvalue;
+	double	realres;
 
 	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
 	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;

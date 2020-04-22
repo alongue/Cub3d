@@ -26,7 +26,7 @@ void			turn_right(t_player *player)
 
 void			set_player_angle(t_player *player, double angle)
 {
-	player->angle += angle;
+	player->angle += angle / 60;
 	while (player->angle < 0 || player->angle > LIMIT_ANGLE) // okazu
 	{
 		if (player->angle < 0)

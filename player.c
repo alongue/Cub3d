@@ -35,8 +35,8 @@ t_player		get_player(int x, int z, int c, double fieldvis)
 	player.z = z + HEIGHTPL;
 	player.pos = get_point(x, z);
 	player.angle = angle;
-	player.speed = 2;
-	player.sensi = 2;
+	player.speed = 200;
+	player.sensi = 200;
 	player.fieldvis = fieldvis * M_PI / 180;
 	player.exist = true;
 	return (player);

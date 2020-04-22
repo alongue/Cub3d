@@ -51,7 +51,7 @@ void	clip(t_wall *wall)
 
 void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
-	wall->img = mlx_new_image(data->mlx_ptr, wall->realside, wall->realside);
+	wall->img = mlx_new_image(data->ptr, wall->realside, wall->realside);
 	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
 	clip(wall);
 	*countcol = wall->rightcl.a.x - 1;

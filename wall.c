@@ -57,10 +57,10 @@
 		y = wall.height;
 		while (y > 0)
 		{
-			mlx_pixel_put(data->mlx_ptr, data->mlx_win, wall.x + x, wall.y + y, wall.color);
+			mlx_pixel_put(data->ptr, data->window, wall.x + x, wall.y + y, wall.color);
 			y--;
 		}
-		mlx_pixel_put(data->mlx_ptr, data->mlx_win, wall.x + x, wall.y, wall.color);
+		mlx_pixel_put(data->ptr, data->window, wall.x + x, wall.y, wall.color);
 		x--;
 	}
 	return (EXIT_SUCCESS);
@@ -77,7 +77,7 @@
 	int	x;
 	int	y;
 
-	wall.img = mlx_new_image(data->mlx_ptr, wall.width, wall.height);
+	wall.img = mlx_new_image(data->ptr, wall.width, wall.height);
 	wall.img_data = (int *)mlx_get_data_addr(wall.img, &bpp, &size_line, &endian);
 	x = -1;
 	y = -1;
@@ -87,7 +87,7 @@
 		while (++y < wall.height)
 			wall.img_data[wall.height * y + x] = wall.color;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, wall.img, wall.x, wall.y);
+	mlx_put_image_to_window(data->ptr, data->window, wall.img, wall.x, wall.y);
 	return (EXIT_SUCCESS);
 }*/
 
@@ -176,6 +176,30 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 	printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
 	return (wall);
+}
+
+t_wall			dup_wall(t_wall wall)
+{
+	t_wall	wallcop;
+
+	wallcop.exist = wall.exist;
+	wallcop.bpp = wall.bpp;
+	wallcop.size_line = wall.size_line;
+	wallcop.endian = wall.endian;
+	wallcop.top = wall.top;
+	wallcop.topcl = wall.topcl;
+	wallcop.bop = wall.bop;
+	wallcop.bopcl = wall.bopcl;
+	wallcop.left = wall.left;
+	wallcop.leftcl = wall.leftcl;
+	wallcop.right = wall.right;
+	wallcop.rightcl = wall.rightcl;
+	wallcop.deltatop = wall.deltatop;
+	wallcop.deltabop = wall.deltabop;
+	wallcop.color = wall.color;
+	wallcop.img = wall.img;
+	wallcop.img_data = wall.img_data;
+	return (wallcop);
 }
 
 int				display_wall(t_data *data, t_wall wall)

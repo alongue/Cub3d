@@ -24,16 +24,16 @@ void			move_backward(t_player *player)
 
 void			move_right(t_player *player)
 {
-	set_player_pos(player, cos(player->angle + 90 * M_PI / 180) * player->speed, sin(player->angle + 90 * M_PI / 180) * player->speed);
+	set_player_pos(player, cos(player->angle + M_PI / 2) * player->speed, sin(player->angle + M_PI / 2) * player->speed);
 }
 
 void			move_left(t_player *player)
 {
-	set_player_pos(player, cos(player->angle - 90 * M_PI / 180) * player->speed, sin(player->angle - 90 * M_PI / 180) * player->speed);
+	set_player_pos(player, cos(player->angle - M_PI / 2) * player->speed, sin(player->angle - M_PI / 2) * player->speed);
 }
 
-void			set_player_pos(t_player *player, float x, float z)
+void			set_player_pos(t_player *player, double x, double z)
 {
-	player->x += x;
-	player->z += z;
+	player->x += x / 60;
+	player->z += z / 60;
 }

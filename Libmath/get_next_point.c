@@ -13,7 +13,7 @@
 #include "libmath.h"
 
 #include <stdio.h>
-void	get_next_point(t_segment segment, t_point *point, float iterator)
+void	get_next_point(t_segment segment, t_point *point, double iterator)
 {
 	if (segment.coeff == INFINITY &&
 		point->y >= segment.a.y && point->y <= segment.b.y)

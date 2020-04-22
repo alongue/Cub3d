@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-void	get_prev_point(t_segment segment, t_point *point, float iterator)
+void	get_prev_point(t_segment segment, t_point *point, double iterator)
 {
 	if (segment.coeff == INFINITY &&
 		point->y >= segment.a.y && point->y <= segment.b.y)

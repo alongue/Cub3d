@@ -12,7 +12,7 @@
 
 #include "libmath.h"
 
-t_segment	get_segmenti(float px, float py, float qx, float qy)
+t_segment	get_segmenti(double px, double py, double qx, double qy)
 {
 	t_segment	s;
 

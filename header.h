@@ -32,8 +32,8 @@
 struct				s_data
 {
 	bool	exist;
-	void	*mlx_ptr;
-	void	*mlx_win;
+	void	*ptr;
+	void	*window;
 	void	*img;
 	int		*img_data; // les infos du mur de l'image
 	int		bpp; // blk
@@ -52,25 +52,23 @@ typedef struct s_data		t_data;
 
 struct				s_wall //ca concerne les polygones en vue fps uniquement
 {
-	bool		exist; //check si il existe
-	int			realside; // vrai taille du mur (64 en general)
-	int			bpp; // blk
-	int			size_line; // blk
-	int			endian; // blk
-	double		top; //position du sommet haut du segment actuel en y
-	double		topcl; //position du sommet haut clipé du segment actuel en y
-	double		bot; //position du sommet bas du segment actuel en y
-	double		botcl; //position du sommet bas clipé du segment actuel en y
-	t_point		pos; // position en haut a gauche
-	t_segment	left; // reel segment vertical gauche
-	t_segment	leftcl; // reel segment vertical gauche
-	t_segment	right; // reel segment vertical droite
-	t_segment	rightcl; // reel segment vertical droite
-	double		deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
-	double		deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
-	int			color; // la couleur
-	void		*img; // l'image du mur
-	int			*img_data; // les infos du mur de l'image
+	bool			exist; //check si il existe
+	int				bpp; // blk
+	int				size_line; // blk
+	int				endian; // blk
+	double			top; //position du sommet haut du segment actuel en y
+	double			topcl; //position du sommet haut clipé du segment actuel en y
+	double			bot; //position du sommet bas du segment actuel en y
+	double			botcl; //position du sommet bas clipé du segment actuel en y
+	t_segment		left; // reel segment vertical gauche
+	t_segment		leftcl; // reel segment vertical gauche
+	t_segment		right; // reel segment vertical droite
+	t_segment		rightcl; // reel segment vertical droite
+	double			deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
+	double			deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
+	unsigned int	color; // la couleur
+	void			*img; // l'image du mur
+	int				*img_data; // les infos du mur de l'image
 };
 typedef struct s_wall		t_wall;
 
@@ -151,6 +149,7 @@ bool				can_draw(t_wall wall, t_data *data, int index);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
 bool				cond_bot(t_map map, int x, int y);
+int					create_data(t_data *data, char **av);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
@@ -160,21 +159,20 @@ t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
 void				create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
-int					create_data(t_data *data, char **av);
 int					display_wall(t_data *data, t_wall wall);
 bool				do_display_poly(t_polygon *polygon, t_data data);
 t_polygon			dup_polygon(t_polygon polygon);
-//int					get_width(t_wall wall);
+t_wall				dup_wall(t_wall wall);
+int					free_elements(t_data data, t_tree tree, t_map map);
 t_map				get_coor(t_data data, t_player *player);
 t_player			get_player(int x, int z, int c, double fieldvis);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
-void				initcub(t_map *map, int side);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
-t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
+t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 void				move_backward(t_player *player);
 void				move_forward(t_player *player);
 void				move_left(t_player *player);
@@ -193,12 +191,12 @@ bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				reset_data(t_data *data);
-void				set_player_angle(t_player *player, double angle);
-void				set_player_pos(t_player *player, float x, float z);
 void				set_cub(t_cub *cub, int i, int counter);
 void				set_delta(t_wall *wall);
-void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				set_used_poly(t_polygon *set, t_polygon *current);
+void				set_player_angle(t_player *player, double angle);
+void				set_player_pos(t_player *player, double x, double z);
+void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
 
