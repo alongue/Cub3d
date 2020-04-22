@@ -14,11 +14,14 @@
 
 void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 {
+	unsigned int	color;
+
 	replace_poly(polygon, player);
 	printf("polygon->wall.color = %x\n", polygon->wall.color);
+	color = polygon->wall.color;
 	polygon->dodisplay = do_display_poly(polygon, data);
 	polygon->wall = create_wall(*polygon, player, data);
-	polygon->wall.color = 0xff00ff;
+	polygon->wall.color = color;
 }
 
 void	display_polygons(t_data *data, t_node node, t_player player)
