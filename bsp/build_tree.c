@@ -184,12 +184,12 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	i++;
 //	printf("ca fait la %de boucle\n", i);
 	//sleep(1);
-	//free(set);
+	////free(set);
 	build_tree(node->frontchild, node->frontchild->set, player, data);
-	//free(frontpolyset);
+	////free(frontpolyset);
 	i++;
 //	printf("ca fait la %deme boucle\n", i);
 	//sleep(1);
 	build_tree(node->backchild, node->backchild->set, player, data);
-	//free(backpolyset);
+	////free(backpolyset);
 }

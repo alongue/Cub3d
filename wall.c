@@ -188,14 +188,14 @@ t_wall			dup_wall(t_wall wall)
 	wallcop.endian = wall.endian;
 	wallcop.top = wall.top;
 	wallcop.topcl = wall.topcl;
-	wallcop.bop = wall.bop;
-	wallcop.bopcl = wall.bopcl;
+	wallcop.bot = wall.bot;
+	wallcop.botcl = wall.botcl;
 	wallcop.left = wall.left;
 	wallcop.leftcl = wall.leftcl;
 	wallcop.right = wall.right;
 	wallcop.rightcl = wall.rightcl;
 	wallcop.deltatop = wall.deltatop;
-	wallcop.deltabop = wall.deltabop;
+	wallcop.deltabot = wall.deltabot;
 	wallcop.color = wall.color;
 	wallcop.img = wall.img;
 	wallcop.img_data = wall.img_data;

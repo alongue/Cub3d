@@ -79,8 +79,6 @@ int		main(int ac, char **av)
 	void		*param[3];
 
 	//map = malloc(sizeof(t_map) * 1);
-	if ((data.ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
 	data.win_width = WIDTH;
 	data.win_height = HEIGHT;
 	if (create_data(&data, av) == EXIT_FAILURE)

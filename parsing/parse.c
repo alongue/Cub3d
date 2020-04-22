@@ -24,7 +24,7 @@ static int		count(char *line, int *counter1)
 	*counter1 = (int)ft_strlen(str);
 	return (*counter1);
 }
-
+//#include <string.h>
 static int		get_counter(int fd, int *counterx, int *countery)
 {
 	int				ret;
@@ -39,7 +39,7 @@ static int		get_counter(int fd, int *counterx, int *countery)
 			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
 		if ((count(line, counterx)) == -1)
 			return (0);
-		free(line);
+		//free(line);
 		(*countery)++;
 	}
 	return (1);
@@ -61,10 +61,10 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 		return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 	while (--counter0 >= 0)
 	{
-		if (!(cub[counter0] = malloc(sizeof(t_cub) * (*counterx + 0)))) // faudra free le reste
+		if (!(cub[counter0] = malloc(sizeof(t_cub) * (*counterx + 0)))) // faudra //free le reste
 		{
 			while (--counter0 >= 0)
-				free(cub[counter0]);
+				//free(cub[counter0]);
 			return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 		}
 		//ft_memseti(cub[counter[0]], 0, --counter[1]);

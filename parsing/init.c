@@ -12,16 +12,6 @@
 
 #include "../header.h"
 
-void	init(t_player *player, t_wall *wall, t_data *data, char **av)
-{
-	// utiliser get_player(, set_wall) et tout
-	player->fieldvis = 60;
-	wall->realside = 64;   //enlever plus tard
-	player->fieldvis = wall->realside / 2;
-	data->filename = av[1];
-	(void)data;
-}
-
 void	initcub(t_map *map, int side)
 {
 	int		i;
