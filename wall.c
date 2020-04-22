@@ -95,7 +95,7 @@ void			replace_poly(t_polygon *polygon, t_player player)
 {
 	t_point	a;
 	t_point	b;
-	t_point	tmp; //mettre les points en float a mon avis
+//	t_point	tmp;
 
 	get_extremity(polygon->segment, &a, &b);
 	translate_point(&a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
@@ -109,39 +109,48 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
-	printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
+	/*printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))/*) ||
+																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))) ||
 		(((player.angle >= M_PI / 2 && player.angle < 3 * M_PI / 2) && ((polygon->newsegment.a.y < polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x)||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0))))))*/)
+																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0)))))))
 	{
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
 	}
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
 bool			do_display_poly(t_polygon *polygon, t_data data)
 {
 	double	tanpoly;
 
-	tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
-	(polygon->newsegment.a.y - polygon->newsegment.b.y)
-	/ (polygon->newsegment.a.x - polygon->newsegment.b.x) :
-	0;
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = false));
-	/*if (polygon->newsegment.a.x < ZMIN)
+	if (polygon->newsegment.a.x < ZMIN)
 	{
+		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
+		(polygon->newsegment.a.y - polygon->newsegment.b.y)
+		/ (polygon->newsegment.a.x - polygon->newsegment.b.x) :
+		0;
 		polygon->newsegment.a.y += (ZMIN - polygon->newsegment.a.x) * tanpoly;
 		polygon->newsegment.a.x = ZMIN;
-	}*/
+	}
+	if (polygon->newsegment.b.x < ZMIN)
+	{
+		tanpoly = (polygon->newsegment.b.x - polygon->newsegment.a.x != 0) ?
+		(polygon->newsegment.b.y - polygon->newsegment.a.y)
+		/ (polygon->newsegment.b.x - polygon->newsegment.a.x) :
+		0;
+		polygon->newsegment.b.y += (ZMIN - polygon->newsegment.b.x) * tanpoly;
+		polygon->newsegment.b.x = ZMIN;
+	}
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
 	polygon->dodisplay = raycastx(&polygon->wall, polygon, data);
