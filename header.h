@@ -45,7 +45,7 @@ struct				s_data
 	float	*heightcol;
 	int		currentCubIndex[2]; // sert uniquement a parse_poly
 	char	*filename;
-	//int		nbcoldone;
+	int		nbcoldone;
 	int		*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;

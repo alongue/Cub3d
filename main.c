@@ -79,8 +79,6 @@ int		main(int ac, char **av)
 	void		*param[3];
 
 	//map = malloc(sizeof(t_map) * 1);
-	data.win_width = WIDTH;
-	data.win_height = HEIGHT;
 	if (create_data(&data, av) == EXIT_FAILURE)
 		return (ft_putstrreti_fd("Error\nLa window n'a pas pu etre cree\n", 0, EXIT_FAILURE));
 	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)

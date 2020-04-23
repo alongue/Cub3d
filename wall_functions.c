@@ -86,6 +86,8 @@ bool	can_draw(t_wall wall, t_data *data, int index)
 		wall.bot - wall.top > data->heightcol[index]))
 	{
 		data->heightcol[index] = wall.bot - wall.top;
+		if (data->coldone[index] == false)
+			data->nbcoldone++;
 		return (true);
 	}
 	else

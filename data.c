@@ -14,13 +14,13 @@
 
 int		create_data(t_data *data, char **av)
 {
-	//data->nbcoldone = 0;
+	data->nbcoldone = 0;
 	printf("(avant ptr)\n");
 	if ((data->ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	printf("av[1] (avant window) = %s\n", av[1]);
-//	data->win_width = WIDTH;
-//	data->win_height = HEIGHT;
+	data->win_width = WIDTH;
+	data->win_height = HEIGHT;
 	data->coldone = malloc(sizeof(int) * data->win_width);
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
@@ -45,6 +45,7 @@ void	reset_data(t_data *data)
 
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
+	data->nbcoldone = 0;
 	x = -1;
 	y = -1;
 	while (++y < data->win_height)

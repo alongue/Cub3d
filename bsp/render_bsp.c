@@ -17,7 +17,6 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 	unsigned int	color;
 
 	replace_poly(polygon, player);
-	printf("polygon->wall.color = %x\n", polygon->wall.color);
 	color = polygon->wall.color;
 	polygon->dodisplay = do_display_poly(polygon, data);
 	polygon->wall = create_wall(*polygon, player, data);
@@ -46,30 +45,13 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 	//sleep(4);
 }
 
-/*void	display_polygons(t_data *data, t_node node)
-{
-	int	side;
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
-	side = 0;
-	while (set[++i].exist)
-	{
-		j = -1;
-		while (set[++j].exist)
-			if (i != j && (side = get_side(set[i], set[j])) != FRONT)
-				display_wall(data, node.set[counter].wall);
-	}
-}*/
-
 void	renderbsp(t_data *data, t_node current, t_player player)
 {
 	int		result;
 
 	printf("HOLA !!\n");
-	//if (!current.backchild->exist && !current.frontchild->exist)
+	if (data->nbcoldone >= data->win_width)
+		return ;
 	if (current.isleaf)
 	{
 		display_polygons(data, current, player);
@@ -79,15 +61,15 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	if (result == FRONT || result == COINCIDING)
 	{
 		//if (current.backchild->exist)
-			renderbsp(data, *current.backchild, player);
-		//if (current.frontchild->exist)
 			renderbsp(data, *current.frontchild, player);
+		//if (current.frontchild->exist)
+			renderbsp(data, *current.backchild, player);
 	}
 	else if (result == BACK)
 	{
 		//if (current.frontchild->exist)
-			renderbsp(data, *current.frontchild, player);
-		//if (current.backchild->exist)
 			renderbsp(data, *current.backchild, player);
+		//if (current.backchild->exist)
+			renderbsp(data, *current.frontchild, player);
 	}
 }

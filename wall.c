@@ -230,7 +230,6 @@ int				display_wall(t_data *data, t_wall wall)
 			}
 			//printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = true;
-			//data->nbcoldone++;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
