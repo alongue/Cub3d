@@ -35,22 +35,34 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 	return (true);
 }
 
+bool		raycastx_img(t_player player, t_polygon *polygon)
+{
+	if (polygon.newsegment.a.x < ZMIN && polygon.newsegment.b.x < ZMIN)
+		return ((polygon->dodisplay = false));
+	polygon->newangle = polygon->angle + to_rad(-player.angle);
+	polygon->wall.btobp = (-polygon.newsegment.b.y * (polygon.newsegment.b.x - polygon.newsegment.a.x)
+		 + (-polygon.newsegment.a.y * (polygon.newsegment.b.y - polygon.newsegment.a.y)))
+		/ pow(polygon.len, 2) * polygon.len;
+	polygon->wall.pdist = (polygon.newsegment.a.y * (polygon.newsegment.b.x - polygon.newsegment.a.x)
+		 - (polygon.newsegment.a.x * (polygon.newsegment.b.y - polygon.newsegment.a.y)))
+		/ pow(polygon.len, 2) * polygon.len;
+	
+}
+
 int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 {
-	double	dfoc;
 	int		ret;
 	double	res;
 
 	ret = 1;
 	wall->leftcl = dup_segment(wall->left);
 	wall->rightcl = dup_segment(wall->right);
-	dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
 	(void)res;
-	printf("dfoc = %f\n", dfoc);
-	wall->leftcl.b.y = dfoc * (data.cubside / 2) / polygon.newsegment.a.x;
+	printf("player.dfoc = %f\n", player.dfoc);
+	wall->leftcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.a.x;
 	wall->leftcl.a.y = -wall->leftcl.b.y;
 	ret = translate_segment(&wall->leftcl, 0, data.win_height / 2);
-	wall->rightcl.b.y = dfoc * (data.cubside / 2) / polygon.newsegment.b.x;
+	wall->rightcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.b.x;
 	wall->rightcl.a.y = -wall->rightcl.b.y;
 	ret = translate_segment(&wall->rightcl, 0, data.win_height / 2);
 	printf("ret = %d\n", ret);

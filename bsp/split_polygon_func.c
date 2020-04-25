@@ -18,11 +18,13 @@ t_polygon	dup_polygon(t_polygon polygon) //mettre peut etre le param cubside mai
 
 	poly.exist = polygon.exist; //quand on le commente ca arrete le cote aleatoire mais ca fait un mauvais bsp donc je pense que le probleme reside dans l'existence des polygones
 	poly.segment = dup_segment(polygon.segment);
+	poly.len = polygon.len;
 	poly.newsegment = dup_segment(polygon.newsegment);
 	poly.normal = dup_normal(polygon.normal);
 	poly.isused = polygon.isused;
 	poly.dodisplay = polygon.dodisplay;
 	poly.nbwall = polygon.nbwall;
+	poly.angle = polygon.angle;
 	printf("poly.wall.color = %x\tet\tpolygon.wall.color = %x\n", poly.wall.color, polygon.wall.color);//map->tree.rootnode->splitter.wall.color);
 	poly.wall = dup_wall(polygon.wall);
 	printf("poly.wall.color = %x\tet\tpolygon.wall.color = %x\n\n", poly.wall.color, polygon.wall.color);//map->tree.rootnode->splitter.wall.color);
@@ -46,6 +48,8 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 	frontset->isused = false;
 	backset->isused = false;
 	split_segment_inc(poly.segment, p, &(frontset->segment), &(backset->segment));
+	frontset->len = get_length(frontset->segment);
+	backset->len = get_length(backset->segment);
 	printf("FRONT\n");
 	printf("seg front a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", frontset->segment.a.x, frontset->segment.b.x, frontset->segment.a.y, frontset->segment.b.y);
 	printf("seg back a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", backset->segment.a.x, backset->segment.b.x, backset->segment.a.y, backset->segment.b.y);
@@ -65,6 +69,8 @@ void		partition_backset(t_polygon *frontset, t_polygon *backset,
 	frontset->isused = false;
 	backset->isused = false;
 	split_segment_inc(poly.segment, p, &(backset->segment), &(frontset->segment));
+	frontset->len = get_length(frontset->segment);
+	backset->len = get_length(backset->segment);
 	printf("BACK\n");
 	printf("p.x = %f\tp.y = %f\n", p.x, p.y);
 	printf("seg front a.x = %f\tb.x = %f\ta.y = %f\tb.y = %f\n", frontset->segment.a.x, frontset->segment.b.x, frontset->segment.a.y, frontset->segment.b.y);

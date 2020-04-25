@@ -38,7 +38,10 @@ SRCS	=	ft_abs.c			\
 			get_prev_point.c	\
 			get_extremity.c		\
 			translate_point.c	\
-			translate_segment.c
+			translate_segment.c	\
+			to_rad.c			\
+			get_length.c		\
+			get_lengthp.c
 
 OBJS	=	$(SRCS:.c=.o)
 

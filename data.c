@@ -45,7 +45,6 @@ void	reset_data(t_data *data)
 
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
-	data->nbcoldone = 0;
 	x = -1;
 	y = -1;
 	while (++y < data->win_height)
@@ -54,6 +53,7 @@ void	reset_data(t_data *data)
 		while (++x < data->win_width)
 			data->img_data[y * data->win_width + x] = 0x000000;
 	}
+	data->nbcoldone = 0;
 }
 
 int		free_elements(t_data data, t_tree tree, t_map map)

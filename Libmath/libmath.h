@@ -53,6 +53,8 @@ t_point						dup_point(t_point p);
 t_segment					dup_segment(t_segment s);
 int							ft_abs(int nb);
 int							get_extremity(t_segment segment, t_point *first, t_point *end);
+double						get_length(t_segment segment);
+double						get_lengthp(t_point a, t_point b);
 void						get_next_point(t_segment segment, t_point *point, double iterator);
 void						get_prev_point(t_segment segment, t_point *point, double iterator);
 t_normal					get_normal(t_segment s);
@@ -73,7 +75,7 @@ void						split_segment_inc(t_segment segment, t_point point,
 t_segment *s1, t_segment *s2);
 void						split_segment_exc(t_segment segment, t_point point,
 t_segment *s1, t_segment *s2);
-
+double						to_rad(double angle);
 int							translate_point(t_point *point, double x, double y);
 int							translate_segment(t_segment *segment, double x, double y);
 

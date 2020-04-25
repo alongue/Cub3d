@@ -16,12 +16,12 @@
 
 void			turn_left(t_player *player)
 {
-	set_player_angle(player, -player->sensi * M_PI / 180);
+	set_player_angle(player, to_rad(-player->sensi));
 }
 
 void			turn_right(t_player *player)
 {
-	set_player_angle(player, player->sensi * M_PI / 180);
+	set_player_angle(player, to_rad(player->sensi));
 }
 
 void			set_player_angle(t_player *player, double angle)

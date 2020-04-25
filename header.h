@@ -66,8 +66,12 @@ struct				s_wall //ca concerne les polygones en vue fps uniquement
 	t_segment		rightcl; // reel segment vertical droite
 	double			deltatop; // le delta entre le sommet haut du segment gauche et sommet haut du segment droit
 	double			deltabot; // le delta entre le sommet bas du segment gauche et sommet bas du segment droit
+	double			pdist;
+	double			btobp;
 	unsigned int	color; // la couleur
 	void			*img; // l'image du mur
+	int				imgwidth;
+	int				imgheight;
 	int				*img_data; // les infos du mur de l'image
 };
 typedef struct s_wall		t_wall;
@@ -93,6 +97,9 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 	t_segment	newsegment;
 	t_normal	normal;
 	t_wall		wall;
+	double		angle;
+	double		newangle;
+	double		len;
 	bool		isused;
 	bool		dodisplay;
 	int			nbwall; //je pense que ce sera utile pour les textures (je pense a redessiner plusieurs fois la texture)
@@ -108,6 +115,8 @@ struct				s_player
 	int		z;
 	float	speed;
 	double	sensi;
+	double	dfoc;
+	double	*angleray;
 	//int		height;
 	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
@@ -159,13 +168,13 @@ t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
 void				create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
-int					display_wall(t_data *data, t_wall wall);
+int					display_wall(t_data *data, t_wall wall, t_polygon polygon);
 bool				do_display_poly(t_polygon *polygon, t_data data);
 t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
 t_map				get_coor(t_data data, t_player *player);
-t_player			get_player(int x, int z, int c, double fieldvis);
+t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
@@ -188,6 +197,7 @@ int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
 bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data);
+bool				raycastx_img(t_player player, t_polygon polygon);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				reset_data(t_data *data);

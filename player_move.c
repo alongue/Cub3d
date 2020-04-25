@@ -24,12 +24,12 @@ void			move_backward(t_player *player)
 
 void			move_right(t_player *player)
 {
-	set_player_pos(player, cos(player->angle + M_PI / 2), sin(player->angle + M_PI / 2));
+	set_player_pos(player, cos(player->angle + to_rad(90.)), sin(player->angle + to_rad(90.)));
 }
 
 void			move_left(t_player *player)
 {
-	set_player_pos(player, cos(player->angle - M_PI / 2), sin(player->angle - M_PI / 2));
+	set_player_pos(player, cos(player->angle - to_rad(90.)), sin(player->angle - to_rad(90.)));
 }
 
 void			set_player_pos(t_player *player, double x, double z)

@@ -131,8 +131,6 @@ bool			do_display_poly(t_polygon *polygon, t_data data)
 {
 	double	tanpoly;
 
-	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
-		return ((polygon->dodisplay = false));
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
@@ -202,10 +200,12 @@ t_wall			dup_wall(t_wall wall)
 	return (wallcop);
 }
 
-int				display_wall(t_data *data, t_wall wall)
+int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player)
 {
 	int		i;
 	int		ptraddr[2];
+	double	tanindex;
+	int		index;
 
 	//sleep(5);
 //	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
@@ -219,8 +219,11 @@ int				display_wall(t_data *data, t_wall wall)
 		{
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
-			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
-			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
+			tanindex = polygon.newangle + to_rad(90.) - player.rayangle[i];
+			index = (int)(wall.pdist * tan(tanindex) + wall.btobp) % wall.imgwidth;
+			index = (index < 0) ? index = 0 : index;
+//			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
+//			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
 //			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
 			//printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])

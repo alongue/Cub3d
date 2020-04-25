@@ -14,30 +14,45 @@
 
 # define HEIGHTPL 32
 
-t_player		get_player(int x, int z, int c, double fieldvis)
+static double	*create_ray(t_data data, bool *do_exist)
+{
+	double	*angle;
+	int		i;
+
+	*do_exist = false;
+	if (!(angle = malloc(sizeof(double) * data.win_width)))
+		return (ft_putstrret_fd("Error\nLe malloc n'a pas marche\n", 0, 0));
+	i = -1;
+	while (++i < data.win_width)
+		angle[i] = atan((data.win_width / 2 - i) / (data.win_width / 2));
+	*do_exist = true;
+	return (angle);
+}
+
+t_player		get_player(int x, int z, int c, t_data data)
 {
 	t_player	player;
-	double		angle;
 
 	player.exist = false;
 	if (c == 'N')
-		angle = 270. * M_PI / 180;
+		player.angle = to_rad(270.);
 	else if (c == 'S')
-		angle = 90. * M_PI / 180;
+		player.angle = to_rad(90.);
 	else if (c == 'E')
-		angle = 0. * M_PI / 180;
+		player.angle = to_rad(0.);
 	else if (c == 'W')
-		angle = 180. * M_PI / 180;
+		player.angle = to_rad(180.);
 	else
 		return (player);
 	player.x = x + HEIGHTPL;
 	player.y = HEIGHTPL;
 	player.z = z + HEIGHTPL;
 	player.pos = get_point(x, z);
-	player.angle = angle;
 	player.speed = 200;
 	player.sensi = 200;
-	player.fieldvis = fieldvis * M_PI / 180;
+	player.fieldvis = to_rad(90.);
 	player.exist = true;
+	player.angleray = create_ray(data, &player.exist);
+	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
 	return (player);
 }

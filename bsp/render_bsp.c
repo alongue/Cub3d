@@ -20,6 +20,7 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 	color = polygon->wall.color;
 	polygon->dodisplay = do_display_poly(polygon, data);
 	polygon->wall = create_wall(*polygon, player, data);
+	printf("polygon->len = %f\n", polygon->len);
 	polygon->wall.color = color;
 }
 

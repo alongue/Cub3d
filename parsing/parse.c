@@ -73,7 +73,7 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 	return (cub);
 }
 
-static int		parse(char *line, t_cub **cub, int lastline, t_player *player)
+static int		parse(char *line, t_map map, t_player *player, t_data data)
 {
 	int			counter;
 	static int	i = 0;
@@ -81,18 +81,18 @@ static int		parse(char *line, t_cub **cub, int lastline, t_player *player)
 	counter = -1;
 	while (line[++counter])
 	{
-		if (((i == 0 || i == lastline - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
+		if (((i == 0 || i == map.nbcuby - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
 			|| line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 			return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[counter] == '1')
-			set_cub(&cub[i][counter], i, counter);
+			set_cub(&map.cub[i][counter], i, counter);
 		else if (ft_get_nbchar("SNEW", line[counter]) == 1)
 		{
-			*player = get_player(counter * cub[0][0].side, i * cub[0][0].side, line[counter], 90.);
-			cub[i][counter].exist = false;
+			*player = get_player(counter * map.cub[0][0].side, i * map.cub[0][0].side, line[counter], data);
+			map.cub[i][counter].exist = false;
 		}
 		else
-			cub[i][counter].exist = false;
+			map.cub[i][counter].exist = false;
 	}
 	i++;
 	return (1);
@@ -121,7 +121,7 @@ t_map			get_coor(t_data data, t_player *player)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
 			return (putstrret_fd("Error\nVeuillez mettre une map (ret = -1) \n", map, 0));
-		if (!(parse(line, map.cub, map.nbcuby, player)))
+		if (!(parse(line, map, player, data)))
 			return (map);
 	}
 	if (!player->exist)

@@ -38,10 +38,15 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 			sleep(10);
 		}
 	}
-	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p, data);
-	p.wall = create_wall(p, player, data);
-	p.wall.color = 0xFF0000;
+	p.len = get_length(p.segment);
+	//replace_poly(&p, player);
+	//p.dodisplay = do_display_poly(&p, data);
+	//p.wall = create_wall(p, player, data);
+	(void)player;
+	//p.wall.color = 0xFF0000;
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/texture.xpm"))) //soigner tout et mettre phrase
+		return (p);
+	p.angle = 0 * (M_PI / 180);
 	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -73,10 +78,11 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 			sleep(10);
 		}
 	}
-	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p, data);
-	p.wall = create_wall(p, player, data);
+	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
+	(void)data;
+	(void)player;
+	p.angle =  0 * (M_PI / 180);
 	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -108,12 +114,13 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 			sleep(10);
 		}
 	}
-	replace_poly(&p, player);
+	p.len = get_length(p.segment);
+	(void)data;
+	(void)player;
 	printf("p.segment.a.x (right) = %f\n", p.segment.a.x);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
-	p.dodisplay = do_display_poly(&p, data);
-	p.wall = create_wall(p, player, data);
 	p.wall.color = 0x0000FF;
+	p.angle =  90 * (M_PI / 180);
 	//printf("p.segment.exist (right) = %d\n", p.segment.exist);
 	p.exist = true;
 	return (p);
@@ -145,10 +152,11 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 			sleep(10);
 		}
 	}
-	replace_poly(&p, player);
-	p.dodisplay = do_display_poly(&p, data);
-	p.wall = create_wall(p, player, data);
+	p.len = get_length(p.segment);
+	(void)data;
+	(void)player;
 	p.wall.color = 0xFFFFFF;
+	p.angle =  90 * (M_PI / 180);
 	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = true;
 	printf("p.segment.a.x = %f (left)\n", p.segment.a.x);
