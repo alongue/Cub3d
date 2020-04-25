@@ -12,6 +12,8 @@
 
 #include "header.h"
 
+#define ZMIN 1
+
 bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 {
 	t_point		tmp;
@@ -37,16 +39,16 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 
 bool		raycastx_img(t_player player, t_polygon *polygon)
 {
-	if (polygon.newsegment.a.x < ZMIN && polygon.newsegment.b.x < ZMIN)
+	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = false));
 	polygon->newangle = polygon->angle + to_rad(-player.angle);
-	polygon->wall.btobp = (-polygon.newsegment.b.y * (polygon.newsegment.b.x - polygon.newsegment.a.x)
-		 + (-polygon.newsegment.a.y * (polygon.newsegment.b.y - polygon.newsegment.a.y)))
-		/ pow(polygon.len, 2) * polygon.len;
-	polygon->wall.pdist = (polygon.newsegment.a.y * (polygon.newsegment.b.x - polygon.newsegment.a.x)
-		 - (polygon.newsegment.a.x * (polygon.newsegment.b.y - polygon.newsegment.a.y)))
-		/ pow(polygon.len, 2) * polygon.len;
-	
+	polygon->btobp = (-polygon->newsegment.b.y * (polygon->newsegment.b.x - polygon->newsegment.a.x)
+		 + (-polygon->newsegment.a.y * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
+		/ pow(polygon->len, 2) * polygon->len;
+	polygon->pdist = (polygon->newsegment.a.y * (polygon->newsegment.b.x - polygon->newsegment.a.x)
+		 - (polygon->newsegment.a.x * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
+		/ pow(polygon->len, 2) * polygon->len;
+	return (1);
 }
 
 int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)

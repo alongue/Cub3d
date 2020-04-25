@@ -15,11 +15,20 @@
 void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 {
 	unsigned int	color;
+	int				imgwidth;
+	int				imgheight;
+	void			*img;
 
 	replace_poly(polygon, player);
 	color = polygon->wall.color;
-	polygon->dodisplay = do_display_poly(polygon, data);
+	imgwidth = polygon->wall.imgwidth;
+	imgheight = polygon->wall.imgheight;
+	img = polygon->wall.img;
+	polygon->dodisplay = do_display_poly(polygon, data, player);
 	polygon->wall = create_wall(*polygon, player, data);
+	polygon->wall.img = img;
+	polygon->wall.imgwidth = imgwidth;
+	polygon->wall.imgheight = imgheight;
 	printf("polygon->len = %f\n", polygon->len);
 	polygon->wall.color = color;
 }
@@ -40,7 +49,7 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 //		printf("node.set[counter].wall.leftcl.a.x = %f\ta.y = %f\nrightcl.b.x = %f\tb.y = %f\n", node.set[counter].wall.leftcl.a.x, node.set[counter].wall.leftcl.a.y, node.set[counter].wall.rightcl.b.x, node.set[counter].wall.rightcl.b.y);
 		printf("node.set[counter].dodisplay = %d\n", node.set[counter].dodisplay);
 		if (node.set[counter].dodisplay)
-			display_wall(data, node.set[counter].wall);
+			display_wall(data, node.set[counter].wall, node.set[counter], player);
 	}
 //	printf("\nLes poly du node sont passes\n");
 	//sleep(4);

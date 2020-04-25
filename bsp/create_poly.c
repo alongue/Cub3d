@@ -44,7 +44,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 	//p.wall = create_wall(p, player, data);
 	(void)player;
 	//p.wall.color = 0xFF0000;
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/texture.xpm"))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/texture.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 		return (p);
 	p.angle = 0 * (M_PI / 180);
 	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
@@ -80,7 +80,8 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 	}
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
-	(void)data;
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/Le-cercle.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+		return (p);
 	(void)player;
 	p.angle =  0 * (M_PI / 180);
 	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
@@ -115,7 +116,8 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 		}
 	}
 	p.len = get_length(p.segment);
-	(void)data;
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercle2.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+		return (p);
 	(void)player;
 	printf("p.segment.a.x (right) = %f\n", p.segment.a.x);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
@@ -153,7 +155,8 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 		}
 	}
 	p.len = get_length(p.segment);
-	(void)data;
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercles.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+		return (p);
 	(void)player;
 	p.wall.color = 0xFFFFFF;
 	p.angle =  90 * (M_PI / 180);
