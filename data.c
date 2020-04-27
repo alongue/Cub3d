@@ -35,6 +35,7 @@ int		create_data(t_data *data, char **av)
 	printf("av[1] = %s\n", av[1]);
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+	data->cubside = 64;
 	return (EXIT_SUCCESS);
 }
 

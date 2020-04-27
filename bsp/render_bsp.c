@@ -19,6 +19,7 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 	int				imgheight;
 	void			*img;
 
+	printf("wall.imgwidth = %d\tet\twall.imgheight = %d (truc)\n", polygon->wall.imgwidth, polygon->wall.imgheight);
 	replace_poly(polygon, player);
 	color = polygon->wall.color;
 	imgwidth = polygon->wall.imgwidth;
@@ -60,7 +61,7 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	int		result;
 
 	printf("HOLA !!\n");
-	if (data->nbcoldone >= data->win_width)
+	if (data->nbcoldone >= data->win_width) //retirer a la correction si c pas qu point (tant pis pour l'overdrawing)
 		return ;
 	if (current.isleaf)
 	{
@@ -68,14 +69,14 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 		return ;
 	}
 	result = classify_point(current.splitter, player.pos);
-	if (result == FRONT || result == COINCIDING)
+	if (result == FRONT)
 	{
 		//if (current.backchild->exist)
 			renderbsp(data, *current.frontchild, player);
 		//if (current.frontchild->exist)
 			renderbsp(data, *current.backchild, player);
 	}
-	else if (result == BACK)
+	else if (result == BACK || result == COINCIDING)
 	{
 		//if (current.frontchild->exist)
 			renderbsp(data, *current.backchild, player);

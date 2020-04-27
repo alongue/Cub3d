@@ -123,6 +123,7 @@ struct				s_player
 	double	sensi;
 	double	dfoc;
 	double	*angleray;
+	double	anglerayy;
 	//int		height;
 	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
@@ -164,15 +165,15 @@ bool				can_draw(t_wall wall, t_data *data, int index);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
 bool				cond_bot(t_map map, int x, int y);
-int					create_data(t_data *data, char **av);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
+int					create_data(t_data *data, char **av);
 t_polygon			create_polybot(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyleft(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
-void				create_tree_node(t_map *map, t_player player, t_data data);
+int					create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
 bool				do_display_poly(t_polygon *polygon, t_data data, t_player player);
@@ -194,7 +195,7 @@ void				move_left(t_player *player);
 void				move_right(t_player *player);
 void				turn_left(t_player *player);
 void				turn_right(t_player *player);
-t_polygon			*parse_poly(t_map map, t_player player, t_data data);
+int					parse_poly(t_map *map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 void				partition_frontset(t_polygon *frontset, t_polygon *backset,

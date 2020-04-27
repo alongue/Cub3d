@@ -12,7 +12,18 @@
 
 #include "../header.h"
 
-void		search_polyverti(t_map map, t_polygon *p, t_data data, t_player player)
+bool		iserror(t_polygon *polygon, int counter)
+{
+	int	i;
+
+	i = -1;
+	while (++i < counter)
+		if (!polygon[i].exist)
+			return (1);
+	return (0);
+}
+// faire une fonction ou on prend une fonction en param
+int		search_polyverti(t_map map, t_polygon *p, t_data data, t_player player)
 {
 	static int	i = 0;
 	int			*x;
@@ -25,26 +36,35 @@ void		search_polyverti(t_map map, t_polygon *p, t_data data, t_player player)
 		p[i].isused = false;
 		p[i++] = create_polytop(map, data.currentCubIndex, data, player);
 		printf("i = %d\n", i);
+		if (iserror(p, i))
+			return (i);
 	}
 	if (cond_bot(map, *x, *y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polybot(map, data.currentCubIndex, data, player);
 		printf("i = %d\n", i);
+		if (iserror(p, i))
+			return (i);
 	}
 	if (cond_right(map, *x, *y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyright(map, data.currentCubIndex, data, player);
 		printf("i = %d\n", i);
+		if (iserror(p, i))
+			return (i);
 	}
 	if (cond_left(map, *x, *y))
 	{
 		p[i].isused = false;
 		p[i++] = create_polyleft(map, data.currentCubIndex, data, player);
 		printf("i = %d\n", i);
+		if (iserror(p, i))
+			return (i);
 	}
 	//printf("fin !\n");
+	return (i);
 }
 
 
@@ -118,39 +138,46 @@ int			count(t_map map, int x, int y, int *c)
 	return (1);
 }
 
-t_polygon	*get_malloc(t_map map)
+t_polygon	*get_malloc(t_map map, int *counter)
 {
 	int			x;
 	int			y;
-	int			counter;
+	int			i;
 	t_polygon	*p;
 
-	counter = 0;
+	*counter = 0;
 	y = 0;
 	while (++y < map.nbcuby - 1)
 	{
 		x = 0;
 		while (++x < map.nbcubx - 1)
-			count(map, x, y, &counter);
+			count(map, x, y, counter);
 	}
-	if (!(p = malloc(sizeof(t_polygon) * counter + 1)))
+	if (!(p = malloc(sizeof(t_polygon) * *counter + 1)))
 		return (NULL);
-	p[counter].exist = false;
+	i = -1;
+	while (++i < *counter)
+		p[i].exist = false;
+	p[*counter].exist = false;
 	return (p);
 }
 
-t_polygon	*parse_poly(t_map map, t_player player, t_data data)
+int			parse_poly(t_map *map, t_player player, t_data data)
 {
-	t_polygon	*p;
+	int			realpolynb;
 
-	p = get_malloc(map);
+	map->tree.rootnode->set = get_malloc(*map, &realpolynb);
 	data.currentCubIndex[0] = 0;
 	data.currentCubIndex[1] = 0;
-	while (++data.currentCubIndex[1] < map.nbcuby - 1)
+	while (++data.currentCubIndex[1] < map->nbcuby - 1)
 	{
 		data.currentCubIndex[0] = 0;
-		while (++data.currentCubIndex[0] < map.nbcubx - 1)
-			search_polyverti(map, p, data, player);
+		while (++data.currentCubIndex[0] < map->nbcubx - 1)
+		{
+			realpolynb = search_polyverti(*map, map->tree.rootnode->set, data, player);
+			if (iserror(map->tree.rootnode->set, realpolynb))
+				return (0);
+		}
 	}
-	return (p);
+	return (1);
 }

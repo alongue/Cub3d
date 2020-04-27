@@ -186,6 +186,9 @@ t_wall			dup_wall(t_wall wall)
 	wallcop.bpp = wall.bpp;
 	wallcop.size_line = wall.size_line;
 	wallcop.endian = wall.endian;
+	wallcop.bppimg = wall.bppimg;
+	wallcop.size_lineimg = wall.size_lineimg;
+	wallcop.endianimg = wall.endianimg;
 	wallcop.top = wall.top;
 	wallcop.topcl = wall.topcl;
 	wallcop.bot = wall.bot;
@@ -198,7 +201,10 @@ t_wall			dup_wall(t_wall wall)
 	wallcop.deltabot = wall.deltabot;
 	wallcop.color = wall.color;
 	wallcop.img = wall.img;
+	wallcop.imgwidth = wall.imgwidth;
+	wallcop.imgheight = wall.imgheight;
 	wallcop.img_data = wall.img_data;
+	wallcop.data_file = wall.data_file;
 	return (wallcop);
 }
 
@@ -207,7 +213,10 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	int		i;
 	int		ptraddr[2];
 	double	tanindex;
+//	double	cumul;
+//	double	anglewallpl;
 	int		index;
+//	double	realindex;
 	double	incr[2];
 
 	//sleep(5);
@@ -215,6 +224,9 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	ft_memseti(incr, 0, 2);
+//	anglewallpl = atan(polygon.btobp / polygon.pdist);
+//	cumul = polygon.btobp;
+//	realindex = 0;
 //	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
@@ -223,24 +235,30 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 		{
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
-			tanindex = polygon.newangle + to_rad(90.) - player.angleray[i];
-			index = (int)(polygon.pdist * tan(tanindex) + polygon.btobp) % wall.imgwidth;
-			index = (index < 0) ? index = 0 : index;
+			tanindex = polygon.newangle + to_rad(90) - player.angleray[i];
+			index = (int)round(polygon.pdist * tan(-tanindex) + polygon.btobp) % wall.imgwidth;
+//			index = tan(anglewallpl + player.anglerayy * (i - wall.leftcl.a.x)) * polygon.pdist - cumul;
+//			cumul += index;
+			printf("index = %d\n", index);
+			index = (index < 0) ? 0 : index;
+//			if (i > index)
+//				realindex++;
 			incr[0] = wall.imgheight / (wall.bot - wall.top);
 			incr[1] = (wall.topcl - wall.top) * incr[0];
-			incr[1] = (incr[1] < 0) ? incr[1] = 0 : incr[1];
+			incr[1] = (incr[1] < 0) ? 0 : incr[1];
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
 			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
 //			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
-			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+//			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				//get(index, incr[1]);
-				printf("(pdt la boucle) incr[0] = %f\tet\tincr[1] = %f\n", incr[0], incr[1]);
-				printf("avant\n");
-				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + index)];
-				printf("pdist = %f\n", polygon.pdist);
-				printf("apres\n");
+//				printf("(pdt la boucle) incr[1] = %f\tet\tindex = %d\n", incr[1], index);
+				//printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
+				//printf("avant\n");
+				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + (int)round(index))];
+				//printf("pdist = %f\n", polygon.pdist);
+				//printf("apres\n");
 				incr[1] += incr[0];
 				ptraddr[0] += data->win_width;
 			}

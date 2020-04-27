@@ -115,10 +115,10 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	return (poly[1]);
 }
 
-void		create_tree_node(t_map *map, t_player player, t_data data)
+int		create_tree_node(t_map *map, t_player player, t_data data)
 {
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
-	map->tree.rootnode->set = parse_poly(*map, player, data);
+	return (parse_poly(map, player, data));
 	//printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 
@@ -140,7 +140,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	//}
 	if (is_convex_set(set, node))
 	{
-//		printf("The set is convex\n");
+		printf("The set is convex\n");
 		return ;
 	}
 	ft_memseti(counter, 0, 3);
@@ -182,13 +182,13 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	}
 	node->exist = true;
 	i++;
-//	printf("ca fait la %de boucle\n", i);
+	printf("ca fait la %de boucle\n", i);
 	//sleep(1);
 	////free(set);
 	build_tree(node->frontchild, node->frontchild->set, player, data);
 	////free(frontpolyset);
 	i++;
-//	printf("ca fait la %deme boucle\n", i);
+	printf("ca fait la %deme boucle\n", i);
 	//sleep(1);
 	build_tree(node->backchild, node->backchild->set, player, data);
 	////free(backpolyset);

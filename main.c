@@ -84,11 +84,11 @@ int		main(int ac, char **av)
 	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
 	printf("data.window (main) = %p\n", &data.window);
-	data.cubside = 64;
 	map = get_coor(data, &player);
 	if (!map.exist)
 		return (3);
-	create_tree_node(&map, player, data);
+	if (!create_tree_node(&map, player, data))
+		return (4);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);
 	printf("map.tree.rootnode->splitter.wall.color (main) = %x\n", map.tree.rootnode->splitter.wall.color);
 	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);

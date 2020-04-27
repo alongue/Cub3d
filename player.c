@@ -14,7 +14,7 @@
 
 # define HEIGHTPL 32
 
-static double	*create_ray(t_data data, bool *do_exist)
+static double	*create_ray(t_data data, bool *do_exist, double dfoc)
 {
 	double	*angle;
 	int		i;
@@ -24,7 +24,7 @@ static double	*create_ray(t_data data, bool *do_exist)
 		return (ft_putstrret_fd("Error\nLe malloc n'a pas marche\n", 0, 0));
 	i = -1;
 	while (++i < data.win_width)
-		angle[i] = atan((data.win_width / 2 - i) / (data.win_width / 2));
+		angle[i] = atan(((data.win_width / 2) - (double)i) / dfoc);
 	*do_exist = true;
 	return (angle);
 }
@@ -52,7 +52,8 @@ t_player		get_player(int x, int z, int c, t_data data)
 	player.sensi = 200;
 	player.fieldvis = to_rad(90.);
 	player.exist = true;
-	player.angleray = create_ray(data, &player.exist);
 	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
+	player.anglerayy = atan(1 / player.dfoc);
+	player.angleray = create_ray(data, &player.exist, player.dfoc);
 	return (player);
 }
