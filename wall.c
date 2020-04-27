@@ -236,14 +236,14 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
 			tanindex = polygon.newangle + to_rad(90) - player.angleray[i];
-			index = (int)round(polygon.pdist * tan(-tanindex) + polygon.btobp) % wall.imgwidth;
+			index = (int)round(polygon.pdist * tan(-tanindex) + polygon.btobp) % data->cubside;
 //			index = tan(anglewallpl + player.anglerayy * (i - wall.leftcl.a.x)) * polygon.pdist - cumul;
 //			cumul += index;
 			printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
 //			if (i > index)
 //				realindex++;
-			incr[0] = wall.imgheight / (wall.bot - wall.top);
+			incr[0] = (wall.imgheight - 1) / (wall.bot - wall.top);
 			incr[1] = (wall.topcl - wall.top) * incr[0];
 			incr[1] = (incr[1] < 0) ? 0 : incr[1];
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
