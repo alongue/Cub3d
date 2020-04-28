@@ -61,8 +61,8 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	int		result;
 
 	printf("HOLA !!\n");
-	if (data->nbcoldone >= data->win_width) //retirer a la correction si c pas qu point (tant pis pour l'overdrawing)
-		return ;
+//	if (data->nbcoldone >= data->win_width) //retirer a la correction si c pas qu point (tant pis pour l'overdrawing)
+//		return ;
 	if (current.isleaf)
 	{
 		display_polygons(data, current, player);
