@@ -69,6 +69,8 @@ int							min(int a, int b);
 int							max(int a, int b);
 bool						onsegment(t_point s, t_point p, t_point r);
 int							orientation(t_point p, t_point q, t_point r);
+void						set_btwn_zero_twopi(double *angle);
+void						set_btwn_minpi_pi(double *angle);
 void						set_point_on_segx(t_segment segment, t_point *p);
 void						set_point_on_segy(t_segment segment, t_point *p);
 void						split_segment_inc(t_segment segment, t_point point,
@@ -76,6 +78,7 @@ t_segment *s1, t_segment *s2);
 void						split_segment_exc(t_segment segment, t_point point,
 t_segment *s1, t_segment *s2);
 double						to_rad(double angle);
+double						to_deg(double angle);
 int							translate_point(t_point *point, double x, double y);
 int							translate_segment(t_segment *segment, double x, double y);
 

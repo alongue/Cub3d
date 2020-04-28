@@ -101,6 +101,7 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 	t_segment	newsegment;
 	t_normal	normal;
 	t_wall		wall;
+	double		r;
 	double		angle;
 	double		newangle;
 	double		len;

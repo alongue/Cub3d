@@ -40,15 +40,15 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 bool		raycastx_img(t_player player, t_polygon *polygon)
 {
 	double	s;
-	double	r;
+//	double	r;
 
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = false));
 	polygon->newangle = polygon->angle + player.angle;
-	r = (-polygon->newsegment.a.x * (polygon->newsegment.b.x - polygon->newsegment.a.x)
+	polygon->r = (-polygon->newsegment.a.x * (polygon->newsegment.b.x - polygon->newsegment.a.x)
 		 + (-polygon->newsegment.a.y * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
 		/ (polygon->len * polygon->len);
-	polygon->btobp = r * polygon->len;
+	polygon->btobp = polygon->r * polygon->len;
 	printf("polygon->btobp = %f\n", polygon->btobp);
 	s = (polygon->newsegment.a.y * (polygon->newsegment.b.x - polygon->newsegment.a.x)
 		 - (polygon->newsegment.a.x * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
