@@ -69,8 +69,6 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 		return ;
 	}
 	result = classify_point(current.splitter, player.pos);
-		if (result == COINCIDING)
-			sleep(10000);
 	if (result == FRONT || result == COINCIDING)
 	{
 		//if (current.backchild->exist)
