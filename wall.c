@@ -129,11 +129,10 @@ void			replace_poly(t_polygon *polygon, t_player player)
 
 bool			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 {
-	double	tanpoly;
+	double		tanpoly;
+	t_segment	segmentcop;
 
-	raycastx(&polygon->wall, polygon, data);
-	if (!raycastx_img(player, polygon))
-		return (false);
+	segmentcop = dup_segment(polygon->newsegment);
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
@@ -154,7 +153,9 @@ bool			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 	}
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
-	polygon->dodisplay = raycastx(&polygon->wall, polygon, data);
+	polygon->dodisplay = raycastx(&polygon->wall, polygon, data, &segmentcop);
+	if (!raycastx_img(player, polygon, segmentcop))
+		return (false);
 	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
@@ -268,7 +269,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 //			printf("player.anglerayy * (%f) = %f\n", i - wall.leftcl.a.x, player.anglerayy * (i - wall.leftcl.a.x));
 //			printf("tan(player.anglerayy * (i - wall.leftcl.a.x) - anglewallpl) = %f\n", tan(player.anglerayy * (i - wall.leftcl.a.x) - anglewallpl));
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
-			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (double)(wall.imgwidth / data->cubside)) % (wall.imgwidth);
+			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) % (wall.imgwidth - (wall.imgwidth / data->cubside));
 			printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
 			printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;

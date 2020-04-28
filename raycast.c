@@ -14,7 +14,7 @@
 
 #define ZMIN 1
 
-bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
+bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment)
 {
 	t_point		tmp;
 	t_segment	tmpsegment;
@@ -29,6 +29,9 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 		tmp = dup_point(polygon->newsegment.b);
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
+		tmp = dup_point(segment->b);
+		segment->b = dup_point(segment->a);
+		segment->a = dup_point(tmp);
 	}
 	printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x >= wall->right.a.x ||
@@ -37,21 +40,21 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data)
 	return (true);
 }
 
-bool		raycastx_img(t_player player, t_polygon *polygon)
+bool		raycastx_img(t_player player, t_polygon *polygon, t_segment segment)
 {
 	double	s;
 //	double	r;
 
-	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
+	if (segment.a.x < ZMIN && segment.b.x < ZMIN)
 		return ((polygon->dodisplay = false));
 	polygon->newangle = polygon->angle + player.angle;
-	polygon->r = (-polygon->newsegment.a.x * (polygon->newsegment.b.x - polygon->newsegment.a.x)
-		 + (-polygon->newsegment.a.y * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
+	polygon->r = (-segment.a.x * (segment.b.x - segment.a.x)
+		 + (-segment.a.y * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->btobp = polygon->r * polygon->len;
 	printf("polygon->btobp = %f\n", polygon->btobp);
-	s = (polygon->newsegment.a.y * (polygon->newsegment.b.x - polygon->newsegment.a.x)
-		 - (polygon->newsegment.a.x * (polygon->newsegment.b.y - polygon->newsegment.a.y)))
+	s = (segment.a.y * (segment.b.x - segment.a.x)
+		 - (segment.a.x * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->pdist = s * polygon->len;
 	printf("polygon->pdist = %f\n", polygon->pdist);
