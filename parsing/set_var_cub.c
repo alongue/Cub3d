@@ -34,3 +34,21 @@ void		set_cub(t_cub *cub, int i, int counter)
 							cub->x,
 							cub->y + 0.1*0);
 }
+
+void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets
+{
+	if (!(map->objects = malloc(sizeof(t_object) * 1)))
+	{
+		printf("Le malloc fonctionne pas ta mere !\n");
+		return ;
+	}
+	if (!(map->objects[0].img = mlx_xpm_file_to_image(data.ptr, "textures/mur-1.xpm", &map->objects[0].width, &map->objects[0].height)))
+		return ;
+	map->objects[0].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[0].bpp, &map->objects[0].size_line, &map->objects[0].endian);
+	map->objects[0].data_file = (int *)mlx_get_data_addr(map->objects[0].img, &map->objects[0].bppimg, &map->objects[0].size_lineimg, &map->objects[0].endianimg);
+	map->objects[0].heighttop = map->objects[0].height / 2;
+	map->objects[0].heightbot = -map->objects[0].height / 2;
+	map->objects[0].exist = true;
+	map->objects[0].pos.x = counter * data.cubside + map->objects[0].width / 2;
+	map->objects[0].pos.y = i * data.cubside + map->objects[0].height / 2;
+}

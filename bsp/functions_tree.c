@@ -125,7 +125,7 @@ t_polygon *frontset, t_polygon *backset)
 		/*if (i >= 200 || !poly.exist || !poly.segment.exist)
 		{
 			printf("poly.exist = %d\tet\tpoly.segment.exist = %d\n", poly.exist, poly.segment.exist);
-			sleep(1);
+			//sleep(1);
 		}
 		printf("poly.segment.a.x = %d\tpoly.segment.a.y = %d\npoly.segment.b.x = %d\tpoly.segment.b.y = %d\n", poly.segment.a.x, poly.segment.a.y, poly.segment.b.x, poly.segment.b.y);
 		printf("poly.normal.xlen = %d\tpoly.normal.ylen = %d\n", poly.normal.xlen, poly.normal.ylen);

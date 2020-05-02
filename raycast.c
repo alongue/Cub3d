@@ -33,7 +33,7 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment
 		segment->b = dup_point(segment->a);
 		segment->a = dup_point(tmp);
 	}
-	printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
+	//printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x >= wall->right.a.x ||
 		wall->right.a.x < 0 || wall->left.a.x > data.win_width)
 		return (false);
@@ -45,20 +45,18 @@ bool		raycastx_img(t_player player, t_polygon *polygon, t_segment segment)
 	double	s;
 //	double	r;
 
-	if (segment.a.x < ZMIN && segment.b.x < ZMIN)
-		return ((polygon->dodisplay = false));
 	polygon->newangle = polygon->angle + player.angle;
 	polygon->r = (-segment.a.x * (segment.b.x - segment.a.x)
 		 + (-segment.a.y * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->btobp = polygon->r * polygon->len;
-	printf("polygon->btobp = %f\n", polygon->btobp);
+	//printf("polygon->btobp = %f\n", polygon->btobp);
 	s = (segment.a.y * (segment.b.x - segment.a.x)
 		 - (segment.a.x * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->pdist = s * polygon->len;
-	printf("polygon->pdist = %f\n", polygon->pdist);
-	printf("s = %f\n", s);
+	//printf("polygon->pdist = %f\n", polygon->pdist);
+	//printf("s = %f\n", s);
 	return (1);
 }
 
@@ -71,15 +69,45 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 	wall->leftcl = dup_segment(wall->left);
 	wall->rightcl = dup_segment(wall->right);
 	(void)res;
-	printf("player.dfoc = %f\n", player.dfoc);
+	//printf("player.dfoc = %f\n", player.dfoc);
 	wall->leftcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.a.x;
 	wall->leftcl.a.y = -wall->leftcl.b.y;
 	ret = translate_segment(&wall->leftcl, 0, data.win_height / 2);
 	wall->rightcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.b.x;
 	wall->rightcl.a.y = -wall->rightcl.b.y;
 	ret = translate_segment(&wall->rightcl, 0, data.win_height / 2);
-	printf("ret = %d\n", ret);
-	printf("(dans raycastfps) polygon.newsegment.a.x = %f\n", polygon.newsegment.a.x);
-	printf("(dans raycastfps) wall->rightcl.a.y = %f\tet\twall->rightcl.b.y = %f\n", wall->rightcl.a.y, wall->rightcl.b.y);
+	//printf("ret = %d\n", ret);
+	//printf("(dans raycastfps) polygon.newsegment.a.x = %f\n", polygon.newsegment.a.x);
+	//printf("(dans raycastfps) wall->rightcl.a.y = %f\tet\twall->rightcl.b.y = %f\n", wall->rightcl.a.y, wall->rightcl.b.y);
 	return (ret);
+}
+
+// !! IMportant !! : gerer si l'objet est devant ou derriere mur
+bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
+{
+	int		ret;
+
+	ret = 1;
+	//if (object->xstartcl > object->xendcl)
+	//	inverser
+	//data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x;
+	object->xstartcl = data.win_width / 2 + (object->newpos.y - object->width / 2) * data.win_width / 2 / object->newpos.x;
+	object->xmiddlecl = data.win_width / 2 + (object->newpos.y) * data.win_width / 2 / object->newpos.x;
+	object->xendcl = data.win_width / 2 + (object->newpos.y + object->width / 2) * data.win_width / 2 / object->newpos.x;
+	printf("object->xstartcl = %f\tet\tobject->xendcl = %f\n", object->xstartcl, object->xendcl);
+	printf("object->newpos.y = %f\n", object->newpos.y);
+	//sleep(3);
+	if (object->xstartcl == object->xendcl ||
+		object->xendcl < 0 || object->xstartcl > data.win_width)
+		return (false);
+	return (true);
+}
+
+int					raycastfpsobj(t_object *object, t_player player, t_data data)
+{
+	object->topcl = data.win_height / 2 + (player.dfoc * (-object->height / 2) / object->newpos.x);
+	object->botcl = data.win_height / 2 + (player.dfoc * (object->height / 2) / object->newpos.x);
+	if (object->topcl == object->botcl)
+		return (-1);
+	return (1);
 }

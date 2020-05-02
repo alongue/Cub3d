@@ -26,3 +26,5 @@ void	initcub(t_map *map, int side)
 			map->cub[i][j].side = side;
 	}
 }
+
+//void	initobj()

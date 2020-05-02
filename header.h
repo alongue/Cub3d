@@ -113,6 +113,37 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 };
 typedef struct s_polygon	t_polygon;
 
+struct				s_object
+{
+	bool		exist;
+	int			bpp; // blk
+	int			size_line; // blk
+	int			endian; // blk
+	int			bppimg; // blk
+	int			size_lineimg; // blk
+	int			endianimg; // blk
+	t_point		pos;
+	t_point		newpos;
+	bool		dodisplay;
+	double		heighttop;
+	double		heightbot;
+	int			height;
+	int			width;
+	double		topcl;
+	double		botcl;
+	double		xstartcl;
+	double		xmiddlecl;
+	double		xendcl;
+	t_point		posfps;
+	double		xiter;
+	double		yiter;
+//	double		depth;
+	void		*img;
+	int			*img_data;
+	int			*data_file;
+};
+typedef struct s_object		t_object;
+
 struct				s_player
 {
 	bool	exist;
@@ -157,6 +188,8 @@ struct				s_map
 	//t_polygon	*set;
 	int			height;
 	t_cub		**cub;
+	t_object	*objects;
+	//int		nbobjects;
 	t_tree		tree;
 };
 typedef struct s_map		t_map;
@@ -177,7 +210,9 @@ t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
 int					create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
+int					display_object(t_data *data, t_object object, t_player player);
 bool				do_display_poly(t_polygon *polygon, t_data data, t_player player);
+bool				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
@@ -187,6 +222,7 @@ int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 void				initcub(t_map *map, int side);
+//void				initobj(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
@@ -204,12 +240,16 @@ t_point p, t_polygon poly);
 int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
+int					raycastfpsobj(t_object *object, t_player player, t_data data);
 bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
+bool				raycastxobj(t_object *object, t_data data);//, t_segment *segment);
 bool				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
+void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
 void				set_cub(t_cub *cub, int i, int counter);
+void				set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_used_poly(t_polygon *set, t_polygon *current);
 void				set_player_angle(t_player *player, double angle);

@@ -98,7 +98,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 				if (minrelation == 0.)
 				{
 //					printf("minrelation = 0000000000\n");
-					sleep(5);
+					//sleep(5);
 				}
 			}
 		}

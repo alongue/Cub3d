@@ -19,7 +19,7 @@ static int		count(char *line, int *counter1)
 	if (ft_is_in_a_row(line, ' '))
 		return (ft_putstrreti_fd("Error\nChaque element de la map doit être séparé par exactement un espace.\n", -1, 0));
 	str = ft_rmchar(line, ' ');
-	if (!ft_isonlychar(str, "01SNEW"))
+	if (!ft_isonlychar(str, "012SNEW"))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
 	*counter1 = (int)ft_strlen(str);
 	return (*counter1);
@@ -33,7 +33,7 @@ static int		get_counter(int fd, int *counterx, int *countery)
 	ret = 2;
 	*counterx = 0;
 	*countery = 0;
-	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "01SNEW"))
+	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "012SNEW"))
 	{
 		if (ret == -1)
 			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
@@ -73,7 +73,7 @@ static t_cub	**get_malloc(t_data data, int *counterx, int *countery)
 	return (cub);
 }
 
-static int		parse(char *line, t_map map, t_player *player, t_data data)
+static int		parse(char *line, t_map *map, t_player *player, t_data data)
 {
 	int			counter;
 	static int	i = 0;
@@ -81,18 +81,20 @@ static int		parse(char *line, t_map map, t_player *player, t_data data)
 	counter = -1;
 	while (line[++counter])
 	{
-		if (((i == 0 || i == map.nbcuby - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
+		if (((i == 0 || i == map->nbcuby - 1) && ft_get_nbchar(line, '1') != ft_strlen(line))
 			|| line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 			return (ft_putstrreti_fd("Error\nLa map n'est pas entoure de murs\n", 0, 0));
 		if (line[counter] == '1')
-			set_cub(&map.cub[i][counter], i, counter);
+			set_cub(&map->cub[i][counter], i, counter);
+		else if (line[counter] == '2') //s'occuper des malloc des objets
+			set_obj(data, map, i, counter);
 		else if (ft_get_nbchar("SNEW", line[counter]) == 1)
 		{
-			*player = get_player(counter * map.cub[0][0].side, i * map.cub[0][0].side, line[counter], data);
-			map.cub[i][counter].exist = false;
+			*player = get_player(counter * map->cub[0][0].side, i * map->cub[0][0].side, line[counter], data);
+			map->cub[i][counter].exist = false;
 		}
 		else
-			map.cub[i][counter].exist = false;
+			map->cub[i][counter].exist = false;
 	}
 	i++;
 	return (1);
@@ -121,9 +123,11 @@ t_map			get_coor(t_data data, t_player *player)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
 			return (putstrret_fd("Error\nVeuillez mettre une map (ret = -1) \n", map, 0));
-		if (!(parse(line, map, player, data)))
+		//printf("map.objets[0] -> %p (get_coor)\n", &map.objects[0]);
+		if (!(parse(line, &map, player, data)))
 			return (map);
 	}
+	printf("map.objects[0].pos.x = (get_coor) %f\n", map.objects[0].pos.x);
 	if (!player->exist)
 		return (putstrret_fd("Error\nVeuillez mettre un joueur\n", map, 0));
 	map.exist = true;

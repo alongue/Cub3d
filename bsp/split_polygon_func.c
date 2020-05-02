@@ -28,12 +28,6 @@ t_polygon	dup_polygon(t_polygon polygon) //mettre peut etre le param cubside mai
 	printf("poly.wall.color = %x\tet\tpolygon.wall.color = %x\n", poly.wall.color, polygon.wall.color);//map->tree.rootnode->splitter.wall.color);
 	poly.wall = dup_wall(polygon.wall);
 	printf("poly.wall.color = %x\tet\tpolygon.wall.color = %x\n\n", poly.wall.color, polygon.wall.color);//map->tree.rootnode->splitter.wall.color);
-	if (polygon.segment.a.x  > 3000|| polygon.segment.a.y  > 3000|| polygon.segment.b.x  > 3000|| polygon.segment.b.y > 3000)
-		{
-			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || polygon.b.y = %f\n", polygon.segment.a.x, polygon.segment.a.y, polygon.segment.b.x, polygon.segment.b.y);
-			sleep(10);
-		}
-
 	return (poly);
 }
 

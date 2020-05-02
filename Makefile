@@ -38,6 +38,7 @@ SRCS	=	$(MAIN)							\
 			wall_functions.c				\
 			player_move.c					\
 			player_turn.c					\
+			object.c						\
 			$(PARSE)/utils.c				\
 			$(PARSE)/parse.c				\
 			$(PARSE)/set_var_cub.c			\

@@ -60,8 +60,8 @@ void	clip(t_wall *wall, t_data data)
 void	set_delta(t_wall *wall)
 {
 	printf("wall->rightcl.a.y = %f\t\tet\t\twall->leftcl.a.y = %f\n", wall->rightcl.a.y, wall->leftcl.a.y);
-	wall->deltatop = (double)(wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
-	wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltatop = (wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltabot = (wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	//wall->deltabot = (double)(wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
 	printf("wall->deltatop = %f\tet\twall->deltabot = %f\n", wall->deltatop, wall->deltabot);
 }
