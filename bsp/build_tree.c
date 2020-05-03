@@ -151,6 +151,8 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	while (set[counter[0]].exist/* && set[counter[0]].segment.exist*/)
 	{
 		side = get_side(node->splitter, set[counter[0]]);	/*																										*/
+		printf("set[counter[0]].normal.xlen = %f\tet\tset[counter[0]].ylen = %f\n", set[counter[0]].normal.xlen, set[counter[0]].normal.ylen);
+		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", counter[0], set[counter[0]].segment.a.x, counter[0], set[counter[0]].segment.a.y, counter[0], set[counter[0]].segment.b.x, counter[0], set[counter[0]].segment.b.y);
 		if (side == FRONT || side == COINCIDING)									/*																										*/
 		{
 			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/

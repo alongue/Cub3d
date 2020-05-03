@@ -133,7 +133,6 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 		return (p);
 	}
 	(void)player;
-	printf("p.segment.a.x (right) = %f\n", p.segment.a.x);
 	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.wall.color = 0x0000FF;
 	p.angle =  90 * (M_PI / 180);

@@ -76,7 +76,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	{
 		j = -1;
 		while (set[++j].exist)
-			if (i != j && (side = get_side(set[i], set[j])) != FRONT)
+			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
 				printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
 				return (false); // COINCIDING -> 0
@@ -115,7 +115,7 @@ t_polygon *frontset, t_polygon *backset)
 	{
 		oldside = side;
 		//if (poly.segment.coeff >= 0)
-		//printf("side = %d\n", poly.wall.realside);
+		printf("side = %d\n", side);
 		//sleep(4);
 			get_next_point(poly.segment, &p, 64);
 			printf("coeff = %f\tpoint : x = %f\tet\ty = %f\n", poly.segment.coeff, p.x, p.y);

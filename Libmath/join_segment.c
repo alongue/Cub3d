@@ -12,46 +12,37 @@
 
 #include "libmath.h"
 
-t_point		hardmin(t_point a, t_point b, t_point c, t_point d)
+t_segment	get_first_point(t_segment s1, t_segment s2)
 {
-	t_point p;
-	t_point	pcop;
-
-	if (a.x == b.x && a.x == c.x && a.x == d.x)
+	if (s1.a.x < s1.b.x)
 	{
-		pcop = (a.y < b.y) ? dup_point(a) : dup_point(b);
-		pcop = (pcop.y < c.y) ? pcop : dup_point(c);
-		pcop = (pcop.y < d.y) ? pcop : dup_point(d);
+		if (s1.a.x < s2.a.x)
+			return (get_segment(s1.a, s2.b));
+ 		else
+			return (get_segment(s2.a, s1.b));
 	}
-	else
+	else if (s1.a.x > s1.b.x)
 	{
-		pcop = (a.x < b.x) ? dup_point(a) : dup_point(b);
-		pcop = (pcop.x < c.x) ? pcop : dup_point(c);
-		pcop = (pcop.x < d.x) ? pcop : dup_point(d);
+		if (s1.a.x > s2.a.x)
+			return (get_segment(s1.a, s2.b));
+		else
+			return (get_segment(s2.a, s1.b));
 	}
-	p = dup_point(pcop);
-	return (p);
-}
-
-t_point		hardmax(t_point a, t_point b, t_point c, t_point d)
-{
-	t_point p;
-	t_point	pcop;
-
-	if (a.x == b.x && a.x == c.x && a.x == d.x)
+	else if (s1.a.y < s1.b.y)
 	{
-		pcop = (a.y > b.y) ? dup_point(a) : dup_point(b);
-		pcop = (pcop.y > c.y) ? pcop : dup_point(c);
-		pcop = (pcop.y > d.y) ? pcop : dup_point(d);
+		if (s1.a.y < s2.a.y)
+			return (get_segment(s1.a, s2.b));
+ 		else
+			return (get_segment(s2.a, s1.b));
 	}
-	else
+	else if (s1.a.y > s1.b.y)
 	{
-		pcop = (a.x > b.x) ? dup_point(a) : dup_point(b);
-		pcop = (pcop.x > c.x) ? pcop : dup_point(c);
-		pcop = (pcop.x > d.x) ? pcop : dup_point(d);
+		if (s1.a.y > s2.a.y)
+			return (get_segment(s1.a, s2.b));
+		else
+			return (get_segment(s2.a, s1.b));
 	}
-	p = dup_point(pcop);
-	return (p);
+	return (get_segment(s1.a, s2.b));
 }
 
 t_segment	join_segment(t_segment s1, t_segment s2)
@@ -65,8 +56,7 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 		return (s2);
 	if (!s2.exist)
 		return (s1);
-	s.a = hardmin(s1.a, s1.b, s2.a, s2.b);
-	s.b = hardmax(s1.a, s1.b, s2.a, s2.b);
+	s = get_first_point(s1, s2);
 	if (s.b.x - s.a.x != 0)
 		s.coeff = (s.b.y - s.a.y) / (s.b.x - s.a.x);
 	else if (s.a.y > s.b.y)
