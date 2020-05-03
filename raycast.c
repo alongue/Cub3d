@@ -107,7 +107,9 @@ bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
 int					raycastfpsobj(t_object *object, t_player player, t_data data)
 {
 	object->top = data.win_height / 2 + (player.dfoc * (-object->height / 2) / object->newpos.x);
+	object->faketop = data.win_height / 2 + (player.dfoc * (-data.cubside / 2) / object->newpos.x);
 	object->bot = data.win_height / 2 + (player.dfoc * (object->height / 2) / object->newpos.x);
+	object->fakebot = data.win_height / 2 + (player.dfoc * (data.cubside / 2) / object->newpos.x);
 	if (object->top == object->bot)
 		return (-1);
 	object->topcl = object->top;

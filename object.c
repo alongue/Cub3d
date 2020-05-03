@@ -83,10 +83,11 @@ bool	can_draw_obj(t_object *object, t_data *data, int index)
 {
 	//printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
 	//printf("data->heightcol[%i] = %f\n", index, data->heightcol[index]);
+
 	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
-		object->bot - object->top > data->heightcol[index]))
+		object->fakebot - object->faketop > data->heightcol[index]))
 	{
-		data->heightcol[index] = object->bot - object->top;
+		data->heightcol[index] = object->fakebot - object->faketop;
 		object->xstartcl = index;
 		if (data->coldone[index] == false)
 			data->nbcoldone++;

@@ -125,14 +125,14 @@ struct				s_object
 	t_point		pos;
 	t_point		newpos;
 	bool		dodisplay;
-	double		heighttop;
-	double		heightbot;
 	int			height;
 	int			width;
 	double		top;
 	double		bot;
 	double		topcl;
 	double		botcl;
+	double		faketop;
+	double		fakebot;
 	double		xstart;
 	double		xstartcl;
 	double		xmiddlecl;

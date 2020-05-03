@@ -122,16 +122,16 @@ t_polygon *frontset, t_polygon *backset)
 		//else
 		//	get_prev_point(poly.segment, &p);
 		i++;
-		/*if (i >= 200 || !poly.exist || !poly.segment.exist)
+		if (i >= 10 || !poly.exist || !poly.segment.exist)
 		{
 			printf("poly.exist = %d\tet\tpoly.segment.exist = %d\n", poly.exist, poly.segment.exist);
-			//sleep(1);
+			sleep(1);
 		}
-		printf("poly.segment.a.x = %d\tpoly.segment.a.y = %d\npoly.segment.b.x = %d\tpoly.segment.b.y = %d\n", poly.segment.a.x, poly.segment.a.y, poly.segment.b.x, poly.segment.b.y);
-		printf("poly.normal.xlen = %d\tpoly.normal.ylen = %d\n", poly.normal.xlen, poly.normal.ylen);
-		printf("splitter.segment.a.x = %d\tsplitter.segment.a.y = %d\nsplitter.segment.b.x = %d\tsplitter.segment.b.y = %d\n", splitter.segment.a.x, splitter.segment.a.y, splitter.segment.b.x, splitter.segment.b.y);
-		printf("splitter.normal.xlen = %d\tsplitter.normal.ylen = %d\n", splitter.normal.xlen, splitter.normal.ylen);
-		printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);*/
+		printf("poly.segment.a.x = %f\tpoly.segment.a.y = %f\npoly.segment.b.x = %f\tpoly.segment.b.y = %f\n", poly.segment.a.x, poly.segment.a.y, poly.segment.b.x, poly.segment.b.y);
+		printf("poly.normal.xlen = %f\tpoly.normal.ylen = %f\n", poly.normal.xlen, poly.normal.ylen);
+		printf("splitter.segment.a.x = %f\tsplitter.segment.a.y = %f\nsplitter.segment.b.x = %f\tsplitter.segment.b.y = %f\n", splitter.segment.a.x, splitter.segment.a.y, splitter.segment.b.x, splitter.segment.b.y);
+		printf("splitter.normal.xlen = %f\tsplitter.normal.ylen = %f\n", splitter.normal.xlen, splitter.normal.ylen);
+		printf("p.x = %f\tet\tp.y = %f\n", p.x, p.y);
 	}
 	/*printf("side = %d\n", side);
 	printf("p.x = %d\tet\tp.y = %d\tseg.b.x = %d\tet\tseg.a.y = %d\n", p.x, p.y, poly.segment.b.x, poly.segment.b.y);

@@ -86,6 +86,7 @@ bool	can_draw(t_wall wall, t_data *data, int index)
 	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
 		wall.bot - wall.top > data->heightcol[index]))
 	{
+		//data->distcol[index] = min(wall.); min poly.newseg.a.x b.x pour chaque index de ce wall puis on compare avec newpos.x de obj
 		data->heightcol[index] = wall.bot - wall.top;
 		if (data->coldone[index] == false)
 			data->nbcoldone++;
