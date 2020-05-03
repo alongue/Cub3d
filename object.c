@@ -77,37 +77,24 @@ t_wall			create_(t_polygon poly, t_player player, t_data data)
 	set_delta(&wall);
 	return (wall);
 }
-
-t_wall			dup_wall(t_wall wall)
-{
-	t_wall	wallcop;
-
-	wallcop.exist = wall.exist;
-	wallcop.bpp = wall.bpp;
-	wallcop.size_line = wall.size_line;
-	wallcop.endian = wall.endian;
-	wallcop.bppimg = wall.bppimg;
-	wallcop.size_lineimg = wall.size_lineimg;
-	wallcop.endianimg = wall.endianimg;
-	wallcop.top = wall.top;
-	wallcop.topcl = wall.topcl;
-	wallcop.bot = wall.bot;
-	wallcop.botcl = wall.botcl;
-	wallcop.left = wall.left;
-	wallcop.leftcl = wall.leftcl;
-	wallcop.right = wall.right;
-	wallcop.rightcl = wall.rightcl;
-	wallcop.deltatop = wall.deltatop;
-	wallcop.deltabot = wall.deltabot;
-	wallcop.color = wall.color;
-	wallcop.img = wall.img;
-	wallcop.imgwidth = wall.imgwidth;
-	wallcop.imgheight = wall.imgheight;
-	wallcop.img_data = wall.img_data;
-	wallcop.data_file = wall.data_file;
-	return (wallcop);
-}
 */
+
+bool	can_draw_obj(t_object *object, t_data *data, int index)
+{
+	//printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
+	//printf("data->heightcol[%i] = %f\n", index, data->heightcol[index]);
+	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
+		object->bot - object->top > data->heightcol[index]))
+	{
+		data->heightcol[index] = object->bot - object->top;
+		object->xstartcl = index;
+		if (data->coldone[index] == false)
+			data->nbcoldone++;
+		return (true);
+	}
+	else
+		return (false);
+}
 
 int				display_object(t_data *data, t_object object, t_player player)
 {
@@ -119,32 +106,36 @@ int				display_object(t_data *data, t_object object, t_player player)
 	float	vindex;
 
 	(void)player;
-	object.xiter = object.width / (object.xendcl - object.xstartcl);
-	object.yiter = (object.height - 1) / (object.botcl - object.topcl);
+	object.xiter = (object.width - 1) / (object.xendcl - object.xstartcl);
+	object.yiter = (object.height - 1) / (object.bot - object.top);
 	//sleep(3);
 	if (object.xendcl > data->win_width - 1)
 		object.xendcl = data->win_width - 1;
 	if (object.xstartcl < 0)
 		object.xstartcl = 0;
-	object.topcl = max(object.topcl, 0);
-	object.botcl = min(object.botcl, data->win_height);
+	object.topcl = max(object.top, 0);
+	object.botcl = min(object.bot, data->win_height);
 	i = object.xstartcl - 1;
-	hindex = (object.xstartcl - object.newpos.x) * object.xiter;
+	printf("object.xstartcl = %f\n", object.xstartcl);
 	while (++i < object.xendcl)
 	{
-		vindex = (object.topcl - object.newpos.y) * object.yiter;
-		ptraddr[0] = (int)object.topcl * data->win_width + i;
-		ptraddr[1] = (int)object.botcl * data->win_width + i;
-		while (ptraddr[0] < ptraddr[1])
+		if (can_draw_obj(&object, data, i))
 		{
-			object.img_data[ptraddr[0]] = object.data_file[(int)(round(vindex) * object.width + round(hindex))];
-			//if ()
-			ptraddr[0] += data->win_width;
-			vindex += object.yiter;
+			hindex = (object.xstartcl - object.xstart) * object.xiter;
+			vindex = (object.topcl - object.top) * object.yiter;
+			ptraddr[0] = (int)object.topcl * data->win_width + i;
+			ptraddr[1] = (int)object.botcl * data->win_width + i;
+			while (ptraddr[0] < ptraddr[1])
+			{
+				object.img_data[ptraddr[0]] = object.data_file[(int)(round(vindex) * object.width + round(hindex))];
+				//if ()
+				ptraddr[0] += data->win_width;
+				vindex += object.yiter;
+			}
+			hindex += object.xiter;
+			//printf("object.xiter = %f\tet\tobject.yiter = %f\n", object.xiter, object.yiter);
+			//printf("hindex = %f\n", hindex);
 		}
-		hindex += object.xiter;
-		printf("object.xiter = %f\tet\tobject.yiter = %f\n", object.xiter, object.yiter);
-		printf("hindex = %f\n", hindex);
 	}
 	return (EXIT_SUCCESS);
 }

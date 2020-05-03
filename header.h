@@ -129,8 +129,11 @@ struct				s_object
 	double		heightbot;
 	int			height;
 	int			width;
+	double		top;
+	double		bot;
 	double		topcl;
 	double		botcl;
+	double		xstart;
 	double		xstartcl;
 	double		xmiddlecl;
 	double		xendcl;
@@ -196,6 +199,7 @@ typedef struct s_map		t_map;
 
 void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
 bool				can_draw(t_wall wall, t_data *data, int index);
+bool				can_draw_obj(t_object *object, t_data *data, int index);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
 bool				cond_bot(t_map map, int x, int y);

@@ -94,6 +94,7 @@ bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
 	object->xstartcl = data.win_width / 2 + (object->newpos.y - object->width / 2) * data.win_width / 2 / object->newpos.x;
 	object->xmiddlecl = data.win_width / 2 + (object->newpos.y) * data.win_width / 2 / object->newpos.x;
 	object->xendcl = data.win_width / 2 + (object->newpos.y + object->width / 2) * data.win_width / 2 / object->newpos.x;
+	object->xstart = object->xstartcl;
 	printf("object->xstartcl = %f\tet\tobject->xendcl = %f\n", object->xstartcl, object->xendcl);
 	printf("object->newpos.y = %f\n", object->newpos.y);
 	//sleep(3);
@@ -105,9 +106,11 @@ bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
 
 int					raycastfpsobj(t_object *object, t_player player, t_data data)
 {
-	object->topcl = data.win_height / 2 + (player.dfoc * (-object->height / 2) / object->newpos.x);
-	object->botcl = data.win_height / 2 + (player.dfoc * (object->height / 2) / object->newpos.x);
-	if (object->topcl == object->botcl)
+	object->top = data.win_height / 2 + (player.dfoc * (-object->height / 2) / object->newpos.x);
+	object->bot = data.win_height / 2 + (player.dfoc * (object->height / 2) / object->newpos.x);
+	if (object->top == object->bot)
 		return (-1);
+	object->topcl = object->top;
+	object->botcl = object->bot;
 	return (1);
 }
