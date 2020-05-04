@@ -60,7 +60,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		bestrelation = relation;
 		set_used_poly(set, &poly[0]);
 		poly[1] = dup_polygon(poly[0]);
-		//printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
+		printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
 		//printf("poly[0].isused = %d\n", poly[0].isused);
 		//sleep(1);
 		/*while (++i[1] != i[0])
@@ -97,8 +97,8 @@ t_polygon	choose_div_polygon(t_polygon *set)
 //				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
 				if (minrelation == 0.)
 				{
-//					printf("minrelation = 0000000000\n");
-					//sleep(5);
+					printf("minrelation = 0000000000\n");
+					//sleep(1);
 				}
 			}
 		}
@@ -134,10 +134,10 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	node->backchild = malloc(sizeof(t_node) * 1);
 	int	a;
 	a = -1;
-	//while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
-	//{
-		//printf("set[%d].segment.a.x = %d\tset[%d].segment.a.y = %d\tset[%d].segment.b.x = %d\tset[%d].segment.b.y = %d\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
-	//}
+	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
+	{
+		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
+	}
 	if (is_convex_set(set, node))
 	{
 		printf("The set is convex\n");

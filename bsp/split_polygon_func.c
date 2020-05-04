@@ -37,6 +37,7 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 	t_player	player;
 
 	player.exist = false;
+	printf("frontset\n");
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
 	frontset->isused = false;
@@ -58,6 +59,7 @@ void		partition_backset(t_polygon *frontset, t_polygon *backset,
 	t_player	player;
 
 	player.exist = false;
+	printf("backset\n");
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
 	frontset->isused = false;

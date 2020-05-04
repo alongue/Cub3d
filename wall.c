@@ -220,6 +220,8 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 //	double	cumul;
 //	double	anglewallpl;
 	int		index;
+	int		rest;
+	int		cumul;
 	double	incr[2];
 
 	//sleep(5);
@@ -227,14 +229,8 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	ft_memseti(incr, 0, 2);
-//	anglewallpl = atan(polygon.btobp / polygon.pdist);
-//	printf("anglewallpl = %f\n", anglewallpl);
-//	set_btwn_zero_twopi(&anglewallpl);
-//	printf("anglewallpl = %f\n", anglewallpl);
-//	if (anglewallpl > 2 * M_PI || anglewallpl < -2 * M_PI)
-//		sleep(5);
-//	cumul = fabs(polygon.btobp);
-//	printf("wall.leftcl.a.x = %f\tet\twall.rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
+	cumul = 0;
+	rest = 0;
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
 		//printf("i = %d\n", i);
@@ -242,36 +238,17 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 		{
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
-/*			if (polygon.r < 0)
-			{
-				index = (int)((tan((anglewallpl + player.anglerayy * (i - round(wall.leftcl.a.x)))) * fabs(polygon.pdist) - cumul)) % wall.imgwidth;
-
-			if (index < 0)
-			{
-				printf("index = %d\n", index);
-				printf("anglewallpl = %f\tet\tplayer.anglerayy * (%d - %f) = %f\n", anglewallpl, i, round(wall.leftcl.a.x), player.anglerayy * (i - round(wall.leftcl.a.x)));
-				printf("tan((anglewallpl + player.anglerayy * (%f))) = %f\tet\tcumul = %f\n", i - round(wall.leftcl.a.x), tan((anglewallpl + player.anglerayy * (i - round(wall.leftcl.a.x)))), cumul);
-				//sleep(5);
-			}
-			}
-			else
-			{
-				if (player.anglerayy * (i - round(wall.leftcl.a.x)) < player.anglerayy)
-				{
-					index = (int)((cumul - tan(anglewallpl - player.anglerayy * (i - round(wall.leftcl.a.x)))) * fabs(polygon.pdist)) % wall.imgwidth;
-
-				}
-				else
-				{
-					index = (int)fabs((tan(player.anglerayy * (i - round(wall.leftcl.a.x)) - anglewallpl)) * fabs(polygon.pdist) + cumul) % wall.imgwidth;
-
-				}
-			}
-*/
-//			printf("player.anglerayy * (%f) = %f\n", i - wall.leftcl.a.x, player.anglerayy * (i - wall.leftcl.a.x));
-//			printf("tan(player.anglerayy * (i - wall.leftcl.a.x) - anglewallpl) = %f\n", tan(player.anglerayy * (i - wall.leftcl.a.x) - anglewallpl));
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
-			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) % (wall.imgwidth - (wall.imgwidth / data->cubside));
+			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
+			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth - 0) / data->cubside)) % (wall.imgwidth - (wall.imgwidth / data->cubside));
+			printf("index = %d\n", index);
+			/*if (index > (cumul + 1) * wall.imgwidth)
+			{
+				rest = index % (wall.imgwidth * (cumul + 1));
+				printf("rest = %d\n", rest);
+				//sleep(5);
+				cumul++;
+			}*/
 			//printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
 			//printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
