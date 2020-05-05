@@ -240,7 +240,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 			wall.botcl = fmin(wall.bot, data->win_height);
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
 			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
-			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth - 0) / data->cubside)) % (wall.imgwidth - (wall.imgwidth / data->cubside));
+			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
 			printf("index = %d\n", index);
 			/*if (index > (cumul + 1) * wall.imgwidth)
 			{

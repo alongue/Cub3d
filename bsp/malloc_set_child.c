@@ -38,7 +38,11 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 	}
 	printf("counter = %d (dans frontset malloc)\n", counter);
 	//sleep(4);
-	frontset = malloc(sizeof(t_polygon) * counter + 1);
+	if (!(frontset = malloc(sizeof(t_polygon) * counter + 1)))
+	{
+		ft_putstr_fd("Error\nfrontset malloc n'a pas fonctione\n", 0);
+		return (frontset);
+	}
 	frontset[counter].exist = false;
 	//frontset[counter].segment.exist = false;
 	while (--counter >= 0)
@@ -71,7 +75,11 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 	}
 	printf("counter = %d (dans backset malloc)\n", counter);
 	//sleep(4);
-	backset = malloc(sizeof(t_polygon) * counter + 1);
+	if (!(backset = malloc(sizeof(t_polygon) * counter + 1)))
+	{
+		ft_putstr_fd("Error\nbackset malloc n'a pas fonctione\n", 0);
+		return (backset);
+	}
 	backset[counter].exist = false;
 	//backset[counter].segment.exist = false;
 	while (--counter >= 0)

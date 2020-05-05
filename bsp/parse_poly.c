@@ -147,6 +147,7 @@ t_polygon	*get_malloc(t_map map, int *counter)
 
 	*counter = 0;
 	y = 0;
+	x = 0;
 	while (++y < map.nbcuby - 1)
 	{
 		x = 0;

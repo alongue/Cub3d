@@ -42,6 +42,7 @@ void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des mallo
 		printf("Le malloc fonctionne pas ta mere !\n");
 		return ;
 	}
+	map->cub[i][counter].exist = false;
 	if (!(map->objects[0].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[0].width, &map->objects[0].height)))
 		return ;
 	map->objects[0].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[0].bpp, &map->objects[0].size_line, &map->objects[0].endian);

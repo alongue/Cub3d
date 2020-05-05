@@ -16,10 +16,8 @@ static int		count(char *line, int *counter1)
 {
 	char	*str;
 
-	if (ft_is_in_a_row(line, ' '))
-		return (ft_putstrreti_fd("Error\nChaque element de la map doit être séparé par exactement un espace.\n", -1, 0));
 	str = ft_rmchar(line, ' ');
-	if (!ft_isonlychar(str, "012SNEW"))
+	if (!ft_isonlychar(str, "012SNEW "))
 		return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0));
 	*counter1 = (int)ft_strlen(str);
 	return (*counter1);
@@ -33,7 +31,7 @@ static int		get_counter(int fd, int *counterx, int *countery)
 	ret = 2;
 	*counterx = 0;
 	*countery = 0;
-	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "012SNEW"))
+	while ((ret = get_next_line(fd, &line)) == 1 || ft_strncmp(line, "", 1) != 0 || !ft_isonlychar(line, "012SNEW "))
 	{
 		if (ret == -1)
 			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));

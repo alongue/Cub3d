@@ -18,6 +18,8 @@ t_polygon	dup_polygon(t_polygon polygon) //mettre peut etre le param cubside mai
 
 	poly.exist = polygon.exist; //quand on le commente ca arrete le cote aleatoire mais ca fait un mauvais bsp donc je pense que le probleme reside dans l'existence des polygones
 	poly.segment = dup_segment(polygon.segment);
+	printf("poly.segment.exist = %d\n", poly.segment.exist);
+	printf("poly.segment.a.x = %f\t\tpoly.segment.a.y = %f\tpoly.segment.b.x = %f\t\tpoly.segment.b.y = %f\n", poly.segment.a.x, poly.segment.a.y, poly.segment.b.x, poly.segment.b.y);
 	poly.len = polygon.len;
 	poly.newsegment = dup_segment(polygon.newsegment);
 	poly.normal = dup_normal(polygon.normal);

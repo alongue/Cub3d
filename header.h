@@ -188,9 +188,11 @@ struct				s_map
 	bool		exist;
 	int			nbcubx;
 	int			nbcuby;
+	int			nbobjects;
 	//t_polygon	*set;
 	int			height;
 	t_cub		**cub;
+	int			*lastchar;
 	t_object	*objects;
 	//int		nbobjects;
 	t_tree		tree;

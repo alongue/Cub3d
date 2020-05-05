@@ -31,7 +31,6 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 		//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].stop);
 		p.nbwall += 1;
-		//if (p.segment.a.x  > 3000|| p.segment.a.y > 3000 || p.segment.b.x > 3000 || p.segment.b.y > 3000)
 		{
 			printf("TOP\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
@@ -39,6 +38,8 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 //			sleep(10);
 		}
 	}
+	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		sleep(5);
 	p.len = get_length(p.segment);
 	//replace_poly(&p, player);
 	//p.dodisplay = do_display_poly(&p, data);
@@ -86,6 +87,8 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 //			sleep(10);
 		}
 	}
+	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		sleep(5);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercles.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
@@ -128,6 +131,8 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 //			sleep(10);
 		}
 	}
+	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		sleep(5);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercle2.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
@@ -171,6 +176,8 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 //			sleep(10);
 		}
 	}
+	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		sleep(5);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/Le-cercle.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{

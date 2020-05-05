@@ -117,8 +117,17 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 int		create_tree_node(t_map *map, t_player player, t_data data)
 {
+	int	a;
+
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
-	return (parse_poly(map, player, data));
+	a = parse_poly(map, player, data);
+	while (map->tree.rootnode->set[++a].exist)
+	if (map->tree.rootnode->set->segment.a.x == 0 && map->tree.rootnode->set->segment.a.y == 0 && map->tree.rootnode->set->segment.b.x == 0 && map->tree.rootnode->set->segment.b.y == 0)
+	{
+		printf("set[%d] = WOUAW\n", a);
+		sleep(5);
+	}
+	return (a);
 	//printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 
@@ -137,6 +146,11 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
 	{
 		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
+		if (set[a].segment.a.x == 0 && set[a].segment.a.y == 0 && set[a].segment.b.x == 0 && set[a].segment.b.y == 0)
+		{
+			printf("Oh la vous la arretez vous svp !\n");
+			sleep(5);
+		}
 	}
 	if (is_convex_set(set, node))
 	{
