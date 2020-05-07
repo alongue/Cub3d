@@ -44,8 +44,6 @@ int			get_nbcuby(t_map *map, size_t xmax, int nblin)
 	x = -1;
 	if (!(map->nbcuby = malloc(sizeof(size_t) * xmax + 1)))
 		return (0);
-	printf("salut\n");
-	printf("map->number[y[0]][x] = %d\n", map->number[y[0]][x]);
 	while (++x < xmax)
 	{
 		y[0] = 0;
@@ -83,9 +81,10 @@ int			get_malloc_cub(t_map *map, int fd, int *nblin, size_t *xmax)
 			return (0);
 		i++;
 		printf("je m'apprete a realloc\n");
+		//printf("map->number[0] = %s\n", map->number[0]);
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
 			return (0); // regrouper ces malloc peut etre
-		printf("map->number[i - 2] = %s\n", map->number[i - 2]);
+		printf("map->number[0] = %s\n", map->number[0]);
 		if (!(map->cub = ft_realloc(map->cub, sizeof(t_cub *) * (i + 1))))
 			return (0);
 	}

@@ -223,7 +223,7 @@ bool				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
-char				*ft_realloc(char *str, size_t size);
+void				*ft_realloc(void *ptr, size_t size);
 int					get_nbxmax(int *nbcuby);
 int					get_nbymax(int *nbcuby);
 t_player			get_player(int x, int z, int c, t_data data);

@@ -40,12 +40,16 @@ int		get_nbymax(int *nbcuby)
 	return (max);
 }
 
-char	**ft_realloc(char **str, size_t size)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	char	*strcop[size];
-	size_t	i;
+	void			*ptrcop;
+	size_t			i;
 
 	i = -1;
-	while (++i < size)
-		strcop[i] = str[i];
+	if (!ptr || size == 0)
+		return (NULL);
+	if (!(ptrcop = malloc(size)))
+		return (NULL);
+	ft_memcpy(ptrcop, ptr, size);
+	return (ptrcop);
 }

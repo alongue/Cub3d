@@ -23,17 +23,22 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 	while (++lin < get_nbymax(nbcuby))
 	{
 		strcop = ft_strtrim(number[lin], " ");
-		if (strcop[0] != '1' || strcop[ft_strlen(strcop)] != '1')
+		//printf("number[lin] = %s\n", number[lin]);
+		//printf("strcop = %s\n", strcop);
+		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
 			return (false);
 	}
 	col = -1;
 	while (++col < get_nbxmax(nbcuby))
 	{
-		i = -1;
+		i = 0;
 		while (number[i][col] == ' ')
 			i++;
-		if (number[i][col] != '1' || number[i + nbcuby[col]][col] != '1')
+		if (number[i][col] != '1' || number[i + nbcuby[col] - 1][col] != '1')
+		{
+			printf("number[i][col] = %c\n", number[i][col]);
 			return (false);
+		}
 	}
 	return (true);
 }
