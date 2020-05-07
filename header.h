@@ -186,16 +186,16 @@ typedef struct s_node		t_node;
 struct				s_map
 {
 	bool		exist;
-	int			nbcubx;
-	int			nbcuby;
-	int			nbobjects;
+	int			*nbcuby; //tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1) sans compter les espaces au debut et a la fin
+	char		**number; //tous les caracteres de la map
+	int			nbobjects; // le nombre d'objets
 	//t_polygon	*set;
 	int			height;
-	t_cub		**cub;
+	t_cub		**cub; // tous les cub de la map
 	int			*lastchar;
-	t_object	*objects;
+	t_object	*objects; // tous les objets de la map
 	//int		nbobjects;
-	t_tree		tree;
+	t_tree		tree; // l'arbre de la map
 };
 typedef struct s_map		t_map;
 
@@ -209,6 +209,7 @@ bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
 int					create_data(t_data *data, char **av);
+t_map				create_map(t_data data, t_player *player);
 t_polygon			create_polybot(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyleft(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
@@ -222,14 +223,17 @@ bool				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
-t_map				get_coor(t_data data, t_player *player);
+char				*ft_realloc(char *str, size_t size);
+int					get_nbxmax(int *nbcuby);
+int					get_nbymax(int *nbcuby);
 t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
-void				initcub(t_map *map, int side);
+//void				initcub(t_map *map, int side);
 //void				initobj(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
+bool				is_surrounded(char **number, int *nbcuby);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 void				move_backward(t_player *player);

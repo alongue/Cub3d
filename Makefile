@@ -39,10 +39,12 @@ SRCS	=	$(MAIN)							\
 			player_move.c					\
 			player_turn.c					\
 			object.c						\
+			utils.c							\
 			$(PARSE)/utils.c				\
-			$(PARSE)/parse.c				\
+			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\
+			$(PARSE)/is_surrounded.c		\
 			$(BSP)/render_bsp.c				\
 			$(BSP)/functions_tree.c			\
 			$(BSP)/build_tree.c				\

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   is_surrounded.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,18 +11,29 @@
 /* ************************************************************************** */
 
 #include "../header.h"
-/*
-void	initcub(t_map *map, int side)
-{
-	int		i;
-	int		j;
 
-	i = -1;
-	j = -1;
-	while (++i < map->nbcuby)
+bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1)
+{
+	int		lin;
+	int		col;
+	int		i;
+	char	*strcop;
+
+	lin = -1;
+	while (++lin < get_nbymax(nbcuby))
 	{
-		j = -1;
-		while (++j < map->nbcubx)
-			map->cub[i][j].side = side;
+		strcop = ft_strtrim(number[lin], " ");
+		if (strcop[0] != '1' || strcop[ft_strlen(strcop)] != '1')
+			return (false);
 	}
-}*/
+	col = -1;
+	while (++col < get_nbxmax(nbcuby))
+	{
+		i = -1;
+		while (number[i][col] == ' ')
+			i++;
+		if (number[i][col] != '1' || number[i + nbcuby[col]][col] != '1')
+			return (false);
+	}
+	return (true);
+}

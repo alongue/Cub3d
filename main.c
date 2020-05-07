@@ -88,7 +88,7 @@ int		main(int ac, char **av)
 	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
 	printf("data.window (main) = %p\n", &data.window);
-	map = get_coor(data, &player);
+	map = create_map(data, &player);
 	if (!map.exist)
 		return (3);
 	if (!create_tree_node(&map, player, data))
