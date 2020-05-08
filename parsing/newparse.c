@@ -75,18 +75,22 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
 			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0)); // mettre ces 2 if dans une fonction d'erreur
 		max = (ft_strlen(map->number[i])) > max ? ft_strlen(map->number[i]) : max;
+		printf("map->number[i] = %s\n", map->number[i]);
 		i++;
 		printf("je m'apprete a realloc\n");
-		printf("map->number[0] = %s\n", map->number[0]);
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
 			return (0); // regrouper ces malloc peut etre
 	}
 	*nblin = i;
+	printf("map->number[13] = %s\n", map->number[13]);
 	*xmax = max;
 	i = -1;
 	while (++i < *nblin)
 	{
 		max1 = ft_strlen(map->number[i]) - 1;
+		printf("ligne -> %d\tmax1 = %zu\tet\t*xmax = %zu\n", i, max1, *xmax);
+		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1)))
+			return (0);
 		while (++max1 < *xmax)
 			map->number[i][max1] = ' ';
 		map->number[i][*xmax] = '\0';

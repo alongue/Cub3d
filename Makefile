@@ -40,7 +40,6 @@ SRCS	=	$(MAIN)							\
 			player_turn.c					\
 			object.c						\
 			utils.c							\
-			$(PARSE)/utils.c				\
 			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\
