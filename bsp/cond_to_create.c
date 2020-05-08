@@ -43,7 +43,7 @@ bool		cond_right(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if ((cub[y][x].exist && !cub[y][x - 1].exist
+	if ((cub[y][x].exist && !cub[y][x + 1].exist
 		&& !cub[y - 1][x].exist && !cub[y - 1][x + 1].exist)
 		|| (cub[y][x].exist
 		&& cub[y - 1][x + 1].exist && !cub[y][x + 1].exist))
