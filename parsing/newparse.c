@@ -82,7 +82,6 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 			return (0); // regrouper ces malloc peut etre
 	}
 	*nblin = i;
-	printf("map->number[13] = %s\n", map->number[13]);
 	*xmax = max;
 	i = -1;
 	while (++i < *nblin)
