@@ -17,10 +17,7 @@ bool		cond_top(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if (x == get_nbxmax(map.nbcuby) - 1 || x == 0 || y == 0)
-		return (false);
-	if ((y == get_nbymax(map.nbcuby) - 1 && cub[y][x].exist)
-		|| (cub[y][x].exist && !cub[y][x - 1].exist
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
 		&& !cub[y - 1][x - 1].exist && !cub[y - 1][x].exist)
 		|| (cub[y][x].exist
 		&& cub[y - 1][x - 1].exist && !cub[y - 1][x].exist))
@@ -33,10 +30,7 @@ bool		cond_bot(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if (x == get_nbxmax(map.nbcuby) - 1 || x == 0 || y == get_nbymax(map.nbcuby) - 1)
-		return (false);
-	if ((y == 0 && cub[y][x].exist)
-		|| (cub[y][x].exist && !cub[y][x - 1].exist
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
 		&& !cub[y + 1][x - 1].exist && !cub[y + 1][x].exist)
 		|| (cub[y][x].exist
 		&& cub[y + 1][x - 1].exist && !cub[y + 1][x].exist))
@@ -49,10 +43,7 @@ bool		cond_right(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if (x == get_nbxmax(map.nbcuby) - 1 || y == 0 || y == get_nbymax(map.nbcuby) - 1)
-		return (false);
-	if ((x == 0 && cub[y][x].exist)
-		|| (cub[y][x].exist && !cub[y][x - 1].exist
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
 		&& !cub[y - 1][x].exist && !cub[y - 1][x + 1].exist)
 		|| (cub[y][x].exist
 		&& cub[y - 1][x + 1].exist && !cub[y][x + 1].exist))
@@ -65,10 +56,7 @@ bool		cond_left(t_map map, int x, int y)
 	t_cub	**cub;
 
 	cub = map.cub;
-	if (x == 0 || y == 0 || y == get_nbymax(map.nbcuby) - 1)
-		return (false);
-	if ((x == get_nbxmax(map.nbcuby) - 1 && cub[y][x].exist)
-		|| (cub[y][x].exist && !cub[y][x - 1].exist
+	if ((cub[y][x].exist && !cub[y][x - 1].exist
 		&& !cub[y - 1][x - 1].exist && !cub[y - 1][x].exist)
 		|| (cub[y][x].exist
 		&& cub[y - 1][x - 1].exist && !cub[y][x - 1].exist))

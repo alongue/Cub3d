@@ -85,7 +85,6 @@ struct				s_cub //ils seront tjrs visualiser du dessus
 	bool		exist;
 	int			x;
 	int			y;
-	int			side;
 	t_segment	stop;
 	t_segment	sleft;
 	t_segment	sbot;
@@ -240,8 +239,7 @@ void				move_backward(t_player *player);
 void				move_forward(t_player *player);
 void				move_left(t_player *player);
 void				move_right(t_player *player);
-void				turn_left(t_player *player);
-void				turn_right(t_player *player);
+int					offset_ptrcub(t_map *map, int nblin, int xmax);
 int					parse_poly(t_map *map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
@@ -258,7 +256,7 @@ void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
-void				set_cub(t_cub *cub, int i, int counter);
+void				set_cub(t_data data, t_cub *cub, int i, int counter);
 void				set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_used_poly(t_polygon *set, t_polygon *current);
@@ -267,5 +265,7 @@ void				set_player_pos(t_player *player, double x, double z);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
+void				turn_left(t_player *player);
+void				turn_right(t_player *player);
 
 #endif

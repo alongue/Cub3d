@@ -12,27 +12,56 @@
 
 #include "../header.h"
 
-void		set_cub(t_cub *cub, int i, int counter)
+void		set_cub(t_data data, t_cub *cub, int i, int counter)
 {
 	cub->exist = true;
-	cub->x = counter * cub->side; //sommet a gauche avec vue du dessus
-	cub->y = i * cub->side; //sommet en haut avec vue du dessus
-	cub->stop = get_segmenti(cub->x + 0.1*0,
+	cub->x = counter * data.cubside; //sommet a gauche avec vue du dessus
+	cub->y = i * data.cubside; //sommet en haut avec vue du dessus
+	cub->stop = get_segmenti(cub->x,
 							cub->y,
-							cub->x + cub->side - 0.1*0,
+							cub->x + data.cubside,
 							cub->y);
-	cub->sright = get_segmenti(cub->x + cub->side,
-							cub->y + 0.1*0,
-							cub->x + cub->side,
-							cub->y + cub->side - 0.1*0);
-	cub->sbot = get_segmenti(cub->x + cub->side - 0.1*0,
-							cub->y + cub->side,
-							cub->x + 0.1*0,
-							cub->y + cub->side);
-	cub->sleft = get_segmenti(cub->x,
-							cub->y + cub->side - 0.1*0,
+	cub->sright = get_segmenti(cub->x + data.cubside,
+							cub->y,
+							cub->x + data.cubside,
+							cub->y + data.cubside);
+	cub->sbot = get_segmenti(cub->x + data.cubside,
+							cub->y + data.cubside,
 							cub->x,
-							cub->y + 0.1*0);
+							cub->y + data.cubside);
+	cub->sleft = get_segmenti(cub->x,
+							cub->y + data.cubside,
+							cub->x,
+							cub->y);
+}
+
+int		offset_ptrcub(t_map *map, int nblin, int xmax)
+{
+	int	i;
+	int	counter;
+
+	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
+	{
+		ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
+		return (0);
+	}
+	i = -1;
+	while (++i < nblin + 2)
+		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
+		{
+			ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
+			return (0);
+		}
+	i = -1; // on remplit tout comme ca, y a moins de ligne puis on ecrasera les donnees plus tard
+	counter = -1;
+	while (++i < nblin + 2)
+	{
+		while (++counter < xmax + 2)
+			map->cub[i][counter].exist = false;
+		map->cub[i]++;
+	}
+	map->cub++;
+	return (1);
 }
 
 void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets

@@ -25,7 +25,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 	p.segment = dup_segment(cub[y][x].stop);
 	p.normal = get_normal(cub[y][x].stop);
 	p.nbwall = 1;
-	while ((y == get_nbymax(map.nbcuby) - 1 && cub[y][++x].exist) || (cub[y][x].exist && cub[y][x - 1].exist
+	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y - 1][x].exist && !cub[y - 1][x - 1].exist))
 	{
 		//printf("p.segment.exist (top) = %d\n", p.segment.exist);
@@ -35,7 +35,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 			printf("TOP\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
 			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || top.b.y = %f\n", cub[y][x].stop.a.x, cub[y][x].stop.a.y, cub[y][x].stop.b.x, cub[y][x].stop.b.y);
-//			sleep(10);
+			//sleep(10);
 		}
 	}
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
@@ -73,7 +73,7 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 	p.segment = dup_segment(cub[y][x].sbot);
 	p.normal = get_normal(cub[y][x].sbot);
 	p.nbwall = 1;
-	while ((y == 0 && cub[y][++x].exist) || (cub[y][x].exist && cub[y][x - 1].exist
+	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y + 1][x].exist && !cub[y + 1][x - 1].exist))
 	{
 		//printf("p.segment.exist (bot boucle) = %d\n", p.segment.exist);
@@ -117,7 +117,7 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 	p.segment = dup_segment(cub[y][x].sright);
 	p.normal = get_normal(cub[y][x].sright);
 	p.nbwall = 1;
-	while ((x == 0 && cub[++y][x].exist) || (cub[y][x].exist && cub[y - 1][x].exist
+	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x + 1].exist && !cub[y][x + 1].exist))
 	{
 		//printf("p.segment.exist (right boucle) = %d\n", p.segment.exist);
@@ -162,7 +162,7 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 	p.segment = dup_segment(cub[y][x].sleft);
 	p.normal = get_normal(cub[y][x].sleft);
 	p.nbwall = 1;
-	while ((x == get_nbxmax(map.nbcuby) - 1 && cub[++y][x].exist) || (cub[y][x].exist && cub[y - 1][x].exist
+	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x - 1].exist && !cub[y][x - 1].exist))
 	{
 		//printf("p.segment.exist (left boucle) = %d\n", p.segment.exist);
