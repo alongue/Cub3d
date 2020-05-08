@@ -62,6 +62,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	int		ret;
 	int		i;
 	size_t	max;
+	size_t	max1;
 
 	i = 0;
 	max = 0;
@@ -82,6 +83,14 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	}
 	*nblin = i;
 	*xmax = max;
+	i = -1;
+	while (++i < *nblin)
+	{
+		max1 = ft_strlen(map->number[i]) - 1;
+		while (++max1 < *xmax)
+			map->number[i][max1] = ' ';
+		map->number[i][*xmax] = '\0';
+	}
 	return (1);
 }
 

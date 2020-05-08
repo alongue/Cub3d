@@ -36,6 +36,7 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 			i++;
 		if (number[i][col] != '1' || number[i + nbcuby[col] - 1][col] != '1')
 		{
+			printf("nbcuby[col] = %d\n", nbcuby[col]);
 			printf("number[i][col] = %c\n", number[i][col]);
 			return (false);
 		}
