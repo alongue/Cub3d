@@ -15,9 +15,7 @@
 bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1)
 {
 	int		coor[2];
-	int		i;
 	char	*strcop;
-	int		ret;
 
 	coor[0] = -1;
 	while (++coor[0] < get_nbymax(nbcuby))
@@ -32,14 +30,13 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 	while (++coor[1] < get_nbxmax(nbcuby))
 	{
 		if (number[get_col_nbmin(number, coor[1])][coor[1]] != '1' ||
-			number[get_col_nbmax(number, coor[1])][coor[1]] != '1')
+			number[get_col_nbmax(number, coor[1], nbcuby)][coor[1]] != '1')
 		{
 			printf("nbcuby[coor[1]] = %d\n", nbcuby[coor[1]]);
-			printf("number[i][coor[1]] = %c\n", number[i][coor[1]]);
 			return (false);
 		}
 	}
-	if (searching_around(number, nbcuby, coor, BLOCKED) == ISFINISH)
+	if (searching_around(number, coor, BLOCKED, nbcuby) == ISFINISH)
 		return (true);
 	else
 		return (false);

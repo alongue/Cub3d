@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_parsing.c                                    :+:      :+:    :+:   */
+/*   get_info_lin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
-int		get_nbxmax(int *nbcuby)
+int		get_line_nbmin(char **number, int lin)
 {
-	int	counter;
+	int	i;
 
-	counter = 0;
-	while (nbcuby[counter] != -1)
-		counter++;
-	return (counter);
+	i = 0;
+	while (number[lin][i] == ' ')
+		i++;
+	return (i);
 }
 
-int		get_nbymax(int *nbcuby)
+int		get_line_nbmax(char **number, int lin)
 {
-	int	max;
-	int	counter;
+	int	i;
 
-	max = 0;
-	counter = -1;
-	while (nbcuby[++counter] != -1)
-		max = nbcuby[counter] > max ? nbcuby[counter] : max;
-	return (max);
+	i = ft_strlen(number[lin]) - 1;
+	while (number[lin][i] == ' ')
+		i--;
+	return (i);
+}
+
+int		get_col_nbmin(char **number, int col)
+{
+	int	i;
+
+	i = 0;
+	while (number[i][col] == ' ')
+		i++;
+	return (i);
+}
+
+int		get_col_nbmax(char **number, int col, int *nbcuby)
+{
+	return (get_col_nbmin(number, col) + nbcuby[col] - 1);
 }

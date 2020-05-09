@@ -39,14 +39,15 @@ SRCS	=	$(MAIN)							\
 			player_move.c					\
 			player_turn.c					\
 			object.c						\
-			utils.c							\
-			utils_nbmax.c					\
 			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\
 			$(PARSE)/is_surrounded.c		\
-			$(PARSE)/try_moving.c			\
 			$(PARSE)/moving_side.c			\
+			$(PARSE)/searching_around.c		\
+			$(PARSE)/utils.c				\
+			$(PARSE)/utils_nbmax.c			\
+			$(PARSE)/get_info_lin.c			\
 			$(BSP)/render_bsp.c				\
 			$(BSP)/functions_tree.c			\
 			$(BSP)/build_tree.c				\

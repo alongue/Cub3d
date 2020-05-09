@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
-t_map	putstrret_fd(char *str, t_map map, int fd)
+int		get_nbxmax(int *nbcuby)
 {
-	ft_putstr_fd(str, fd);
-	return (map);
+	int	counter;
+
+	counter = 0;
+	while (nbcuby[counter] != -1)
+		counter++;
+	return (counter);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+int		get_nbymax(int *nbcuby)
 {
-	void			*ptrcop;
-	size_t			i;
+	int	max;
+	int	counter;
 
-	i = -1;
-	if (!ptr || size == 0)
-		return (NULL);
-	if (!(ptrcop = malloc(size)))
-		return (NULL);
-	ft_memcpy(ptrcop, ptr, size);
-	return (ptrcop);
+	max = 0;
+	counter = -1;
+	while (nbcuby[++counter] != -1)
+		max = nbcuby[counter] > max ? nbcuby[counter] : max;
+	return (max);
 }

@@ -12,42 +12,46 @@
 
 #include "../header.h"
 
-int		moving_top(char **number, int *nbcuby, int *col, int *lin)
+int		moving_top(char **number, int *col, int *lin)
 {
 	if (*lin != get_col_nbmin(number, *col) && number[*lin - 1][*col] != ' ')
 		if (number[--(*lin)][*col] == '1')
 			return (TOP);
 		else
 			return (STOP);
-	return (BLOCKED);
+	else
+		return (BLOCKED);
 }
 
-int		moving_right(char **number, int *nbcuby, int *col, int *lin)
+int		moving_right(char **number, int *col, int *lin)
 {
 	if (*col != get_line_nbmax(number, *col) && number[*lin][*col + 1] != ' ')
 		if (number[*lin][++(*col)] == '1')
 			return (RIGHT);
 		else
 			return (STOP);
-	return (BLOCKED);
+	else
+		return (BLOCKED);
 }
 
-int		moving_bot(char **number, int *nbcuby, int *col, int *lin)
+int		moving_bot(char **number, int *col, int *lin, int *nbcuby)
 {
-	if (*lin != get_col_nbmax(number, *col) && number[*lin + 1][*col] != ' ')
+	if (*lin != get_col_nbmax(number, *col, nbcuby) && number[*lin + 1][*col] != ' ')
 		if (number[++(*lin)][*col] == '1')
 			return (BOT);
 		else
 			return (STOP);
-	return (BLOCKED);
+	else
+		return (BLOCKED);
 }
 
-int		moving_left(char **number, int *nbcuby, int *col, int *lin)
+int		moving_left(char **number, int *col, int *lin)
 {
 	if (*col != get_line_nbmin(number, *lin) && number[*lin][*col - 1] != ' ')
 		if (number[*lin][--(*col)] == '1')
 			return (LEFT);
 		else
 			return (STOP);
-	return (BLOCKED);
+	else
+		return (BLOCKED);
 }
