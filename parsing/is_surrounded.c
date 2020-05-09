@@ -18,6 +18,7 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 	int		col;
 	int		i;
 	char	*strcop;
+	int		ret;
 
 	lin = -1;
 	while (++lin < get_nbymax(nbcuby))
@@ -31,15 +32,16 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 	col = -1;
 	while (++col < get_nbxmax(nbcuby))
 	{
-		i = 0;
-		while (number[i][col] == ' ')
-			i++;
-		if (number[i][col] != '1' || number[i + nbcuby[col] - 1][col] != '1')
+		if (number[get_col_nbmin(number, col)][col] != '1' ||
+			number[get_col_nbmax(number, col)][col] != '1')
 		{
 			printf("nbcuby[col] = %d\n", nbcuby[col]);
 			printf("number[i][col] = %c\n", number[i][col]);
 			return (false);
 		}
 	}
-	return (true);
+	if (searching_around(number, nbcuby, 0, 0) == ISFINISH)
+		return (true);
+	else
+		return (false);
 }

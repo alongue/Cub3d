@@ -28,6 +28,14 @@
 # define FRONT 1
 # define BACK 2
 # define SPANNING 3
+# define ISFINISH 5
+# define MOVING 7
+# define STOP 8
+# define TOP 0
+# define BOT 1
+# define RIGHT 2
+# define LEFT 3
+# define BLOCKED -1
 
 struct				s_data
 {
@@ -223,6 +231,10 @@ t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
 void				*ft_realloc(void *ptr, size_t size);
+int					get_col_nbmax(char **number, int col);
+int					get_col_nbmin(char **number, int col);
+int					get_line_nbmax(char **number, int lin);
+int					get_line_nbmin(char **number, int lin);
 int					get_nbxmax(int *nbcuby);
 int					get_nbymax(int *nbcuby);
 t_player			get_player(int x, int z, int c, t_data data);
@@ -239,6 +251,10 @@ void				move_backward(t_player *player);
 void				move_forward(t_player *player);
 void				move_left(t_player *player);
 void				move_right(t_player *player);
+int					moving_top(char **number, int *nbcuby, int *col, int *lin);
+int					moving_right(char **number, int *nbcuby, int *col, int *lin);
+int					moving_bot(char **number, int *nbcuby, int *col, int *lin);
+int					moving_left(char **number, int *nbcuby, int *col, int *lin);
 int					offset_ptrcub(t_map *map, int nblin, int xmax);
 int					parse_poly(t_map *map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
@@ -256,6 +272,7 @@ void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
+int					searching_around(char **number, int *nbcuby, int col, int lin);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 void				set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
@@ -265,6 +282,7 @@ void				set_player_pos(t_player *player, double x, double z);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
+int					try_moving_top(char **number, int *nbcuby, int *col, int *lin);
 void				turn_left(t_player *player);
 void				turn_right(t_player *player);
 

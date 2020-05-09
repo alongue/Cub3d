@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   get_info_lin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,36 @@
 
 #include "header.h"
 
-t_map	putstrret_fd(char *str, t_map map, int fd)
+int		get_line_nbmin(char **number, int lin)
 {
-	ft_putstr_fd(str, fd);
-	return (map);
+	int	i;
+
+	i = 0;
+	while (number[lin][i] == ' ')
+		i++;
+	return (i);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+int		get_line_nbmax(char **number, int lin)
 {
-	void			*ptrcop;
-	size_t			i;
+	int	i;
 
-	i = -1;
-	if (!ptr || size == 0)
-		return (NULL);
-	if (!(ptrcop = malloc(size)))
-		return (NULL);
-	ft_memcpy(ptrcop, ptr, size);
-	return (ptrcop);
+	i = ft_strlen(number[lin]) - 1;
+	while (number[lin][i] == ' ')
+		i--;
+	return (i);
+}
+
+int		get_col_nbmin(char **number, int col)
+{
+	int	i;
+
+	i = 0;
+	while (number[i][col] == ' ')
+		i++;
+}
+
+int		get_col_nbmax(char **number, int col)
+{
+	return (get_col_nbmin(number, col) + get_nbymax(col) - 1);
 }
