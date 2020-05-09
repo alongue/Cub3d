@@ -25,45 +25,104 @@ int		get_location(char **number, int *nbcuby, int col, int lin)
 	return (BLOCKED);
 }
 
-int		searching_around(char **number, int *nbcuby, int col, int lin)
+int		searching_around(char **number, int *nbcuby, int *coor, int moving_side)
 {
-	static int	moving_side = TOP;
 	static int	location = TOP;
-	static int	ret = TOP;
 
 	if (moving_side == ISFINISH || moving_side == STOP)
 		return (moving_side);
-	location = (get_location(number, nbcuby, col, lin) == BLOCKED) ?
-		location : get_location(number, nbcuby, col, lin);
+	location = (get_location(number, nbcuby, &coor[1], &coor[0]) == BLOCKED) ?
+		location : get_location(number, nbcuby, &coor[1], &coor[0]);
 	if (location == TOP)
 	{
 		if (moving_side != BOT)
-			moving_side = ((ret = moving_top(number, nbcuby, &col, &lin)) == BLOCKED) ?
-				moving_side : ret;
-		else if (moving_side == TOP)
-			moving_side = searching_around(number, nbcuby, col, lin);
+		{
+			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
 		if (moving_side != LEFT)
-			moving_side = ((ret = moving_right(number, nbcuby, &col, &lin)) == BLOCKED) ?
-				moving_side : ret;
-		else if (moving_side == RIGHT)
-			moving_side = searching_around(number, nbcuby, col, lin);
+		{
+			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
 		if (moving_side != RIGHT)
-			moving_side = ((ret = moving_left(number, nbcuby, &col, &lin)) == BLOCKED) ?
-				moving_side : ret;
-		else if (moving_side == LEFT)
-			moving_side = searching_around(number, nbcuby, col, lin);
-		return ((moving_side = BLOCKED));
+		{
+			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side == BLOCKED)
+			return (moving_side);
 	}
-	if (location == RIGHT)
+	else if (location == RIGHT)
 	{
-
+		if (moving_side != LEFT)
+		{
+			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != TOP)
+		{
+			moving_side = moving_bot(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != RIGHT)
+		{
+			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side == BLOCKED)
+			return (moving_side);
 	}
-	if (location == BOT)
+	else if (location == BOT)
 	{
+		if (moving_side != TOP)
+		{
+			moving_side = moving_bot(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != RIGHT)
+		{
+			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != BOT)
+		{
+			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side == BLOCKED)
+			return (moving_side);
 	}
-	if (location == LEFT)
+	else if (location == LEFT)
 	{
-		if (col == 0 && lin == 0)
-			return ((moving_side = ISFINISH));
+		if (moving_side != RIGHT)
+		{
+			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != BOT)
+		{
+			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side != LEFT)
+		{
+			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
+			if (moving_side != BLOCKED)
+				searching_around(number, nbcuby, coor, moving_side);
+		}
+		if (moving_side == BLOCKED)
+			return (moving_side);
 	}
 }

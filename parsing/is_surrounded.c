@@ -14,33 +14,32 @@
 
 bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1)
 {
-	int		lin;
-	int		col;
+	int		coor[2];
 	int		i;
 	char	*strcop;
 	int		ret;
 
-	lin = -1;
-	while (++lin < get_nbymax(nbcuby))
+	coor[0] = -1;
+	while (++coor[0] < get_nbymax(nbcuby))
 	{
-		strcop = ft_strtrim(number[lin], " ");
-		printf("number[%d] = %s\n", lin, number[lin]);
+		strcop = ft_strtrim(number[coor[0]], " ");
+		printf("number[%d] = %s\n", coor[0], number[coor[0]]);
 		printf("strcop = %s\n", strcop);
 		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
 			return (false);
 	}
-	col = -1;
-	while (++col < get_nbxmax(nbcuby))
+	coor[1] = -1;
+	while (++coor[1] < get_nbxmax(nbcuby))
 	{
-		if (number[get_col_nbmin(number, col)][col] != '1' ||
-			number[get_col_nbmax(number, col)][col] != '1')
+		if (number[get_col_nbmin(number, coor[1])][coor[1]] != '1' ||
+			number[get_col_nbmax(number, coor[1])][coor[1]] != '1')
 		{
-			printf("nbcuby[col] = %d\n", nbcuby[col]);
-			printf("number[i][col] = %c\n", number[i][col]);
+			printf("nbcuby[coor[1]] = %d\n", nbcuby[coor[1]]);
+			printf("number[i][coor[1]] = %c\n", number[i][coor[1]]);
 			return (false);
 		}
 	}
-	if (searching_around(number, nbcuby, 0, 0) == ISFINISH)
+	if (searching_around(number, nbcuby, coor, BLOCKED) == ISFINISH)
 		return (true);
 	else
 		return (false);
