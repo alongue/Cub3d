@@ -28,9 +28,8 @@ int		get_location(char **number, int *nbcuby, int col, int lin)
 int		searching_around(char **number, int *nbcuby, int *coor, int moving_side)
 {
 	static int	location = TOP;
+	static int	ret = BLOCKED;
 
-	if (moving_side == ISFINISH || moving_side == STOP)
-		return (moving_side);
 	location = (get_location(number, nbcuby, &coor[1], &coor[0]) == BLOCKED) ?
 		location : get_location(number, nbcuby, &coor[1], &coor[0]);
 	if (location == TOP)
@@ -39,19 +38,22 @@ int		searching_around(char **number, int *nbcuby, int *coor, int moving_side)
 		{
 			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != LEFT)
 		{
 			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != RIGHT)
 		{
 			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side == BLOCKED)
 			return (moving_side);
@@ -62,19 +64,22 @@ int		searching_around(char **number, int *nbcuby, int *coor, int moving_side)
 		{
 			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != TOP)
 		{
 			moving_side = moving_bot(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != RIGHT)
 		{
 			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side == BLOCKED)
 			return (moving_side);
@@ -85,42 +90,50 @@ int		searching_around(char **number, int *nbcuby, int *coor, int moving_side)
 		{
 			moving_side = moving_bot(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != RIGHT)
 		{
 			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != BOT)
 		{
 			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side == BLOCKED)
 			return (moving_side);
 	}
 	else if (location == LEFT)
 	{
+		if (coor[0] == 0 && coor[1] == 0)
+			return ((moving_side = ISFINISH));
 		if (moving_side != RIGHT)
 		{
 			moving_side = moving_left(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != BOT)
 		{
 			moving_side = moving_top(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side != LEFT)
 		{
 			moving_side = moving_right(number, nbcuby, &coor[1], &coor[0]);
 			if (moving_side != BLOCKED)
-				searching_around(number, nbcuby, coor, moving_side);
+				if ((ret = searching_around(number, nbcuby, coor, moving_side)) == ISFINISH || ret == STOP)
+					return (ret);
 		}
 		if (moving_side == BLOCKED)
 			return (moving_side);
