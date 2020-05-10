@@ -26,6 +26,7 @@ int		get_line_nbmax(char **number, int lin)
 {
 	int	i;
 
+	printf("number[%d] = %s\n", lin, number[lin]);
 	i = ft_strlen(number[lin]) - 1;
 	while (number[lin][i] == ' ')
 		i--;

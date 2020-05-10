@@ -21,7 +21,7 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 	while (++coor[0] < get_nbymax(nbcuby))
 	{
 		strcop = ft_strtrim(number[coor[0]], " ");
-		printf("number[%d] = %s\n", coor[0], number[coor[0]]);
+		//printf("number[%d] = %s\n", coor[0], number[coor[0]]);
 		printf("strcop = %s\n", strcop);
 		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
 			return (false);
@@ -36,6 +36,7 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 			return (false);
 		}
 	}
+	ft_memseti(coor, 0, 2);
 	if (searching_around(number, coor, BLOCKED, nbcuby) == ISFINISH)
 		return (true);
 	else

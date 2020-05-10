@@ -14,18 +14,22 @@
 
 int		moving_top(char **number, int *col, int *lin)
 {
+	printf("*lin = %d\tet\tget_colnb = %d\n", *lin, get_col_nbmin(number, *col));
 	if (*lin != get_col_nbmin(number, *col) && number[*lin - 1][*col] != ' ')
+	{
+		printf("jte plante\n");
 		if (number[--(*lin)][*col] == '1')
 			return (TOP);
 		else
 			return (STOP);
+	}
 	else
 		return (BLOCKED);
 }
 
 int		moving_right(char **number, int *col, int *lin)
 {
-	if (*col != get_line_nbmax(number, *col) && number[*lin][*col + 1] != ' ')
+	if (*col != get_line_nbmax(number, *lin) && number[*lin][*col + 1] != ' ')
 		if (number[*lin][++(*col)] == '1')
 			return (RIGHT);
 		else
@@ -40,7 +44,10 @@ int		moving_bot(char **number, int *col, int *lin, int *nbcuby)
 		if (number[++(*lin)][*col] == '1')
 			return (BOT);
 		else
+		{
+			printf("STOP\n");
 			return (STOP);
+		}
 	else
 		return (BLOCKED);
 }
