@@ -14,8 +14,10 @@
 
 int		moving_top(char **number, int *col, int *lin)
 {
+	printf("*lin = %d\nget_col_nbmin(number, *col) = %d\n", *lin, get_col_nbmin(number, *col));
 	if (*lin != get_col_nbmin(number, *col) && number[*lin - 1][*col] != ' ')
 	{
+		printf("jte plante\n");
 		if (number[--(*lin)][*col] == '1')
 			return (TOP);
 		else
