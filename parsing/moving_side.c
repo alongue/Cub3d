@@ -12,14 +12,18 @@
 
 #include "../header.h"
 
-int		moving_top(char **number, int *col, int *lin)
+int		moving_top(char **number, int *coor, int *fakecoor)
 {
-	printf("*lin = %d\nget_col_nbmin(number, *col) = %d\n", *lin, get_col_nbmin(number, *col));
-	if (*lin != get_col_nbmin(number, *col) && number[*lin - 1][*col] != ' ')
+	(void)coor;
+	//printf("fakecoor[0] = %d\t\tget_col_nbmin(number, %d) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1]));
+	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1]) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
 	{
-		printf("jte plante\n");
-		if (number[--(*lin)][*col] == '1')
+		//printf("jte plante\n");
+		if (number[fakecoor[0] - 1][fakecoor[1]] == '1')
+		{
+			fakecoor[0]--;
 			return (TOP);
+		}
 		else
 			return (STOP);
 	}
@@ -27,22 +31,30 @@ int		moving_top(char **number, int *col, int *lin)
 		return (BLOCKED);
 }
 
-int		moving_right(char **number, int *col, int *lin)
+int		moving_right(char **number, int *coor, int *fakecoor)
 {
-	if (*col != get_line_nbmax(number, *lin) && number[*lin][*col + 1] != ' ')
-		if (number[*lin][++(*col)] == '1')
+	(void)coor;
+	if (fakecoor[1] != get_line_nbmax(number, fakecoor[0]) && number[fakecoor[0]][fakecoor[1] + 1] != ' ')
+		if (number[fakecoor[0]][fakecoor[1] + 1] == '1')
+		{
+			(fakecoor[1])++;
 			return (RIGHT);
+		}
 		else
 			return (STOP);
 	else
 		return (BLOCKED);
 }
 
-int		moving_bot(char **number, int *col, int *lin, int *nbcuby)
+int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 {
-	if (*lin != get_col_nbmax(number, *col, nbcuby) && number[*lin + 1][*col] != ' ')
-		if (number[++(*lin)][*col] == '1')
+	(void)coor;
+	if (fakecoor[0] != get_col_nbmax(number, fakecoor[1], nbcuby) && number[fakecoor[0] + 1][fakecoor[1]] != ' ')
+		if (number[fakecoor[0] + 1][fakecoor[1]] == '1')
+		{
+			(fakecoor[0])++;
 			return (BOT);
+		}
 		else
 		{
 			printf("STOP\n");
@@ -52,11 +64,16 @@ int		moving_bot(char **number, int *col, int *lin, int *nbcuby)
 		return (BLOCKED);
 }
 
-int		moving_left(char **number, int *col, int *lin)
+int		moving_left(char **number, int *coor, int *fakecoor)
 {
-	if (*col != get_line_nbmin(number, *lin) && number[*lin][*col - 1] != ' ')
-		if (number[*lin][--(*col)] == '1')
+	(void)coor;
+	//printf("fakecoor[1] = %d\tet\tget_line_nbmin(number, %d) = %d\n", fakecoor[1], fakecoor[0], get_line_nbmin(number, fakecoor[0]));
+	if (fakecoor[1] != get_line_nbmin(number, fakecoor[0]) && number[fakecoor[0]][fakecoor[1] - 1] != ' ')
+		if (number[fakecoor[0]][fakecoor[1] - 1] == '1')
+		{
+			(fakecoor[1])--;
 			return (LEFT);
+		}
 		else
 			return (STOP);
 	else

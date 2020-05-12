@@ -12,18 +12,18 @@
 
 #include "../header.h"
 
-int		try_moving_top(char **number, int *nbcuby, int *col, int *lin)
+int		try_moving_top(char **number, int *nbcuby, int fakecoor[1], int fakecoor[0])
 {
-	if (*lin != get_col_nbmin(number, *col) && number[*lin - 1][*col] != ' ')
-		if (number[--(*lin)][*col] == '1')
+	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1]) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
+		if (number[--(fakecoor[0])][fakecoor[1]] == '1')
 		{
 			moving_side = 
 			return (TOP);
 		}
 		else
 			return (STOP);
-	if (*col != get_line_nbmax(number, *lin) && number[*lin][*col + 1] != ' ')
-		if (number[*lin][++(*col)] == '1')
+	if (fakecoor[1] != get_line_nbmax(number, fakecoor[0]) && number[fakecoor[0]][fakecoor[1] + 1] != ' ')
+		if (number[fakecoor[0]][++(fakecoor[1])] == '1')
 			return (MOVING);
 		else
 			return (STOP);

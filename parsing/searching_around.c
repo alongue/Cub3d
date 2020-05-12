@@ -14,6 +14,8 @@
 
 int		get_location(char **number, int col, int lin, int *nbcuby)
 {
+	printf("col = %d\tet\tget_line_nbmax(number, %d) = %d\n", col, lin, get_line_nbmax(number, lin));
+	//sleep(2);
 	if (lin == get_col_nbmin(number, col))
 		return (TOP);
 	else if (col == get_line_nbmax(number, lin))
@@ -27,43 +29,47 @@ int		get_location(char **number, int col, int lin, int *nbcuby)
 
 int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 {
-	static int	location = TOP;
+	int			location;
+	static int	oldlocation = TOP;
+	int			fakecoor[2];
 
-	location = (get_location(number, coor[1], coor[0], nbcuby) == BLOCKED) ?
-		location : get_location(number, coor[1], coor[0], nbcuby);
-	printf("location = %d\tet\tTOP = %d\n", location, TOP);
-	printf("coor[0] = %d\tet\tcoor[1] = %d\n", coor[0], coor[1]);
-	printf("moving_side = %d\n", moving_side);
+	fakecoor[0] = coor[0];
+	fakecoor[1] = coor[1];
+	printf("fakecoor[1] = %d\tet\tcoor[1] = %d\n", fakecoor[1], coor[1]);
+	location = (get_location(number, fakecoor[1], fakecoor[0], nbcuby) == BLOCKED) ?
+		oldlocation : get_location(number, fakecoor[1], fakecoor[0], nbcuby);
+	oldlocation = location;
+	//printf("fakecoor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 	if (location == TOP)
 	{
-		if (moving_side != BOT)
+		if (moving_side != BOT) //laisser le code tel quel dans une autre fonction (ca va surement marcher en fait)
 		{			
-			if ((moving_side = moving_top(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_top(number, coor, fakecoor)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != LEFT)
 		{			
-			if ((moving_side = moving_right(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_right(number, coor, fakecoor)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != TOP)
 		{			
-			if ((moving_side = moving_bot(number, &coor[1], &coor[0], nbcuby)) == STOP)
+			if ((moving_side = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 	}
@@ -71,26 +77,28 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	{
 		if (moving_side != LEFT)
 		{			
-			if ((moving_side = moving_right(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_right(number, coor, fakecoor)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != TOP)
 		{			
-			if ((moving_side = moving_bot(number, &coor[1], &coor[0], nbcuby)) == STOP)
+			if ((moving_side = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
+			printf("(bot) coor[0] = %d\tet\tcoor[1] = %d\n", coor[0], fakecoor[1]);
 		}
 		if (moving_side != RIGHT)
-		{			
-			if ((moving_side = moving_left(number, &coor[1], &coor[0])) == STOP)
+		{
+			printf("(left) coor[0] = %d\tet\tcoor[1] = %d\n", coor[0], fakecoor[1]);
+			if ((moving_side = moving_left(number, coor, fakecoor)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 	}
@@ -98,26 +106,26 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	{
 		if (moving_side != TOP)
 		{			
-			if ((moving_side = moving_bot(number, &coor[1], &coor[0], nbcuby)) == STOP)
+			if ((moving_side = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != RIGHT)
 		{			
-			if ((moving_side = moving_left(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_left(number, coor, fakecoor)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != BOT)
 		{			
-			if ((moving_side = moving_top(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_top(number, coor, fakecoor)) == STOP)
 				return (STOP);
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 	}
@@ -125,34 +133,36 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	{
 		if (moving_side != RIGHT)
 		{			
-			if ((moving_side = moving_left(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_left(number, coor, fakecoor)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != BOT)
 		{			
-			if ((moving_side = moving_top(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_top(number, coor, fakecoor)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 		if (moving_side != LEFT)
 		{
-			if ((moving_side = moving_right(number, &coor[1], &coor[0])) == STOP)
+			if ((moving_side = moving_right(number, coor, fakecoor)) == STOP)
 				return (STOP);
-			if (coor[0] == get_col_nbmin(number, 0) && coor[1] == get_line_nbmin(number, 0))
+			if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
 				return ((moving_side = ISFINISH));
 			if (moving_side != BLOCKED)
-				if ((moving_side = searching_around(number, coor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
+				if ((moving_side = searching_around(number, fakecoor, moving_side, nbcuby)) == ISFINISH || moving_side == STOP)
 					return (moving_side);
 		}
 	}
+	printf("location = %d\tet\tTOP = %d\n", location, TOP);
+	printf("moving_side = %d\n", moving_side);
 	return (BLOCKED);
 }

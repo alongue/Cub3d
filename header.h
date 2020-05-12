@@ -251,10 +251,10 @@ void				move_backward(t_player *player);
 void				move_forward(t_player *player);
 void				move_left(t_player *player);
 void				move_right(t_player *player);
-int					moving_top(char **number, int *col, int *lin);
-int					moving_right(char **number, int *col, int *lin);
-int					moving_bot(char **number, int *col, int *lin, int *nbcuby);
-int					moving_left(char **number, int *col, int *lin);
+int					moving_top(char **number, int *coor, int *fakecoor);
+int					moving_right(char **number, int *coor, int *fakecoor);
+int					moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby);
+int					moving_left(char **number, int *coor, int *fakecoor);
 int					offset_ptrcub(t_map *map, int nblin, int xmax);
 int					parse_poly(t_map *map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
