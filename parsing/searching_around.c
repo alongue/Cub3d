@@ -47,7 +47,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 		oldlocation : get_location(number, fakecoor[1], fakecoor[0], nbcuby);
 	printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);
 	//printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
-	sleep(1);
+	//sleep(1);
 	if (location == TOP)
 	{
 		if (moving_side != BOT) //laisser le code tel quel dans une autre fonction (ca va surement marcher en fait)
