@@ -57,7 +57,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -70,7 +70,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -83,7 +83,20 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
+					return ((ret = ISFINISH));
+				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
+					return (ret);
+			}
+		}
+		if (moving_side != RIGHT)
+		{			
+			if ((ret = moving_left(number, coor, fakecoor)) == STOP)
+				return (STOP);
+			if (ret != BLOCKED)
+			{
+				oldlocation = location;
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -127,6 +140,17 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				printf("(right) left location = %d\tet\toldlocation = %d\n", location, oldlocation);
+				oldlocation = location;
+				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
+					return (ret);
+			}
+		}
+		if (moving_side != BOT) //laisser le code tel quel dans une autre fonction (ca va surement marcher en fait)
+		{			
+			if ((ret = moving_top(number, coor, fakecoor)) == STOP)
+				return (STOP);
+			if (ret != BLOCKED)
+			{
 				oldlocation = location;
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -186,6 +210,19 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				else
 					cangoright = false;
 			}
+			if (moving_side != RIGHT)
+			{			
+				if ((ret = moving_left(number, coor, fakecoor)) == STOP)
+					return (STOP);
+				if (ret != BLOCKED)
+				{
+					oldlocation = location;
+					if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+						return ((ret = ISFINISH));
+					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
+						return (ret);
+				}
+			}
 		}
 		if (!cangoright) //ca revient a faire aucune condition car si il arrive jusque la c que cangoright = false, mais si c le cas dans les 3  autres conditions qui suivent, aucune ne va marcher donc ca va finalement backtracker
 		{
@@ -224,6 +261,17 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return (ret);
 				}
 			}
+			if (moving_side != LEFT)
+			{			
+				if ((ret = moving_right(number, coor, fakecoor)) == STOP)
+					return (STOP);
+				if (ret != BLOCKED)
+				{
+					oldlocation = location;
+					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
+						return (ret);
+				}
+			}
 		}
 	}
 	else if (location == LEFT)
@@ -235,7 +283,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -248,7 +296,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -261,8 +309,21 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == get_col_nbmin(number, 0) && fakecoor[1] == get_line_nbmin(number, 0))
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
 					return ((ret = ISFINISH));
+				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
+					return (ret);
+			}
+		}
+		if (moving_side != TOP)
+		{			
+			if ((ret = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
+				return (STOP);
+			if (ret != BLOCKED)
+			{
+				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(number, 0))
+					return ((ret = ISFINISH));
+				oldlocation = location;
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
 			}
