@@ -41,6 +41,9 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	int			location;
 	static int	oldlocation = TOP;
 	int			fakecoor[2];
+	static int	finish0 = 0;
+	static int	finish1 = 0;
+	static int	counter = 0;
 	static int	cangoright = false;
 	static int	cangoleft = false;
 	int			ret;
@@ -50,6 +53,13 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	//printf("fakecoor[1] = %d\tet\tcoor[1] = %d\n", fakecoor[1], coor[1]);
 	location = (get_location(number, fakecoor[1], fakecoor[0], nbcuby) == BLOCKED) ?
 		oldlocation : get_location(number, fakecoor[1], fakecoor[0], nbcuby);
+	if (location == TOP)
+		counter++;
+	if (counter == 2)
+	{
+		finish0 = fakecoor[0];
+		finish1 = fakecoor[1];
+	}
 	printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);
 	printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 	//sleep(1);
@@ -111,7 +121,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
@@ -124,7 +134,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
@@ -137,14 +147,14 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
 				}
 			}
 		}
-		/*if (moving_side != RIGHT)
+		if (moving_side != RIGHT)
 		{			
 			if ((ret = moving_left(number, coor, fakecoor)) == STOP)
 				return (STOP);
@@ -156,7 +166,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
 			}
-		}*/
+		}
 	}
 	else if (location == RIGHT)
 	{
@@ -168,7 +178,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			{
 				printf("(right) right location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -183,7 +193,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			{
 				printf("(right) bot location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -202,7 +212,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			{
 				printf("(right) left location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -294,7 +304,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
@@ -307,7 +317,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
@@ -320,7 +330,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 				if (ret != BLOCKED)
 				{
 					oldlocation = location;
-					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 						return ((ret = ISFINISH));
 					if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 						return (ret);
@@ -348,7 +358,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -361,7 +371,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
@@ -375,7 +385,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			if (ret != BLOCKED)
 			{
 				oldlocation = location;
-				if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0))
+				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmax(number, 0)) || (fakecoor[0] == finish0 && fakecoor[1] == finish1))
 					return ((ret = ISFINISH));
 				if ((ret = searching_around(number, fakecoor, ret, nbcuby)) == ISFINISH || ret == STOP)
 					return (ret);
