@@ -25,7 +25,10 @@ int		moving_top(char **number, int *coor, int *fakecoor)
 			return (TOP);
 		}
 		else
+		{
+			printf("STOP pour fakecoor[0] - 1 = %d et fakecoor[1] = %d\n", fakecoor[0] - 1, fakecoor[1]);
 			return (STOP);
+		}
 	}
 	else
 		return (BLOCKED);
@@ -41,7 +44,10 @@ int		moving_right(char **number, int *coor, int *fakecoor)
 			return (RIGHT);
 		}
 		else
+		{
+			printf("STOP pour fakecoor[0] = %d et fakecoor[1] + 1 = %d\n", fakecoor[0], fakecoor[1] + 1);
 			return (STOP);
+		}
 	else
 		return (BLOCKED);
 }
@@ -57,7 +63,7 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 		}
 		else
 		{
-			printf("STOP\n");
+			printf("STOP pour fakecoor[0] + 1 = %d et fakecoor[1] = %d\n", fakecoor[0] + 1, fakecoor[1]);
 			return (STOP);
 		}
 	else
@@ -75,7 +81,10 @@ int		moving_left(char **number, int *coor, int *fakecoor)
 			return (LEFT);
 		}
 		else
+		{
+			printf("STOP pour fakecoor[0] = %d et fakecoor[1] - 1 = %d\n", fakecoor[0], fakecoor[1] - 1);
 			return (STOP);
+		}
 	else
 		return (BLOCKED);
 }

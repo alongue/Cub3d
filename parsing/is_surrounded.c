@@ -36,7 +36,7 @@ bool	is_surrounded(char **number, int *nbcuby) //int *nbcuby --> tableau qui ind
 			return (false);
 		}
 	}
-	coor[1] = get_line_nbmin(number, 0);
+	coor[1] = get_line_nbmax(number, 0);
 	coor[0] = 0;
 	if (searching_around(number, coor, BLOCKED, nbcuby) == ISFINISH)
 		return (true);
