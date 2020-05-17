@@ -79,6 +79,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoleft = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]--;
 				}
 				else
 					cangoleft = false;
@@ -93,6 +95,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoleft = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[1]++;
 				}
 				else
 					cangoleft = false;
@@ -107,6 +111,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoleft = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]++;
 				}
 				else
 					cangoleft = false;
@@ -125,6 +131,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]++;
 				}
 			}
 			if (moving_side != LEFT)
@@ -138,6 +146,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[1]--;
 				}
 			}
 			if (moving_side != TOP)
@@ -151,6 +161,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]--;
 				}
 			}
 		}
@@ -165,6 +177,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+					fakecoor[1]++;
 			}
 		}
 	}
@@ -182,7 +196,11 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
-				printf("(right) en ret[0] de right, coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
+				else if (ret[1] == BLOCKED)
+				{
+					fakecoor[1]--;
+					printf("(right) en ret[0] de right, coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
+				}
 			}
 		}
 		if (moving_side != TOP)
@@ -197,8 +215,12 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+				{
+					fakecoor[0]--;
+					printf("(right) en ret[0] de bot, coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
+				}
 			}
-			printf("(right) en ret[0] de bot, coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 		}
 		if (moving_side != RIGHT)
 		{
@@ -216,6 +238,11 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+				{
+					fakecoor[1]++;
+					printf("(right) en ret[0] de left, coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
+				}
 			}
 		}/*
 		printf("moving_side avant de rentrer dans top = %d\n", moving_side);
@@ -233,7 +260,7 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 	}
 	else if (location == BOT)
 	{
-		if (moving_side != LEFT && (moving_side == BOT || cangoright))
+		if (moving_side != LEFT && ((moving_side == BOT && location != oldlocation) || cangoright))
 		{
 			//sleep(1);
 			printf("jte dis bonjour\n");
@@ -247,12 +274,14 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoright = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]++;
 				}
 				else
 					cangoright = false;
 				
 			}
-			if (moving_side != LEFT && ret[1] != BLOCKED)
+			if (moving_side != LEFT)// && ret[1] != BLOCKED)
 			{			
 				if ((ret[0] = moving_right(number, coor, fakecoor)) == STOP)
 					return (STOP);
@@ -262,12 +291,16 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoright = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
-					printf("moving_side (apres etre sorti du right de bot) = %d\n", moving_side);
+					else if (ret[1] == BLOCKED)
+					{
+						fakecoor[1]--;
+						printf("moving_side (apres etre sorti du right de bot) = %d\n", moving_side);
+					}
 				}
 				else
 					cangoright = false;
 			}
-			if (moving_side != TOP && ret[1] != BLOCKED)
+			if (moving_side != TOP)// && ret[1] != BLOCKED)
 			{			
 				if ((ret[0] = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
 					return (STOP);
@@ -277,6 +310,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					cangoright = true;
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
+					else if (ret[1] == BLOCKED)
+						fakecoor[0]--;
 				}
 				else
 					cangoright = false;
@@ -293,14 +328,15 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return (ret[1]);
 				}
 			}*/
-			return (BLOCKED);
+			//return (BLOCKED);
 		}
 		if (moving_side != RIGHT && !cangoright) //ca revient a faire aucune condition car si il arrive jusque la c que cangoright = false, mais si c le cas dans les 3  autres conditions qui suivent, aucune ne va marcher donc ca va finalement backtracker
 		{
 			printf("saluuuuuut\n");
 			cangoright = false;
 			if (moving_side != TOP)
-			{			
+			{
+				printf("je rentre dans (bot) bot\n");
 				if ((ret[0] = moving_bot(number, coor, fakecoor, nbcuby)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
@@ -310,11 +346,16 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
-					printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) left)\n", fakecoor[0], fakecoor[1]);
+					else if (ret[1] == BLOCKED)
+					{
+						fakecoor[0]--;
+						printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) left)\n", fakecoor[0], fakecoor[1]);
+					}
 				}
 			}
 			if (moving_side != RIGHT)
-			{			
+			{
+				printf("je rentre dans (bot) left\n");
 				if ((ret[0] = moving_left(number, coor, fakecoor)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
@@ -324,11 +365,16 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
-					printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) left)\n", fakecoor[0], fakecoor[1]);
+					else if (ret[1] == BLOCKED)
+					{
+						fakecoor[1]++;
+						printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) left)\n", fakecoor[0], fakecoor[1]);
+					}
 				}
 			}
 			if (moving_side != BOT)
-			{			
+			{
+				printf("je rentre dans (bot) top\n");
 				if ((ret[0] = moving_top(number, coor, fakecoor)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
@@ -338,7 +384,11 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 						return ((ret[0] = ISFINISH));
 					if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
-					printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) top)\n", fakecoor[0], fakecoor[1]);
+					else if (ret[1] == BLOCKED)
+					{
+						fakecoor[0]++;
+						printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (en sortant de (bot) top)\n", fakecoor[0], fakecoor[1]);
+					}
 				}
 			}/*
 			if (moving_side != LEFT)
@@ -367,6 +417,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+					fakecoor[1]++;
 			}
 		}
 		if (moving_side != BOT)
@@ -380,6 +432,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+					fakecoor[0]++;
 			}
 		}
 		if (moving_side != LEFT)
@@ -394,6 +448,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 					return ((ret[0] = ISFINISH));
 				if ((ret[1] = searching_around(number, fakecoor, ret[0], nbcuby)) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
+				else if (ret[1] == BLOCKED)
+					fakecoor[1]--;
 			}
 		}
 		/*if (moving_side != TOP)
@@ -410,6 +466,8 @@ int		searching_around(char **number, int *coor, int moving_side, int *nbcuby)
 			}
 		}*/
 	}
+	printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (avant de backtrack)\n", fakecoor[0], fakecoor[1]);
 	printf("location = %d\tet\tTOP = %d\n", location, TOP);
+	//sleep(2);
 	return (BLOCKED);
 }
