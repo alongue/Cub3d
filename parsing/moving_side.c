@@ -27,6 +27,7 @@ int		moving_top(char **number, int *coor, int *fakecoor)
 		else
 		{
 			printf("STOP pour fakecoor[0] - 1 = %d et fakecoor[1] = %d\n", fakecoor[0] - 1, fakecoor[1]);
+			//sleep(4);
 			return (STOP);
 		}
 	}
@@ -46,6 +47,7 @@ int		moving_right(char **number, int *coor, int *fakecoor)
 		else
 		{
 			printf("STOP pour fakecoor[0] = %d et fakecoor[1] + 1 = %d\n", fakecoor[0], fakecoor[1] + 1);
+			//sleep(4);
 			return (STOP);
 		}
 	else
@@ -64,6 +66,7 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 		else
 		{
 			printf("STOP pour fakecoor[0] + 1 = %d et fakecoor[1] = %d\n", fakecoor[0] + 1, fakecoor[1]);
+			//sleep(4);
 			return (STOP);
 		}
 	else
@@ -83,6 +86,7 @@ int		moving_left(char **number, int *coor, int *fakecoor)
 		else
 		{
 			printf("STOP pour fakecoor[0] = %d et fakecoor[1] - 1 = %d\n", fakecoor[0], fakecoor[1] - 1);
+			//sleep(4);
 			return (STOP);
 		}
 	else

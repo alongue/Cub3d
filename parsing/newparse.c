@@ -114,7 +114,7 @@ t_map		create_map(t_data data, t_player *player)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
 		return (map);
 	i = -1;
-	if (!is_surrounded(map.number, map.nbcuby))
+	if (!is_surrounded(map))
 		return (putstrret_fd("Error\nLa map n'est pas entoure de murs\n", map, 0));
 	while (++i < nblin)
 		if (!get_cub(&map, player, data, i))

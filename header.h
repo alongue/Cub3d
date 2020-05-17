@@ -198,6 +198,7 @@ struct				s_map
 	int			nbobjects; // le nombre d'objets
 	//t_polygon	*set;
 	int			height;
+	int			*parsepos;
 	t_cub		**cub; // tous les cub de la map
 	int			*lastchar;
 	t_object	*objects; // tous les objets de la map
@@ -244,7 +245,7 @@ void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 //void				initcub(t_map *map, int side);
 //void				initobj(t_map *map, int side);
 bool				is_convex_set(t_polygon *set, t_node *node);
-bool				is_surrounded(char **number, int *nbcuby);
+int					is_surrounded(t_map map);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
 void				move_backward(t_player *player);
@@ -272,7 +273,7 @@ void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
-int					searching_around(char **number, int *coor, int moving_side, int *nbcuby);
+int					searching_around(t_map map, int *coor, int moving_side);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 void				set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
