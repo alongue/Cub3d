@@ -30,7 +30,10 @@ int		is_surrounded(t_map map) //int *map.nbcuby --> tableau qui indique le nombr
 	}
 	if (!(map.parsepos = malloc(sizeof(int) * coor[1])))
 		return (3);
+	if (!(map.backtrackpos = malloc(sizeof(int) * coor[1])))
+		return (3);
 	map.parsepos = ft_memseti(map.parsepos, 0, coor[1]);
+	map.backtrackpos = ft_memseti(map.parsepos, 0, coor[1]);
 	coor[1] = -1;
 	while (++coor[1] < get_nbxmax(map.nbcuby))
 	{
@@ -41,9 +44,9 @@ int		is_surrounded(t_map map) //int *map.nbcuby --> tableau qui indique le nombr
 			return (false);
 		}
 	}
-	coor[1] = get_line_nbmax(map.number, 0);
+	coor[1] = get_line_nbmin(map.number, 0);
 	coor[0] = 0;
-	if (searching_around(map, coor, BLOCKED) == ISFINISH)
+	if (searching_around(&map, coor, BLOCKED) == ISFINISH)
 		return (true);
 	else
 		return (false);

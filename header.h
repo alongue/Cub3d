@@ -199,6 +199,7 @@ struct				s_map
 	//t_polygon	*set;
 	int			height;
 	int			*parsepos;
+	int			*backtrackpos;
 	t_cub		**cub; // tous les cub de la map
 	int			*lastchar;
 	t_object	*objects; // tous les objets de la map
@@ -273,7 +274,7 @@ void				renderbsp(t_data *data, t_node current, t_player player);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
-int					searching_around(t_map map, int *coor, int moving_side);
+int					searching_around(t_map *map, int *coor, int moving_side);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 void				set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
