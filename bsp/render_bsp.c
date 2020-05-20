@@ -84,3 +84,16 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 			renderbsp(data, *current.frontchild, player);
 	}
 }
+
+void	renderobjects(t_data *data, t_player player, t_map map)
+{
+	int	i;
+
+	i = -1;
+	while (++i < map.nbobjects)
+	{
+		replace_obj(&map.objects[i], player);
+		if (do_display_obj(&map.objects[i], *data, player))
+			display_object(data, map.objects[i], player);
+	}
+}

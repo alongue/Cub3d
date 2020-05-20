@@ -48,7 +48,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 		oldlocation : get_location(moving_side);
 	printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);
 	printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
-	sleep(1);
+	//sleep(1);
 	if (location == TOP)
 	{
 		/*if (moving_side != RIGHT && (moving_side == TOP || cangoleft))

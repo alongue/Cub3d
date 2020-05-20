@@ -67,9 +67,7 @@ int		funt(int i, void **p)
 	renderbsp(data, *map->tree.rootnode, *player);
 	printf("map->tree.rootnode->splitter.wall.color = %x\n", map->tree.rootnode->splitter.wall.color);
 	printf("map->objects[0].pos.x = %f\n", map->objects[0].pos.x);
-	replace_obj(&map->objects[0], *player);
-	if (do_display_obj(&map->objects[0], *data, *player))
-		display_object(data, map->objects[0], *player);
+	renderobjects(data, *player, *map);
 	mlx_put_image_to_window(data->ptr, data->window, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (0);
 }
@@ -103,10 +101,9 @@ int		main(int ac, char **av)
 	//coor[0] = ft_memseti(coor[0], 50, 2);
 	//wall.color = 0xffffff;
 	//printf("wall = %p\n", wall);
-	replace_obj(&map.objects[0], player);
-	if (do_display_obj(&map.objects[0], data, player))
-		display_object(&data, map.objects[0], player);
+	display_ceilfloor(data);
 	renderbsp(&data, *map.tree.rootnode, player);
+	renderobjects(&data, player, map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	param[0] = (void *)&data;
 	param[1] = (void *)&map;

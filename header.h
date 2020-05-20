@@ -39,22 +39,24 @@
 
 struct				s_data
 {
-	bool	exist;
-	void	*ptr;
-	void	*window;
-	void	*img;
-	int		*img_data; // les infos du mur de l'image
-	int		bpp; // blk
-	int		size_line; // blk
-	int		endian; // blk
-	int		win_width;
-	int		win_height;
-	int		cubside;
-	float	*heightcol;
-	int		currentCubIndex[2]; // sert uniquement a parse_poly
-	char	*filename;
-	int		nbcoldone;
-	int		*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
+	bool			exist;
+	void			*ptr;
+	void			*window;
+	void			*img;
+	int				*img_data; // les infos du mur de l'image
+	int				bpp; // blk
+	int				size_line; // blk
+	int				endian; // blk
+	int				win_width;
+	int				win_height;
+	int				cubside;
+	unsigned int	colceil;
+	unsigned int	colfloor;
+	float			*heightcol;
+	int				currentCubIndex[2]; // sert uniquement a parse_poly
+	char			*filename;
+	int				nbcoldone;
+	int				*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
 
@@ -225,8 +227,9 @@ t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polytop(t_map map, int *coor, t_data, t_player player);
 int					create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
-int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
+int					display_ceilfloor(t_data data);
 int					display_object(t_data *data, t_object object, t_player player);
+int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
 bool				do_display_poly(t_polygon *polygon, t_data data, t_player player);
 bool				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			dup_polygon(t_polygon polygon);
@@ -271,6 +274,7 @@ bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segme
 bool				raycastxobj(t_object *object, t_data data);//, t_segment *segment);
 bool				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
 void				renderbsp(t_data *data, t_node current, t_player player);
+void				renderobjects(t_data *data, t_player player, t_map map);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);

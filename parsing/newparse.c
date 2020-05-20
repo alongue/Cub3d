@@ -66,6 +66,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 
 	i = 0;
 	max = 0;
+	map->nbobjects = 0;
 	if (!(map->number = malloc(sizeof(char *) * (i + 1))))
 		return (0);
 	while ((ret = get_next_line(fd, &map->number[i])) == 1 || ft_strncmp(map->number[i], "", 1) != 0 || !ft_isonlychar(map->number[i], "012SNEW "))
@@ -74,8 +75,9 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
 			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0)); // mettre ces 2 if dans une fonction d'erreur
-		max = (ft_strlen(map->number[i])) > max ? ft_strlen(map->number[i]) : max;
 		printf("map->number[i] = %s\n", map->number[i]);
+		printf("i = %d\n", i);
+		max = (ft_strlen(map->number[i])) > max ? ft_strlen(map->number[i]) : max;
 		i++;
 		printf("je m'apprete a realloc\n");
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
@@ -86,6 +88,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	i = -1;
 	while (++i < *nblin)
 	{
+		//printf("map->number[%d] = %s\n", i, map->number[i]);
 		max1 = ft_strlen(map->number[i]) - 1;
 		printf("ligne -> %d\tmax1 = %zu\tet\t*xmax = %zu\n", i, max1, *xmax);
 		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1)))
@@ -106,6 +109,7 @@ t_map		create_map(t_data data, t_player *player)
 	int		i;
 
 	map.exist = false;
+	map.objects = NULL;
 	if (!data.filename || !ft_strstrpart(data.filename, ft_strlen(data.filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));

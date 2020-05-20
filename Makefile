@@ -39,6 +39,7 @@ SRCS	=	$(MAIN)							\
 			player_move.c					\
 			player_turn.c					\
 			object.c						\
+			display_ceilfloor.c				\
 			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\

@@ -21,6 +21,8 @@ int		create_data(t_data *data, char **av)
 	printf("av[1] (avant window) = %s\n", av[1]);
 	data->win_width = WIDTH;
 	data->win_height = HEIGHT;
+	data->colceil = 0x0000FA;
+	data->colfloor = 0xFFFF00;
 	data->coldone = malloc(sizeof(int) * data->win_width);
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
@@ -55,6 +57,7 @@ void	reset_data(t_data *data)
 			data->img_data[y * data->win_width + x] = 0x000000;
 	}
 	data->nbcoldone = 0;
+	display_ceilfloor(*data);
 }
 
 int		free_elements(t_data data, t_tree tree, t_map map)

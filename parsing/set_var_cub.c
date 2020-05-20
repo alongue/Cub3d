@@ -66,17 +66,20 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 
 void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets
 {
-	if (!(map->objects = malloc(sizeof(t_object) * 1)))
+	map->nbobjects++;
+	printf("map->nbobjects = %d\n", map->nbobjects);
+	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects)))
 	{
 		printf("Le malloc fonctionne pas ta mere !\n");
 		return ;
 	}
+	printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = false;
-	if (!(map->objects[0].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[0].width, &map->objects[0].height)))
+	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
 		return ;
-	map->objects[0].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[0].bpp, &map->objects[0].size_line, &map->objects[0].endian);
-	map->objects[0].data_file = (int *)mlx_get_data_addr(map->objects[0].img, &map->objects[0].bppimg, &map->objects[0].size_lineimg, &map->objects[0].endianimg);
-	map->objects[0].exist = true;
-	map->objects[0].pos.x = counter * data.cubside + map->objects[0].width / 2;
-	map->objects[0].pos.y = i * data.cubside + map->objects[0].height / 2;
+	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
+	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);
+	map->objects[map->nbobjects - 1].exist = true;
+	map->objects[map->nbobjects - 1].pos.x = counter * data.cubside + map->objects[map->nbobjects - 1].width / 2;
+	map->objects[map->nbobjects - 1].pos.y = i * data.cubside + map->objects[map->nbobjects - 1].height / 2;
 }

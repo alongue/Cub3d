@@ -24,10 +24,11 @@ void	*ft_realloc(void *ptr, size_t size)
 	size_t			i;
 
 	i = -1;
-	if (!ptr || size == 0)
+	if (size == 0)
 		return (NULL);
 	if (!(ptrcop = malloc(size)))
 		return (NULL);
-	ft_memcpy(ptrcop, ptr, size);
+	if (ptr != NULL)
+		ft_memcpy(ptrcop, ptr, size);
 	return (ptrcop);
 }
