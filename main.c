@@ -66,7 +66,6 @@ int		funt(int i, void **p)
 	//printf("keycode = %d\n", i);
 	renderbsp(data, *map->tree.rootnode, *player);
 	printf("map->tree.rootnode->splitter.wall.color = %x\n", map->tree.rootnode->splitter.wall.color);
-	printf("map->objects[0].pos.x = %f\n", map->objects[0].pos.x);
 	renderobjects(data, *player, *map);
 	mlx_put_image_to_window(data->ptr, data->window, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (0);
