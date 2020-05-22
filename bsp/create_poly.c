@@ -46,7 +46,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 	//p.wall = create_wall(p, player, data);
 	(void)player;
 	//p.wall.color = 0xFF0000;
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-4.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texnorth, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		p.exist = false;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (top)\n", 0);
@@ -91,7 +91,7 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 		sleep(5);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercles.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texsouth, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		p.exist = false;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (bot)\n", 0);
@@ -134,7 +134,7 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);
 	p.len = get_length(p.segment);
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/cercle2.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texeast, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		p.exist = false;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (right)\n", 0);
@@ -179,7 +179,7 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);
 	p.len = get_length(p.segment);
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/Le-cercle.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texwest, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		p.exist = false;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (left)\n", 0);

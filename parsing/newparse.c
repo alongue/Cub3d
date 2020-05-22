@@ -17,6 +17,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 	int			counter;
 
 	counter = -1;
+	player->exist = false;
 	while (map->number[i][++counter])
 	{
 		if (map->number[i][counter] == '1')
@@ -25,6 +26,8 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 			set_obj(data, map, i, counter);
 		else if (ft_get_nbchar("SNEW", map->number[i][counter]) == 1)
 		{
+			if (player->exist)
+				ft_putstrreti_fd("Error\nUn seul joueur est accepte sur la map.\n", 0, 0);
 			*player = get_player(counter * data.cubside, i * data.cubside, map->number[i][counter], data);
 			map->cub[i][counter].exist = false;
 		}
@@ -69,10 +72,9 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	map->nbobjects = 0;
 	if (!(map->number = malloc(sizeof(char *) * (i + 1))))
 		return (0);
-	while ((ret = get_next_line(fd, &map->number[i])) == 1 || ft_strncmp(map->number[i], "", 1) != 0 || !ft_isonlychar(map->number[i], "012SNEW "))
+	while ((ret = get_next_line(fd, &map->number[i])) != -1 &&
+	!ft_isonlychar(map->number[i], " "))
 	{
-		if (ret == -1)
-			return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
 			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0)); // mettre ces 2 if dans une fonction d'erreur
 		printf("map->number[i] = %s\n", map->number[i]);
@@ -83,6 +85,10 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
 			return (0); // regrouper ces malloc peut etre
 	}
+	if (ret == -1)
+		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
+	if (!verify_end(fd))
+		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
 	i = -1;
@@ -100,7 +106,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	return (1);
 }
 
-t_map		create_map(t_data data, t_player *player)
+t_map		create_map(t_data *data, t_player *player)
 {
 	t_map	map;
 	int		fd;
@@ -110,10 +116,12 @@ t_map		create_map(t_data data, t_player *player)
 
 	map.exist = false;
 	map.objects = NULL;
-	if (!data.filename || !ft_strstrpart(data.filename, ft_strlen(data.filename) - 4,
+	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-	fd = open(data.filename, O_RDONLY);
+	fd = open(data->filename, O_RDONLY);
+	if (!parse_elements(&map, &data, fd))
+		return (map);
 	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
 		return (map);

@@ -27,8 +27,7 @@ int		create_data(t_data *data, char **av)
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
 	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
-	data->filename = malloc(sizeof(char) * ft_strlen(av[1]) + 1);
-	data->filename = ft_strcpy(data->filename, av[1]);
+	data->filename = ft_strdup(av[1]);
 	printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
 	printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
 	printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);

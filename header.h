@@ -53,6 +53,10 @@ struct				s_data
 	unsigned int	colceil;
 	unsigned int	colfloor;
 	float			*heightcol;
+	char			*texnorth;
+	char			*texsouth;
+	char			*texeast;
+	char			*texwest;
 	int				currentCubIndex[2]; // sert uniquement a parse_poly
 	char			*filename;
 	int				nbcoldone;
@@ -220,7 +224,7 @@ bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
 int					create_data(t_data *data, char **av);
-t_map				create_map(t_data data, t_player *player);
+t_map				create_map(t_data *data, t_player *player);
 t_polygon			create_polybot(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyleft(t_map map, int *coor, t_data, t_player player);
 t_polygon			create_polyright(t_map map, int *coor, t_data, t_player player);
@@ -261,6 +265,7 @@ int					moving_right(char **number, int *coor, int *fakecoor);
 int					moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby);
 int					moving_left(char **number, int *coor, int *fakecoor);
 int					offset_ptrcub(t_map *map, int nblin, int xmax);
+int					parse_elements(t_map *map, t_data *data, int fd);
 int					parse_poly(t_map *map, t_player player, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
@@ -291,5 +296,6 @@ t_polygon *frontset, t_polygon *backset);
 int					try_moving_top(char **number, int *nbcuby, int *col, int *lin);
 void				turn_left(t_player *player);
 void				turn_right(t_player *player);
+int					verify_end(int fd);
 
 #endif
