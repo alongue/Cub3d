@@ -120,7 +120,7 @@ t_map		create_map(t_data *data, t_player *player)
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	fd = open(data->filename, O_RDONLY);
-	if (!parse_elements(&map, &data, fd))
+	if (!parse_elements(&map, data, fd))
 		return (map);
 	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
@@ -129,7 +129,7 @@ t_map		create_map(t_data *data, t_player *player)
 	if (!is_surrounded(map))
 		return (putstrret_fd("Error\nLa map n'est pas entoure de murs\n", map, 0));
 	while (++i < nblin)
-		if (!get_cub(&map, player, data, i))
+		if (!get_cub(&map, player, *data, i))
 			return (map);
 	map.exist = true;
 	return (map);

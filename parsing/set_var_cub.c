@@ -75,7 +75,7 @@ void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des mallo
 	}
 	printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = false;
-	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
+	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, data.sprite, &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
 		return ;
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
 	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);

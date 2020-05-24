@@ -12,7 +12,7 @@
 
 #include "../header.h"
 
-void    set_resolution(t_data *data)
+int     set_resolution(t_data *data, char *line)
 {
     int i;
     int oldi;
@@ -23,19 +23,22 @@ void    set_resolution(t_data *data)
     while (line[i] != ' ')
         i++;
     if (i == oldi + 1)
-        ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0);
+        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
     if ((data->win_width = ft_atoi(&line[i])) > 2560)
         data->win_width = 2560;
     i++;
     while (line[i] != ' ')
         i++;
     if (i == oldi + 1)
-        ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0);
+        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
     if ((data->win_height = ft_atoi(&line[i])) > 1440)
         data->win_height = 1440;
+    if (data->win_width < 1 || data->win_height < 1)
+        return (ft_putstrreti_fd("Error\nVerifiez la taille de l'ecran\n", 0, 0));
+    return (1);
 }
 
-void    set_texture(t_data *data, char orientation)
+int     set_texture(t_data *data, char *line, char orientation)
 {
     int i;
     int oldi;
@@ -46,7 +49,7 @@ void    set_texture(t_data *data, char orientation)
     while (line[i] != ' ')
         i++;
     if (i == oldi + 1)
-        ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0);
+        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
     if (orientation == 'N')
         data->texnorth = ft_substr(line, i, ft_strlen(line)); //renvoyer erreur si c'est n'importe quoi
     if (orientation == 'S')
@@ -55,9 +58,35 @@ void    set_texture(t_data *data, char orientation)
         data->texnorth = ft_substr(line, i, ft_strlen(line));
     if (orientation == 'E')
         data->texnorth = ft_substr(line, i, ft_strlen(line));
+    if (orientation == 's')
+        data->sprite = ft_substr(line, i, ft_strlen(line));
+    return (1);
 }
 
+int     set_color_value(t_data *data, char *line, char letter)
+{
+    int i;
+    int oldi;
 
+    i = get_first_char(line);
+    oldi = i;
+    i++;
+    while (line[i] != ' ')
+        i++;
+    if (i == oldi + 1)
+        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
+    if (letter == 'F')
+    {
+        if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
+            return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
+    }
+    else if (letter == 'C')
+    {
+        if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
+            return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
+    }
+    return (1);
+}
 
 
 
@@ -66,16 +95,49 @@ int     set_color(t_data *data, char *line)
     int i;
 
     i = get_first_char(line);
-    if (line[i] == 'R') // faut pas que tout ca y soit 2 fois
-        set_resolution(data);
+    if (line[i] == 'R') // faut pas que un de tout ca y soit 2 fois
+    {
+        if (!set_resolution(data, line))
+            return (0);
+    }
     else if (line[i] == 'N' && line[i] == 'O')
-        set_texture(data, 'N');
+    {
+        if (!set_texture(data, line, 'N'))
+            return (0);
+    }
     else if (line[i] == 'S' && line[i] == 'O')
-        set_texture(data, 'S');
+    {
+        if (!set_texture(data, line, 'S'))
+            return (0);
+    }
     else if (line[i] == 'W' && line[i] == 'E')
-        set_texture(data, 'W');
+    {
+        if (!set_texture(data, line, 'W'))
+            return (0);
+    }
     else if (line[i] == 'E' && line[i] == 'A')
-        set_texture(data, 'E');
+    {
+        if (!set_texture(data, line, 'E'))
+            return (0);
+    }
+    else if (line[i] == 'S') // on a deja verifier si y avait un 'O' apres
+    {
+        if (!set_texture(data, line, 's'))
+            return (0);
+    }
+    else if (line[i] == 'F')
+    {
+        if (!set_color_value(data, line, 'F'))
+            return (0);
+    }
+    else if (line[i] == 'C')
+    {
+        if (!set_color_value(data, line, 'C'))
+            return (0);
+    }
+    else
+        return (ft_putstrreti_fd("Error\nVeuillez verifier ce que vous avez marquer\n", 0, 0));
+    return (1);
 }
 
 int     get_first_char(char *str) // cherche 1er caractere sans compter espaces
@@ -95,6 +157,8 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     int     newfd;
     int     counter;
 
+    (void)map;
+    (void)fd;
     newfd = open(data->filename, O_RDONLY);
     counter = 0;
     while ((ret = get_next_line(newfd, &line)) == 1 &&
@@ -106,6 +170,7 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     }
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
+    return (1);
 }
 
 int     verify_end(int fd)

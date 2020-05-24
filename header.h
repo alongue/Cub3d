@@ -57,6 +57,7 @@ struct				s_data
 	char			*texsouth;
 	char			*texeast;
 	char			*texwest;
+	char			*sprite;
 	int				currentCubIndex[2]; // sert uniquement a parse_poly
 	char			*filename;
 	int				nbcoldone;
@@ -223,6 +224,7 @@ bool				cond_bot(t_map map, int x, int y);
 bool				cond_left(t_map map, int x, int y);
 bool				cond_right(t_map map, int x, int y);
 bool				cond_top(t_map map, int x, int y);
+unsigned int		convert_color(char *line);
 int					create_data(t_data *data, char **av);
 t_map				create_map(t_data *data, t_player *player);
 t_polygon			create_polybot(t_map map, int *coor, t_data, t_player player);
@@ -242,6 +244,7 @@ int					free_elements(t_data data, t_tree tree, t_map map);
 void				*ft_realloc(void *ptr, size_t size);
 int					get_col_nbmax(char **number, int col, int *nbcuby);
 int					get_col_nbmin(char **number, int col);
+int					get_first_char(char *str);
 int					get_line_nbmax(char **number, int lin);
 int					get_line_nbmin(char **number, int lin);
 int					get_nbxmax(int *nbcuby);

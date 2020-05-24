@@ -49,6 +49,7 @@ SRCS	=	$(MAIN)							\
 			$(PARSE)/utils.c				\
 			$(PARSE)/utils_nbmax.c			\
 			$(PARSE)/get_info_lin.c			\
+			$(PARSE)/elements.c				\
 			$(BSP)/render_bsp.c				\
 			$(BSP)/functions_tree.c			\
 			$(BSP)/build_tree.c				\

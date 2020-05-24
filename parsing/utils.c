@@ -12,13 +12,13 @@
 
 #include "../header.h"
 
-t_map	putstrret_fd(char *str, t_map map, int fd)
+t_map			putstrret_fd(char *str, t_map map, int fd)
 {
 	ft_putstr_fd(str, fd);
 	return (map);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void			*ft_realloc(void *ptr, size_t size)
 {
 	void			*ptrcop;
 	size_t			i;
@@ -31,4 +31,25 @@ void	*ft_realloc(void *ptr, size_t size)
 	if (ptr != NULL)
 		ft_memcpy(ptrcop, ptr, size);
 	return (ptrcop);
+}
+
+unsigned int	convert_color(char *line)
+{
+	unsigned int	ret;
+	unsigned int	res;
+	int				i;
+	int				counter;
+
+	counter = -1;
+	ret = 0;
+	while (++counter < 3)
+	{
+		ret *= 256;
+		res = (unsigned int)ft_atol_base(ft_convert_basel(line, "0123456789", "0123456789abcdef"), "0123456789abcdef");
+		i = ft_intlen(ft_atoi(line)) + 1;
+		if (line[i] != ',' || res < 0)
+			return ((unsigned int)-1);
+		ret += res;
+	}
+	return (ret);
 }
