@@ -49,10 +49,10 @@ unsigned int	convert_color(char *line)
 		res = (unsigned int)ft_atol_base(ft_convert_basel(&line[i], "0123456789", "0123456789abcdef"), "0123456789abcdef");
 		//printf("res = \"%s\"\n", ft_convert_basel(&line[i], "0123456789", "0123456789abcdef"));
 		//printf("res = %#x\n", res);
-		i = ft_intlen(ft_atoi(line));
-		//printf("line[i] = '%c'\n", line[i]);
+		i += ft_intlen(ft_atoi(&line[i]));
+		//printf("line[%d] = '%c'\n", i, line[i]);
 		//printf("res = %d\n", res);
-		if (line[i++] != ',' || res < 0 || res > 255)
+		if ((line[i++] != ',' && counter < 2) || res < 0 || res > 255)
 			return ((unsigned int)-1);
 		ret += res;
 		//sleep(2);
