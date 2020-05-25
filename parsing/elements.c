@@ -187,22 +187,28 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     int     ret;
     char    *line;
     int     newfd;
-    int     counter;
+    int     counter[2];
 
     (void)map;
     (void)fd;
     newfd = open(data->filename, O_RDONLY);
-    counter = 0;
+    ft_memseti(counter, 0, 2);
     while ((ret = get_next_line(fd, &line)) == 1 &&
-    (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) != 0))
+    (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) == 0))
     {
-        counter += set_color(data, line);
-        printf("counter elements = %d\n", counter);
-        free(line);
+        if (ft_strncmp(line, "", 1) != 0)
+        {
+            counter[1] = counter[0];
+            counter[0] += set_color(data, line);
+            if (counter[1] == counter[0])
+                return(0);
+            printf("counter elements = %d\n", counter[0]);
+            free(line);
+        }
     }
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
-    if (counter != NBELEM)
+    if (counter[0] != NBELEM)
         return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre d'elements\n", 0, 0));
     return (1);
 }
