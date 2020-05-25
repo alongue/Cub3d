@@ -44,6 +44,7 @@ int			get_nbcuby(t_map *map, size_t xmax, int nblin)
 	int		y[2];
 
 	x = -1;
+	printf("xmax = %zu\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(size_t) * xmax + 1)))
 		return (0);
 	while (++x < xmax)
@@ -76,7 +77,10 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	!ft_isonlychar(map->number[i], " "))
 	{
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
-			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", -1, 0)); // mettre ces 2 if dans une fonction d'erreur
+		{
+			printf("map->number[%d] = %s\n", i, map->number[i]);
+			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", 0, 0)); // mettre ces 2 if dans une fonction d'erreur
+		}
 		printf("map->number[i] = %s\n", map->number[i]);
 		printf("i = %d\n", i);
 		max = (ft_strlen(map->number[i])) > max ? ft_strlen(map->number[i]) : max;
@@ -91,6 +95,8 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
+	printf("max = %zu\n", max);
+	sleep(1);
 	i = -1;
 	while (++i < *nblin)
 	{

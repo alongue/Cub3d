@@ -53,6 +53,18 @@ static int	ft_check(const char *str, const char *base)
 	return (counter);
 }
 
+int			get_first_nb(const char *str, const char *base)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && (ft_isspace(str[i]) || str[i] == '+' || str[i] == '-'))
+		i++;
+	while (ft_get_nbchar(base, str[i + 1]) == 1 && str[i + 1] != 0)
+		i++;
+	return (i);
+}
+
 long		ft_atol_base(const char *str, const char *base)
 {
 	long	result;
@@ -68,11 +80,12 @@ long		ft_atol_base(const char *str, const char *base)
 	neg = (ft_offset(str)) < 0 ? -1 : 1;
 	i[0] = 0;
 	i[1] = 0;
-	i[2] = size[1] - 1;
-	while (i[2] > ft_abs(ft_offset(str)))
+	i[2] = get_first_nb(str, base);
+	while (i[2] >= ft_abs(ft_offset(str)) && ft_get_nbchar(base, str[i[2]]) == 1)
 	{
-		i[2] = size[1] - 1 - i[0]++;
-		result += (str[i[2]] - '0') * ft_pow(size[0], i[1]++);
+		//i[2] = get_first_nb(str, base) - i[0]++;
+		result += ft_getpos(base, str[i[2]], 1) * ft_pow(size[0], i[1]++);
+		i[2] -= 1;
 	}
 	i[0] = 0;
 	i[1] = 0;
