@@ -25,14 +25,14 @@ int     set_resolution(t_data *data, char *line)
     while (line[i] == ' ')
         i++;
     if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nMettez un espace (ID et resolution X)\n", 0, 0));
     if ((data->win_width = ft_atoi(&line[i])) > 2560)
         data->win_width = 2560;
     i++;
     while (line[i] == ' ')
         i++;
     if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nMettez un espace (resolution X et Y)\n", 0, 0));
     if ((data->win_height = ft_atoi(&line[i])) > 1440)
         data->win_height = 1440;
     if (data->win_width < 1 || data->win_height < 1)
@@ -46,40 +46,45 @@ int     set_texture(t_data *data, char *line, char orientation)
     int oldi;
 
     i = get_first_char(line);
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     oldi = i;
-    i++;
+    while (line[i] != ' ')
+        i++;
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     while (line[i] == ' ')
         i++;
     if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, 0));
     if (orientation == 'N')
     {
         if (data->texnorth != NULL)
-            return (ft_putstrreti_fd("Error\nnorth texture is already written\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
         data->texnorth = ft_substr(line, i, ft_strlen(line)); //renvoyer erreur si c'est n'importe quoi
     }
     if (orientation == 'S')
     {
         if (data->texsouth != NULL)
-            return (ft_putstrreti_fd("Error\nsouth texture is already written\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
         data->texsouth = ft_substr(line, i, ft_strlen(line));
     }
     if (orientation == 'W')
     {
         if (data->texwest != NULL)
-            return (ft_putstrreti_fd("Error\nwest texture is already written\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
         data->texwest = ft_substr(line, i, ft_strlen(line));
     }
     if (orientation == 'E')
     {
         if (data->texeast != NULL)
-            return (ft_putstrreti_fd("Error\neast texture is already written\n", 0, 0));
+            return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
         data->texeast = ft_substr(line, i, ft_strlen(line));
     }
     if (orientation == 's')
     {
+        printf("data->srpie = %s\n", data->sprite);
+        sleep(1);
         if (data->sprite != NULL)
-            return (ft_putstrreti_fd("Error\nprite texture is already written\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
         data->sprite = ft_substr(line, i, ft_strlen(line));
     }
     return (1);
@@ -132,22 +137,22 @@ int     set_color(t_data *data, char *line)
         if (!set_resolution(data, line))
             return (0);
     }
-    else if (line[i] == 'N' && line[i] == 'O' && ++counter < NBELEM)
+    else if (line[i] == 'N' && line[i + 1] == 'O' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'N'))
             return (0);
     }
-    else if (line[i] == 'S' && line[i] == 'O' && ++counter < NBELEM)
+    else if (line[i] == 'S' && line[i + 1] == 'O' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'S'))
             return (0);
     }
-    else if (line[i] == 'W' && line[i] == 'E' && ++counter < NBELEM)
+    else if (line[i] == 'W' && line[i + 1] == 'E' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'W'))
             return (0);
     }
-    else if (line[i] == 'E' && line[i] == 'A' && ++counter < NBELEM)
+    else if (line[i] == 'E' && line[i + 1] == 'A' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'E'))
             return (0);
@@ -187,13 +192,13 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     int     ret;
     char    *line;
     int     newfd;
-    int     counter[2];
+    int     counter[3];
 
     (void)map;
     (void)fd;
     newfd = open(data->filename, O_RDONLY);
-    ft_memseti(counter, 0, 2);
-    while ((ret = get_next_line(fd, &line)) == 1 &&
+    ft_memseti(counter, 0, 3);
+    while ((ret = get_next_line(newfd, &line)) == 1 &&
     (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) == 0))
     {
         if (ft_strncmp(line, "", 1) != 0)
@@ -203,6 +208,7 @@ int     parse_elements(t_map *map, t_data *data, int fd)
             if (counter[1] == counter[0])
                 return(0);
             printf("counter elements = %d\n", counter[0]);
+            counter[2]++;
             free(line);
         }
     }
@@ -210,6 +216,11 @@ int     parse_elements(t_map *map, t_data *data, int fd)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
     if (counter[0] != NBELEM)
         return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre d'elements\n", 0, 0));
+    while (--counter[2] > 0)
+    {
+        get_next_line(fd, &line);
+        free(line);
+    }
     return (1);
 }
 

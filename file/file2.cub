@@ -8,7 +8,14 @@ C  255,0,0
      F   60,0,8
 
 
+S      textures/texture.xpm
+SO       textures/mur-1.xpm
+NO textures/texture.xpm
+EA textures/texture.xpm
+WE textures/texture.xpm
 
+
+               R                                      1080,720
 
 
 11111111111111

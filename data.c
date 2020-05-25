@@ -27,6 +27,7 @@ int		create_data(t_data *data, char **av)
 	data->texsouth = NULL;
 	data->texeast = NULL;
 	data->texwest = NULL;
+	data->sprite = NULL;
 	data->coldone = malloc(sizeof(int) * data->win_width);
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
