@@ -195,7 +195,6 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     int     counter[3];
 
     (void)map;
-    (void)fd;
     newfd = open(data->filename, O_RDONLY);
     ft_memseti(counter, 0, 3);
     while ((ret = get_next_line(newfd, &line)) == 1 &&
@@ -211,16 +210,26 @@ int     parse_elements(t_map *map, t_data *data, int fd)
             counter[2]++;
             free(line);
         }
+        else
+            counter[2]++;
     }
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
     if (counter[0] != NBELEM)
         return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre d'elements\n", 0, 0));
-    while (--counter[2] > 0)
+    while (ret != 0)
     {
-        get_next_line(fd, &line);
+        ret = get_next_line(newfd, &line);
         free(line);
     }
+    while (--counter[2] >= 0)
+    {
+        get_next_line(fd, &line);
+        printf("line -> %s\n", line);
+        free(line);
+    }
+    printf("fd = %d et newfd = %d\n", fd, newfd);
+    sleep(2);
     return (1);
 }
 
