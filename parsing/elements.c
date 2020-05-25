@@ -53,15 +53,35 @@ int     set_texture(t_data *data, char *line, char orientation)
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace\n", 0, 0));
     if (orientation == 'N')
+    {
+        if (data->texnorth != NULL)
+            return (ft_putstrreti_fd("Error\nnorth texture is already written\n", 0, 0));
         data->texnorth = ft_substr(line, i, ft_strlen(line)); //renvoyer erreur si c'est n'importe quoi
+    }
     if (orientation == 'S')
-        data->texnorth = ft_substr(line, i, ft_strlen(line));
+    {
+        if (data->texsouth != NULL)
+            return (ft_putstrreti_fd("Error\nsouth texture is already written\n", 0, 0));
+        data->texsouth = ft_substr(line, i, ft_strlen(line));
+    }
     if (orientation == 'W')
-        data->texnorth = ft_substr(line, i, ft_strlen(line));
+    {
+        if (data->texwest != NULL)
+            return (ft_putstrreti_fd("Error\nwest texture is already written\n", 0, 0));
+        data->texwest = ft_substr(line, i, ft_strlen(line));
+    }
     if (orientation == 'E')
-        data->texnorth = ft_substr(line, i, ft_strlen(line));
+    {
+        if (data->texeast != NULL)
+            return (ft_putstrreti_fd("Error\neast texture is already written\n", 0, 0));
+        data->texeast = ft_substr(line, i, ft_strlen(line));
+    }
     if (orientation == 's')
+    {
+        if (data->sprite != NULL)
+            return (ft_putstrreti_fd("Error\nprite texture is already written\n", 0, 0));
         data->sprite = ft_substr(line, i, ft_strlen(line));
+    }
     return (1);
 }
 
@@ -80,12 +100,16 @@ int     set_color_value(t_data *data, char *line, char letter)
         return (ft_putstrreti_fd("Error\nMettez un espace (sol, plafonds)\n", 0, 0));
     if (letter == 'F')
     {
+        if (data->colfloor != (unsigned int)-1)
+            return (ft_putstrreti_fd("Error\nLa couleur du sol a ete mise plusieurs fois\n", 0, 0));
         if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
         printf("data->colfloor = %#x\n", data->colfloor);
     }
     else if (letter == 'C')
     {
+        if (data->colceil != (unsigned int)-1)
+            return (ft_putstrreti_fd("Error\nLa couleur du plafond a ete mise plusieurs fois\n", 0, 0));
         if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
         printf("data->colceil = %#x\n", data->colceil);
@@ -103,42 +127,42 @@ int     set_color(t_data *data, char *line)
 
     counter = 0;
     i = get_first_char(line);
-    if (line[i] == 'R' && counter++ < NBELEM) // faut pas que un de tout ca y soit 2 fois
+    if (line[i] == 'R' && ++counter < NBELEM) // faut pas que un de tout ca y soit 2 fois
     {
         if (!set_resolution(data, line))
             return (0);
     }
-    else if (line[i] == 'N' && line[i] == 'O' && counter++ < NBELEM)
+    else if (line[i] == 'N' && line[i] == 'O' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'N'))
             return (0);
     }
-    else if (line[i] == 'S' && line[i] == 'O' && counter++ < NBELEM)
+    else if (line[i] == 'S' && line[i] == 'O' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'S'))
             return (0);
     }
-    else if (line[i] == 'W' && line[i] == 'E' && counter++ < NBELEM)
+    else if (line[i] == 'W' && line[i] == 'E' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'W'))
             return (0);
     }
-    else if (line[i] == 'E' && line[i] == 'A' && counter++ < NBELEM)
+    else if (line[i] == 'E' && line[i] == 'A' && ++counter < NBELEM)
     {
         if (!set_texture(data, line, 'E'))
             return (0);
     }
-    else if (line[i] == 'S' && counter++ < NBELEM) // on a deja verifier si y avait un 'O' apres
+    else if (line[i] == 'S' && ++counter < NBELEM) // on a deja verifier si y avait un 'O' apres
     {
         if (!set_texture(data, line, 's'))
             return (0);
     }
-    else if (line[i] == 'F' && counter++ < NBELEM)
+    else if (line[i] == 'F' && ++counter < NBELEM)
     {
         if (!set_color_value(data, line, 'F'))
             return (0);
     }
-    else if (line[i] == 'C' && counter++ < NBELEM)
+    else if (line[i] == 'C' && ++counter < NBELEM)
     {
         if (!set_color_value(data, line, 'C'))
             return (0);
@@ -173,12 +197,13 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) != 0))
     {
         counter += set_color(data, line);
+        printf("counter elements = %d\n", counter);
         free(line);
     }
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
     if (counter != NBELEM)
-        return (ft_putstrreti_fd("Error\nIl manque des elements\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre d'elements\n", 0, 0));
     return (1);
 }
 

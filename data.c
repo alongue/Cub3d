@@ -19,10 +19,14 @@ int		create_data(t_data *data, char **av)
 	if ((data->ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	printf("av[1] (avant window) = %s\n", av[1]);
-	data->win_width = WIDTH;
-	data->win_height = HEIGHT;
-	data->colceil = 0x0000FA;
-	data->colfloor = 0xFFFF00;
+	data->win_width = 0;
+	data->win_height = 0;
+	data->colceil = (unsigned int)-1;
+	data->colfloor = (unsigned int)-1;
+	data->texnorth = NULL;
+	data->texsouth = NULL;
+	data->texeast = NULL;
+	data->texwest = NULL;
 	data->coldone = malloc(sizeof(int) * data->win_width);
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
