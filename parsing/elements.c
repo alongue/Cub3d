@@ -28,11 +28,7 @@ int     set_resolution(t_data *data, char *line)
         return (ft_putstrreti_fd("Error\nMettez un espace (ID et resolution X)\n", 0, 0));
     if ((data->win_width = ft_atoi(&line[i])) > 2560)
         data->win_width = 2560;
-    i++;
-    while (line[i] == ' ')
-        i++;
-    if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace (resolution X et Y)\n", 0, 0));
+    i += ft_intlen(ft_atoi(&line[i])) + 1;
     if ((data->win_height = ft_atoi(&line[i])) > 1440)
         data->win_height = 1440;
     if (data->win_width < 1 || data->win_height < 1)

@@ -23,8 +23,6 @@
 
 # define DEFX 100
 # define DEFY 200
-# define WIDTH 1920
-# define HEIGHT 1080
 # define FRONT 1
 # define BACK 2
 # define SPANNING 3

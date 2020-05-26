@@ -5,7 +5,7 @@ C  255,0,0
 
 
 
-     F   60,0,8
+     F   115,115,115
 
 
 S      textures/texture.xpm
@@ -15,7 +15,7 @@ EA textures/texture.xpm
 WE textures/texture.xpm
 
 
-               R                                      1080,720
+               R                                      1920,1080
 
 
 11111111111111

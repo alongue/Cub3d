@@ -137,6 +137,13 @@ t_map		create_map(t_data *data, t_player *player)
 	while (++i < nblin)
 		if (!get_cub(&map, player, *data, i))
 			return (map);
+	
+
+	if ((data->window = mlx_new_window(data->ptr, data->win_width, data->win_height, "Cub3d")) == NULL)
+		return (map);
+	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
+	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+
 	map.exist = true;
 	return (map);
 }
