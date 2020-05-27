@@ -86,6 +86,7 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);*/
 	printf("data.window (main) = %p\n", &data.window);
 	map = create_map(&data, &player);
+	reset_data(&data);
 	if (!map.exist)
 		return (3);
 	if (!create_tree_node(&map, player, data))
@@ -100,7 +101,7 @@ int		main(int ac, char **av)
 	//coor[0] = ft_memseti(coor[0], 50, 2);
 	//wall.color = 0xffffff;
 	//printf("wall = %p\n", wall);
-	display_ceilfloor(data);
+	//display_ceilfloor(data);
 	renderbsp(&data, *map.tree.rootnode, player);
 	renderobjects(&data, player, map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));

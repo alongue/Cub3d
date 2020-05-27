@@ -146,6 +146,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	while (set[++a].exist) //afficher tous les segments 1 par 1 avec un sleep 
 	{
 		printf("set[%d].segment.a.x = %f\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\tset[%d].segment.b.y = %f\n", a, set[a].segment.a.x, a, set[a].segment.a.y, a, set[a].segment.b.x, a, set[a].segment.b.y);
+		//sleep(2);
 		if (set[a].segment.a.x == 0 && set[a].segment.a.y == 0 && set[a].segment.b.x == 0 && set[a].segment.b.y == 0)
 		{
 			printf("Oh la vous la arretez vous svp !\n");

@@ -49,6 +49,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     while (line[i] == ' ')
         i++;
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, 0));
     if (orientation == 'N')
@@ -56,24 +57,32 @@ int     set_texture(t_data *data, char *line, char orientation)
         if (data->texnorth != NULL)
             return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
         data->texnorth = ft_substr(line, i, ft_strlen(line)); //renvoyer erreur si c'est n'importe quoi
+        //printf("data->texnorth = %s\n", data->texnorth);
+        //sleep(1);
     }
     if (orientation == 'S')
     {
         if (data->texsouth != NULL)
             return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
         data->texsouth = ft_substr(line, i, ft_strlen(line));
+        //printf("data->texsouth = %s\n", data->texsouth);
+        //sleep(1);
     }
     if (orientation == 'W')
     {
         if (data->texwest != NULL)
             return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
         data->texwest = ft_substr(line, i, ft_strlen(line));
+        //printf("data->texwest = %s\n", data->texwest);
+        //sleep(1);
     }
     if (orientation == 'E')
     {
         if (data->texeast != NULL)
             return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
         data->texeast = ft_substr(line, i, ft_strlen(line));
+        //printf("data->texeast = %s\n", data->texeast);
+        //sleep(1);
     }
     if (orientation == 's')
     {
@@ -82,6 +91,8 @@ int     set_texture(t_data *data, char *line, char orientation)
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
         data->sprite = ft_substr(line, i, ft_strlen(line));
+        //printf("data->sprite = %s\n", data->sprite);
+        //sleep(1);
     }
     return (1);
 }

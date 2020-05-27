@@ -5,14 +5,14 @@ C  255,0,0
 
 
 
-     F   115,115,115
+     F   255,115,115
 
 
-S      textures/texture.xpm
+S      textures/test-sprite.xpm
 SO       textures/mur-1.xpm
-NO textures/texture.xpm
-EA textures/texture.xpm
-WE textures/texture.xpm
+NO textures/mur-3.xpm
+EA textures/mur-2.xpm
+WE textures/mur-4.xpm
 
 
                R                                      1920,1080

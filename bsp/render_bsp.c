@@ -21,6 +21,8 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 
 	printf("wall.imgwidth = %d\tet\twall.imgheight = %d (truc)\n", polygon->wall.imgwidth, polygon->wall.imgheight);
 	replace_poly(polygon, player);
+	printf("test de ouf\n");
+	//sleep(2);
 	color = polygon->wall.color;
 	imgwidth = polygon->wall.imgwidth;
 	imgheight = polygon->wall.imgheight;
@@ -52,6 +54,7 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 		if (node.set[counter].dodisplay)
 			display_wall(data, node.set[counter].wall, node.set[counter], player);
 	}
+	printf("salut c'est moi\n");
 //	printf("\nLes poly du node sont passes\n");
 	//sleep(4);
 }

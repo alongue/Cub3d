@@ -29,32 +29,30 @@ int		create_data(t_data *data, char **av)
 	data->texwest = NULL;
 	data->sprite = NULL;
 	data->coldone = malloc(sizeof(int) * data->win_width);
-	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = malloc(sizeof(double) * data->win_width);
-	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
 	data->filename = ft_strdup(av[1]);
-	printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
-	printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
-	printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);
+	//printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
+	//printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
+	//printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);
 	data->cubside = 64;
 	return (EXIT_SUCCESS);
 }
 
 void	reset_data(t_data *data)
 {
-	int	x;
-	int	y;
+	//int	x;
+	//int	y;
 
 	data->coldone = ft_memseti(data->coldone, false, data->win_width);
 	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
-	x = -1;
+	/*x = -1;
 	y = -1;
 	while (++y < data->win_height)
 	{
 		x = -1;
 		while (++x < data->win_width)
 			data->img_data[y * data->win_width + x] = 0x000000;
-	}
+	}*/
 	data->nbcoldone = 0;
 	display_ceilfloor(*data);
 }

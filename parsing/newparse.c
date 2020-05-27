@@ -96,6 +96,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	*nblin = i;
 	*xmax = max;
 	printf("max = %zu\n", max);
+	printf("nblin = %d\n", *nblin);
 	sleep(1);
 	i = -1;
 	while (++i < *nblin)

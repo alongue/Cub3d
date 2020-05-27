@@ -231,6 +231,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	ft_memseti(incr, 0, 2);
 	cumul = 0;
 	rest = 0;
+	printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
 		//printf("i = %d\n", i);
