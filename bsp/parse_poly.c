@@ -35,7 +35,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	{
 		map->tree.rootnode->set[i].isused = false;
 		map->tree.rootnode->set[i++] = create_polytop(*map, data.currentCubIndex, data, player);
-		printf("i = %d\n", i);
+		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
@@ -43,7 +43,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	{
 		map->tree.rootnode->set[i].isused = false;
 		map->tree.rootnode->set[i++] = create_polybot(*map, data.currentCubIndex, data, player);
-		printf("i = %d\n", i);
+		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
@@ -51,7 +51,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	{
 		map->tree.rootnode->set[i].isused = false;
 		map->tree.rootnode->set[i++] = create_polyright(*map, data.currentCubIndex, data, player);
-		printf("i = %d\n", i);
+		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
@@ -59,7 +59,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	{
 		map->tree.rootnode->set[i].isused = false;
 		map->tree.rootnode->set[i++] = create_polyleft(*map, data.currentCubIndex, data, player);
-		printf("i = %d\n", i);
+		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}

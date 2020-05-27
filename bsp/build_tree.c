@@ -117,17 +117,14 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 int		create_tree_node(t_map *map, t_player player, t_data data)
 {
-	int	a;
-
 	map->tree.rootnode = malloc(sizeof(t_node) * 1);
-	a = parse_poly(map, player, data);
-	while (map->tree.rootnode->set[++a].exist)
+	return (parse_poly(map, player, data));
+	/*while (map->tree.rootnode->set[++a].exist)
 	if (map->tree.rootnode->set->segment.a.x == 0 && map->tree.rootnode->set->segment.a.y == 0 && map->tree.rootnode->set->segment.b.x == 0 && map->tree.rootnode->set->segment.b.y == 0)
 	{
 		printf("set[%d] = WOUAW\n", a);
 		sleep(5);
-	}
-	return (a);
+	}*/
 	//printf("polysetlen(set de tree) = %d\n", polysetlen(map->tree.rootnode->set));
 }
 

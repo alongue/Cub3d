@@ -40,12 +40,14 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	int	i;
 	int	counter;
 
+	printf("nblin avant malloc = %d\n", nblin);
 	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
 	{
 		ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
 		return (0);
 	}
 	i = -1;
+	printf("xmax avant malloc = %d\n", xmax);
 	while (++i < nblin + 2)
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
 		{

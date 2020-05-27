@@ -50,6 +50,7 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 	{
 		p.exist = false;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (top)\n", 0);
+		sleep(1);
 		return (p);
 	}
 	//p.wall.imgwidth = (p.wall.imgwidth > 64) ? 64 : p.wall.imgwidth;
