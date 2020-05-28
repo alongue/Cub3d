@@ -45,7 +45,7 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 
 	x = -1;
 	printf("xmax = %d\n", xmax);
-	if (!(map->nbcuby = malloc(sizeof(size_t) * xmax + 1)))
+	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
 		return (0);
 	while (++x < xmax)
 	{
