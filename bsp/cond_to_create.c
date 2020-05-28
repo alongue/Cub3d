@@ -14,6 +14,10 @@
 
 bool		cond_top(t_map map, int x, int y)
 {
+	printf("map.cub[y][x].exist -> %d", map.cub[y][x].exist);
+	printf("map.cub[y][x - 1].exist -> %d", map.cub[y][x - 1].exist);
+	printf("map.cub[y - 1][x].exist -> %d", map.cub[y - 1][x].exist);
+	printf("map.cub[y - 1][x - 1].exist -> %d", map.cub[y - 1][x - 1].exist);
 	if ((map.cub[y][x].exist && !map.cub[y][x - 1].exist
 		&& !map.cub[y - 1][x - 1].exist && !map.cub[y - 1][x].exist)
 		|| (map.cub[y][x].exist
@@ -24,6 +28,10 @@ bool		cond_top(t_map map, int x, int y)
 
 bool		cond_bot(t_map map, int x, int y)
 {
+	printf("map.cub[y][x].exist -> %d", map.cub[y][x].exist);
+	printf("map.cub[y][x - 1].exist -> %d", map.cub[y][x - 1].exist);
+	printf("map.cub[y + 1][x - 1].exist -> %d", map.cub[y + 1][x - 1].exist);
+	printf("map.cub[y + 1][x].exist -> %d", map.cub[y + 1][x].exist);
 	if ((map.cub[y][x].exist && !map.cub[y][x - 1].exist
 		&& !map.cub[y + 1][x - 1].exist && !map.cub[y + 1][x].exist)
 		|| (map.cub[y][x].exist
@@ -34,6 +42,10 @@ bool		cond_bot(t_map map, int x, int y)
 
 bool		cond_right(t_map map, int x, int y)
 {
+	printf("map.cub[y][x].exist -> %d", map.cub[y][x].exist);
+	printf("map.cub[y][x + 1].exist -> %d", map.cub[y][x + 1].exist);
+	printf("map.cub[y - 1][x].exist -> %d", map.cub[y - 1][x].exist);
+	printf("map.cub[y - 1][x + 1].exist -> %d", map.cub[y - 1][x + 1].exist);
 	if ((map.cub[y][x].exist && !map.cub[y][x + 1].exist
 		&& !map.cub[y - 1][x].exist && !map.cub[y - 1][x + 1].exist)
 		|| (map.cub[y][x].exist
@@ -44,6 +56,10 @@ bool		cond_right(t_map map, int x, int y)
 
 bool		cond_left(t_map map, int x, int y)
 {
+	printf("map.cub[y][x].exist -> %d", map.cub[y][x].exist);
+	printf("map.cub[y][x - 1].exist -> %d", map.cub[y][x - 1].exist);
+	printf("map.cub[y - 1][x - 1].exist -> %d", map.cub[y - 1][x - 1].exist);
+	printf("map.cub[y - 1][x].exist -> %d", map.cub[y - 1][x].exist);
 	if ((map.cub[y][x].exist && !map.cub[y][x - 1].exist
 		&& !map.cub[y - 1][x - 1].exist && !map.cub[y - 1][x].exist)
 		|| (map.cub[y][x].exist

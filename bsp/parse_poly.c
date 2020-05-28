@@ -123,18 +123,22 @@ int			count(t_map map, int x, int y, int *c)
 	{
 		(*c)++;
 	}
+	printf("cond_top passé !!!!!!!!!!!\n");
 	if (cond_bot(map, x, y))
 	{
 		(*c)++;
 	}
+	printf("cond_bot passé !!!!!!!!!!!\n");
 	if (cond_right(map, x, y))
 	{
 		(*c)++;
 	}
+	printf("cond_right passé !!!!!!!!!!!\n");
 	if (cond_left(map, x, y))
 	{
 		(*c)++;
 	}
+	printf("cond_left passé !!!!!!!!!!!\n");
 	return (1);
 }
 
@@ -154,7 +158,7 @@ t_polygon	*get_malloc(t_map map, int *counter)
 		while (++x < get_nbxmax(map.nbcuby))
 			count(map, x, y, counter);
 	}
-	//printf("counter de polys = %d\n", *counter);
+	printf("counter de polys = %d\n", *counter);
 	//sleep(2);
 	if (!(p = malloc(sizeof(t_polygon) * *counter + 1)))
 		return (NULL);

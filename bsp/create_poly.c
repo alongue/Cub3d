@@ -31,12 +31,12 @@ t_polygon			create_polytop(t_map map, int *coor, t_data data, t_player player)
 		//printf("p.segment.exist (top) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].stop);
 		p.nbwall += 1;
-		{
+		//{
 			printf("TOP\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
 			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || top.b.y = %f\n", cub[y][x].stop.a.x, cub[y][x].stop.a.y, cub[y][x].stop.b.x, cub[y][x].stop.b.y);
 			//sleep(10);
-		}
+		//}
 	}
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);
@@ -82,12 +82,12 @@ t_polygon			create_polybot(t_map map, int *coor, t_data data, t_player player)
 		p.segment = join_segment(p.segment, cub[y][x].sbot);
 		p.nbwall += 1;
 		//if (p.segment.a.x > 3000 || p.segment.a.y > 3000 || p.segment.b.x > 3000 || p.segment.b.y > 3000)
-		{
+		//{
 			printf("BOT\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
 			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || p.segment.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
 //			sleep(10);
-		}
+		//}
 	}
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);
@@ -126,12 +126,12 @@ t_polygon			create_polyright(t_map map, int *coor, t_data data, t_player player)
 		p.segment = join_segment(p.segment, cub[y][x].sright);
 		p.nbwall += 1;
 		//if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
-		{
+		//{
 			printf("RIGHT\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
 			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || right.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
 //			sleep(10);
-		}
+		//}
 	}
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);
@@ -171,12 +171,12 @@ t_polygon			create_polyleft(t_map map, int *coor, t_data data, t_player player)
 		p.segment = join_segment(p.segment, cub[y][x].sleft);
 		p.nbwall += 1;
 		//if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
-		{
+		//{
 			printf("LEFT\n");
 			printf("x -> %d\tet\ty -> %d\n", x, y);
 			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || left.b.y = %f\n", cub[y][x].sleft.a.x, cub[y][x].sleft.a.y, cub[y][x].sleft.b.x, cub[y][x].sleft.b.y);
 //			sleep(10);
-		}
+		//}
 	}
 	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		sleep(5);

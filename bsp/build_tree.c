@@ -117,7 +117,8 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 int		create_tree_node(t_map *map, t_player player, t_data data)
 {
-	map->tree.rootnode = malloc(sizeof(t_node) * 1);
+	if (!(map->tree.rootnode = malloc(sizeof(t_node) * 1)))
+		return (ft_putstrreti_fd("Error\nCa veut pas malloc (map->tree.rootnode (build_tree.c))\n", 0, 0));
 	return (parse_poly(map, player, data));
 	/*while (map->tree.rootnode->set[++a].exist)
 	if (map->tree.rootnode->set->segment.a.x == 0 && map->tree.rootnode->set->segment.a.y == 0 && map->tree.rootnode->set->segment.b.x == 0 && map->tree.rootnode->set->segment.b.y == 0)
