@@ -38,13 +38,13 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 	return (1);
 }
 
-int			get_nbcuby(t_map *map, size_t xmax, int nblin)
+int			get_nbcuby(t_map *map, int xmax, int nblin)
 {
-	size_t	x;
+	int		x;
 	int		y[2];
 
 	x = -1;
-	printf("xmax = %zu\n", xmax);
+	printf("xmax = %d\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(size_t) * xmax + 1)))
 		return (0);
 	while (++x < xmax)
@@ -61,12 +61,12 @@ int			get_nbcuby(t_map *map, size_t xmax, int nblin)
 	return (1);
 }
 
-int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
+int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 {
 	int		ret;
 	int		i;
-	size_t	max;
-	size_t	max1;
+	int		max;
+	int		max1;
 
 	i = 0;
 	max = 0;
@@ -83,7 +83,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 		}
 		printf("map->number[i] = %s\n", map->number[i]);
 		printf("i = %d\n", i);
-		max = (ft_strlen(map->number[i])) > max ? ft_strlen(map->number[i]) : max;
+		max = ((int)ft_strlen(map->number[i])) > max ? (int)ft_strlen(map->number[i]) : max;
 		i++;
 		printf("je m'apprete a realloc\n");
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
@@ -95,7 +95,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
-	printf("max = %zu\n", max);
+	printf("max = %d\n", max);
 	printf("nblin = %d\n", *nblin);
 	sleep(1);
 	i = -1;
@@ -103,7 +103,7 @@ int			get_number(t_map *map, int fd, int *nblin, size_t *xmax)
 	{
 		//printf("map->number[%d] = %s\n", i, map->number[i]);
 		max1 = ft_strlen(map->number[i]) - 1;
-		printf("ligne -> %d\tmax1 = %zu\tet\t*xmax = %zu\n", i, max1, *xmax);
+		printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
 		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1)))
 			return (0);
 		while (++max1 < *xmax)
@@ -117,12 +117,14 @@ t_map		create_map(t_data *data, t_player *player)
 {
 	t_map	map;
 	int		fd;
-	size_t	xmax;
+	int		xmax;
 	int		nblin;
 	int		i;
 
 	map.exist = false;
 	map.objects = NULL;
+	xmax = 0;
+	nblin = 0;
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
