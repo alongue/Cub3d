@@ -28,8 +28,10 @@ int		create_data(t_data *data, char **av)
 	data->texeast = NULL;
 	data->texwest = NULL;
 	data->sprite = NULL;
-	data->coldone = malloc(sizeof(int) * data->win_width);
-	data->heightcol = malloc(sizeof(double) * data->win_width);
+	if (!(data->coldone = malloc(sizeof(int) * data->win_width)))
+		return (EXIT_FAILURE);
+	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
+		return (EXIT_FAILURE);
 	data->filename = ft_strdup(av[1]);
 	//printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
 	//printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
@@ -43,7 +45,7 @@ void	reset_data(t_data *data)
 	//int	x;
 	//int	y;
 
-	data->coldone = ft_memseti(data->coldone, false, data->win_width);
+	data->coldone = ft_memseti(data->coldone, 0, data->win_width);
 	data->heightcol = ft_memseti(data->heightcol, 0, data->win_width);
 	/*x = -1;
 	y = -1;

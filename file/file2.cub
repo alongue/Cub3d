@@ -10,7 +10,7 @@ C  255,0,0
 
 S      textures/test-sprite.xpm
 SO       textures/mur-1.xpm
-NO textures/ur-3.xpm
+NO textures/mur-3.xpm
 EA textures/mur-2.xpm
 WE textures/mur-4.xpm
 

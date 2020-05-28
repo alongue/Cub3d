@@ -80,7 +80,7 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 	*countcol = (int)round(wall->leftcl.a.x) - 1;
 }
 
-bool	can_draw(t_wall wall, t_data *data, int index)
+int	can_draw(t_wall wall, t_data *data, int index)
 {
 	printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
 	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
@@ -88,10 +88,10 @@ bool	can_draw(t_wall wall, t_data *data, int index)
 	{
 		//data->distcol[index] = min(wall.); min poly.newseg.a.x b.x pour chaque index de ce wall puis on compare avec newpos.x de obj
 		data->heightcol[index] = wall.bot - wall.top;
-		if (data->coldone[index] == false)
+		if (data->coldone[index] == 0)
 			data->nbcoldone++;
-		return (true);
+		return (1);
 	}
 	else
-		return (false);
+		return (0);
 }

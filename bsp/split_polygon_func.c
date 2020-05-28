@@ -38,12 +38,12 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 {
 	t_player	player;
 
-	player.exist = false;
+	player.exist = 0;
 	printf("frontset\n");
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
-	frontset->isused = false;
-	backset->isused = false;
+	frontset->isused = 0;
+	backset->isused = 0;
 	split_segment_inc(poly.segment, p, &(frontset->segment), &(backset->segment));
 	frontset->len = get_length(frontset->segment);
 	backset->len = get_length(backset->segment);
@@ -60,12 +60,12 @@ void		partition_backset(t_polygon *frontset, t_polygon *backset,
 {
 	t_player	player;
 
-	player.exist = false;
+	player.exist = 0;
 	printf("backset\n");
 	*frontset = dup_polygon(poly);
 	*backset = dup_polygon(poly);
-	frontset->isused = false;
-	backset->isused = false;
+	frontset->isused = 0;
+	backset->isused = 0;
 	split_segment_inc(poly.segment, p, &(backset->segment), &(frontset->segment));
 	frontset->len = get_length(frontset->segment);
 	backset->len = get_length(backset->segment);

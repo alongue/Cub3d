@@ -16,7 +16,7 @@ t_segment	get_segment(t_point p, t_point q)
 {
 	t_segment	s;
 
-	s.exist = false;
+	s.exist = 0;
 	s.a = get_point(p.x, p.y);
 	s.b = get_point(q.x, q.y);
 	if (s.b.x - s.a.x == 0 && s.b.y - s.a.y == 0)
@@ -31,6 +31,6 @@ t_segment	get_segment(t_point p, t_point q)
 		s.intercept = NAN;
 	else
 		s.intercept = s.a.y - s.coeff * s.a.x;
-	s.exist = true;
+	s.exist = 1;
 	return (s);
 }

@@ -95,7 +95,7 @@ int		main(int ac, char **av)
 	printf("map.tree.rootnode->splitter.wall.color (main) = %x\n", map.tree.rootnode->splitter.wall.color);
 	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);
 
-	//ft_memseti(data.coldone, false, data.win_width);
+	//ft_memseti(data.coldone, 0, data.win_width);
 	//wall = set_north_wall(0, 0, 100, 100);
 	//set_dim_north_wall(&wall, 100, 100);
 	//coor[0] = ft_memseti(coor[0], 50, 2);
@@ -105,6 +105,7 @@ int		main(int ac, char **av)
 	renderbsp(&data, *map.tree.rootnode, player);
 	renderobjects(&data, player, map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
+	printf("salut c'est moi\n");
 	param[0] = (void *)&data;
 	param[1] = (void *)&map;
 	param[2] = (void *)&player;

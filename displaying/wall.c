@@ -112,14 +112,14 @@ void			replace_poly(t_polygon *polygon, t_player player)
 							 + x2 * sin(-player.angle));
 }
 
-bool			do_display_poly(t_polygon *polygon)
+int			do_display_poly(t_polygon *polygon)
 {
 	double	tanpoly;
 
 	tanpoly = (polygon->newsegment.a.y - polygon->newsegment.b.y)
 	/ (polygon->newsegment.a.x - polygon->newsegment.b.x);
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
-		return (false);
+		return (0);
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		polygon->newsegment.a.y += (ZMIN - polygon->newsegment.a.x) * tanpoly;
@@ -132,7 +132,7 @@ bool			do_display_poly(t_polygon *polygon)
 	}
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
-	return (true);
+	return (1);
 }
 
 t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
@@ -167,7 +167,7 @@ int				display_wall(t_data *data, t_wall wall)
 				wall.img_data[ptraddr[0]] = wall.color;
 				ptraddr[0] += data->win_width;
 			}
-			wall.coldone[i] = true;
+			wall.coldone[i] = 1;
 			wall.nbcoldone++;
 		}
 		wall.top += wall.deltatop;

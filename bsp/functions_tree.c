@@ -61,7 +61,7 @@ int			get_side(t_polygon poly1, t_polygon poly2)
 	return (SPANNING);
 }
 
-bool		is_convex_set(t_polygon *set, t_node *node)
+int		is_convex_set(t_polygon *set, t_node *node)
 {
 	int		i;
 	int		j;
@@ -71,7 +71,7 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 	j = -1;
 	side = 0;
 	if (node)
-		node->isleaf = false;
+		node->isleaf = 0;
 	while (set[++i].exist)
 	{
 		j = -1;
@@ -79,16 +79,16 @@ bool		is_convex_set(t_polygon *set, t_node *node)
 			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
 			{
 				printf("side = %d\n", side); //FRONT -> 1 | BACK -> 2 | SPANNING -> 3
-				return (false); // COINCIDING -> 0
+				return (0); // COINCIDING -> 0
 			}
 	}
 	if (!node)
-		return (true);
-	node->exist = true;
-	node->isleaf = true;
-	node->frontchild->exist = false;
-	node->backchild->exist = false;
-	return (true);
+		return (1);
+	node->exist = 1;
+	node->isleaf = 1;
+	node->frontchild->exist = 0;
+	node->backchild->exist = 0;
+	return (1);
 }
 
 void		split_polygon(t_polygon poly, t_polygon splitter,

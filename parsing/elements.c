@@ -56,7 +56,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     {
         if (data->texnorth != NULL)
             return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
-        data->texnorth = ft_substr(line, i, ft_strlen(line)); //renvoyer erreur si c'est n'importe quoi
+        data->texnorth = ft_substr(line, i, INT_MAX); //renvoyer erreur si c'est n'importe quoi
         //printf("data->texnorth = %s\n", data->texnorth);
         //sleep(1);
     }
@@ -64,7 +64,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     {
         if (data->texsouth != NULL)
             return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
-        data->texsouth = ft_substr(line, i, ft_strlen(line));
+        data->texsouth = ft_substr(line, i, INT_MAX);
         //printf("data->texsouth = %s\n", data->texsouth);
         //sleep(1);
     }
@@ -72,7 +72,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     {
         if (data->texwest != NULL)
             return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
-        data->texwest = ft_substr(line, i, ft_strlen(line));
+        data->texwest = ft_substr(line, i, INT_MAX);
         //printf("data->texwest = %s\n", data->texwest);
         //sleep(1);
     }
@@ -80,7 +80,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     {
         if (data->texeast != NULL)
             return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
-        data->texeast = ft_substr(line, i, ft_strlen(line));
+        data->texeast = ft_substr(line, i, INT_MAX);
         //printf("data->texeast = %s\n", data->texeast);
         //sleep(1);
     }
@@ -215,7 +215,7 @@ int     parse_elements(t_map *map, t_data *data, int fd)
                 return(0);
             printf("counter elements = %d\n", counter[0]);
             counter[2]++;
-            free(line);
+            //free(line);
         }
         else
             counter[2]++;
@@ -227,13 +227,13 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     while (ret != 0)
     {
         ret = get_next_line(newfd, &line);
-        free(line);
+        //free(line);
     }
     while (--counter[2] >= 0)
     {
         get_next_line(fd, &line);
         printf("line -> %s\n", line);
-        free(line);
+        //free(line);
     }
     printf("fd = %d et newfd = %d\n", fd, newfd);
     sleep(2);

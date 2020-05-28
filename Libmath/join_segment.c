@@ -49,7 +49,7 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 {
 	t_segment	s;
 
-	s.exist = false;
+	s.exist = 0;
 	if (!is_colinear(s1, s2))
 		return (s);
 	if (!s1.exist)
@@ -67,6 +67,6 @@ t_segment	join_segment(t_segment s1, t_segment s2)
 		s.intercept = NAN;
 	else
 		s.intercept = s.a.y - s.coeff * s.a.x;
-	s.exist = true;
+	s.exist = 1;
 	return (s);
 }

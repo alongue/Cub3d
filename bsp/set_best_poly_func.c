@@ -22,7 +22,7 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 	while (set[i].exist)
 	{
 		//if (set[i].isused)
-			set[i].isused = false;
+			set[i].isused = 0;
 		printf("set[%d].segment.exist = %d\t\tet\t\tcurrent->segent.exist = %d\n", i, set[i].segment.exist, current->segment.exist);
 		printf("set[%d].segment.a.x = %f\t\tset[%d].segment.a.y = %f\tset[%d].segment.b.x = %f\t\tset[%d].segment.b.y = %f\n", i, set[i].segment.a.x, i, set[i].segment.a.y, i, set[i].segment.b.x, i, set[i].segment.b.y);
 		if (set[0].segment.a.x == 0 && set[0].segment.a.y == 0 && set[0].segment.b.x == 0 && set[0].segment.b.y == 0)
@@ -31,8 +31,8 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 		if (is_same_segment(set[i].segment, current->segment))
 		{
 			printf("TROUVEE !!!\n");
-			set[i].isused = true;
-			current->isused = true;
+			set[i].isused = 1;
+			current->isused = 1;
 		}
 		i++;
 	}

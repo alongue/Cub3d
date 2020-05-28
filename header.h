@@ -37,7 +37,7 @@
 
 struct				s_data
 {
-	bool			exist;
+	int			exist;
 	void			*ptr;
 	void			*window;
 	void			*img;
@@ -59,13 +59,13 @@ struct				s_data
 	int				currentCubIndex[2]; // sert uniquement a parse_poly
 	char			*filename;
 	int				nbcoldone;
-	int				*coldone; // --> a free //booleen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
+	int				*coldone; // --> a free //inteen pour chaque colonne d'un mur qui a savoir si la colonne a déjà été dessiné
 };
 typedef struct s_data		t_data;
 
 struct				s_wall //ca concerne les polygones en vue fps uniquement
 {
-	bool			exist; //check si il existe
+	int			exist; //check si il existe
 	int				bpp; // blk
 	int				size_line; // blk
 	int				endian; // blk
@@ -95,7 +95,7 @@ typedef struct s_wall		t_wall;
 
 struct				s_cub //ils seront tjrs visualiser du dessus
 {
-	bool		exist;
+	int		exist;
 	int			x;
 	int			y;
 	t_segment	stop;
@@ -108,7 +108,7 @@ typedef struct s_cub		t_cub;
 
 struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 {
-	bool		exist;
+	int		exist;
 	t_segment	segment;
 	t_segment	newsegment;
 	t_normal	normal;
@@ -119,15 +119,15 @@ struct				s_polygon // ils seront tjrs visualiser du dessus aussi
 	double		len;
 	double		btobp;
 	double		pdist;
-	bool		isused;
-	bool		dodisplay;
+	int		isused;
+	int		dodisplay;
 	int			nbwall; //je pense que ce sera utile pour les textures (je pense a redessiner plusieurs fois la texture)
 };
 typedef struct s_polygon	t_polygon;
 
 struct				s_object
 {
-	bool		exist;
+	int		exist;
 	int			bpp; // blk
 	int			size_line; // blk
 	int			endian; // blk
@@ -136,7 +136,7 @@ struct				s_object
 	int			endianimg; // blk
 	t_point		pos;
 	t_point		newpos;
-	bool		dodisplay;
+	int		dodisplay;
 	int			height;
 	int			width;
 	double		top;
@@ -161,7 +161,7 @@ typedef struct s_object		t_object;
 
 struct				s_player
 {
-	bool	exist;
+	int	exist;
 	t_point	pos;
 	int		x;
 	int		y;
@@ -185,11 +185,11 @@ typedef struct s_tree		t_tree;
 
 struct				s_node
 {
-	bool			exist;
+	int			exist;
 	t_tree			tree;
 	t_polygon		splitter; //a polygon and a splitter at the same time
 	t_polygon		*set;
-	bool			isleaf;
+	int			isleaf;
 	struct s_node	*frontchild;
 	struct s_node	*backchild;
 };
@@ -197,10 +197,12 @@ typedef struct s_node		t_node;
 
 struct				s_map
 {
-	bool		exist;
+	int		exist;
 	int			*nbcuby; //tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1) sans compter les espaces au debut et a la fin
 	char		**number; //tous les caracteres de la map
 	int			nbobjects; // le nombre d'objets
+	int			nbxmax;
+	int			nbymax;
 	//t_polygon	*set;
 	int			height;
 	int			*parsepos;
@@ -214,14 +216,14 @@ struct				s_map
 typedef struct s_map		t_map;
 
 void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
-bool				can_draw(t_wall wall, t_data *data, int index);
-bool				can_draw_obj(t_object *object, t_data *data, int index);
+int				can_draw(t_wall wall, t_data *data, int index);
+int				can_draw_obj(t_object *object, t_data *data, int index);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
-bool				cond_bot(t_map map, int x, int y);
-bool				cond_left(t_map map, int x, int y);
-bool				cond_right(t_map map, int x, int y);
-bool				cond_top(t_map map, int x, int y);
+int				cond_bot(t_map map, int x, int y);
+int				cond_left(t_map map, int x, int y);
+int				cond_right(t_map map, int x, int y);
+int				cond_top(t_map map, int x, int y);
 unsigned int		convert_color(char *line);
 int					create_data(t_data *data, char **av);
 t_map				create_map(t_data *data, t_player *player);
@@ -234,8 +236,8 @@ t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					display_ceilfloor(t_data data);
 int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
-bool				do_display_poly(t_polygon *polygon, t_data data, t_player player);
-bool				do_display_obj(t_object *object, t_data data, t_player player);
+int				do_display_poly(t_polygon *polygon, t_data data, t_player player);
+int				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			dup_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
@@ -253,7 +255,7 @@ void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 //void				initcub(t_map *map, int side);
 //void				initobj(t_map *map, int side);
-bool				is_convex_set(t_polygon *set, t_node *node);
+int				is_convex_set(t_polygon *set, t_node *node);
 int					is_surrounded(t_map map);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
@@ -276,9 +278,9 @@ int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
 int					raycastfpsobj(t_object *object, t_player player, t_data data);
-bool				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
-bool				raycastxobj(t_object *object, t_data data);//, t_segment *segment);
-bool				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
+int				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
+int				raycastxobj(t_object *object, t_data data);//, t_segment *segment);
+int				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				renderobjects(t_data *data, t_player player, t_map map);
 void				replace_poly(t_polygon *polygon, t_player player);

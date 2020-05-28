@@ -14,7 +14,7 @@
 
 #define ZMIN 1
 
-bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment)
+int		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment)
 {
 	t_point		tmp;
 	t_segment	tmpsegment;
@@ -36,11 +36,11 @@ bool		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment
 	//printf("(dans raycastx) wall->left.a.x = %f\tet\twall->right.a.x = %f\n", wall->left.a.x, wall->right.a.x);
 	if (wall->left.a.x >= wall->right.a.x ||
 		wall->right.a.x < 0 || wall->left.a.x > data.win_width)
-		return (false);
-	return (true);
+		return (0);
+	return (1);
 }
 
-bool		raycastx_img(t_player player, t_polygon *polygon, t_segment segment)
+int		raycastx_img(t_player player, t_polygon *polygon, t_segment segment)
 {
 	double	s;
 //	double	r;
@@ -83,7 +83,7 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 }
 
 // !! IMportant !! : gerer si l'objet est devant ou derriere mur
-bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
+int				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
 {
 	int		ret;
 
@@ -100,8 +100,8 @@ bool				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
 	//sleep(3);
 	if (object->xstartcl == object->xendcl ||
 		object->xendcl < 0 || object->xstartcl > data.win_width)
-		return (false);
-	return (true);
+		return (0);
+	return (1);
 }
 
 int					raycastfpsobj(t_object *object, t_player player, t_data data)

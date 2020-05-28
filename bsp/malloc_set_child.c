@@ -43,10 +43,10 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 		ft_putstr_fd("Error\nfrontset malloc n'a pas fonctione\n", 0);
 		return (frontset);
 	}
-	frontset[counter].exist = false;
-	//frontset[counter].segment.exist = false;
+	frontset[counter].exist = 0;
+	//frontset[counter].segment.exist = 0;
 	while (--counter >= 0)
-		frontset[counter].exist = true;
+		frontset[counter].exist = 1;
 	return (frontset);
 }
 
@@ -80,9 +80,9 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 		ft_putstr_fd("Error\nbackset malloc n'a pas fonctione\n", 0);
 		return (backset);
 	}
-	backset[counter].exist = false;
-	//backset[counter].segment.exist = false;
+	backset[counter].exist = 0;
+	//backset[counter].segment.exist = 0;
 	while (--counter >= 0)
-		backset[counter].exist = true;
+		backset[counter].exist = 1;
 	return (backset);
 }

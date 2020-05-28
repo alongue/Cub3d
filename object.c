@@ -45,15 +45,15 @@ void			replace_obj(t_object *object, t_player player)
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
-bool			do_display_obj(t_object *object, t_data data, t_player player)
+int			do_display_obj(t_object *object, t_data data, t_player player)
 {
 	if (object->newpos.x < ZMIN)
-		return ((object->dodisplay = false));
+		return ((object->dodisplay = 0));
 	object->newpos.x = min(9999, object->newpos.x);
 	if (!(object->dodisplay = raycastxobj(object, data)))
-		return (false);
+		return (0);
 	if (!(object->dodisplay = raycastfpsobj(object, player, data)))
-		return (false);
+		return (0);
 	object->newpos = get_point(object->xstartcl, object->topcl);
 	return (object->dodisplay);
 }
@@ -79,7 +79,7 @@ t_wall			create_(t_polygon poly, t_player player, t_data data)
 }
 */
 
-bool	can_draw_obj(t_object *object, t_data *data, int index)
+int	can_draw_obj(t_object *object, t_data *data, int index)
 {
 	//printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
 	//printf("data->heightcol[%i] = %f\n", index, data->heightcol[index]);
@@ -89,12 +89,12 @@ bool	can_draw_obj(t_object *object, t_data *data, int index)
 	{
 		data->heightcol[index] = object->fakebot - object->faketop;
 		object->xstartcl = index;
-		if (data->coldone[index] == false)
+		if (data->coldone[index] == 0)
 			data->nbcoldone++;
-		return (true);
+		return (1);
 	}
 	else
-		return (false);
+		return (0);
 }
 
 int				display_object(t_data *data, t_object object, t_player player)

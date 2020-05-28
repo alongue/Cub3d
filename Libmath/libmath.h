@@ -14,7 +14,7 @@
 # define LIBMATH_H
 
 # include <math.h>
-# include <stdbool.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -32,7 +32,7 @@ typedef struct s_point		t_point;
 
 struct						s_segment
 {
-	bool	exist;
+	int	exist;
 	t_point	a;
 	t_point	b;
 	double	coeff;
@@ -47,7 +47,7 @@ struct						s_normal
 };
 typedef struct s_normal		t_normal;
 
-bool						do_intersect(t_segment s1, t_segment s2);
+int						do_intersect(t_segment s1, t_segment s2);
 t_normal					dup_normal(t_normal normal);
 t_point						dup_point(t_point p);
 t_segment					dup_segment(t_segment s);
@@ -61,13 +61,13 @@ t_normal					get_normal(t_segment s);
 t_point						get_point(double x, double y);
 t_segment					get_segment(t_point p, t_point q);
 t_segment					get_segmenti(double px, double py, double qx, double qy);
-bool						is_colinear(t_segment s1, t_segment s2);
-bool						is_pair(int a);
-bool						is_same_segment(t_segment s1, t_segment s2);
+int						is_colinear(t_segment s1, t_segment s2);
+int						is_pair(int a);
+int						is_same_segment(t_segment s1, t_segment s2);
 t_segment					join_segment(t_segment s1, t_segment s2);
 int							min(int a, int b);
 int							max(int a, int b);
-bool						onsegment(t_point s, t_point p, t_point r);
+int						onsegment(t_point s, t_point p, t_point r);
 int							orientation(t_point p, t_point q, t_point r);
 void						set_btwn_zero_twopi(double *angle);
 void						set_btwn_minpi_pi(double *angle);

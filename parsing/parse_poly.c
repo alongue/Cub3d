@@ -18,22 +18,22 @@ void		search_polyverti(t_map map, t_polygon *p, int x, int y)
 
 	if (cond_top(map, x, y))
 	{
-		p[i].isused = false;
+		p[i].isused = 0;
 		p[i++] = create_polytop(map, x, y);
 	}
 	if (cond_bot(map, x, y))
 	{
-		p[i].isused = false;
+		p[i].isused = 0;
 		p[i++] = create_polybot(map, x, y);
 	}
 	if (cond_right(map, x, y))
 	{
-		p[i].isused = false;
+		p[i].isused = 0;
 		p[i++] = create_polyright(map, x, y);
 	}
 	if (cond_left(map, x, y))
 	{
-		p[i].isused = false;
+		p[i].isused = 0;
 		p[i++] = create_polyleft(map, x, y);
 	}
 }

@@ -12,10 +12,10 @@
 
 #include "libmath.h"
 
-bool		is_pair(int a)
+int		is_pair(int a)
 {
 	if (a % 2 == 0)
-		return (true);
+		return (1);
 	else
-		return (false);
+		return (0);
 }

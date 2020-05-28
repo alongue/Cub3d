@@ -17,7 +17,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 	int			counter;
 
 	counter = -1;
-	player->exist = false;
+	player->exist = 0;
 	while (map->number[i][++counter])
 	{
 		if (map->number[i][counter] == '1')
@@ -29,10 +29,10 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 			if (player->exist)
 				ft_putstrreti_fd("Error\nUn seul joueur est accepte sur la map.\n", 0, 0);
 			*player = get_player(counter * data.cubside, i * data.cubside, map->number[i][counter], data);
-			map->cub[i][counter].exist = false;
+			map->cub[i][counter].exist = 0;
 		}
 		else
-			map->cub[i][counter].exist = false;
+			map->cub[i][counter].exist = 0;
 		printf("map->cub[0][2].sbot.a.x = %f\n", map->cub[0][2].sbot.a.x);
 	}
 	return (1);
@@ -58,6 +58,8 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 		map->nbcuby[x] = y[1] - y[0] + 1;
 	}
 	map->nbcuby[xmax] = -1;
+	map->nbxmax = get_nbxmax(map->nbcuby);
+	map->nbymax = get_nbymax(map->nbcuby);
 	return (1);
 }
 
@@ -121,7 +123,7 @@ t_map		create_map(t_data *data, t_player *player)
 	int		nblin;
 	int		i;
 
-	map.exist = false;
+	map.exist = 0;
 	map.objects = NULL;
 	xmax = 0;
 	nblin = 0;
@@ -147,6 +149,6 @@ t_map		create_map(t_data *data, t_player *player)
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
 
-	map.exist = true;
+	map.exist = 1;
 	return (map);
 }

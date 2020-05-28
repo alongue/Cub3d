@@ -54,7 +54,6 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 		if (node.set[counter].dodisplay)
 			display_wall(data, node.set[counter].wall, node.set[counter], player);
 	}
-	printf("salut c'est moi\n");
 //	printf("\nLes poly du node sont passes\n");
 	//sleep(4);
 }

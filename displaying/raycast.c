@@ -12,14 +12,14 @@
 
 #include "../header.h"
 
-bool		raycast(t_polygon *polygon)
+int		raycast(t_polygon *polygon)
 {
 	polygon->newsegment.a.x = 160 - polygon->newsegment.a.y * 160 / polygon->newsegment.a.x;
 	polygon->newsegment.b.x = 160 - polygon->newsegment.b.y * 160 / polygon->newsegment.b.x;
 	if (polygon->newsegment.a.x == polygon->newsegment.b.x ||
 		polygon->newsegment.b.x < 0 || polygon->newsegment.a.x > data->win_width - 1)
-		return (false);
-	return (true);
+		return (0);
+	return (1);
 }
 
 void		raycastfps(t_wall *wall, t_player player)

@@ -14,7 +14,7 @@
 
 int		get_location(int moving_side)
 {
-	//static int	isbot = false;
+	//static int	isbot = 0;
 
 	//printf("lin = %d\tet\tget_col_nbmin(number, %d) = %d\n", lin, col, get_col_nbmin(number, col));
 	//sleep(2);
@@ -37,8 +37,8 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	//static int	finish0 = 0;
 	//static int	finish1 = 0;
 	//static int	counter = 0;
-	//static int	cangoright = false;
-	//static int	cangoleft = false;
+	//static int	cangoright = 0;
+	//static int	cangoleft = 0;
 	int			ret[2];
 
 	fakecoor[0] = coor[0];
@@ -54,7 +54,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 		/*if (moving_side != RIGHT && (moving_side == TOP || cangoleft))
 		{
 			printf("saluuuuuut tu vas bien\n");
-			//cangoright = false;
+			//cangoright = 0;
 			if (moving_side != TOP)
 			{
 				printf("J'essaye (top) mais avec bot en 1er\n");
@@ -64,14 +64,14 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				{
 					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
 						fakecoor[0]--;
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 			}
 			if (moving_side != RIGHT)
 			{			
@@ -81,14 +81,14 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				{
 					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
 						fakecoor[1]++;
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 			}
 			if (moving_side != BOT)
 			{			
@@ -98,14 +98,14 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				{
 					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
 						fakecoor[0]++;
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 			}
 		}
 		*/
@@ -119,7 +119,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -136,7 +136,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -146,7 +146,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 						fakecoor[1]--;
 				}
 			}
-			printf("map->parsepos[(fakecoor[0] + 1) * get_nbxmax(map->nbcuby) + fakecoor[1] (avant bot) = %d\n", map->parsepos[(fakecoor[0] + 1) * get_nbxmax(map->nbcuby) + fakecoor[1]]);
+			printf("map->parsepos[(fakecoor[0] + 1) * map->nbxmax + fakecoor[1] (avant bot) = %d\n", map->parsepos[(fakecoor[0] + 1) * map->nbxmax + fakecoor[1]]);
 			if (moving_side != TOP)
 			{
 				printf("Je rentre dans (top) bot\n");
@@ -154,7 +154,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -171,7 +171,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 						oldlocation = location;
 					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0))
 						return ((ret[0] = ISFINISH));
@@ -185,7 +185,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	}
 	else if (location == RIGHT)
 	{
-		printf("map->parsepos[%d * %d + %d] = %d\n", fakecoor[0], get_nbxmax(map->nbcuby), fakecoor[1], map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]]);
+		printf("map->parsepos[%d * %d + %d] = %d\n", fakecoor[0], map->nbxmax, fakecoor[1], map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]]);
 		if (moving_side != LEFT)
 		{
 			printf("je rentre dans (right) right\n");
@@ -193,7 +193,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					printf("(right) right location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -208,8 +208,8 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}
 		}
 		/*
-		printf("map->parsepos[%d + 1 * %d + %d] = %d\n", fakecoor[0], get_nbxmax(map->nbcuby), fakecoor[1], map->parsepos[(fakecoor[0] + 1) * get_nbxmax(map->nbcuby) + fakecoor[1]]);
-		printf("fakecoor[0] = %d\tet\tget_nbymax(map->nbcuby) = %d\n", fakecoor[0], get_nbymax(map->nbcuby));
+		printf("map->parsepos[%d + 1 * %d + %d] = %d\n", fakecoor[0], map->nbxmax, fakecoor[1], map->parsepos[(fakecoor[0] + 1) * map->nbxmax + fakecoor[1]]);
+		printf("fakecoor[0] = %d\tet\tmap->nbymax = %d\n", fakecoor[0], map->nbymax);
 		printf("moving_side = %d\tet\tTOP = %d\n", moving_side, TOP);
 		*/
 		if (moving_side != TOP)
@@ -219,7 +219,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					printf("(right) bot location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -244,7 +244,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			printf("(left) (apres) coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				printf("(right) left location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -265,7 +265,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 				if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 					return (ret[1]);
@@ -286,16 +286,16 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
 						fakecoor[0]++;
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 				
 			}
 			if (moving_side != LEFT)// && ret[1] != BLOCKED)
@@ -304,9 +304,9 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
@@ -316,7 +316,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					}
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 			}
 			if (moving_side != TOP)// && ret[1] != BLOCKED)
 			{			
@@ -324,16 +324,16 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
-					//cangoright = true;
+					//cangoright = 1;
 					if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH || ret[1] == STOP)
 						return (ret[1]);
 					else if (ret[1] == BLOCKED)
 						fakecoor[0]--;
 				}
 				else
-					//cangoright = false;
+					//cangoright = 0;
 			}
 			/\*
 			if (moving_side != RIGHT)
@@ -349,10 +349,10 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}*\/
 			//return (BLOCKED);
 		}*/
-		//if (moving_side != RIGHT && !cangoright) //ca revient a faire aucune condition car si il arrive jusque la c que cangoright = false, mais si c le cas dans les 3  autres conditions qui suivent, aucune ne va marcher donc ca va finalement backtracker
+		//if (moving_side != RIGHT && !cangoright) //ca revient a faire aucune condition car si il arrive jusque la c que cangoright = 0, mais si c le cas dans les 3  autres conditions qui suivent, aucune ne va marcher donc ca va finalement backtracker
 		//{
 			printf("saluuuuuut\n");
-			//cangoright = false;
+			//cangoright = 0;
 			if (moving_side != TOP)
 			{
 				printf("je rentre dans (bot) bot\n");
@@ -360,7 +360,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -380,7 +380,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -400,7 +400,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -434,7 +434,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -450,7 +450,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -467,7 +467,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -483,7 +483,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				map->parsepos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					if (fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0))
 					return ((ret[0] = ISFINISH));
 				oldlocation = location;
@@ -492,7 +492,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}
 		}*/
 	}
-	map->backtrackpos[fakecoor[0] * get_nbxmax(map->nbcuby) + fakecoor[1]] = 1;
+	map->backtrackpos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 	printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (avant de backtrack)\n", fakecoor[0], fakecoor[1]);
 	printf("location = %d\tet\tTOP = %d\n", location, TOP);
 	//sleep(2);

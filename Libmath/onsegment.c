@@ -12,10 +12,10 @@
 
 #include "libmath.h"
 
-bool	onsegment(t_point p, t_point q, t_point r)
+int	onsegment(t_point p, t_point q, t_point r)
 {
 	if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x)
 		&& q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
-		return (true);
-	return (false);
+		return (1);
+	return (0);
 }

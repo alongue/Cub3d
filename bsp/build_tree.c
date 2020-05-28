@@ -64,8 +64,8 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		//printf("poly[0].isused = %d\n", poly[0].isused);
 		//sleep(1);
 		/*while (++i[1] != i[0])
-			set[i[1]].isused = false;
-		set[i[0]].isused = true;*/
+			set[i[1]].isused = 0;
+		set[i[0]].isused = 1;*/
 	}
 }
 
@@ -79,7 +79,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 
 	counter = 0;
-	poly[1].isused = false;
+	poly[1].isused = 0;
 	minrelation = (is_pair(polysetlen(set))) ? (float)(polysetlen(set) / 2 - 1) / (polysetlen(set) / 2 + 1) : 1.;
 	leastsplits = INT_MAX;
 	if (is_convex_set(set, NULL))
@@ -136,7 +136,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	static int	i = 0;
 
 //	printf("------ !!!!! JE RENTRE DANS LE BUILD TREE !!!!! ------\n");
-	node->exist = false;
+	node->exist = 0;
 	node->frontchild = malloc(sizeof(t_node) * 1);
 	node->backchild = malloc(sizeof(t_node) * 1);
 	int	a;
@@ -170,7 +170,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		{
 			node->frontchild->set[counter[1]] = dup_polygon(set[counter[0]]);	/*										Peut-etre mettre												*/
 			//node->frontchild->set[counter[1]].wall = create_wall(node->frontchild->set[counter[1]], player, data); //trouver un moyen de recuperer la valeur
-			//frontpolyset[counter[1]].isused = false;
+			//frontpolyset[counter[1]].isused = 0;
 			counter[1]++;
 			//printf("set[%d] se trouve devant\n", counter[0]);
 		}
@@ -178,7 +178,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		{
 			node->backchild->set[counter[2]] = dup_polygon(set[counter[0]]);	/*											fonction													*/
 			//node->frontchild->set[counter[2]].wall = create_wall(node->frontchild->set[counter[2]], player, data); //trouver un moyen de recuperer la valeur
-			//backpolyset[counter[2]].isused = false;
+			//backpolyset[counter[2]].isused = 0;
 			counter[2]++;
 			//printf("set[%d] se trouve derriere\n", counter[0]);
 		}
@@ -195,7 +195,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 		//printf("frontsetlen = %d\tet\tbacksetlen = %d\n", polysetlen(frontpolyset), polysetlen(backpolyset));
 		counter[0]++;
 	}
-	node->exist = true;
+	node->exist = 1;
 	i++;
 	printf("ca fait la %de boucle\n", i);
 	//sleep(1);

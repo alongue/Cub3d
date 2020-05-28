@@ -127,13 +127,13 @@ void			replace_poly(t_polygon *polygon, t_player player)
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
-bool			do_display_poly(t_polygon *polygon, t_data data, t_player player)
+int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 {
 	double		tanpoly;
 	t_segment	segmentcop;
 
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
-		return ((polygon->dodisplay = false));
+		return ((polygon->dodisplay = 0));
 	segmentcop = dup_segment(polygon->newsegment);
 	if (polygon->newsegment.a.x < ZMIN)
 	{
@@ -157,7 +157,7 @@ bool			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
 	polygon->dodisplay = raycastx(&polygon->wall, polygon, data, &segmentcop);
 	if (!raycastx_img(player, polygon, segmentcop))
-		return (false);
+		return (0);
 	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
@@ -273,7 +273,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 				ptraddr[0] += data->win_width;
 			}
 			//printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
-			data->coldone[i] = true;
+			data->coldone[i] = 1;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;

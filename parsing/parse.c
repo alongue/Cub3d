@@ -63,7 +63,7 @@ static t_cub	**get_malloc(t_data data, int *nbcuby)
 			return (ft_putstrret_fd("Error\nNo space left on device\n", NULL, 0));
 		}
 		//ft_memseti(cub[counter[0]], 0, --counter[1]);
-		cub[counter0][*counterx].exist = true;
+		cub[counter0][*counterx].exist = 1;
 	}
 	return (cub);
 }
@@ -85,10 +85,10 @@ static int		parse(char *line, t_map *map, t_player *player, t_data data)
 		else if (ft_get_nbchar("SNEW", line[counter]) == 1)
 		{
 			*player = get_player(counter * map->cub[0][0].side, i * map->cub[0][0].side, line[counter], data);
-			map->cub[i][counter].exist = false;
+			map->cub[i][counter].exist = 0;
 		}
 		else
-			map->cub[i][counter].exist = false;
+			map->cub[i][counter].exist = 0;
 	}
 	i++;
 	return (1);
@@ -104,7 +104,7 @@ t_map			get_coor(t_data data, t_player *player)
 
 	ret = 2;
 	ft_memseti(counter, 0, 2);
-	map.exist = false;
+	map.exist = 0;
 	printf("data.filename = %s\n", data.filename);
 	if (!data.filename || !ft_strstrpart(data.filename, ft_strlen(data.filename) - 4,
 									".cub"))
@@ -124,6 +124,6 @@ t_map			get_coor(t_data data, t_player *player)
 	printf("map.objects[0].pos.x = (get_coor) %f\n", map.objects[0].pos.x);
 	if (!player->exist)
 		return (putstrret_fd("Error\nVeuillez mettre un joueur\n", map, 0));
-	map.exist = true;
+	map.exist = 1;
 	return (map);
 }

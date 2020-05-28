@@ -15,16 +15,16 @@
 int	translate_point(t_point *point, double x, double y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
 {
 	int		ret;
-	bool	ispos[2];
+	int	ispos[2];
 
-	ispos[0] = (point->x >= 0) ? true : false;
-	ispos[1] = (point->y >= 0) ? true : false;
+	ispos[0] = (point->x >= 0) ? 1 : 0;
+	ispos[1] = (point->y >= 0) ? 1 : 0;
 	point->x += x;
 	ret = 1;
-	if ((point->x < 0 && ispos[0] == true) || (point->x >= 0 && ispos[0] == false))
+	if ((point->x < 0 && ispos[0] == 1) || (point->x >= 0 && ispos[0] == 0))
 		ret = 0;
 	point->y += y;
-	if ((point->y < 0 && ispos[1] == true) || (point->y >= 0 && ispos[1] == false))
+	if ((point->y < 0 && ispos[1] == 1) || (point->y >= 0 && ispos[1] == 0))
 		ret = 0;
 	return (ret);
 }

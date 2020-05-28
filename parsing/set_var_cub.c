@@ -14,7 +14,8 @@
 
 void		set_cub(t_data data, t_cub *cub, int i, int counter)
 {
-	cub->exist = true;
+	printf("yo\n");
+	cub->exist = 1;
 	cub->x = counter * data.cubside; //sommet a gauche avec vue du dessus
 	cub->y = i * data.cubside; //sommet en haut avec vue du dessus
 	cub->stop = get_segmenti(cub->x,
@@ -60,7 +61,7 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	while (++i < nblin + 2)
 	{
 		while (++counter < xmax + 2)
-			map->cub[i][counter].exist = false;
+			map->cub[i][counter].exist = 0;
 		map->cub[i]++;
 	}
 	map->cub++;
@@ -77,12 +78,12 @@ void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des mallo
 		return ;
 	}
 	printf("&map->objects = %p\n", &map->objects);
-	map->cub[i][counter].exist = false;
-	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, data.sprite, &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
+	map->cub[i][counter].exist = 0;
+	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
 		return ;
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
 	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);
-	map->objects[map->nbobjects - 1].exist = true;
+	map->objects[map->nbobjects - 1].exist = 1;
 	map->objects[map->nbobjects - 1].pos.x = counter * data.cubside + map->objects[map->nbobjects - 1].width / 2;
 	map->objects[map->nbobjects - 1].pos.y = i * data.cubside + map->objects[map->nbobjects - 1].height / 2;
 }
