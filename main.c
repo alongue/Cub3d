@@ -34,6 +34,7 @@ int		funt(int i, void **p)
 	t_map		*map;
 	t_player	*player;
 
+	printf("test\n");
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
@@ -86,13 +87,16 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);*/
 	printf("data.window (main) = %p\n", &data.window);
 	map = create_map(&data, &player);
+	//int a = 3000;
+	//printf("Sieste de %dsec\n", a / 1000);
+	//sleep(a);
 	reset_data(&data);
 	if (!map.exist)
 		return (3);
 	if (!create_tree_node(&map, player, data))
 		return (4);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);
-	printf("map.tree.rootnode->splitter.wall.color (main) = %x\n", map.tree.rootnode->splitter.wall.color);
+	//printf("map.tree.rootnode->splitter.wall.color (main) = %x\n", map.tree.rootnode->splitter.wall.color);
 	printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);
 
 	//ft_memseti(data.coldone, 0, data.win_width);
@@ -104,12 +108,13 @@ int		main(int ac, char **av)
 	//display_ceilfloor(data);
 	renderbsp(&data, *map.tree.rootnode, player);
 	renderobjects(&data, player, map);
-	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
-	printf("salut c'est moi\n");
+	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0)); // y a des problemes de malloc a l'interieur de mlx_put_image_to_window()
+	//printf("salut c'est moi\n");
 	param[0] = (void *)&data;
 	param[1] = (void *)&map;
 	param[2] = (void *)&player;
 	(void)ac;
+	printf("param[0]\n");
 	mlx_hook(data.window, 2, 0, funt, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
 //	renderbsp(&data, *map.tree.rootnode, player);
 	mlx_loop(data.ptr);

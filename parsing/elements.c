@@ -86,7 +86,7 @@ int     set_texture(t_data *data, char *line, char orientation)
     }
     if (orientation == 's')
     {
-        printf("data->srpie = %s\n", data->sprite);
+        printf("data->sprite = %s\n", data->sprite);
         sleep(1);
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
@@ -134,11 +134,13 @@ int     set_color_value(t_data *data, char *line, char letter)
 
 int     set_color(t_data *data, char *line)
 {
-    int i;
-    int counter;
+    int     i;
+    int     counter;
+    char    parameters[13] = "RNOSOWEEASFC";
 
+    (void)parameters;
     counter = 0;
-    i = get_first_char(line);
+    i = get_first_char(line); // faire une boucle while et chercher dans un tableau d'elements pre enregistre
     if (line[i] == 'R' && ++counter < NBELEM) // faut pas que un de tout ca y soit 2 fois
     {
         if (!set_resolution(data, line))
@@ -223,7 +225,7 @@ int     parse_elements(t_map *map, t_data *data, int fd)
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
     if (counter[0] != NBELEM)
-        return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre d'elements\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre de parametres\n", 0, 0));
     while (ret != 0)
     {
         ret = get_next_line(newfd, &line);

@@ -60,7 +60,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 		bestrelation = relation;
 		set_used_poly(set, &poly[0]);
 		poly[1] = dup_polygon(poly[0]);
-		printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
+		//printf("relation = %f\tet\tpoly[0].isused = %d\n", relation, poly[0].isused);
 		//printf("poly[0].isused = %d\n", poly[0].isused);
 		//sleep(1);
 		/*while (++i[1] != i[0])
@@ -80,18 +80,25 @@ t_polygon	choose_div_polygon(t_polygon *set)
 
 	counter = 0;
 	poly[1].isused = 0;
+	//printf("polysetlen(set) = %d\n", polysetlen(set));
+	//sleep(3);
 	minrelation = (is_pair(polysetlen(set))) ? (float)(polysetlen(set) / 2 - 1) / (polysetlen(set) / 2 + 1) : 1.;
 	leastsplits = INT_MAX;
 	if (is_convex_set(set, NULL))
 		return (set[0]);
+	printf("ma grosse bite\n");
 	i = -1;
-	while (!poly[1].isused)
+	while (!poly[1].isused) // boucle infinie 26/01/2021
 	{
 		i = -1;
 		while (set[++i].exist)
 		{
+			//printf("test\n");
+			//sleep(1);
 			if (!set[i].isused)
 			{
+			//printf("test2\n");
+			//sleep(1);
 				poly[0] = dup_polygon(set[i]);
 				set_best_poly(poly, set, minrelation, &leastsplits);
 //				printf("bestpoly is used ? %d, cuz set[%d].isused = %d\tet\tset de len = %d\n", poly[1].isused, i, set[i].isused, polysetlen(set));
@@ -111,7 +118,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	while (set[++i].exist)
 		if (set[i].isused)
 			counter = i;
-//	printf("best polygon is set[%d]\n", counter);
+	//printf("best polygon is set[%d]\n", counter);
 	return (poly[1]);
 }
 
@@ -159,6 +166,7 @@ void		build_tree(t_node *node, t_polygon *set, t_player player, t_data data) //j
 	ft_memseti(counter, 0, 3);
 	//printf("set len = %d\n", polysetlen(set));
 	node->splitter = choose_div_polygon(set);
+	printf("set[counter[0]].exist = %d\n", set[counter[0]].exist);
 	node->frontchild->set = malloc_frontset_child(set, node->splitter);
 	node->backchild->set = malloc_backset_child(set, node->splitter);
 	while (set[counter[0]].exist/* && set[counter[0]].segment.exist*/)

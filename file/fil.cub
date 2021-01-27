@@ -1,0 +1,31 @@
+
+
+C  255,0,0
+
+
+
+
+     F   255,115,115
+
+
+S      textures/test-sprite.xpm
+SO       textures/mur-1.xpm
+NO textures/mur-3.xpm
+EA textures/mur-2.xpm
+WE textures/mur-4.xpm
+
+
+               R                                      1920,1080
+
+
+11111111111111
+10000000000001
+11E00000101011
+ 100000111101
+1100001000001
+1000000000001
+11111111111111111111
+            1
+            1
+            1
+            1

@@ -31,34 +31,34 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 
 	x = &data.currentCubIndex[0];
 	y = &data.currentCubIndex[1];
-	if (cond_top(*map, *x, *y))
+	if (cond_top(map, *x, *y))
 	{
 		map->tree.rootnode->set[i].isused = 0;
-		map->tree.rootnode->set[i++] = create_polytop(*map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polytop(map, data.currentCubIndex, data, player);
 		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
-	if (cond_bot(*map, *x, *y))
+	if (cond_bot(map, *x, *y))
 	{
 		map->tree.rootnode->set[i].isused = 0;
-		map->tree.rootnode->set[i++] = create_polybot(*map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polybot(map, data.currentCubIndex, data, player);
 		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
-	if (cond_right(*map, *x, *y))
+	if (cond_right(map, *x, *y))
 	{
 		map->tree.rootnode->set[i].isused = 0;
-		map->tree.rootnode->set[i++] = create_polyright(*map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polyright(map, data.currentCubIndex, data, player);
 		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
-	if (cond_left(*map, *x, *y))
+	if (cond_left(map, *x, *y))
 	{
 		map->tree.rootnode->set[i].isused = 0;
-		map->tree.rootnode->set[i++] = create_polyleft(*map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polyleft(map, data.currentCubIndex, data, player);
 		//printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
@@ -116,12 +116,12 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 }
 */
 
-int			count(t_map map, int x, int y, int *c)
+int			count(t_map *map, int x, int y, int *c)
 {
 	printf("x = %d\tet\ty = %d\n", x, y);
-	printf("map.nbxmax -> %d\n", map.nbxmax);
-	printf("map.cub[y] (pointeur) -> %p\n", &map.cub[y]);
-	printf("map.cub[y][x].exist -> %d\n", map.cub[y][x].exist);
+	printf("map->nbxmax -> %d\n", map->nbxmax); // y a EXC_BAD_ACCESS tres occasionel juste apres (ca ne rentre pas dans le cond_top)
+	//printf("map->cub[y] (pointeur) -> %p\n", &map->cub[y]);
+	//printf("map->cub[y][x].exist -> %d\n", map->cub[y][x].exist);
 	if (cond_top(map, x, y))
 	{
 		(*c)++;
@@ -145,7 +145,7 @@ int			count(t_map map, int x, int y, int *c)
 	return (1);
 }
 
-t_polygon	*get_malloc(t_map map, int *counter)
+t_polygon	*get_malloc(t_map *map, int *counter)
 {
 	int			x;
 	int			y;
@@ -153,12 +153,12 @@ t_polygon	*get_malloc(t_map map, int *counter)
 	t_polygon	*p;
 
 	*counter = 0;
-	y = -1;
-	x = -1;
-	while (++y < map.nbymax)
+	y = 0;
+	x = 0;
+	while (++y < map->nbymax)
 	{
-		x = -1;
-		while (++x < map.nbxmax)
+		x = 0;
+		while (++x < map->nbxmax)
 			count(map, x, y, counter);
 	}
 	printf("counter de polys = %d\n", *counter);
@@ -172,16 +172,16 @@ t_polygon	*get_malloc(t_map map, int *counter)
 	return (p);
 }
 
-int			parse_poly(t_map *map, t_player player, t_data data)
+int			parse_poly(t_map *map, t_player player, t_data data) // bug vient surement de la 26/01/2021
 {
 	int			realpolynb;
 
-	map->tree.rootnode->set = get_malloc(*map, &realpolynb);
-	data.currentCubIndex[0] = -1;
-	data.currentCubIndex[1] = -1;
+	map->tree.rootnode->set = get_malloc(map, &realpolynb);
+	data.currentCubIndex[0] = 0;
+	data.currentCubIndex[1] = 0;
 	while (++data.currentCubIndex[1] < map->nbymax)
 	{
-		data.currentCubIndex[0] = -1;
+		data.currentCubIndex[0] = 0;
 		while (++data.currentCubIndex[0] < map->nbxmax)
 		{
 			realpolynb = search_polyverti(map, data, player);

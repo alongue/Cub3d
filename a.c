@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include "Libft/libft.h"
 
-int	main()
+int	main() // tester si le malloc a l'interieur de struct est quand meme transfere dans le parametre struct
 {
 	char	*str;
 

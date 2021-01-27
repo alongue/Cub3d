@@ -58,13 +58,18 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 		}
 	i = -1; // on remplit tout comme ca, y a moins de ligne puis on ecrasera les donnees plus tard
 	counter = -1;
-	while (++i < nblin + 2)
+	while (++i < nblin + 2) // '<' car il part de 0 donc
 	{
-		while (++counter < xmax + 2)
+		counter = -1;
+		while (++counter < xmax + 2) // '<' car il part de 0 donc
+		{
+			printf("(boucle malloc) map->cub[%d][%d]\n", i, counter);
 			map->cub[i][counter].exist = 0;
-		map->cub[i]++;
+		}
+		printf("i = %d\tet\tnblin = %d\n", i, nblin);
+		//map->cub[i]++;
 	}
-	map->cub++;
+	//map->cub++;
 	return (1);
 }
 

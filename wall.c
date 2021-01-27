@@ -134,7 +134,9 @@ int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = 0));
+	printf("test dup_segment avant\n");
 	segmentcop = dup_segment(polygon->newsegment);
+	printf("test dup_segment avant\n");
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
@@ -278,7 +280,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-//	printf("Je suis sorti\n");
+	printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
 

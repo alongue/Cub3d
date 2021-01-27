@@ -74,13 +74,15 @@ GCC	=	gcc
 
 INC	=	-I /usr/X11/include
 
-LIBFL	=	-g -L /usr/X11/lib -lmlx
+LIBFL	=	-L /usr/X11/lib -lmlx
 
 FWFL	=	-framework OpenGL -framework AppKit
 
 CFLAGS	=	-Wall -Wextra -Werror
 
 DEBG	=	-fsanitize=address
+
+VSCODE = vscode
 
 all	:	$(NAME)
 
@@ -101,6 +103,17 @@ $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	ar -x $(LIBMATHNAME)
 	$(AR) $(NAME) $(OBJS) *.o
 	$(LIB) $(NAME)
+	$(GCC) $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
+
+$(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
+	cp $(LIBFT)/$(LIBFTNAME) .
+	cp $(LIBMATH)/$(LIBMATHNAME) .
+	cp $(GNL)/*.o .
+	ar -x $(LIBFTNAME)
+	ar -x $(LIBMATHNAME)
+	$(AR) $(NAME) $(OBJS) *.o
+	$(LIB) $(NAME)
+	$(GCC) -g $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
 
 $(BS)	: $(OBJS_B)
 	$(AR) $(NAME) $(OBJS_B)
@@ -141,4 +154,4 @@ reexec	:	fclean
 %		:
 	@		:
 
-.PHONY	:	all clean exec fcleanmax fclean re bonus
+.PHONY	:	all clean exec fcleanmax fclean re bonus vscode
