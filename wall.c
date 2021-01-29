@@ -214,6 +214,9 @@ t_wall			dup_wall(t_wall wall)
 	return (wallcop);
 }
 
+// TO DECOMMENT (function below)
+
+/*
 int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player)
 {
 	int		i;
@@ -245,13 +248,13 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
 			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
 			printf("index = %d\n", index);
-			/*if (index > (cumul + 1) * wall.imgwidth)
+			/a*if (index > (cumul + 1) * wall.imgwidth)
 			{
 				rest = index % (wall.imgwidth * (cumul + 1));
 				printf("rest = %d\n", rest);
 				//sleep(5);
 				cumul++;
-			}*/
+			}*a/
 			//printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
 			//printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
@@ -283,7 +286,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
-
+*/
 
 /*
 **		*(img.data + (x * 4 + 2) + (img.size * y)) = (unsigned)color.r;

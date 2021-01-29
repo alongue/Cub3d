@@ -21,8 +21,18 @@ int		create_data(t_data *data, char **av)
 	printf("av[1] (avant window) = %s\n", av[1]);
 	data->win_width = 0;
 	data->win_height = 0;
+
+	//TO REMOVE
+	data->win_width = 1920;
+	data->win_height = 1080;
+
 	data->colceil = (unsigned int)-1;
 	data->colfloor = (unsigned int)-1;
+
+	//TO REMOVE
+	data->colceil = (unsigned int)0x0f0;
+	data->colfloor = (unsigned int)0xff0;
+
 	data->texnorth = NULL;
 	data->texsouth = NULL;
 	data->texeast = NULL;
@@ -56,7 +66,7 @@ void	reset_data(t_data *data)
 			data->img_data[y * data->win_width + x] = 0x000000;
 	}*/
 	data->nbcoldone = 0;
-	display_ceilfloor(*data);
+	display_ceilfloor(data);
 }
 
 int		free_elements(t_data data, t_tree tree, t_map map)

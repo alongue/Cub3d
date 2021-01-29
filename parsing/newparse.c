@@ -127,9 +127,11 @@ t_map		create_map(t_data *data, t_player *player)
 	map.objects = NULL;
 	xmax = 0;
 	nblin = 0;
+	printf("test a\n");
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
+	printf("Test 1\n");
 	fd = open(data->filename, O_RDONLY);
 	if (!parse_elements(&map, data, fd))
 		return (map);
@@ -148,7 +150,6 @@ t_map		create_map(t_data *data, t_player *player)
 		return (map);
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
-
 	map.exist = 1;
 	return (map);
 }

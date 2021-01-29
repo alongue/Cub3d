@@ -233,7 +233,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data, t_player player);
 t_polygon			create_polytop(t_map *map, int *coor, t_data, t_player player);
 int					create_tree_node(t_map *map, t_player player, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
-int					display_ceilfloor(t_data data);
+int					display_ceilfloor(t_data *data);
 int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
 int				do_display_poly(t_polygon *polygon, t_data data, t_player player);

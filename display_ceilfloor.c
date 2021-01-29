@@ -12,23 +12,23 @@
 
 #include "header.h"
 
-int display_ceilfloor(t_data data)
+int display_ceilfloor(t_data *data)
 {
     int x;
     int y;
 
     y = -1;
-    printf("data.colceil = %#x\tet\tdata.colfloor = %#x\n", data.colceil, data.colfloor);
+    printf("data->colceil = %#x\tet\tdata->colfloor = %#x\n", data->colceil, data->colfloor);
     sleep(2);
-	while (++y < data.win_height)
+	while (++y < data->win_height)
 	{
         x = -1;
-        if (y < data.win_height / 2)
-            while (++x < data.win_width)
-                data.img_data[y * data.win_width + x] = data.colceil;
+        if (y < data->win_height / 2)
+            while (++x < data->win_width)
+                data->img_data[y * data->win_width + x] = data->colceil;
         else
-            while (++x < data.win_width)
-                data.img_data[y * data.win_width + x] = data.colfloor;
+            while (++x < data->win_width)
+                data->img_data[y * data->win_width + x] = data->colfloor;
 	}
     return (1);
 }

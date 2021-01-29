@@ -67,9 +67,82 @@ int		funt(int i, void **p)
 	//printf("keycode = %d\n", i);
 	renderbsp(data, *map->tree.rootnode, *player);
 	printf("map->tree.rootnode->splitter.wall.color = %x\n", map->tree.rootnode->splitter.wall.color);
-	renderobjects(data, *player, *map);
+	//renderobjects(data, *player, *map);
 	mlx_put_image_to_window(data->ptr, data->window, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (0);
+}
+
+int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player)
+{
+	int		i;
+	int		ptraddr[2];
+	double	tanindex;
+//	double	cumul;
+//	double	anglewallpl;
+	int		index;
+	int		rest;
+	int		cumul;
+	double	incr[2];
+
+	//sleep(5);
+//	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
+	initbe4display(&wall, &i, data);
+	ft_memseti(ptraddr, 0, 2);
+	ft_memseti(incr, 0, 2);
+	cumul = 0;
+	rest = 0;
+	//printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
+	while (++i <= (int)round(wall.rightcl.a.x))
+	{
+		//printf("i = %d\n", i);
+		if (can_draw(wall, data, i))
+		{
+			wall.topcl = fmax(wall.top, 0.);
+			wall.botcl = fmin(wall.bot, data->win_height);
+			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
+			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
+			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
+			//printf("index = %d\n", index);
+			/*if (index > (cumul + 1) * wall.imgwidth)
+			{
+				rest = index % (wall.imgwidth * (cumul + 1));
+				printf("rest = %d\n", rest);
+				//sleep(5);
+				cumul++;
+			}*/
+			//printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
+			//printf("index = %d\n", index);
+			index = (index < 0) ? 0 : index;
+			incr[0] = (wall.imgheight - 1) / (wall.bot - wall.top);
+			incr[1] = (wall.topcl - wall.top) * incr[0];
+			incr[1] = (incr[1] < 0) ? 0 : incr[1];
+			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
+			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
+//			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
+//			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			while (ptraddr[0] < ptraddr[1])
+			{
+				//get(index, incr[1]);
+//				printf("(pdt la boucle) incr[1] = %f\tet\tindex = %d\n", incr[1], index);
+				//printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
+				//printf("avant\n");
+				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + index)];
+				//wall.img_data[ptraddr[0]] = (unsigned int)0xfff;
+				//if (ptraddr[0] > ((data->win_width * data->win_height) - 1)) // 2 073 599 pour 1920 et 1080
+				//	printf("ptraddr[0] = %d qui est superieur win * height (- 1) (= %d)\n", ptraddr[0], (data->win_width * data->win_height) - 1);
+				//printf("pdist = %f\n", polygon.pdist);
+				//printf("apres\n");
+				incr[1] += incr[0];
+				ptraddr[0] += data->win_width;
+			}
+			//printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			data->coldone[i] = 1;
+		}
+		wall.top += wall.deltatop;
+		wall.bot += wall.deltabot;
+	}
+	//printf("Je suis sorti\n");
+	return (EXIT_SUCCESS);
 }
 
 int		main(int ac, char **av)
@@ -106,15 +179,20 @@ int		main(int ac, char **av)
 	//wall.color = 0xffffff;
 	//printf("wall = %p\n", wall);
 	//display_ceilfloor(data);
+	
 	renderbsp(&data, *map.tree.rootnode, player);
-	renderobjects(&data, player, map);
+	printf("After rendering bsp\n");
+	//renderobjects(&data, player, map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0)); // y a des problemes de malloc a l'interieur de mlx_put_image_to_window()
-	//printf("salut c'est moi\n");
+	
+	printf("salut c'est moi\n");
 	param[0] = (void *)&data;
-	param[1] = (void *)&map;
-	param[2] = (void *)&player;
-	(void)ac;
 	printf("param[0]\n");
+	param[1] = (void *)&map;
+	printf("param[1]\n");
+	param[2] = (void *)&player;
+	printf("param[2]\n");
+	(void)ac;
 	mlx_hook(data.window, 2, 0, funt, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
 //	renderbsp(&data, *map.tree.rootnode, player);
 	mlx_loop(data.ptr);

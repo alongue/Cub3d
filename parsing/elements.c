@@ -206,6 +206,9 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     (void)map;
     newfd = open(data->filename, O_RDONLY);
     ft_memseti(counter, 0, 3);
+    
+    return (1); // a enlever
+
     while ((ret = get_next_line(newfd, &line)) == 1 &&
     (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) == 0))
     {

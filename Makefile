@@ -103,7 +103,6 @@ $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	ar -x $(LIBMATHNAME)
 	$(AR) $(NAME) $(OBJS) *.o
 	$(LIB) $(NAME)
-	$(GCC) $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
 
 $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	cp $(LIBFT)/$(LIBFTNAME) .

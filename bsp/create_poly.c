@@ -45,7 +45,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data, t_player player)
 	//p.dodisplay = do_display_poly(&p, data);
 	//p.wall = create_wall(p, player, data);
 	(void)player;
-	//p.wall.color = 0xFF0000;
+	p.wall.color = 0xFF0000;
 	printf("Je regarde si c bon !\n");
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
