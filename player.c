@@ -47,12 +47,14 @@ t_player		get_player(int x, int z, int c, t_data data)
 	player.x = x + HEIGHTPL;
 	player.y = HEIGHTPL;
 	player.z = z + HEIGHTPL;
-	player.pos = get_point(x, z);
+	player.pos = set_point(x, z);
 	player.speed = 200;
 	player.sensi = 200;
 	player.fieldvis = to_rad(90.);
 	player.exist = 1;
 	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
+	printf("player.dfoc = %f\tet\tdata.win_width = %d\n", player.dfoc, data.win_width);
+	//sleep(10);
 	player.anglerayy = atan(1 / player.dfoc);
 	player.angleray = create_ray(data, &player.exist, player.dfoc);
 	return (player);

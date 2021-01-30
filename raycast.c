@@ -19,7 +19,7 @@ int		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment)
 	t_point		tmp;
 	t_segment	tmpsegment;
 
-	wall->left.a.x = data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x;
+	wall->left.a.x = data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x; // player.dfoc = data.win_width / 2
 	wall->right.a.x = data.win_width / 2 + polygon->newsegment.b.y * data.win_width / 2 / polygon->newsegment.b.x;
 	if (wall->left.a.x > wall->right.a.x)
 	{
@@ -83,19 +83,21 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 }
 
 // !! IMportant !! : gerer si l'objet est devant ou derriere mur
-int				raycastxobj(t_object *object, t_data data)//, t_segment *segment)
+int				raycastxobj(t_object *object, t_data data, t_player player)//, t_segment *segment)
 {
 	int		ret;
 
 	ret = 1;
+	printf("object width = %d\tet\tdata cubside = %d\n", object->width, data.cubside);
+	//sleep(3);
 	//if (object->xstartcl > object->xendcl)
 	//	inverser
 	//data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x;
-	object->xstartcl = data.win_width / 2 + (object->newpos.y - object->width / 2) * data.win_width / 2 / object->newpos.x;
-	object->xmiddlecl = data.win_width / 2 + (object->newpos.y) * data.win_width / 2 / object->newpos.x;
-	object->xendcl = data.win_width / 2 + (object->newpos.y + object->width / 2) * data.win_width / 2 / object->newpos.x;
+	object->xstartcl = data.win_width / 2 + ((object->newpos.y - object->width / 2) * player.dfoc) / object->newpos.x;
+	object->xmiddlecl = data.win_width / 2 + (object->newpos.y * player.dfoc) / object->newpos.x;
+	object->xendcl = data.win_width / 2 + ((object->newpos.y + object->width / 2) * player.dfoc) / object->newpos.x;
 	object->xstart = object->xstartcl;
-	printf("object->xstartcl = %f\tet\tobject->xendcl = %f\n", object->xstartcl, object->xendcl);
+	printf("object->xstartcl = %f\tet\tobject->xendcl = %f\tet\tobject->xmiddlecl = %f\n", object->xstartcl, object->xendcl, object->xmiddlecl);
 	printf("object->newpos.y = %f\n", object->newpos.y);
 	//sleep(3);
 	if (object->xstartcl == object->xendcl ||

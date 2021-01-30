@@ -16,7 +16,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 {
 	int			counter;
 
-	counter = -1;
+	counter = 0;
 	player->exist = 0;
 	while (map->number[i][++counter])
 	{

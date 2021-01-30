@@ -58,7 +58,7 @@ double						get_lengthp(t_point a, t_point b);
 void						get_next_point(t_segment segment, t_point *point, double iterator);
 void						get_prev_point(t_segment segment, t_point *point, double iterator);
 t_normal					get_normal(t_segment s);
-t_point						get_point(double x, double y);
+t_point						set_point(double x, double y);
 t_segment					get_segment(t_point p, t_point q);
 t_segment					get_segmenti(double px, double py, double qx, double qy);
 int						is_colinear(t_segment s1, t_segment s2);

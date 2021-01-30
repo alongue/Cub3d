@@ -17,8 +17,8 @@ t_segment	get_segmenti(double px, double py, double qx, double qy)
 	t_segment	s;
 
 	s.exist = 0;
-	s.a = get_point(px, py);
-	s.b = get_point(qx, qy);
+	s.a = set_point(px, py);
+	s.b = set_point(qx, qy);
 	if (s.b.x - s.a.x == 0 && s.b.y - s.a.y == 0) // a mon avis, si le resultat est tres proche de 0, ca risque d'enregistrer la valeur INFINITY ou -INFINITY
 		return (s);
 	if (s.b.x - s.a.x != 0)

@@ -17,8 +17,8 @@ t_segment	get_segment(t_point p, t_point q)
 	t_segment	s;
 
 	s.exist = 0;
-	s.a = get_point(p.x, p.y);
-	s.b = get_point(q.x, q.y);
+	s.a = set_point(p.x, p.y);
+	s.b = set_point(q.x, q.y);
 	if (s.b.x - s.a.x == 0 && s.b.y - s.a.y == 0)
 		return (s);
 	if (s.b.x - s.a.x != 0)

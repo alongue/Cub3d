@@ -20,13 +20,13 @@
 void			replace_obj(t_object *object, t_player player)
 {
 	object->newpos = dup_point(object->pos);
-	printf("object->newpos.x = %f\tet\tobject->newpos.y = %f\n", object->newpos.x, object->newpos.y);
-	//sleep(3);
 	translate_point(&object->newpos, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	object->newpos = get_point(object->newpos.x * cos(-player.angle)
+	object->newpos = set_point(object->newpos.x * cos(-player.angle)
 									- object->newpos.y * sin(-player.angle),
 									object->newpos.y * cos(-player.angle)
 							 		+ object->newpos.x * sin(-player.angle));
+	printf("object->newpos.x = %f\tet\tobject->newpos.y = %f\n", object->newpos.x, object->newpos.y);
+	sleep(3);
 	/*printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
 	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
@@ -50,11 +50,11 @@ int			do_display_obj(t_object *object, t_data data, t_player player)
 	if (object->newpos.x < ZMIN)
 		return ((object->dodisplay = 0));
 	object->newpos.x = min(9999, object->newpos.x);
-	if (!(object->dodisplay = raycastxobj(object, data)))
+	if (!(object->dodisplay = raycastxobj(object, data, player)))
 		return (0);
 	if (!(object->dodisplay = raycastfpsobj(object, player, data)))
 		return (0);
-	object->newpos = get_point(object->xstartcl, object->topcl);
+	object->newpos = set_point(object->xstartcl, object->topcl);
 	return (object->dodisplay);
 }
 

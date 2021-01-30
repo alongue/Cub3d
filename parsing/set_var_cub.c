@@ -89,6 +89,6 @@ void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des mallo
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
 	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);
 	map->objects[map->nbobjects - 1].exist = 1;
-	map->objects[map->nbobjects - 1].pos.x = counter * data.cubside + map->objects[map->nbobjects - 1].width / 2;
-	map->objects[map->nbobjects - 1].pos.y = i * data.cubside + map->objects[map->nbobjects - 1].height / 2;
+	map->objects[map->nbobjects - 1].pos.x = counter * data.cubside + data.cubside / 2;
+	map->objects[map->nbobjects - 1].pos.y = i * data.cubside + data.cubside / 2;
 }

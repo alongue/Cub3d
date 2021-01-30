@@ -16,6 +16,6 @@ t_point		dup_point(t_point p)
 {
 	t_point point;
 
-	point = get_point(p.x, p.y);
+	point = set_point(p.x, p.y);
 	return (point);
 }

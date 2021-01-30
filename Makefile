@@ -133,8 +133,8 @@ clean	:
 	rm -f *.o
 
 fclean	:	clean
-	make fclean -C $(LIBFT)
-	make fclean -C $(LIBMATH)
+	make clean -C $(LIBFT)
+	make clean -C $(LIBMATH)
 	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 
 fcleanmax	:	fclean

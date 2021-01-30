@@ -139,10 +139,10 @@ t_wall			create_wall(t_polygon poly, t_player player, t_cub cub)
 {
 	t_wall wall;
 
-	wall.left.a = get_point(poly.newsegment.a.x, cub.wall.realside);
-	wall.left.b = get_point(poly.newsegment.a.x, 0);
-	wall.right.a = get_point(poly.newsegment.b.x, cub.wall.realside);
-	wall.right.b = get_point(poly.newsegment.b.x, 0);
+	wall.left.a = set_point(poly.newsegment.a.x, cub.wall.realside);
+	wall.left.b = set_point(poly.newsegment.a.x, 0);
+	wall.right.a = set_point(poly.newsegment.b.x, cub.wall.realside);
+	wall.right.b = set_point(poly.newsegment.b.x, 0);
 	translate(&wall.left, 0, -player.height);
 	translate(&wall.right, 0, -player.height);
 	return (wall);
