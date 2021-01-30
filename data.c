@@ -30,8 +30,8 @@ int		create_data(t_data *data, char **av)
 	data->colfloor = (unsigned int)-1;
 
 	//TO REMOVE
-	data->colceil = (unsigned int)0x0f0;
-	data->colfloor = (unsigned int)0xff0;
+	data->colceil = (unsigned int)0xff0;
+	data->colfloor = (unsigned int)0x000;
 
 	data->texnorth = NULL;
 	data->texsouth = NULL;

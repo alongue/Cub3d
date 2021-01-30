@@ -67,9 +67,9 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 			map->cub[i][counter].exist = 0;
 		}
 		printf("i = %d\tet\tnblin = %d\n", i, nblin);
-		//map->cub[i]++;
+		map->cub[i]++; // on va bouger le pointeur de 1 de sorte a ce qu'on accede cub[-1][-1]
 	}
-	//map->cub++;
+	map->cub++;
 	return (1);
 }
 
@@ -84,7 +84,7 @@ void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des mallo
 	}
 	printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = 0;
-	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
+	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
 		return ;
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
 	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);

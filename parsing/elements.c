@@ -33,6 +33,8 @@ int     set_resolution(t_data *data, char *line)
         data->win_height = 1440;
     if (data->win_width < 1 || data->win_height < 1)
         return (ft_putstrreti_fd("Error\nVerifiez la taille de l'ecran\n", 0, 0));
+	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
+	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
     return (1);
 }
 

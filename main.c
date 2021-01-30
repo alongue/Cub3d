@@ -67,7 +67,7 @@ int		funt(int i, void **p)
 	//printf("keycode = %d\n", i);
 	renderbsp(data, *map->tree.rootnode, *player);
 	printf("map->tree.rootnode->splitter.wall.color = %x\n", map->tree.rootnode->splitter.wall.color);
-	//renderobjects(data, *player, *map);
+	renderobjects(data, *player, *map);
 	mlx_put_image_to_window(data->ptr, data->window, data->img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0));
 	return (0);
 }
@@ -159,6 +159,11 @@ int		main(int ac, char **av)
 	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
 	printf("data.window (main) = %p\n", &data.window);
+
+	//TO REMOVE
+	data.img = mlx_new_image(data.ptr, data.win_width, data.win_height);
+	data.img_data = (int *)mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endian);
+
 	map = create_map(&data, &player);
 	//int a = 3000;
 	//printf("Sieste de %dsec\n", a / 1000);
@@ -182,7 +187,7 @@ int		main(int ac, char **av)
 	
 	renderbsp(&data, *map.tree.rootnode, player);
 	printf("After rendering bsp\n");
-	//renderobjects(&data, player, map);
+	renderobjects(&data, player, map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0)); // y a des problemes de malloc a l'interieur de mlx_put_image_to_window()
 	
 	printf("salut c'est moi\n");

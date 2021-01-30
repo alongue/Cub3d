@@ -153,8 +153,8 @@ t_polygon	*get_malloc(t_map *map, int *counter)
 	t_polygon	*p;
 
 	*counter = 0;
-	y = 0;
-	x = 0;
+	y = -1;
+	x = -1;
 	while (++y < map->nbymax)
 	{
 		x = 0;
@@ -177,8 +177,8 @@ int			parse_poly(t_map *map, t_player player, t_data data) // bug vient surement
 	int			realpolynb;
 
 	map->tree.rootnode->set = get_malloc(map, &realpolynb);
-	data.currentCubIndex[0] = 0;
-	data.currentCubIndex[1] = 0;
+	data.currentCubIndex[0] = -1;
+	data.currentCubIndex[1] = -1;
 	while (++data.currentCubIndex[1] < map->nbymax)
 	{
 		data.currentCubIndex[0] = 0;
