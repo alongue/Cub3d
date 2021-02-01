@@ -26,18 +26,18 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 		side = get_side(splitter, nodeset[i]);
 		if (side == FRONT || side == COINCIDING)
 		{
-			printf("i = %d (dans frontset)\n", i);
+			//vscode printf("i = %d (dans frontset)\n", i);
 			counter++;
 		}
 		else if (side == SPANNING)
 
 		{
-			printf("i = %d (dans frontset)\n", i);
+			//vscode printf("i = %d (dans frontset)\n", i);
 			counter++;
 		}
 	}
-	printf("counter = %d (dans frontset malloc)\n", counter);
-	//sleep(4);
+	//vscode printf("counter = %d (dans frontset malloc)\n", counter);
+	////vscode sleep(4);
 	if (!(frontset = malloc(sizeof(t_polygon) * counter + 1)))
 	{
 		ft_putstr_fd("Error\nfrontset malloc n'a pas fonctione\n", 0);
@@ -46,7 +46,10 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 	frontset[counter].exist = 0;
 	//frontset[counter].segment.exist = 0;
 	while (--counter >= 0)
+	{
 		frontset[counter].exist = 1;
+		//frontset[counter].isused = 0;
+	}
 	return (frontset);
 }
 
@@ -64,17 +67,17 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 		side = get_side(splitter, nodeset[i]);
 		if (side == BACK)
 		{
-			printf("i = %d (dans backset)\n", i);
+			//vscode printf("i = %d (dans backset)\n", i);
 			counter++;
 		}
 		else if (side == SPANNING)
 		{
-			printf("i = %d (dans backset)\n", i);
+			//vscode printf("i = %d (dans backset)\n", i);
 			counter++;
 		}
 	}
-	printf("counter = %d (dans backset malloc)\n", counter);
-	//sleep(4);
+	//vscode printf("counter = %d (dans backset malloc)\n", counter);
+	////vscode sleep(4);
 	if (!(backset = malloc(sizeof(t_polygon) * counter + 1)))
 	{
 		ft_putstr_fd("Error\nbackset malloc n'a pas fonctione\n", 0);
@@ -83,6 +86,9 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 	backset[counter].exist = 0;
 	//backset[counter].segment.exist = 0;
 	while (--counter >= 0)
+	{
 		backset[counter].exist = 1;
+		//backset[counter].isused = 0;
+	}
 	return (backset);
 }

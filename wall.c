@@ -100,7 +100,7 @@ void			replace_poly(t_polygon *polygon, t_player player)
 	get_extremity(polygon->segment, &a, &b);
 	translate_point(&a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
 	translate_point(&b, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", a.y, b.y, a.x, b.x);
+	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", a.y, b.y, a.x, b.x);
 	polygon->newsegment = get_segmenti(a.x * cos(-player.angle)
 									- a.y * sin(-player.angle),
 									a.y * cos(-player.angle)
@@ -109,8 +109,8 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
-	/*printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	/*//vscode printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
+	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
@@ -124,7 +124,7 @@ void			replace_poly(t_polygon *polygon, t_player player)
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
 	}
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
+	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
 int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
@@ -134,9 +134,9 @@ int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = 0));
-	printf("test dup_segment avant\n");
+	//vscode printf("test dup_segment avant\n");
 	segmentcop = dup_segment(polygon->newsegment);
-	printf("test dup_segment avant\n");
+	//vscode printf("test dup_segment avant\n");
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
@@ -160,7 +160,7 @@ int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 	polygon->dodisplay = raycastx(&polygon->wall, polygon, data, &segmentcop);
 	if (!raycastx_img(player, polygon, segmentcop))
 		return (0);
-	printf("polygon->dodisplay = %d\n", polygon->dodisplay);
+	//vscode printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
 
@@ -168,7 +168,7 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 {
 	t_wall	wall;
 
-	printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
+	//vscode printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
 							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
 	wall.right = get_segmenti(poly.wall.right.a.x, 0,
@@ -179,7 +179,7 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 		translate_segment(&wall.right, 0, -player.y);
 	}
 	raycastfps(&wall, player, poly, data);
-	printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
+	//vscode printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
 	return (wall);
 }
@@ -229,17 +229,17 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	int		cumul;
 	double	incr[2];
 
-	//sleep(5);
-//	printf("--- JE SUIS DANS LE DISPL WALL ---\n");
+	////vscode sleep(5);
+//	//vscode printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	ft_memseti(incr, 0, 2);
 	cumul = 0;
 	rest = 0;
-	printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
+	//vscode printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
-		//printf("i = %d\n", i);
+		////vscode printf("i = %d\n", i);
 		if (can_draw(wall, data, i))
 		{
 			wall.topcl = fmax(wall.top, 0.);
@@ -247,43 +247,43 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
 			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
 			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
-			printf("index = %d\n", index);
+			//vscode printf("index = %d\n", index);
 			/a*if (index > (cumul + 1) * wall.imgwidth)
 			{
 				rest = index % (wall.imgwidth * (cumul + 1));
-				printf("rest = %d\n", rest);
-				//sleep(5);
+				//vscode printf("rest = %d\n", rest);
+				////vscode sleep(5);
 				cumul++;
 			}*a/
-			//printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
-			//printf("index = %d\n", index);
+			////vscode printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
+			////vscode printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
 			incr[0] = (wall.imgheight - 1) / (wall.bot - wall.top);
 			incr[1] = (wall.topcl - wall.top) * incr[0];
 			incr[1] = (incr[1] < 0) ? 0 : incr[1];
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
 			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
-//			printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
-//			printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+//			//vscode printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
+//			//vscode printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
 				//get(index, incr[1]);
-//				printf("(pdt la boucle) incr[1] = %f\tet\tindex = %d\n", incr[1], index);
-				//printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
-				//printf("avant\n");
+//				//vscode printf("(pdt la boucle) incr[1] = %f\tet\tindex = %d\n", incr[1], index);
+				////vscode printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
+				////vscode printf("avant\n");
 				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + index)];
-				//printf("pdist = %f\n", polygon.pdist);
-				//printf("apres\n");
+				////vscode printf("pdist = %f\n", polygon.pdist);
+				////vscode printf("apres\n");
 				incr[1] += incr[0];
 				ptraddr[0] += data->win_width;
 			}
-			//printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
+			////vscode printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = 1;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	printf("Je suis sorti\n");
+	//vscode printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
 */

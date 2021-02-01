@@ -105,7 +105,7 @@ t_map			get_coor(t_data data, t_player *player)
 	ret = 2;
 	ft_memseti(counter, 0, 2);
 	map.exist = 0;
-	printf("data.filename = %s\n", data.filename);
+	//vscode printf("data.filename = %s\n", data.filename);
 	if (!data.filename || !ft_strstrpart(data.filename, ft_strlen(data.filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
@@ -117,11 +117,11 @@ t_map			get_coor(t_data data, t_player *player)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
 			return (putstrret_fd("Error\nVeuillez mettre une map (ret = -1) \n", map, 0));
-		//printf("map.objets[0] -> %p (get_coor)\n", &map.objects[0]);
+		////vscode printf("map.objets[0] -> %p (get_coor)\n", &map.objects[0]);
 		if (!(parse(line, &map, player, data)))
 			return (map);
 	}
-	printf("map.objects[0].pos.x = (get_coor) %f\n", map.objects[0].pos.x);
+	//vscode printf("map.objects[0].pos.x = (get_coor) %f\n", map.objects[0].pos.x);
 	if (!player->exist)
 		return (putstrret_fd("Error\nVeuillez mettre un joueur\n", map, 0));
 	map.exist = 1;

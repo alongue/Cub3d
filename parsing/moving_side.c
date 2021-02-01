@@ -15,10 +15,10 @@
 int		moving_top(char **number, int *coor, int *fakecoor)
 {
 	(void)coor;
-	//printf("fakecoor[0] = %d\t\tget_col_nbmin(number, %d) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1]));
+	////vscode printf("fakecoor[0] = %d\t\tget_col_nbmin(number, %d) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1]));
 	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1]) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
 	{
-		//printf("jte plante\n");
+		////vscode printf("jte plante\n");
 		if (number[fakecoor[0] - 1][fakecoor[1]] == '1')
 		{
 			fakecoor[0]--;
@@ -26,8 +26,8 @@ int		moving_top(char **number, int *coor, int *fakecoor)
 		}
 		else
 		{
-			printf("STOP pour fakecoor[0] - 1 = %d et fakecoor[1] = %d\n", fakecoor[0] - 1, fakecoor[1]);
-			//sleep(4);
+			//vscode printf("STOP pour fakecoor[0] - 1 = %d et fakecoor[1] = %d\n", fakecoor[0] - 1, fakecoor[1]);
+			////vscode sleep(4);
 			return (STOP);
 		}
 	}
@@ -46,8 +46,8 @@ int		moving_right(char **number, int *coor, int *fakecoor)
 		}
 		else
 		{
-			printf("STOP pour fakecoor[0] = %d et fakecoor[1] + 1 = %d\n", fakecoor[0], fakecoor[1] + 1);
-			//sleep(4);
+			//vscode printf("STOP pour fakecoor[0] = %d et fakecoor[1] + 1 = %d\n", fakecoor[0], fakecoor[1] + 1);
+			////vscode sleep(4);
 			return (STOP);
 		}
 	else
@@ -65,8 +65,8 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 		}
 		else
 		{
-			printf("STOP pour fakecoor[0] + 1 = %d et fakecoor[1] = %d\n", fakecoor[0] + 1, fakecoor[1]);
-			//sleep(4);
+			//vscode printf("STOP pour fakecoor[0] + 1 = %d et fakecoor[1] = %d\n", fakecoor[0] + 1, fakecoor[1]);
+			////vscode sleep(4);
 			return (STOP);
 		}
 	else
@@ -76,7 +76,7 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 int		moving_left(char **number, int *coor, int *fakecoor)
 {
 	(void)coor;
-	//printf("fakecoor[1] = %d\tet\tget_line_nbmin(number, %d) = %d\n", fakecoor[1], fakecoor[0], get_line_nbmin(number, fakecoor[0]));
+	////vscode printf("fakecoor[1] = %d\tet\tget_line_nbmin(number, %d) = %d\n", fakecoor[1], fakecoor[0], get_line_nbmin(number, fakecoor[0]));
 	if (fakecoor[1] != get_line_nbmin(number, fakecoor[0]) && number[fakecoor[0]][fakecoor[1] - 1] != ' ')
 		if (number[fakecoor[0]][fakecoor[1] - 1] == '1')
 		{
@@ -85,8 +85,8 @@ int		moving_left(char **number, int *coor, int *fakecoor)
 		}
 		else
 		{
-			printf("STOP pour fakecoor[0] = %d et fakecoor[1] - 1 = %d\n", fakecoor[0], fakecoor[1] - 1);
-			//sleep(4);
+			//vscode printf("STOP pour fakecoor[0] = %d et fakecoor[1] - 1 = %d\n", fakecoor[0], fakecoor[1] - 1);
+			////vscode sleep(4);
 			return (STOP);
 		}
 	else

@@ -33,37 +33,37 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	y = &data.currentCubIndex[1];
 	if (cond_top(map, *x, *y))
 	{
-		map->tree.rootnode->set[i].isused = 0;
 		map->tree.rootnode->set[i++] = create_polytop(map, data.currentCubIndex, data, player);
-		//printf("i = %d\n", i);
+		map->tree.rootnode->set[i - 1].isused = 0;
+		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
 	if (cond_bot(map, *x, *y))
 	{
-		map->tree.rootnode->set[i].isused = 0;
 		map->tree.rootnode->set[i++] = create_polybot(map, data.currentCubIndex, data, player);
-		//printf("i = %d\n", i);
+		map->tree.rootnode->set[i - 1].isused = 0;
+		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
 	if (cond_right(map, *x, *y))
 	{
-		map->tree.rootnode->set[i].isused = 0;
 		map->tree.rootnode->set[i++] = create_polyright(map, data.currentCubIndex, data, player);
-		//printf("i = %d\n", i);
+		map->tree.rootnode->set[i - 1].isused = 0;
+		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
 	if (cond_left(map, *x, *y))
 	{
-		map->tree.rootnode->set[i].isused = 0;
 		map->tree.rootnode->set[i++] = create_polyleft(map, data.currentCubIndex, data, player);
-		//printf("i = %d\n", i);
+		map->tree.rootnode->set[i - 1].isused = 0;
+		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
 			return (i);
 	}
-	//printf("fin !\n");
+	////vscode printf("fin !\n");
 	return (i);
 }
 
@@ -80,11 +80,11 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 	x = data.currentCubIndex[0]; //enelver tous les trucs comme ca
 	y = data.currentCubIndex[1];
 	i = [2];
-	printf("i (dans create_poly_wall) = %d\n", i);
+	//vscode printf("i (dans create_poly_wall) = %d\n", i);
 	if (cond_top(map, x, y))
 	{
 		replace_poly(&p[i], data.player);
-		printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
+		//vscode printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i], data);
 		p[i].wall = create_wall(p[i], player, data.cubside);
 		i++; //enlever toutes les incrementations comme ca
@@ -92,7 +92,7 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 	if (cond_bot(map, x, y))
 	{
 		replace_poly(&p[i], data.player);
-		printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
+		//vscode printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i], data);
 		p[i].wall = create_wall(p[i], player, data.cubside);
 		i++;
@@ -100,7 +100,7 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 	if (cond_right(map, x, y))
 	{
 		replace_poly(&p[i], data.player);
-		printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
+		//vscode printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i], data);
 		p[i].wall = create_wall(p[i], player, data.cubside);
 		i++;
@@ -108,7 +108,7 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 	if (cond_left(map, x, y))
 	{
 		replace_poly(&p[i], data.player);
-		printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
+		//vscode printf("p[i].newsegment.a.x = %f\n", p[i].newsegment.a.x);
 		p[i].dodisplay = do_display_poly(&p[i], data);
 		p[i].wall = create_wall(p[i], player, data.cubside);
 		i++;
@@ -118,30 +118,30 @@ void		create_polywall(t_map map, t_data data, t_polygon *p, t_player)
 
 int			count(t_map *map, int x, int y, int *c)
 {
-	printf("x = %d\tet\ty = %d\n", x, y);
-	printf("map->nbxmax -> %d\n", map->nbxmax); // y a EXC_BAD_ACCESS tres occasionel juste apres (ca ne rentre pas dans le cond_top)
-	//printf("map->cub[y] (pointeur) -> %p\n", &map->cub[y]);
-	//printf("map->cub[y][x].exist -> %d\n", map->cub[y][x].exist);
+	//vscode printf("x = %d\tet\ty = %d\n", x, y);
+	//vscode printf("map->nbxmax -> %d\n", map->nbxmax); // y a EXC_BAD_ACCESS tres occasionel juste apres (ca ne rentre pas dans le cond_top)
+	////vscode printf("map->cub[y] (pointeur) -> %p\n", &map->cub[y]);
+	////vscode printf("map->cub[y][x].exist -> %d\n", map->cub[y][x].exist);
 	if (cond_top(map, x, y))
 	{
 		(*c)++;
 	}
-	printf("cond_top passé !!!!!!!!!!!\n");
+	//vscode printf("cond_top passé !!!!!!!!!!!\n");
 	if (cond_bot(map, x, y))
 	{
 		(*c)++;
 	}
-	printf("cond_bot passé !!!!!!!!!!!\n");
+	//vscode printf("cond_bot passé !!!!!!!!!!!\n");
 	if (cond_right(map, x, y))
 	{
 		(*c)++;
 	}
-	printf("cond_right passé !!!!!!!!!!!\n");
+	//vscode printf("cond_right passé !!!!!!!!!!!\n");
 	if (cond_left(map, x, y))
 	{
 		(*c)++;
 	}
-	printf("cond_left passé !!!!!!!!!!!\n");
+	//vscode printf("cond_left passé !!!!!!!!!!!\n");
 	return (1);
 }
 
@@ -157,12 +157,12 @@ t_polygon	*get_malloc(t_map *map, int *counter)
 	x = -1;
 	while (++y < map->nbymax)
 	{
-		x = 0;
+		x = -1;
 		while (++x < map->nbxmax)
 			count(map, x, y, counter);
 	}
-	printf("counter de polys = %d\n", *counter);
-	//sleep(2);
+	//vscode printf("counter de polys = %d\n", *counter);
+	////vscode sleep(2);
 	if (!(p = malloc(sizeof(t_polygon) * *counter + 1)))
 		return (NULL);
 	i = -1;
@@ -181,7 +181,7 @@ int			parse_poly(t_map *map, t_player player, t_data data) // bug vient surement
 	data.currentCubIndex[1] = -1;
 	while (++data.currentCubIndex[1] < map->nbymax)
 	{
-		data.currentCubIndex[0] = 0;
+		data.currentCubIndex[0] = -1;
 		while (++data.currentCubIndex[0] < map->nbxmax)
 		{
 			realpolynb = search_polyverti(map, data, player);

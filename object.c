@@ -25,10 +25,10 @@ void			replace_obj(t_object *object, t_player player)
 									- object->newpos.y * sin(-player.angle),
 									object->newpos.y * cos(-player.angle)
 							 		+ object->newpos.x * sin(-player.angle));
-	printf("object->newpos.x = %f\tet\tobject->newpos.y = %f\n", object->newpos.x, object->newpos.y);
-	sleep(3);
-	/*printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
+	//vscode printf("object->newpos.x = %f\tet\tobject->newpos.y = %f\n", object->newpos.x, object->newpos.y);
+	//vscode sleep(3);
+	/*//vscode printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
+	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
 	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
 		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
 																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
@@ -42,7 +42,7 @@ void			replace_obj(t_object *object, t_player player)
 		polygon->newsegment.b = dup_point(polygon->newsegment.a);
 		polygon->newsegment.a = dup_point(tmp);
 	}
-	printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
+	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
 int			do_display_obj(t_object *object, t_data data, t_player player)
@@ -63,7 +63,7 @@ t_wall			create_(t_polygon poly, t_player player, t_data data)
 {
 	t_wall	wall;
 
-	printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
+	//vscode printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
 							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
 	wall.right = get_segmenti(poly.wall.right.a.x, 0,
@@ -73,7 +73,7 @@ t_wall			create_(t_polygon poly, t_player player, t_data data)
 		translate_segment(&wall.left, 0, -player.y);
 		translate_segment(&wall.right, 0, -player.y);
 	}
-	printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
+	//vscode printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
 	return (wall);
 }
@@ -81,8 +81,8 @@ t_wall			create_(t_polygon poly, t_player player, t_data data)
 
 int	can_draw_obj(t_object *object, t_data *data, int index)
 {
-	//printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
-	//printf("data->heightcol[%i] = %f\n", index, data->heightcol[index]);
+	////vscode printf("wall.bot - wall.top = %f\tet\tdata->heightcol[index] = %f\n", wall.bot - wall.top, data->heightcol[index]);
+	////vscode printf("data->heightcol[%i] = %f\n", index, data->heightcol[index]);
 
 	if (/*(wall.bot - wall.top >= 0) && */(!data->coldone[index] ||
 		object->fakebot - object->faketop > data->heightcol[index]))
@@ -109,7 +109,7 @@ int				display_object(t_data *data, t_object object, t_player player)
 	(void)player;
 	object.xiter = (object.width - 1) / (object.xendcl - object.xstartcl);
 	object.yiter = (object.height - 1) / (object.bot - object.top);
-	//sleep(3);
+	////vscode sleep(3);
 	if (object.xendcl > data->win_width - 1)
 		object.xendcl = data->win_width - 1;
 	if (object.xstartcl < 0)
@@ -117,7 +117,7 @@ int				display_object(t_data *data, t_object object, t_player player)
 	object.topcl = max(object.top, 0);
 	object.botcl = min(object.bot, data->win_height);
 	i = object.xstartcl - 1;
-	printf("object.xstartcl = %f\n", object.xstartcl);
+	//vscode printf("object.xstartcl = %f\n", object.xstartcl);
 	while (++i < object.xendcl)
 	{
 		if (can_draw_obj(&object, data, i))
@@ -134,8 +134,8 @@ int				display_object(t_data *data, t_object object, t_player player)
 				vindex += object.yiter;
 			}
 			hindex += object.xiter;
-			//printf("object.xiter = %f\tet\tobject.yiter = %f\n", object.xiter, object.yiter);
-			//printf("hindex = %f\n", hindex);
+			////vscode printf("object.xiter = %f\tet\tobject.yiter = %f\n", object.xiter, object.yiter);
+			////vscode printf("hindex = %f\n", hindex);
 		}
 	}
 	return (EXIT_SUCCESS);

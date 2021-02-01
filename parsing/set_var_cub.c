@@ -14,7 +14,7 @@
 
 void		set_cub(t_data data, t_cub *cub, int i, int counter)
 {
-	printf("yo\n");
+	//vscode printf("yo\n");
 	cub->exist = 1;
 	cub->x = counter * data.cubside; //sommet a gauche avec vue du dessus
 	cub->y = i * data.cubside; //sommet en haut avec vue du dessus
@@ -41,15 +41,15 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	int	i;
 	int	counter;
 
-	printf("nblin avant malloc = %d\n", nblin);
-	sleep(1);
+	//vscode printf("nblin avant malloc = %d\n", nblin);
+	//vscode sleep(1);
 	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
 	{
 		ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
 		return (0);
 	}
 	i = -1;
-	printf("xmax avant malloc = %d\n", xmax);
+	//vscode printf("xmax avant malloc = %d\n", xmax);
 	while (++i < nblin + 2)
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
 		{
@@ -63,10 +63,10 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 		counter = -1;
 		while (++counter < xmax + 2) // '<' car il part de 0 donc
 		{
-			printf("(boucle malloc) map->cub[%d][%d]\n", i, counter);
+			//vscode printf("(boucle malloc) map->cub[%d][%d]\n", i, counter);
 			map->cub[i][counter].exist = 0;
 		}
-		printf("i = %d\tet\tnblin = %d\n", i, nblin);
+		//vscode printf("i = %d\tet\tnblin = %d\n", i, nblin);
 		map->cub[i]++; // on va bouger le pointeur de 1 de sorte a ce qu'on accede cub[-1][-1]
 	}
 	map->cub++;
@@ -76,13 +76,13 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets
 {
 	map->nbobjects++;
-	printf("map->nbobjects = %d\n", map->nbobjects);
+	//vscode printf("map->nbobjects = %d\n", map->nbobjects);
 	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects)))
 	{
-		printf("Le malloc fonctionne pas ta mere !\n");
+		//vscode printf("Le malloc fonctionne pas ta mere !\n");
 		return ;
 	}
-	printf("&map->objects = %p\n", &map->objects);
+	//vscode printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = 0;
 	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
 		return ;

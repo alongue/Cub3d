@@ -15,10 +15,10 @@
 int		create_data(t_data *data, char **av)
 {
 	data->nbcoldone = 0;
-	printf("(avant ptr)\n");
+	//vscode printf("(avant ptr)\n");
 	if ((data->ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
-	printf("av[1] (avant window) = %s\n", av[1]);
+	//vscode printf("av[1] (avant window) = %s\n", av[1]);
 	data->win_width = 0;
 	data->win_height = 0;
 
@@ -43,9 +43,9 @@ int		create_data(t_data *data, char **av)
 	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
 		return (EXIT_FAILURE);
 	data->filename = ft_strdup(av[1]);
-	//printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
-	//printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
-	//printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);
+	////vscode printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
+	////vscode printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
+	////vscode printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);
 	data->cubside = 64;
 	return (EXIT_SUCCESS);
 }

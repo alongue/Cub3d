@@ -18,8 +18,8 @@ int display_ceilfloor(t_data *data)
     int y;
 
     y = -1;
-    printf("data->colceil = %#x\tet\tdata->colfloor = %#x\n", data->colceil, data->colfloor);
-    sleep(2);
+    //vscode printf("data->colceil = %#x\tet\tdata->colfloor = %#x\n", data->colceil, data->colfloor);
+    //vscode sleep(2);
 	while (++y < data->win_height)
 	{
         x = -1;

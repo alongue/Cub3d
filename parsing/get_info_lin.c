@@ -37,7 +37,7 @@ int		get_col_nbmin(char **number, int col)
 	int	i;
 
 	i = 0;
-	//printf("number[%d][%d] = %c\n", i, col, number[i][col]);
+	////vscode printf("number[%d][%d] = %c\n", i, col, number[i][col]);
 	while (number[i][col] == ' ')
 		i++;
 	return (i);

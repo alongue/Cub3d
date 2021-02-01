@@ -16,7 +16,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 {
 	int			counter;
 
-	counter = 0;
+	counter = -1;
 	player->exist = 0;
 	while (map->number[i][++counter])
 	{
@@ -33,7 +33,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 		}
 		else
 			map->cub[i][counter].exist = 0;
-		printf("map->cub[0][2].sbot.a.x = %f\n", map->cub[0][2].sbot.a.x);
+		//vscode printf("map->cub[0][2].sbot.a.x = %f\n", map->cub[0][2].sbot.a.x);
 	}
 	return (1);
 }
@@ -44,7 +44,7 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	int		y[2];
 
 	x = -1;
-	printf("xmax = %d\n", xmax);
+	//vscode printf("xmax = %d\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
 		return (0);
 	while (++x < xmax)
@@ -80,14 +80,14 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 	{
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
 		{
-			printf("map->number[%d] = %s\n", i, map->number[i]);
+			//vscode printf("map->number[%d] = %s\n", i, map->number[i]);
 			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", 0, 0)); // mettre ces 2 if dans une fonction d'erreur
 		}
-		printf("map->number[i] = %s\n", map->number[i]);
-		printf("i = %d\n", i);
+		//vscode printf("map->number[i] = %s\n", map->number[i]);
+		//vscode printf("i = %d\n", i);
 		max = ((int)ft_strlen(map->number[i])) > max ? (int)ft_strlen(map->number[i]) : max;
 		i++;
-		printf("je m'apprete a realloc\n");
+		//vscode printf("je m'apprete a realloc\n");
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
 			return (0); // regrouper ces malloc peut etre
 	}
@@ -97,15 +97,15 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
-	printf("max = %d\n", max);
-	printf("nblin = %d\n", *nblin);
-	sleep(1);
+	//vscode printf("max = %d\n", max);
+	//vscode printf("nblin = %d\n", *nblin);
+	//vscode sleep(1);
 	i = -1;
 	while (++i < *nblin)
 	{
-		//printf("map->number[%d] = %s\n", i, map->number[i]);
+		////vscode printf("map->number[%d] = %s\n", i, map->number[i]);
 		max1 = ft_strlen(map->number[i]) - 1;
-		printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
+		//vscode printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
 		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1)))
 			return (0);
 		while (++max1 < *xmax)
@@ -127,11 +127,11 @@ t_map		create_map(t_data *data, t_player *player)
 	map.objects = NULL;
 	xmax = 0;
 	nblin = 0;
-	printf("test a\n");
+	//vscode printf("test a\n");
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
 									".cub"))
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-	printf("Test 1\n");
+	//vscode printf("Test 1\n");
 	fd = open(data->filename, O_RDONLY);
 	if (!parse_elements(&map, data, fd))
 		return (map);

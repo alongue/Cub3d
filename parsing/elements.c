@@ -44,14 +44,14 @@ int     set_texture(t_data *data, char *line, char orientation)
     int oldi;
 
     i = get_first_char(line);
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     oldi = i;
     while (line[i] != ' ')
         i++;
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     while (line[i] == ' ')
         i++;
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, 0));
     if (orientation == 'N')
@@ -59,42 +59,42 @@ int     set_texture(t_data *data, char *line, char orientation)
         if (data->texnorth != NULL)
             return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
         data->texnorth = ft_substr(line, i, INT_MAX); //renvoyer erreur si c'est n'importe quoi
-        //printf("data->texnorth = %s\n", data->texnorth);
-        //sleep(1);
+        ////vscode printf("data->texnorth = %s\n", data->texnorth);
+        ////vscode sleep(1);
     }
     if (orientation == 'S')
     {
         if (data->texsouth != NULL)
             return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
         data->texsouth = ft_substr(line, i, INT_MAX);
-        //printf("data->texsouth = %s\n", data->texsouth);
-        //sleep(1);
+        ////vscode printf("data->texsouth = %s\n", data->texsouth);
+        ////vscode sleep(1);
     }
     if (orientation == 'W')
     {
         if (data->texwest != NULL)
             return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
         data->texwest = ft_substr(line, i, INT_MAX);
-        //printf("data->texwest = %s\n", data->texwest);
-        //sleep(1);
+        ////vscode printf("data->texwest = %s\n", data->texwest);
+        ////vscode sleep(1);
     }
     if (orientation == 'E')
     {
         if (data->texeast != NULL)
             return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
         data->texeast = ft_substr(line, i, INT_MAX);
-        //printf("data->texeast = %s\n", data->texeast);
-        //sleep(1);
+        ////vscode printf("data->texeast = %s\n", data->texeast);
+        ////vscode sleep(1);
     }
     if (orientation == 's')
     {
-        printf("data->sprite = %s\n", data->sprite);
-        sleep(1);
+        //vscode printf("data->sprite = %s\n", data->sprite);
+        //vscode sleep(1);
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
         data->sprite = ft_substr(line, i, ft_strlen(line));
-        //printf("data->sprite = %s\n", data->sprite);
-        //sleep(1);
+        ////vscode printf("data->sprite = %s\n", data->sprite);
+        ////vscode sleep(1);
     }
     return (1);
 }
@@ -109,7 +109,7 @@ int     set_color_value(t_data *data, char *line, char letter)
     i++;
     while (line[i] == ' ')
         i++;
-    printf("line[i] = %c\n", line[i]);
+    //vscode printf("line[i] = %c\n", line[i]);
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (sol, plafonds)\n", 0, 0));
     if (letter == 'F')
@@ -118,7 +118,7 @@ int     set_color_value(t_data *data, char *line, char letter)
             return (ft_putstrreti_fd("Error\nLa couleur du sol a ete mise plusieurs fois\n", 0, 0));
         if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
-        printf("data->colfloor = %#x\n", data->colfloor);
+        //vscode printf("data->colfloor = %#x\n", data->colfloor);
     }
     else if (letter == 'C')
     {
@@ -126,8 +126,8 @@ int     set_color_value(t_data *data, char *line, char letter)
             return (ft_putstrreti_fd("Error\nLa couleur du plafond a ete mise plusieurs fois\n", 0, 0));
         if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
-        printf("data->colceil = %#x\n", data->colceil);
-        //sleep(2);
+        //vscode printf("data->colceil = %#x\n", data->colceil);
+        ////vscode sleep(2);
     }
     return (1);
 }
@@ -220,7 +220,7 @@ int     parse_elements(t_map *map, t_data *data, int fd)
             counter[0] += set_color(data, line);
             if (counter[1] == counter[0])
                 return(0);
-            printf("counter elements = %d\n", counter[0]);
+            //vscode printf("counter elements = %d\n", counter[0]);
             counter[2]++;
             //free(line);
         }
@@ -239,11 +239,11 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     while (--counter[2] >= 0)
     {
         get_next_line(fd, &line);
-        printf("line -> %s\n", line);
+        //vscode printf("line -> %s\n", line);
         //free(line);
     }
-    printf("fd = %d et newfd = %d\n", fd, newfd);
-    sleep(2);
+    //vscode printf("fd = %d et newfd = %d\n", fd, newfd);
+    //vscode sleep(2);
     return (1);
 }
 

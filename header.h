@@ -238,7 +238,7 @@ int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
 int				do_display_poly(t_polygon *polygon, t_data data, t_player player);
 int				do_display_obj(t_object *object, t_data data, t_player player);
-t_polygon			dup_polygon(t_polygon polygon);
+t_polygon			get_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
 void				*ft_realloc(void *ptr, size_t size);

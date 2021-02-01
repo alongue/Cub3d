@@ -21,10 +21,10 @@ int		main()
 
 	segment = get_segmenti(576, 255, 576, 193);
 	//p.x = min(segment.a.x, segment.b.x) + 5;
-	printf("segment.intercept = %f\n", segment.intercept);
+	//vscode printf("segment.intercept = %f\n", segment.intercept);
 	p.x = min(segment.a.x, segment.b.x);
 	set_point_on_segx(segment, &p);
-	printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
+	//vscode printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
 	get_next_point(segment, &p);
-	printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
+	//vscode printf("p.x = %d\tet\tp.y = %d\n", p.x, p.y);
 }

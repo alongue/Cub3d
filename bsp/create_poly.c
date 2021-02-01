@@ -28,37 +28,37 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data, t_player player)
 	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y - 1][x].exist && !cub[y - 1][x - 1].exist) && x < map->nbxmax && y < map->nbymax)
 	{
-		//printf("p.segment.exist (top) = %d\n", p.segment.exist);
+		////vscode printf("p.segment.exist (top) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].stop);
 		p.nbwall += 1;
 		//{
-			printf("TOP\n");
-			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || top.b.y = %f\n", cub[y][x].stop.a.x, cub[y][x].stop.a.y, cub[y][x].stop.b.x, cub[y][x].stop.b.y);
-			//sleep(10);
+			//vscode printf("TOP\n");
+			//vscode printf("x -> %d\tet\ty -> %d\n", x, y);
+			//vscode printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || top.b.y = %f\n", cub[y][x].stop.a.x, cub[y][x].stop.a.y, cub[y][x].stop.b.x, cub[y][x].stop.b.y);
+			////vscode sleep(10);
 		//}
 	}
-	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
-		sleep(5);
+	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		//vscode sleep(5);
 	p.len = get_length(p.segment);
 	//replace_poly(&p, player);
 	//p.dodisplay = do_display_poly(&p, data);
 	//p.wall = create_wall(p, player, data);
 	(void)player;
 	p.wall.color = 0xFF0000;
-	printf("Je regarde si c bon !\n");
+	//vscode printf("Je regarde si c bon !\n");
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
-		printf("data.texnorth = %s\n", data.texnorth);
+		//vscode printf("data.texnorth = %s\n", data.texnorth);
 		p.exist = 0;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (top)\n", 0);
-		sleep(1);
+		//vscode sleep(1);
 		return (p);
 	}
 	//p.wall.imgwidth = (p.wall.imgwidth > 64) ? 64 : p.wall.imgwidth;
 	//p.wall.imgheight = (p.wall.imgheight > 64) ? 64 : p.wall.imgheight;
 	p.angle = 0 * (M_PI / 180);
-	//printf("p.segment.exist (top) = %d\n", p.segment.exist);
+	////vscode printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = 1;
 	return (p);
 }
@@ -79,31 +79,31 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data, t_player player)
 	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y + 1][x].exist && !cub[y + 1][x - 1].exist) && x < map->nbxmax && y < map->nbymax)
 	{
-		//printf("p.segment.exist (bot boucle) = %d\n", p.segment.exist);
+		////vscode printf("p.segment.exist (bot boucle) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].sbot);
 		p.nbwall += 1;
 		//if (p.segment.a.x > 3000 || p.segment.a.y > 3000 || p.segment.b.x > 3000 || p.segment.b.y > 3000)
 		//{
-			printf("BOT\n");
-			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || p.segment.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
-//			sleep(10);
+			//vscode printf("BOT\n");
+			//vscode printf("x -> %d\tet\ty -> %d\n", x, y);
+			//vscode printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || p.segment.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
+//			//vscode sleep(10);
 		//}
 	}
-	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
-		sleep(5);
+	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		//vscode sleep(5);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
-		printf("data.texsouth = %s\n", data.texsouth);
+		//vscode printf("data.texsouth = %s\n", data.texsouth);
 		p.exist = 0;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (bot)\n", 0);
 		return (p);
 	}
 	(void)player;
 	p.angle =  0 * (M_PI / 180);
-	//printf("p.segment.exist (bot) = %d\n", p.segment.exist);
+	////vscode printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = 1;
 	return (p);
 }
@@ -124,32 +124,32 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data, t_player player
 	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x + 1].exist && !cub[y][x + 1].exist) && x < map->nbxmax && y < map->nbymax)
 	{
-		//printf("p.segment.exist (right boucle) = %d\n", p.segment.exist);
+		////vscode printf("p.segment.exist (right boucle) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].sright);
 		p.nbwall += 1;
 		//if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
 		//{
-			printf("RIGHT\n");
-			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || right.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
-//			sleep(10);
+			//vscode printf("RIGHT\n");
+			//vscode printf("x -> %d\tet\ty -> %d\n", x, y);
+			//vscode printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || right.b.y = %f\n", cub[y][x].sright.a.x, cub[y][x].sright.a.y, cub[y][x].sright.b.x, cub[y][x].sright.b.y);
+//			//vscode sleep(10);
 		//}
 	}
-	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
-		sleep(5);
+	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		//vscode sleep(5);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
-		printf("data.texeast = %s\n", data.texeast);
+		//vscode printf("data.texeast = %s\n", data.texeast);
 		p.exist = 0;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (right)\n", 0);
 		return (p);
 	}
 	(void)player;
-	//printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
+	////vscode printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.wall.color = 0x0000FF;
 	p.angle =  90 * (M_PI / 180);
-	//printf("p.segment.exist (right) = %d\n", p.segment.exist);
+	////vscode printf("p.segment.exist (right) = %d\n", p.segment.exist);
 	p.exist = 1;
 	return (p);
 }
@@ -170,23 +170,23 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data, t_player player)
 	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x - 1].exist && !cub[y][x - 1].exist) && x < map->nbxmax && y < map->nbymax)
 	{
-		//printf("p.segment.exist (left boucle) = %d\n", p.segment.exist);
+		////vscode printf("p.segment.exist (left boucle) = %d\n", p.segment.exist);
 		p.segment = join_segment(p.segment, cub[y][x].sleft);
 		p.nbwall += 1;
 		//if (p.segment.a.x  > 3000|| p.segment.a.y  > 3000|| p.segment.b.x  > 3000|| p.segment.b.y > 3000)
 		//{
-			printf("LEFT\n");
-			printf("x -> %d\tet\ty -> %d\n", x, y);
-			printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || left.b.y = %f\n", cub[y][x].sleft.a.x, cub[y][x].sleft.a.y, cub[y][x].sleft.b.x, cub[y][x].sleft.b.y);
-//			sleep(10);
+			//vscode printf("LEFT\n");
+			//vscode printf("x -> %d\tet\ty -> %d\n", x, y);
+			//vscode printf("p.segment.a.x = %f || p.segment.a.y = %f || p.segment.b.x = %f || left.b.y = %f\n", cub[y][x].sleft.a.x, cub[y][x].sleft.a.y, cub[y][x].sleft.b.x, cub[y][x].sleft.b.y);
+//			//vscode sleep(10);
 		//}
 	}
-	if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
-		sleep(5);
+	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
+		//vscode sleep(5);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
-		printf("data.texwest = %s\n", data.texwest);
+		//vscode printf("data.texwest = %s\n", data.texwest);
 		p.exist = 0;
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (left)\n", 0);
 		return (p);
@@ -194,8 +194,8 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data, t_player player)
 	(void)player;
 	p.wall.color = 0xFFFFFF;
 	p.angle =  90 * (M_PI / 180);
-	//printf("p.segment.exist (left) = %d\n", p.segment.exist);
+	////vscode printf("p.segment.exist (left) = %d\n", p.segment.exist);
 	p.exist = 1;
-	printf("p.segment.a.x = %f (left)\n", p.segment.a.x);
+	//vscode printf("p.segment.a.x = %f (left)\n", p.segment.a.x);
 	return (p);
 }
