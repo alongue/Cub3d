@@ -214,9 +214,6 @@ t_wall			dup_wall(t_wall wall)
 	return (wallcop);
 }
 
-// TO DECOMMENT (function below)
-
-/*
 int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player)
 {
 	int		i;
@@ -236,7 +233,7 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	ft_memseti(incr, 0, 2);
 	cumul = 0;
 	rest = 0;
-	//vscode printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
+	////vscode printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
 		////vscode printf("i = %d\n", i);
@@ -247,14 +244,14 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
 			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
 			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
-			//vscode printf("index = %d\n", index);
-			/a*if (index > (cumul + 1) * wall.imgwidth)
+			////vscode printf("index = %d\n", index);
+			/*if (index > (cumul + 1) * wall.imgwidth)
 			{
 				rest = index % (wall.imgwidth * (cumul + 1));
 				//vscode printf("rest = %d\n", rest);
 				////vscode sleep(5);
 				cumul++;
-			}*a/
+			}*/
 			////vscode printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
 			////vscode printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
@@ -272,6 +269,9 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 				////vscode printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
 				////vscode printf("avant\n");
 				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + index)];
+				//wall.img_data[ptraddr[0]] = (unsigned int)0xfff;
+				//if (ptraddr[0] > ((data->win_width * data->win_height) - 1)) // 2 073 599 pour 1920 et 1080
+				//	//vscode printf("ptraddr[0] = %d qui est superieur win * height (- 1) (= %d)\n", ptraddr[0], (data->win_width * data->win_height) - 1);
 				////vscode printf("pdist = %f\n", polygon.pdist);
 				////vscode printf("apres\n");
 				incr[1] += incr[0];
@@ -283,10 +283,10 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	//vscode printf("Je suis sorti\n");
+	////vscode printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
-*/
+
 
 /*
 **		*(img.data + (x * 4 + 2) + (img.size * y)) = (unsigned)color.r;

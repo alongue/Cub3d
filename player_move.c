@@ -34,6 +34,6 @@ void			move_left(t_player *player)
 
 void			set_player_pos(t_player *player, double x, double z)
 {
-	player->x += x / 60 * player->speed;
-	player->z += z / 60 * player->speed;
+	player->x += x / FPS * player->speed;
+	player->z += z / FPS * player->speed;
 }

@@ -55,7 +55,6 @@ t_player		get_player(int x, int z, int c, t_data data)
 	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
 	//vscode printf("player.dfoc = %f\tet\tdata.win_width = %d\n", player.dfoc, data.win_width);
 	////vscode sleep(10);
-	player.anglerayy = atan(1 / player.dfoc);
 	player.angleray = create_ray(data, &player.exist, player.dfoc);
 	return (player);
 }

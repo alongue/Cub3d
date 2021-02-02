@@ -23,7 +23,7 @@ int		iserror(t_polygon *polygon, int counter)
 	return (0);
 }
 // faire une fonction ou on prend une fonction en param
-int		search_polyverti(t_map *map, t_data data, t_player player)
+int		search_polyverti(t_map *map, t_data data)
 {
 	static int	i = 0;
 	int			*x;
@@ -33,7 +33,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	y = &data.currentCubIndex[1];
 	if (cond_top(map, *x, *y))
 	{
-		map->tree.rootnode->set[i++] = create_polytop(map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polytop(map, data.currentCubIndex, data);
 		map->tree.rootnode->set[i - 1].isused = 0;
 		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
@@ -41,7 +41,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	}
 	if (cond_bot(map, *x, *y))
 	{
-		map->tree.rootnode->set[i++] = create_polybot(map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polybot(map, data.currentCubIndex, data);
 		map->tree.rootnode->set[i - 1].isused = 0;
 		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
@@ -49,7 +49,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	}
 	if (cond_right(map, *x, *y))
 	{
-		map->tree.rootnode->set[i++] = create_polyright(map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polyright(map, data.currentCubIndex, data);
 		map->tree.rootnode->set[i - 1].isused = 0;
 		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
@@ -57,7 +57,7 @@ int		search_polyverti(t_map *map, t_data data, t_player player)
 	}
 	if (cond_left(map, *x, *y))
 	{
-		map->tree.rootnode->set[i++] = create_polyleft(map, data.currentCubIndex, data, player);
+		map->tree.rootnode->set[i++] = create_polyleft(map, data.currentCubIndex, data);
 		map->tree.rootnode->set[i - 1].isused = 0;
 		////vscode printf("i = %d\n", i);
 		if (iserror(map->tree.rootnode->set, i))
@@ -172,7 +172,7 @@ t_polygon	*get_malloc(t_map *map, int *counter)
 	return (p);
 }
 
-int			parse_poly(t_map *map, t_player player, t_data data) // bug vient surement de la 26/01/2021
+int			parse_poly(t_map *map, t_data data) // bug vient surement de la 26/01/2021
 {
 	int			realpolynb;
 
@@ -184,7 +184,7 @@ int			parse_poly(t_map *map, t_player player, t_data data) // bug vient surement
 		data.currentCubIndex[0] = -1;
 		while (++data.currentCubIndex[0] < map->nbxmax)
 		{
-			realpolynb = search_polyverti(map, data, player);
+			realpolynb = search_polyverti(map, data);
 			if (iserror(map->tree.rootnode->set, realpolynb))
 				return (0);
 		}

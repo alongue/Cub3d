@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <stdio.h>
 
+# define FPS 60
 # define DEFX 100
 # define DEFY 200
 # define FRONT 1
@@ -163,15 +164,13 @@ struct				s_player
 {
 	int	exist;
 	t_point	pos;
-	int		x;
+	double	x;
 	int		y;
-	int		z;
+	double	z;
 	float	speed;
 	double	sensi;
 	double	dfoc;
 	double	*angleray;
-	double	anglerayy;
-	//int		height;
 	double	fieldvis; //le champ de vision en radian
 	double	angle; //l'angle en radian par rapport a l'axe des abscisses
 };
@@ -227,11 +226,11 @@ int				cond_top(t_map *map, int x, int y);
 unsigned int		convert_color(char *line);
 int					create_data(t_data *data, char **av);
 t_map				create_map(t_data *data, t_player *player);
-t_polygon			create_polybot(t_map *map, int *coor, t_data, t_player player);
-t_polygon			create_polyleft(t_map *map, int *coor, t_data, t_player player);
-t_polygon			create_polyright(t_map *map, int *coor, t_data, t_player player);
-t_polygon			create_polytop(t_map *map, int *coor, t_data, t_player player);
-int					create_tree_node(t_map *map, t_player player, t_data data);
+t_polygon			create_polybot(t_map *map, int *coor, t_data data);
+t_polygon			create_polyleft(t_map *map, int *coor, t_data data);
+t_polygon			create_polyright(t_map *map, int *coor, t_data data);
+t_polygon			create_polytop(t_map *map, int *coor, t_data data);
+int					create_tree_node(t_map *map, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					display_ceilfloor(t_data *data);
 int					display_object(t_data *data, t_object object, t_player player);
@@ -269,7 +268,7 @@ int					moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby);
 int					moving_left(char **number, int *coor, int *fakecoor);
 int					offset_ptrcub(t_map *map, int nblin, int xmax);
 int					parse_elements(t_map *map, t_data *data, int fd);
-int					parse_poly(t_map *map, t_player player, t_data data);
+int					parse_poly(t_map *map, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);
 void				partition_frontset(t_polygon *frontset, t_polygon *backset,

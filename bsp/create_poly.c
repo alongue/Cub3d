@@ -12,7 +12,7 @@
 
 #include "../header.h"
 
-t_polygon			create_polytop(t_map *map, int *coor, t_data data, t_player player)
+t_polygon			create_polytop(t_map *map, int *coor, t_data data)
 {
 	t_polygon	p;
 	t_cub		**cub;
@@ -44,7 +44,6 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data, t_player player)
 	//replace_poly(&p, player);
 	//p.dodisplay = do_display_poly(&p, data);
 	//p.wall = create_wall(p, player, data);
-	(void)player;
 	p.wall.color = 0xFF0000;
 	//vscode printf("Je regarde si c bon !\n");
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
@@ -63,7 +62,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data, t_player player)
 	return (p);
 }
 
-t_polygon			create_polybot(t_map *map, int *coor, t_data data, t_player player)
+t_polygon			create_polybot(t_map *map, int *coor, t_data data)
 {
 	t_polygon	p;
 	t_cub		**cub;
@@ -101,14 +100,13 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data, t_player player)
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (bot)\n", 0);
 		return (p);
 	}
-	(void)player;
 	p.angle =  0 * (M_PI / 180);
 	////vscode printf("p.segment.exist (bot) = %d\n", p.segment.exist);
 	p.exist = 1;
 	return (p);
 }
 
-t_polygon			create_polyright(t_map *map, int *coor, t_data data, t_player player)
+t_polygon			create_polyright(t_map *map, int *coor, t_data data)
 {
 	t_polygon	p;
 	t_cub		**cub;
@@ -145,7 +143,6 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data, t_player player
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (right)\n", 0);
 		return (p);
 	}
-	(void)player;
 	////vscode printf("p.newsegment.a.y = %d\n", p.newsegment.a.y);
 	p.wall.color = 0x0000FF;
 	p.angle =  90 * (M_PI / 180);
@@ -154,7 +151,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data, t_player player
 	return (p);
 }
 
-t_polygon			create_polyleft(t_map *map, int *coor, t_data data, t_player player)
+t_polygon			create_polyleft(t_map *map, int *coor, t_data data)
 {
 	t_polygon	p;
 	t_cub		**cub;
@@ -191,7 +188,6 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data, t_player player)
 		ft_putstr_fd("Error\nL'image ne s'est pas charge (left)\n", 0);
 		return (p);
 	}
-	(void)player;
 	p.wall.color = 0xFFFFFF;
 	p.angle =  90 * (M_PI / 180);
 	////vscode printf("p.segment.exist (left) = %d\n", p.segment.exist);
