@@ -58,7 +58,7 @@ int		funt(int i, void **p)
 		move_left(player);
 	else if (i == 2)
 		move_right(player);
-	if (i == 53)
+	if (i == 65307)
 	{
 		//vscode printf("            			  ESCAPE\n");
 		//vscode printf("data->window = %p\n", &data->window);

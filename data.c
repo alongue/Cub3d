@@ -19,20 +19,9 @@ int		create_data(t_data *data, char **av)
 	if ((data->ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	//vscode printf("av[1] (avant window) = %s\n", av[1]);
-	data->win_width = 0;
-	data->win_height = 0;
-
-	//TO REMOVE
-	data->win_width = 1920;
-	data->win_height = 1080;
-
-	data->colceil = (unsigned int)-1;
-	data->colfloor = (unsigned int)-1;
-
-	//TO REMOVE
-	data->colceil = (unsigned int)0xff0;
+	mlx_get_screen_size(data->ptr, &data->win_width, &data->win_height);
+	data->colceil = (unsigned int)0xfff;
 	data->colfloor = (unsigned int)0x000;
-
 	data->texnorth = NULL;
 	data->texsouth = NULL;
 	data->texeast = NULL;

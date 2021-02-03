@@ -14,11 +14,12 @@
 
 #define NBELEM 8
 
-int     set_resolution(t_data *data, char *line)
+int     set_resolution(t_data *data, char *line, char c)
 {
     int i;
     int oldi;
 
+    (void)c;
     i = get_first_char(line);
     oldi = i;
     i++;
@@ -26,12 +27,13 @@ int     set_resolution(t_data *data, char *line)
         i++;
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (ID et resolution X)\n", 0, 0));
-    if ((data->win_width = ft_atoi(&line[i])) > 2560)
-        data->win_width = 2560;
-    i += ft_intlen(ft_atoi(&line[i])) + 1;
+    data->win_width = (ft_atoi(&line[i]) > data->win_width) ? data->win_width : ft_atoi(&line[i]);
+    i += ft_intlen(ft_atoi(&line[i]));
+
+    data->win_height = (ft_atoi(&line[i]) > data->win_height) ? data->win_height : ft_atoi(&line[i]);
     if ((data->win_height = ft_atoi(&line[i])) > 1440)
         data->win_height = 1440;
-    if (data->win_width < 1 || data->win_height < 1)
+    if (data->win_width < 0 || data->win_height < 1)
         return (ft_putstrreti_fd("Error\nVerifiez la taille de l'ecran\n", 0, 0));
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
@@ -139,13 +141,15 @@ int     set_color(t_data *data, char *line)
     int     i;
     int     counter;
     char    parameters[13] = "RNOSOWEEASFC";
+    int     (*set_data[3])(t_data data, char *line, char c);
 
     (void)parameters;
+    set_data = {set_resolution, }
     counter = 0;
     i = get_first_char(line); // faire une boucle while et chercher dans un tableau d'elements pre enregistre
     if (line[i] == 'R' && ++counter < NBELEM) // faut pas que un de tout ca y soit 2 fois
     {
-        if (!set_resolution(data, line))
+        if (!set_resolution(data, line, 'R'))
             return (0);
     }
     else if (line[i] == 'N' && line[i + 1] == 'O' && ++counter < NBELEM)
@@ -205,12 +209,8 @@ int     parse_elements(t_map *map, t_data *data, int fd)
     int     newfd;
     int     counter[3];
 
-    (void)map;
     newfd = open(data->filename, O_RDONLY);
     ft_memseti(counter, 0, 3);
-    
-    return (1); // a enlever
-
     while ((ret = get_next_line(newfd, &line)) == 1 &&
     (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) == 0))
     {

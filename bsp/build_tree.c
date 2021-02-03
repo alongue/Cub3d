@@ -111,7 +111,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 			}
 		}
 		////vscode printf("TOUR SUIVANT\n");
-		minrelation = (minrelation < 0.0000000000001) ? 0. : (float)minrelation / 2;
+		minrelation = (minrelation < 0.0000000000001) ? 0. : (float)minrelation / MINSCALE;
 	}
 	//counter = -1;
 	//i = -1;
