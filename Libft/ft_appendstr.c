@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_appendstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 15:36:24 by alongcha          #+#    #+#             */
-/*   Updated: 2019/11/26 03:21:49 by alongcha         ###   ########.fr       */
+/*   Created: 2019/11/28 19:27:33 by alongcha          #+#    #+#             */
+/*   Updated: 2019/12/09 22:06:22 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+char    *ft_appendstr(char* s, char c) {
+    int len;
 
-# define BUFFER_SIZE 2048
-
-int		get_next_line(int fd, char **line);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_ischar(char *str, char c);
-char	*ft_strdup(const char *s1);
-
-#endif
+    if (!s)
+        return (NULL);
+    len = ft_strlen(s);
+    s[len] = c;
+    s[len + 1] = '\0';
+    return (s);
+}

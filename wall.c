@@ -222,8 +222,8 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 //	double	cumul;
 //	double	anglewallpl;
 	int		index;
-	int		rest;
-	int		cumul;
+	//int		rest;
+	//int		cumul;
 	double	incr[2];
 
 	////vscode sleep(5);
@@ -231,8 +231,8 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	ft_memseti(incr, 0, 2);
-	cumul = 0;
-	rest = 0;
+	//cumul = 0;
+	//rest = 0;
 	////vscode printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{

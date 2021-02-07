@@ -22,6 +22,7 @@ int		exit_hook(void **p)
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
+	(void)player;
 	//vscode printf("ESCAPEouii\n");
 	ret = free_elements(*data, map->tree, *map);
 	exit(ret);
@@ -35,6 +36,7 @@ int		funt(int i, void **p)
 	t_player	*player;
 
 	//vscode printf("test\n");
+	printf("keycode = %d\n", i);
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];

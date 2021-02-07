@@ -36,9 +36,6 @@ t_polygon	get_polygon(t_polygon polygon) //mettre peut etre le param cubside mai
 void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
-	t_player	player;
-
-	player.exist = 0;
 	//vscode printf("frontset\n");
 	*frontset = get_polygon(poly);
 	*backset = get_polygon(poly);
@@ -58,9 +55,6 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 void		partition_backset(t_polygon *frontset, t_polygon *backset,
 						t_point p, t_polygon poly)
 {
-	t_player	player;
-
-	player.exist = 0;
 	//vscode printf("backset\n");
 	*frontset = get_polygon(poly);
 	*backset = get_polygon(poly);

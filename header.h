@@ -16,7 +16,7 @@
 # include "Libft/libft.h"
 # include "Libmath/libmath.h"
 # include "get_next_line/get_next_line.h"
-# include <mlx.h>
+# include "minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
@@ -267,7 +267,7 @@ int					moving_right(char **number, int *coor, int *fakecoor);
 int					moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby);
 int					moving_left(char **number, int *coor, int *fakecoor);
 int					offset_ptrcub(t_map *map, int nblin, int xmax);
-int					parse_elements(t_map *map, t_data *data, int fd);
+int					parse_elements(t_data *data, int fd);
 int					parse_poly(t_map *map, t_data data);
 void				partition_backset(t_polygon *frontset, t_polygon *backset,
 t_point p, t_polygon poly);

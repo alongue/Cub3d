@@ -14,7 +14,6 @@
 
 # define MINSCALE 2 //2 car on parle ici du scale minimum donc le minimum pour n - 1 c 2 donc lorsqu'il y a n = 3 polygons (le pire cas combine au cas minimum)
 
-
 void		set_ratio(int *nb, float *relation, t_polygon currentpoly, t_polygon *set)
 {
 	int	i;
@@ -45,9 +44,7 @@ void	set_best_poly(t_polygon *poly, t_polygon *set,
 	int		nb[3];
 	float	bestrelation;
 	float	relation;
-	int		i;
 
-	i = -1;
 	bestrelation = 0.;
 	relation = 0.;
 	ft_memseti(nb, 0, 3);
@@ -76,10 +73,7 @@ t_polygon	choose_div_polygon(t_polygon *set)
 	int			i;
 	float		minrelation;
 	int			leastsplits;
-	int			counter;
 
-
-	counter = 0;
 	poly[1].isused = 0;
 	////vscode printf("polysetlen(set) = %d\n", polysetlen(set));
 	////vscode sleep(3);

@@ -6,13 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 15:36:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/05 14:40:46 by alongcha         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:52:27 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		ft_strjoin_free(char **str, char *pre, char *suf, int setnulbyte)
+int		ft_strjoin_free(char **str, char *pre, char *suf, int setnulbyte)
 {
 	char	*tmp;
 
@@ -25,7 +25,7 @@ static int		ft_strjoin_free(char **str, char *pre, char *suf, int setnulbyte)
 	return (1);
 }
 
-static int		ft_free(char *str, char *str1, char *str2)
+int		ft_free(char *str, char *str1, char *str2)
 {
 	if (str != NULL)
 	{
@@ -45,7 +45,7 @@ static int		ft_free(char *str, char *str1, char *str2)
 	return (-1);
 }
 
-static int		ft_read(int fd, char **next, char *buff, size_t *c)
+int		ft_read(int fd, char **next, char *buff, unsigned int *c)
 {
 	char	*bf;
 	int		valret;
@@ -74,16 +74,14 @@ static int		ft_read(int fd, char **next, char *buff, size_t *c)
 	return (valret);
 }
 
-static int		set_line(int fd, char **str, char **n, size_t *i)
+int		set_line(int fd, char **str, char **n, unsigned int *i)
 {
-	int			valret;
-	char		buff[BUFFER_SIZE + 1];
-	char		*restofn;
-	char		*tmp[2];
-	size_t		counter;
+	int				valret;
+	char			buff[BUFFER_SIZE + 1];
+	char			*restofn;
+	char			*tmp[2];
+	unsigned int	counter;
 
-	if (fd <= -1)
-		return (-1);
 	counter = 1;
 	if (!(restofn = ft_strdup(*n)))
 		if (!(restofn = ft_strdup("")))
@@ -96,23 +94,24 @@ static int		set_line(int fd, char **str, char **n, size_t *i)
 	*str = ft_substr(*n, i[1], i[0] - i[1]);
 	if (!ft_ischar(restofn, '\n'))
 		ft_strjoin_free(str, restofn, *str, -1);
-	tmp[0] = ft_substr(*n, ++i[0], BUFFER_SIZE * counter - i[0]);
+	i[0]++;
+	tmp[0] = ft_substr(*n, i[0], BUFFER_SIZE * counter - i[0]);
 	free(*n);
 	*n = tmp[0];
 	free(restofn);
 	return (valret != 0);
 }
 
-int			get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	static char	*next = NULL;
-	int			valret;
-	size_t		i[2];
+	static char		*next = NULL;
+	int				valret;
+	unsigned int	i[2];
 
 	i[0] = 0;
 	i[1] = 0;
 	valret = 0;
-	if (!line)
+	if (!line || fd <= -1)
 		return (-1);
 	if (BUFFER_SIZE > 0)
 		valret = set_line(fd, line, &next, i);

@@ -21,9 +21,9 @@ t_map			putstrret_fd(char *str, t_map map, int fd)
 void			*ft_realloc(void *ptr, size_t size)
 {
 	void			*ptrcop;
-	size_t			i;
+	//size_t			i;
 
-	i = -1;
+	//i = -1;
 	if (size == 0)
 		return (NULL);
 	if (!(ptrcop = malloc(size)))
@@ -52,7 +52,7 @@ unsigned int	convert_color(char *line)
 		i += ft_intlen(ft_atoi(&line[i]));
 		////vscode printf("line[%d] = '%c'\n", i, line[i]);
 		////vscode printf("res = %d\n", res);
-		if ((line[i++] != ',' && counter < 2) || res < 0 || res > 255)
+		if ((line[i++] != ',' && counter < 2) || res > 255)
 			return ((unsigned int)-1);
 		ret += res;
 		////vscode sleep(2);

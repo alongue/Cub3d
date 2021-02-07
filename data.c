@@ -20,8 +20,8 @@ int		create_data(t_data *data, char **av)
 		return (EXIT_FAILURE);
 	//vscode printf("av[1] (avant window) = %s\n", av[1]);
 	mlx_get_screen_size(data->ptr, &data->win_width, &data->win_height);
-	data->colceil = (unsigned int)0xfff;
-	data->colfloor = (unsigned int)0x000;
+	data->colceil = (unsigned int)-1; //avec les 3 valeurs max on attendra jamais unsigned int max
+	data->colfloor = (unsigned int)-1;
 	data->texnorth = NULL;
 	data->texsouth = NULL;
 	data->texeast = NULL;

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <mlx.h>
+#include "minilibx-linux/mlx.h"
 
 typedef struct    data_s
 {

@@ -85,9 +85,9 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 // !! IMportant !! : gerer si l'objet est devant ou derriere mur
 int				raycastxobj(t_object *object, t_data data, t_player player)//, t_segment *segment)
 {
-	int		ret;
+	//int		ret;
 
-	ret = 1;
+	//ret = 1;
 	//vscode printf("object width = %d\tet\tdata cubside = %d\n", object->width, data.cubside);
 	////vscode sleep(3);
 	//if (object->xstartcl > object->xendcl)

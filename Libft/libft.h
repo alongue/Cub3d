@@ -18,6 +18,7 @@
 # include <stdarg.h>
 
 int				ft_abs(int nb);
+char			*ft_appendstr(char *s, char c);
 int				ft_atoi(const char *str);
 double			ft_atod_base(const char *str, const char *base);
 long			ft_atol_base(const char *str, const char *base);

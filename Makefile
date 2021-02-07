@@ -74,7 +74,11 @@ GCC	=	gcc
 
 INC	=	-I /usr/X11/include
 
+INCLNX	=	-I minilibx-linux
+
 LIBFL	=	-L /usr/X11/lib -lmlx
+
+LIBLNX	=	-lm -lmlx -lXext -lX11 -L minilibx-linux
 
 FWFL	=	-framework OpenGL -framework AppKit
 
@@ -87,7 +91,7 @@ VSCODE = vscode
 all	:	$(NAME)
 
 .c.o	:
-	$(GCC) $(INC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(GCC) $(INCLNX) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(LIBFT)/.c.o	:
 	make -C $(LIBFT)
@@ -96,6 +100,7 @@ $(LIBMATH)/.c.o	:
 	make -C $(LIBMATH)
 
 $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
+	make -C minilibx-linux
 	cp $(LIBFT)/$(LIBFTNAME) .
 	cp $(LIBMATH)/$(LIBMATHNAME) .
 	cp $(GNL)/*.o .
@@ -105,6 +110,7 @@ $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	$(LIB) $(NAME)
 
 $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
+	make -C minilibx-linux
 	cp $(LIBFT)/$(LIBFTNAME) .
 	cp $(LIBMATH)/$(LIBMATHNAME) .
 	cp $(GNL)/*.o .
@@ -112,18 +118,18 @@ $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	ar -x $(LIBMATHNAME)
 	$(AR) $(NAME) $(OBJS) *.o
 	$(LIB) $(NAME)
-	$(GCC) -g $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
+	$(GCC) -g $(INCLNX) $(NAME) $(LIBLNX)
 
 $(BS)	: $(OBJS_B)
 	$(AR) $(NAME) $(OBJS_B)
 	$(LIB) $(NAME)
 
 exec	: $(NAME)
-	$(GCC) $(INC) $(LIBFL) $(FWFL) $(NAME) $(MAIN)
+	$(GCC) $(INCLNX) $(NAME) $(LIBLNX)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 debug	:	$(NAME)
-	$(GCC) $(INC) $(LIBFL) $(FWFL) $(DEBG) $(NAME) $(MAIN)
+	$(GCC) $(INC) $(LIBFL) $(DEBG) $(NAME) $(MAIN)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 clean	:

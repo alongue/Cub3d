@@ -133,7 +133,7 @@ t_map		create_map(t_data *data, t_player *player)
 		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	//vscode printf("Test 1\n");
 	fd = open(data->filename, O_RDONLY);
-	if (!parse_elements(&map, data, fd))
+	if (!parse_elements(data, fd))
 		return (map);
 	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map

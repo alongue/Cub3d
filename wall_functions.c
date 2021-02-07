@@ -68,11 +68,11 @@ void	set_delta(t_wall *wall)
 
 void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
-	int		maxi;
+	//int		maxi;
 
 //	//vscode printf("--- JE SUIS DANS LE INIT DISPL ---\n");
 	clip(wall, *data);
-	maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
+	//maxi = max(wall->leftcl.b.y - wall->leftcl.a.y, wall->rightcl.b.y - wall->rightcl.a.y);
 //	//vscode printf("wall->rightcl.a.x = %f\tet\twall->leftcl.a.x = %f\n", wall->rightcl.a.x, wall->leftcl.a.x);
 	//wall->img = mlx_new_image(data->ptr, wall->rightcl.a.x - wall->leftcl.a.x, maxi);
 	wall->img_data = (int *)mlx_get_data_addr(data->img, &wall->bpp, &wall->size_line, &wall->endian);
