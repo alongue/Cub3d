@@ -135,12 +135,15 @@ debug	:	$(NAME)
 clean	:
 	make clean -C $(LIBFT)
 	make clean -C $(LIBMATH)
+	make clean -C minilibx-linux
 	rm -f $(OBJS) $(OBJS_B)
 	rm -f *.o
 
 fclean	:	clean
 	make clean -C $(LIBFT)
 	make clean -C $(LIBMATH)
+	make clean -C minilibx-linux
+	rm -f $(OBJS) $(OBJS_B)
 	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 
 fcleanmax	:	fclean

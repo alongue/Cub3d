@@ -12,59 +12,59 @@
 
 #include "header.h"
 
-int		exit_hook(void **p)
+int		onexit(void **p)
 {
 	int			ret;
 	t_data		*data;
 	t_map		*map;
 	t_player	*player;
 
+	//vscode printf("ESCAPEouii\n");
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
 	(void)player;
-	//vscode printf("ESCAPEouii\n");
 	ret = free_elements(*data, map->tree, *map);
 	exit(ret);
 	return (ret);
 }
 
-int		funt(int i, void **p)
+int		onkeypressed(int key, void **p)
 {
 	t_data		*data;
 	t_map		*map;
 	t_player	*player;
 
 	//vscode printf("test\n");
-	printf("keycode = %d\n", i);
+	//vscode printf("keycode = %d\n", key);
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
 	reset_data(data);
 	////vscode printf("p[0] = %p\n", p[0]);
 	//*a = 1;
-	if (i == 124)
+	if (key == 65363)
 		turn_right(player);
-	else if (i == 123)
+	else if (key == 65361)
 		turn_left(player);
-	if (i == 13)
+	if (key == 119)
 		move_forward(player);
 	//{
 		/**wall = set_north_wall(wall->x - 5, wall->y - 5, wall->width + 10, wall->height + 10);
 		display_wall(p[1], *wall);*/
 		//grow_wall(data, wall);
 	//}
-	if (i == 1)
+	if (key == 115)
 		move_backward(player);
-	else if (i == 0)
+	else if (key == 97)
 		move_left(player);
-	else if (i == 2)
+	else if (key == 100)
 		move_right(player);
-	if (i == 65307)
+	if (key == 65307)
 	{
 		//vscode printf("            			  ESCAPE\n");
 		//vscode printf("data->window = %p\n", &data->window);
-		mlx_hook(data->window, 17, 0, exit_hook, p);
+		onexit(p);
 	}
 	////vscode printf("keycode = %d\n", i);
 	renderbsp(data, *map->tree.rootnode, *player);
@@ -127,7 +127,8 @@ int		main(int ac, char **av)
 	param[2] = (void *)&player;
 	//vscode printf("param[2]\n");
 	(void)ac;
-	mlx_hook(data.window, 2, 0, funt, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
+	mlx_hook(data.window, 2, (1L << 0), onkeypressed, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
+	mlx_hook(data.window, 33, (1L << 17), onexit, param);
 //	renderbsp(&data, *map.tree.rootnode, player);
 	mlx_loop(data.ptr);
 	return (EXIT_SUCCESS);
