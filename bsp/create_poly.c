@@ -46,7 +46,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data)
 	//p.wall = create_wall(p, player, data);
 	p.wall.color = 0xFF0000;
 	//vscode printf("Je regarde si c bon !\n");
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texnorth, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		//vscode printf("data.texnorth = %s\n", data.texnorth);
 		p.exist = 0;
@@ -56,7 +56,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data)
 	}
 	//p.wall.imgwidth = (p.wall.imgwidth > 64) ? 64 : p.wall.imgwidth;
 	//p.wall.imgheight = (p.wall.imgheight > 64) ? 64 : p.wall.imgheight;
-	p.angle = 0 * (M_PI / 180);
+	p.angle = 0 * (M_PI / 180); // la librairie est inclue dans la command line (-lm) donc oklm
 	////vscode printf("p.segment.exist (top) = %d\n", p.segment.exist);
 	p.exist = 1;
 	return (p);
@@ -93,7 +93,7 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data)
 		//vscode sleep(5);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texsouth, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		//vscode printf("data.texsouth = %s\n", data.texsouth);
 		p.exist = 0;
@@ -136,7 +136,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data)
 	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		//vscode sleep(5);
 	p.len = get_length(p.segment);
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texeast, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		//vscode printf("data.texeast = %s\n", data.texeast);
 		p.exist = 0;
@@ -181,7 +181,7 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data)
 	//if (p.segment.a.x == 0 && p.segment.a.y == 0 && p.segment.b.x == 0 && p.segment.b.y == 0)
 		//vscode sleep(5);
 	p.len = get_length(p.segment);
-	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, "textures/mur-3.xpm", &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
+	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texwest, &p.wall.imgwidth, &p.wall.imgheight))) //soigner tout et mettre phrase
 	{
 		//vscode printf("data.texwest = %s\n", data.texwest);
 		p.exist = 0;

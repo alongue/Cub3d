@@ -35,13 +35,16 @@ int     set_resolution(t_data *data, char *line, char *c)
     i += ft_intlen(ft_atoi(&line[i]));
     while (line[i] == ' ')
         i++;
+    // peutetre refaire la technique du oldi
     max[1] = data->win_height;
+    printf("ft_atoi(&line[i]) = %d\n", ft_atoi(&line[i]));
     data->win_height = (ft_atoi(&line[i]) < 1) ? data->win_height : ft_atoi(&line[i]);
     printf("(apres) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
     data->win_height = (data->win_height < max[1]) ? data->win_height : max[1];
     printf("data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+    printf("test\n");
     return (1);
 }
 
@@ -52,14 +55,14 @@ int     set_texture(t_data *data, char *line, char *orientation)
 
     printf("orientation = %s\n", orientation);
     i = get_first_char(line);
-    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     oldi = i;
     while (line[i] != ' ')
         i++;
-    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     while (line[i] == ' ')
         i++;
-    //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, 0));
     if (orientation[0] == 'N')
@@ -67,42 +70,42 @@ int     set_texture(t_data *data, char *line, char *orientation)
         if (data->texnorth != NULL)
             return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
         data->texnorth = ft_substr(line, i, INT_MAX); //renvoyer erreur si c'est n'importe quoi
-        ////vscode printf("data->texnorth = %s\n", data->texnorth);
-        ////vscode sleep(1);
+        //printf("data->texnorth = %s\n", data->texnorth);
+        //sleep(1);
     }
     else if (orientation[0] == 'S' && orientation[1] == 'O')
     {
         if (data->texsouth != NULL)
             return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
         data->texsouth = ft_substr(line, i, INT_MAX);
-        ////vscode printf("data->texsouth = %s\n", data->texsouth);
-        ////vscode sleep(1);
+        //printf("data->texsouth = %s\n", data->texsouth);
+        //sleep(1);
     }
     else if (orientation[0] == 'W')
     {
         if (data->texwest != NULL)
             return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
         data->texwest = ft_substr(line, i, INT_MAX);
-        ////vscode printf("data->texwest = %s\n", data->texwest);
-        ////vscode sleep(1);
+        //printf("data->texwest = %s\n", data->texwest);
+        //sleep(1);
     }
     else if (orientation[0] == 'E')
     {
         if (data->texeast != NULL)
             return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
         data->texeast = ft_substr(line, i, INT_MAX);
-        ////vscode printf("data->texeast = %s\n", data->texeast);
-        ////vscode sleep(1);
+        //printf("data->texeast = %s\n", data->texeast);
+        //sleep(1);
     }
     else if (orientation[0] == 'S')
     {
-        //vscode printf("data->sprite = %s\n", data->sprite);
-        //vscode sleep(1);
+        printf("data->sprite = %s\n", data->sprite);
+        //sleep(1);
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
         data->sprite = ft_substr(line, i, ft_strlen(line));
-        ////vscode printf("data->sprite = %s\n", data->sprite);
-        ////vscode sleep(1);
+        //printf("data->sprite = %s\n", data->sprite);
+        //sleep(1);
     }
     return (1);
 }
@@ -117,7 +120,7 @@ int     set_color_value(t_data *data, char *line, char *letters)
     i++;
     while (line[i] == ' ')
         i++;
-    //vscode printf("line[i] = %c\n", line[i]);
+    printf("line[i] = %c\n", line[i]);
     if (i == oldi + 1)
         return (ft_putstrreti_fd("Error\nMettez un espace (sol, plafonds)\n", 0, 0));
     if (letters[0] == 'F')
@@ -126,7 +129,7 @@ int     set_color_value(t_data *data, char *line, char *letters)
             return (ft_putstrreti_fd("Error\nLa couleur du sol a ete mise plusieurs fois\n", 0, 0));
         if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
-        //vscode printf("data->colfloor = %#x\n", data->colfloor);
+        printf("data->colfloor = %#x\n", data->colfloor);
     }
     else if (letters[0] == 'C')
     {
@@ -134,8 +137,8 @@ int     set_color_value(t_data *data, char *line, char *letters)
             return (ft_putstrreti_fd("Error\nLa couleur du plafond a ete mise plusieurs fois\n", 0, 0));
         if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
-        //vscode printf("data->colceil = %#x\n", data->colceil);
-        ////vscode sleep(2);
+        printf("data->colceil = %#x\n", data->colceil);
+        //sleep(2);
     }
     return (1);
 }
@@ -252,7 +255,7 @@ int     parse_elements(t_data *data, int fd)
             counter[0] += set_color(data, line);
             if (counter[1] == counter[0])
                 return(0);
-            //vscode printf("counter elements = %d\n", counter[0]);
+            printf("counter elements = %d\n", counter[0]);
             counter[2]++;
             //free(line);
         }
@@ -271,11 +274,11 @@ int     parse_elements(t_data *data, int fd)
     while (--counter[2] >= 0)
     {
         get_next_line(fd, &line);
-        //vscode printf("line -> %s\n", line);
+        //printf("line -> %s\n", line);
         //free(line);
     }
-    //vscode printf("fd = %d et newfd = %d\n", fd, newfd);
-    //vscode sleep(2);
+    printf("fd = %d et newfd = %d\n", fd, newfd);
+    //sleep(2);
     return (1);
 }
 

@@ -98,6 +98,7 @@ int		main(int ac, char **av)
 	////vscode printf("Sieste de %dsec\n", a / 1000);
 	////vscode sleep(a);
 	reset_data(&data);
+
 	if (!map.exist)
 		return (3);
 	if (!create_tree_node(&map, data))

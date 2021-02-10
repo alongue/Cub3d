@@ -107,8 +107,10 @@ int				display_object(t_data *data, t_object object, t_player player)
 	float	vindex;
 
 	(void)player;
-	object.xiter = (object.width - 1) / (object.xendcl - object.xstartcl);
+	object.xiter = (object.width - 1) / (object.xendcl - object.xstart); //xendcl -> xend mais on aurait utilise xend juste pour cette ligne donc ca sert a r de le creer
+	//printf("object.xstartcl = %f\tet\tobject.xendcl = %f\n", object.xendcl, object.xendcl);
 	object.yiter = (object.height - 1) / (object.bot - object.top);
+	//printf("object.yiter = %f\n", object.yiter);
 	////vscode sleep(3);
 	if (object.xendcl > data->win_width - 1)
 		object.xendcl = data->win_width - 1;
@@ -122,12 +124,16 @@ int				display_object(t_data *data, t_object object, t_player player)
 	{
 		if (can_draw_obj(&object, data, i))
 		{
-			hindex = (object.xstartcl - object.xstart) * object.xiter;
-			vindex = (object.topcl - object.top) * object.yiter;
+			hindex = (object.xstartcl - (int)object.xstart) * object.xiter;
+			//printf("start = %f\tet\tstartcl = %f\tet\txiter = %f\n", object.xstart, object.xstartcl, object.xiter);
+			vindex = (object.topcl - (int)object.top) * object.yiter;
 			ptraddr[0] = (int)object.topcl * data->win_width + i;
 			ptraddr[1] = (int)object.botcl * data->win_width + i;
 			while (ptraddr[0] < ptraddr[1])
 			{
+				//printf("object.topcl = %d\tet\ti = %d\n", ptraddr[0], i);
+				//printf("max = %d\n", data->win_width * data->win_height);
+				//printf("(int)(round(vindex) * object.width + round(hindex)) = %f\n", round(vindex));
 				object.img_data[ptraddr[0]] = object.data_file[(int)(round(vindex) * object.width + round(hindex))];
 				//if ()
 				ptraddr[0] += data->win_width;

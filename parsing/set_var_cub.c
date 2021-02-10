@@ -73,22 +73,21 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	return (1);
 }
 
-void		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets
+int		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc des objets
 {
 	map->nbobjects++;
 	//vscode printf("map->nbobjects = %d\n", map->nbobjects);
 	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects)))
-	{
-		//vscode printf("Le malloc fonctionne pas ta mere !\n");
-		return ;
-	}
+		return ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0);
 	//vscode printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = 0;
-	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, "textures/test-sprite.xpm", &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
-		return ;
+	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr, data.sprite, &map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height)))
+		return ft_putstrreti_fd("Error\nL'image ne s'est pas charge (sprite)\n", 0, 0);
+	printf("map->objects[map->nbobjects - 1].width, &map->objects[map->nbobjects - 1].height = %d\tw = %d\tet\th = %d\n", map->objects[map->nbobjects - 1].width * map->objects[map->nbobjects - 1].height, map->objects[map->nbobjects - 1].width, map->objects[map->nbobjects - 1].height);
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(data.img, &map->objects[map->nbobjects - 1].bpp, &map->objects[map->nbobjects - 1].size_line, &map->objects[map->nbobjects - 1].endian);
 	map->objects[map->nbobjects - 1].data_file = (int *)mlx_get_data_addr(map->objects[map->nbobjects - 1].img, &map->objects[map->nbobjects - 1].bppimg, &map->objects[map->nbobjects - 1].size_lineimg, &map->objects[map->nbobjects - 1].endianimg);
 	map->objects[map->nbobjects - 1].exist = 1;
 	map->objects[map->nbobjects - 1].pos.x = counter * data.cubside + data.cubside / 2;
 	map->objects[map->nbobjects - 1].pos.y = i * data.cubside + data.cubside / 2;
+	return (1);
 }

@@ -287,7 +287,7 @@ void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
 int					searching_around(t_map *map, int *coor, int moving_side);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
-void				set_obj(t_data data, t_map *map, int i, int counter);
+int					set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
 void				set_used_poly(t_polygon *set, t_polygon *current);
 void				set_player_angle(t_player *player, double angle);

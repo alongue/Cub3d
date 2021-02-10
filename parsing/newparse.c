@@ -22,8 +22,8 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 	{
 		if (map->number[i][counter] == '1')
 			set_cub(data, &map->cub[i][counter], i, counter);
-		else if (map->number[i][counter] == '2') //s'occuper des malloc des objets
-			set_obj(data, map, i, counter);
+		else if (map->number[i][counter] == '2' && !set_obj(data, map, i, counter))
+				return (0);
 		else if (ft_get_nbchar("SNEW", map->number[i][counter]) == 1)
 		{
 			if (player->exist)
@@ -92,7 +92,7 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 			return (0); // regrouper ces malloc peut etre
 	}
 	if (ret == -1)
-		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
+		return (ft_putstrreti_fd("Error\nVeuillez verifier le fichier\n", 0, 0));
 	if (!verify_end(fd))
 		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
@@ -135,6 +135,7 @@ t_map		create_map(t_data *data, t_player *player)
 	fd = open(data->filename, O_RDONLY);
 	if (!parse_elements(data, fd))
 		return (map);
+	printf("test2\n");
 	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
 		return (map);
@@ -147,5 +148,7 @@ t_map		create_map(t_data *data, t_player *player)
 	if ((data->window = mlx_new_window(data->ptr, data->win_width, data->win_height, "Cub3d")) == NULL)
 		return (map);
 	map.exist = 1;
+
+	printf("test3\n");
 	return (map);
 }
