@@ -17,17 +17,14 @@
 int     set_resolution(t_data *data, char *line, char *c)
 {
     int i;
-    int oldi;
     int max[2];
 
     (void)c;
     i = get_first_char(line);
-    oldi = i;
-    i++;
-    while (line[i] == ' ')
-        i++;
-    if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace (ID et resolution X)\n", 0, 0));
+    while (line[++i] == ' ')
+        ;
+    if (!ft_isdigit(line[i]) || i == 1)
+        return (ft_putstrreti_fd("Error\nMettez au moins un espace (ID et resolution X)\n", 0, 0));
     printf("(avant) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
     max[0] = data->win_width;
     data->win_width = (ft_atoi(&line[i]) < 1) ? data->win_width : ft_atoi(&line[i]);
@@ -35,6 +32,8 @@ int     set_resolution(t_data *data, char *line, char *c)
     i += ft_intlen(ft_atoi(&line[i]));
     while (line[i] == ' ')
         i++;
+    if (!ft_isdigit(line[i]))
+        return (ft_putstrreti_fd("Error\nMettez au moins un espace (resolution X et resolution Y)\n", 0, 0));
     // peutetre refaire la technique du oldi
     max[1] = data->win_height;
     printf("ft_atoi(&line[i]) = %d\n", ft_atoi(&line[i]));
