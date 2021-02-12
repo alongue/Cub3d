@@ -20,7 +20,7 @@ int     set_resolution(t_data *data, char *line, char *c)
     int max[2];
 
     (void)c;
-    i = get_first_char(line);
+    i = 0;
     while (line[++i] == ' ')
         ;
     if (!ft_isdigit(line[i]) || i == 1)
@@ -53,7 +53,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
     int oldi;
 
     printf("orientation = %s\n", orientation);
-    i = get_first_char(line);
+    i = 0;
     printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     oldi = i;
     while (line[i] != ' ')
@@ -112,22 +112,18 @@ int     set_texture(t_data *data, char *line, char *orientation)
 int     set_color_value(t_data *data, char *line, char *letters)
 {
     int i;
-    int oldi;
 
-    i = get_first_char(line);
-    oldi = i;
-    i++;
-    while (line[i] == ' ')
-        i++;
-    printf("line[i] = %c\n", line[i]);
-    if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace (sol, plafonds)\n", 0, 0));
+    i = 0;
+    while (line[++i] == ' ')
+        ;
+    if (!ft_isdigit(line[i]) || i == 1)
+        return (ft_putstrreti_fd("Error\nMettez au moins un espace (sol ou plafond)\n", 0, 0));
     if (letters[0] == 'F')
     {
         if (data->colfloor != (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nLa couleur du sol a ete mise plusieurs fois\n", 0, 0));
         if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
-            return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nVerifiez les couleurs du floor, bon format : 255,255,255\n", 0, 0));
         printf("data->colfloor = %#x\n", data->colfloor);
     }
     else if (letters[0] == 'C')
@@ -135,7 +131,7 @@ int     set_color_value(t_data *data, char *line, char *letters)
         if (data->colceil != (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nLa couleur du plafond a ete mise plusieurs fois\n", 0, 0));
         if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
-            return (ft_putstrreti_fd("Error\nVerifiez les couleurs\n", 0, 0));
+            return (ft_putstrreti_fd("Error\nVerifiez les couleurs du ceil, bon format : 255,255,255\n", 0, 0));
         printf("data->colceil = %#x\n", data->colceil);
         //sleep(2);
     }
@@ -164,18 +160,18 @@ int     set_color(t_data *data, char *line)
     (void)begline;
     (void)parameters;
     inc = -1;
-    while (parameters[++inc])
+    while (parameters[++inc] && (ft_isalpha(line[0]) || ft_strncmp(line, "", 1) == 0))
     {
-        printf("parameters[inc] = %s\n", parameters[inc]);
-        if (ft_strncmp(begline, parameters[inc], ft_strlen(parameters[inc])) == 0 && counter < NBELEM + 1)
+        //printf("parameters[inc] = %s\tline[0] = %c\n", parameters[inc], line[0]);
+        if (ft_strncmp(begline, parameters[inc], ft_strlen(parameters[inc])) == 0)// && counter < NBELEM + 1)
         {
             printf("line = %s\tet\tbegline = %s\n", line, begline);
             if (inc == 0)
-                return (counter = (!set_data[0](data, line, parameters[inc])) ? 0 : counter + 1);
+                return (counter = (!set_data[0](data, line, parameters[inc])) ? 0 : 1);
             else if (inc < 6)
-                return (counter = (!set_data[1](data, line, parameters[inc])) ? 0 : counter + 1);
+                return (counter = (!set_data[1](data, line, parameters[inc])) ? 0 : 1);
             else if (inc < 9)
-                return (counter = (!set_data[2](data, line, parameters[inc])) ? 0 : counter + 1);
+                return (counter = (!set_data[2](data, line, parameters[inc])) ? 0 : 1);
         }
     }
     return (ft_putstrreti_fd("Error\nVeuillez verifier le premier caractere de la ligne\n", 0, 0));
@@ -226,16 +222,6 @@ int     set_color(t_data *data, char *line)
     */
 }
 
-int     get_first_char(char *str) // cherche 1er caractere sans compter espaces
-{
-    int i;
-
-    i = 0;
-    while (str[i] == ' ')
-        i++;
-    return (i);
-}
-
 int     parse_elements(t_data *data, int fd)
 {
     int     ret;
@@ -245,8 +231,7 @@ int     parse_elements(t_data *data, int fd)
 
     newfd = open(data->filename, O_RDONLY);
     ft_memseti(counter, 0, 3);
-    while ((ret = get_next_line(newfd, &line)) == 1 &&
-    (ft_isalpha(line[get_first_char(line)]) || ft_strncmp(line, "", 1) == 0))
+    while ((ret = get_next_line(newfd, &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
     {
         if (ft_strncmp(line, "", 1) != 0)
         {
@@ -255,11 +240,11 @@ int     parse_elements(t_data *data, int fd)
             if (counter[1] == counter[0])
                 return(0);
             printf("counter elements = %d\n", counter[0]);
-            counter[2]++;
+            //counter[2]++;
             //free(line);
         }
-        else
-            counter[2]++;
+        counter[2]++;
+        printf("counter[2] = %d\n", counter[2]);
     }
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
@@ -270,6 +255,7 @@ int     parse_elements(t_data *data, int fd)
         ret = get_next_line(newfd, &line);
         //free(line);
     }
+    printf("line = %s\n", line);
     while (--counter[2] >= 0)
     {
         get_next_line(fd, &line);

@@ -44,13 +44,6 @@ unsigned int	convert_color(char *line)
 	ret = 0;
 	i = 0;
 	printf("&line[i] = %s\n", &line[i]);
-    while (line[++i] == ' ')
-        ;
-    if ((!ft_isdigit(line[i])) || i == 1)
-	{
-        return ((unsigned int)-1);
-	}
-	printf("&line[i] = %s\n", &line[i]);
 	while (++counter < 3)
 	{
 		ret *= 256;
@@ -60,12 +53,13 @@ unsigned int	convert_color(char *line)
 		i += ft_intlen(ft_atoi(&line[i]));
 		////vscode printf("line[%d] = '%c'\n", i, line[i]);
 		////vscode printf("res = %d\n", res);
-		if ((line[i++] != ',') || res > 255)
+		if ((counter < 2 && line[i++] != ',') || res > 255)
 		{
 			printf("counter = %d\tet\tline[%d] = %c\n", counter, i, line[i]);
 			return ((unsigned int)-1);
 		}
-		ret += res;
+		ret = (counter == 2 && line[i] != 0) ? (unsigned int)-1 : ret + res;
+		printf("line = %s\tet\ti = %d\nline[i] = %d\n", line, i, line[i]);
 		////vscode sleep(2);
 	}
 	return (ret);

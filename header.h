@@ -243,7 +243,6 @@ int					free_elements(t_data data, t_tree tree, t_map map);
 void				*ft_realloc(void *ptr, size_t size);
 int					get_col_nbmax(char **number, int col, int *nbcuby);
 int					get_col_nbmin(char **number, int col);
-int					get_first_char(char *str);
 int					get_line_nbmax(char **number, int lin);
 int					get_line_nbmin(char **number, int lin);
 int					get_nbxmax(int *nbcuby);
