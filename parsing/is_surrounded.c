@@ -155,7 +155,7 @@ int		is_outside_xboundaries(int y, t_map map)
 	while (x <= get_line_nbmax(map.number, y))
 	{
 		//printf("get_line_nbmax(map.number, y) = %d\n", get_line_nbmax(map.number, y));
-		printf("x=%d;y=%d\t dans is outside x boundaries\n", x, y);
+		printf("x=%d;y=%d\t dans is outside x boundaries\tmax = %d\n", x, y, max);
 		if (i < max && x == get_xtreme_x(boundy[i]))
 		{
 			if (ft_atoi(&boundy[i][4]) == BLOCKED)
@@ -165,8 +165,11 @@ int		is_outside_xboundaries(int y, t_map map)
 			else
 			{
 				printf("avant\n");
-				printf("get_xtreme_x(boundy[i + 1]) = %d\n", get_xtreme_x(boundy[i + 1]));
-				x = get_xtreme_x(boundy[i + 1]);
+				if (i + 1 < max)
+				{
+					x = get_xtreme_x(boundy[i + 1]);
+					printf("get_xtreme_x(boundy[i + 1]) = %d\n", get_xtreme_x(boundy[i + 1]));
+				}
 				printf("apres\n");
 				i += 2;
 			}
