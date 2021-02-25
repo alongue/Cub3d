@@ -142,20 +142,21 @@ char	**xtreme_sorted_y(int y, int *max)
 int		is_outside_xboundaries(int y, t_map map)
 {
 	int		boundend;
+	int		max;
 	char	**xtreme;
 	char	**boundy;
 	int		x;
 	int		i;
 
 	xtreme = xtreme_sorted_y(y, &boundend);
-	boundy = get_all_boundy(y, xtreme, boundend);
+	boundy = get_all_boundy(y, &max, xtreme, boundend);
 	x = 0;
 	i = 0;
 	while (x <= get_line_nbmax(map.number, y))
 	{
 		//printf("get_line_nbmax(map.number, y) = %d\n", get_line_nbmax(map.number, y));
-		printf("x=%d;y=%d\t get_xtreme_x(boundy[i=%d]) = %d\n", x, y, i, get_xtreme_x(boundy[i]));
-		if (x == get_xtreme_x(boundy[i]))
+		printf("x=%d;y=%d\t dans is outside x boundaries\n", x, y);
+		if (i < max && x == get_xtreme_x(boundy[i]))
 		{
 			if (ft_atoi(&boundy[i][4]) == BLOCKED)
 			{
@@ -163,8 +164,10 @@ int		is_outside_xboundaries(int y, t_map map)
 			}
 			else
 			{
-
+				printf("avant\n");
+				printf("get_xtreme_x(boundy[i + 1]) = %d\n", get_xtreme_x(boundy[i + 1]));
 				x = get_xtreme_x(boundy[i + 1]);
+				printf("apres\n");
 				i += 2;
 			}
 		}
@@ -235,7 +238,7 @@ int		getside(int y, char *xtreme, int oldside)
 	&& is_boundaries(x, y + 1) && get_xtreme_location(x, y + 1) != BLOCKED))
 	{
 		printf("side = %d\tet\tstatic_outside = %d\n", side, static_outside);
-		sleep(1);
+		//sleep(1);
 		if (side == BOT)
 		{
 			if (is_boundaries(x, y + 1))
@@ -339,7 +342,7 @@ int		getside(int y, char *xtreme, int oldside)
 	return (!oldside);
 }
 
-char	**get_all_boundy(int y, char **xtreme, int boundend)
+char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 {
 	char	**boundy;
 	int		k;
@@ -355,7 +358,7 @@ char	**get_all_boundy(int y, char **xtreme, int boundend)
 	isoutsidecop = 1;
 	while (++i < boundend)
 		printf("xtreme[%i] sorted = %s\n", i, xtreme[i]);
-	sleep(5);
+	//sleep(5);
 	i = -1;
 	while (++i < boundend) // table already sort
 	{
@@ -370,11 +373,12 @@ char	**get_all_boundy(int y, char **xtreme, int boundend)
 		isoutside = isoutsidecop;
 	}
 	sort_table_y(boundy, k);
+	*max = k;
 	printf("k = %d\n", k);
 	i = -1;
 	while (++i < k)
 		printf("boundy[%i] = %s\n", i, boundy[i]);
-	sleep(5);
+	//sleep(5);
 	return(boundy);
 }
 

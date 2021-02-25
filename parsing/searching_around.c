@@ -50,10 +50,10 @@ int		remind(int x, int y)
 		if (x == get_xtreme_x(xtreme[i]) && y == get_xtreme_y(xtreme[i]))
 		{
 			printf("remind\n");
-			return (1);
+			return (i);
 		}
 	}
-	return (0);
+	return (-1);
 }
 
 char	**recover_xtreme(int *coor, int *end, int location) // modification de max et utilisation de ft_realloc
@@ -71,6 +71,11 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 		icop++;
 		i = icop;
 	}
+	else
+	{
+		i = remind(coor[1], coor[0]);
+	}
+	
 	printf("coor[0] (y) = %d\tet\tcoor[1] (x) = %d\tet\tlocation = %d\tet\ti = %d\n", coor[0], coor[1], location, i);
 	if (i == 0 && location != BLOCKED)
 		xtreme = malloc(sizeof(char *) * 1);
@@ -88,8 +93,6 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 	printf("xtreme[%i] = %s\n", i, xtreme[i]);
 	//while () // on verifie si le tableau n'a pas ete cree car on realloc
 	//xtreme[X][coor[1]][MIN * i] = coor[0];
-	if (location == BLOCKED)
-		i--;
 	return (xtreme);
 }
 
@@ -115,7 +118,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	//recover_xtreme(coor, &coor[2], get_location(moving_side));
 	location = (get_location(moving_side) == BLOCKED) ?
 		oldlocation : get_location(moving_side);
-	if (remind(coor[1], coor[0]))
+	if (remind(coor[1], coor[0]) != -1)
 		return (BLOCKED);
 	recover_xtreme(coor, &coor[2], location);
 	//vscode printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);

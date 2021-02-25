@@ -253,7 +253,7 @@ void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
 int				is_boundaries(int x, int y);
 int				is_rlly_btwn(int y, char **boundx, int max);
-char				**get_all_boundy(int y, char **xtreme, int boundend);
+char				**get_all_boundy(int y, int *max, char **xtreme, int boundend);
 char				*get_xtreme(int x, int y);
 int				get_xtreme_x(char *xtreme);
 int				get_xtreme_y(char *xtreme);
