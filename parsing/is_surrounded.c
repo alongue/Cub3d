@@ -217,8 +217,15 @@ int		getside(int y, char *xtreme, int oldside)
 	int			x;
 	static int	side = BLOCKED;
 	static int	static_outside = BLOCKED;
+	static int	ycop = 0;
 	char		*b4_xtreme;
 	
+	if (ycop != y)
+	{
+		ycop = y;
+		static_outside = BLOCKED;
+		side = BLOCKED;
+	}
 	x = get_xtreme_x(xtreme);
 	if (((is_boundaries(x, y - 1) && !is_boundaries(x, y + 1))
 	|| (is_boundaries(x, y - 1) && is_boundaries(x, y + 1) && get_xtreme_location(x, y + 1) != BLOCKED)
@@ -227,7 +234,7 @@ int		getside(int y, char *xtreme, int oldside)
 	&& !(is_boundaries(x, y - 1) && get_xtreme_location(x, y - 1) != BLOCKED
 	&& is_boundaries(x, y + 1) && get_xtreme_location(x, y + 1) != BLOCKED))
 	{
-		printf("side = %d\n", side);
+		printf("side = %d\tet\tstatic_outside = %d\n", side, static_outside);
 		sleep(1);
 		if (side == BOT)
 		{
@@ -250,9 +257,7 @@ int		getside(int y, char *xtreme, int oldside)
 			else if (is_boundaries(x, y - 1))
 			{
 				b4_xtreme = get_xtreme(x, y - 1);
-				side = BLOCKED;
-				static_outside = BLOCKED;
-				if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 0)
+				if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 0) // on fait la meme chose dans les 2 cas mais c pour plus de comprehension
 				{
 					side = BLOCKED;
 					static_outside = BLOCKED;
