@@ -12,38 +12,42 @@
 
 #include "../header.h"
 
-int		get_line_nbmin(char **number, int lin)
+int		get_line_nbmin(char **number, int col)
 {
 	int	i;
 
 	i = 0;
-	while (number[lin][i] == ' ')
+	while (number[col][i] == ' ')
 		i++;
 	return (i);
 }
 
-int		get_line_nbmax(char **number, int lin)
+int		get_line_nbmax(char **number, int col)
 {
 	int	i;
 
-	i = ft_strlen(number[lin]) - 1;
-	while (number[lin][i] == ' ')
+	i = ft_strlen(number[col]) - 1;
+	while (number[col][i] == ' ')
 		i--;
 	return (i);
 }
 
-int		get_col_nbmin(char **number, int col)
+int		get_col_nbmin(char **number, int lin, int *nbcuby)
 {
 	int	i;
 
 	i = 0;
+	if (nbcuby[lin] == 0)
+		return (0);
 	////vscode printf("number[%d][%d] = %c\n", i, col, number[i][col]);
-	while (number[i][col] == ' ')
+	while (number[i][lin] == ' ')
 		i++;
 	return (i);
 }
 
-int		get_col_nbmax(char **number, int col, int *nbcuby)
+int		get_col_nbmax(char **number, int lin, int *nbcuby)
 {
-	return (get_col_nbmin(number, col) + nbcuby[col] - 1);
+	if (nbcuby[lin] == 0)
+		return (0);
+	return (get_col_nbmin(number, lin, nbcuby) + nbcuby[lin] - 1);
 }

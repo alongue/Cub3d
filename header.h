@@ -197,7 +197,7 @@ typedef struct s_node		t_node;
 struct				s_map
 {
 	int		exist;
-	int			*nbcuby; //tableau qui indique le nombre de caractere qui a dans une colonne (dernier nb = -1) sans compter les espaces au debut et a la fin
+	int			*nbcuby; //tableau qui indique le nombre de caractere qu'y a dans une colonne (dernier nb = -1) sans compter les espaces au debut et a la fin
 	char		**number; //tous les caracteres de la map
 	int			nbobjects; // le nombre d'objets
 	int			nbxmax;
@@ -240,17 +240,23 @@ int				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			get_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
 int					free_elements(t_data data, t_tree tree, t_map map);
-void				*ft_realloc(void *ptr, size_t size);
-int					get_col_nbmax(char **number, int col, int *nbcuby);
-int					get_col_nbmin(char **number, int col);
-int					get_line_nbmax(char **number, int lin);
-int					get_line_nbmin(char **number, int lin);
+int					get_col_nbmax(char **number, int lin, int *nbcuby);
+int					get_col_nbmin(char **number, int lin, int *nbcuby);
+int					get_line_nbmax(char **number, int col);
+int					get_line_nbmin(char **number, int col);
+int					get_xtreme_location(int x, int y);
 int					get_nbxmax(int *nbcuby);
 int					get_nbymax(int *nbcuby);
 t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
+int				is_boundaries(int x, int y);
+int				is_rlly_btwn(int y, char **boundx, int max);
+char				**get_all_boundy(int y, char **xtreme, int boundend);
+char				*get_xtreme(int x, int y);
+int				get_xtreme_x(char *xtreme);
+int				get_xtreme_y(char *xtreme);
 //void				initcub(t_map *map, int side);
 //void				initobj(t_map *map, int side);
 int				is_convex_set(t_polygon *set, t_node *node);
@@ -261,7 +267,7 @@ void				move_backward(t_player *player);
 void				move_forward(t_player *player);
 void				move_left(t_player *player);
 void				move_right(t_player *player);
-int					moving_top(char **number, int *coor, int *fakecoor);
+int					moving_top(char **number, int *coor, int *fakecoor, int *nbcuby);
 int					moving_right(char **number, int *coor, int *fakecoor);
 int					moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby);
 int					moving_left(char **number, int *coor, int *fakecoor);
@@ -279,12 +285,13 @@ int					raycastfpsobj(t_object *object, t_player player, t_data data);
 int				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
 int				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
 int				raycastxobj(t_object *object, t_data data, t_player player);//, t_segment *segment);
+char				**recover_xtreme(int *coor, int *end, int location);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				renderobjects(t_data *data, t_player player, t_map map);
 void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
-int					searching_around(t_map *map, int *coor, int moving_side);
+int					searching_around(t_map *map, int *coor, int moving_side); // je vais devoir faire un malloc sur coor
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 int					set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
@@ -292,6 +299,8 @@ void				set_used_poly(t_polygon *set, t_polygon *current);
 void				set_player_angle(t_player *player, double angle);
 void				set_player_pos(t_player *player, double x, double z);
 void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
+void				sort_table_y(char **table, int max);
+char				**xtreme_sorted_y(int y, int *max);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
 int					try_moving_top(char **number, int *nbcuby, int *col, int *lin);

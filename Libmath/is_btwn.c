@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_appendstr.c                                        :+:      :+:    :+:   */
+/*   is_btwn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 19:27:33 by alongcha          #+#    #+#             */
-/*   Updated: 2019/12/09 22:06:22 by alongcha         ###   ########.fr       */
+/*   Created: 2020/02/15 13:24:12 by alongcha          #+#    #+#             */
+/*   Updated: 2020/03/08 17:16:26 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmath.h"
 
-char    *ft_appendstr(char* s, char c) {
-    int len;
-
-    if (!s)
-        return (NULL);
-    len = ft_strlen(s);
-    s = ft_realloc(s, len + 2);
-    s[len] = c;
-    s[len + 1] = '\0';
-    return (s);
+int	is_btwn(int towatch, int a, int b)
+{
+	if (a < b)
+		if (towatch > a && towatch < b)
+			return (1);
+	if (a > b)
+		if (towatch < a && towatch > b)
+			return (1);
+	return (0);
 }

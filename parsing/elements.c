@@ -25,7 +25,7 @@ int     set_resolution(t_data *data, char *line, char *c)
         ;
     if (!ft_isdigit(line[i]) || i == 1)
         return (ft_putstrreti_fd("Error\nMettez au moins un espace (ID et resolution X)\n", 0, 0));
-    printf("(avant) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
+    printf("(avant) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height); // arranger le probleme avec les chiffres plus grands que des int
     max[0] = data->win_width;
     data->win_width = (ft_atoi(&line[i]) < 1) ? data->win_width : ft_atoi(&line[i]);
     data->win_width = (data->win_width < max[0]) ? data->win_width : max[0];

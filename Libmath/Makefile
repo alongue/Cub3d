@@ -45,7 +45,8 @@ SRCS	=	ft_abs.c				\
 			to_deg.c				\
 			set_btwn_zero_twopi.c	\
 			set_btwn_minpi_pi.c		\
-			set_btwn_minpitw_pitw.c	
+			set_btwn_minpitw_pitw.c		\
+			is_btwn.c
 
 OBJS	=	$(SRCS:.c=.o)
 

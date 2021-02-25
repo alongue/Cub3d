@@ -72,7 +72,10 @@ SRCS	=	ft_atoi.c		\
 		ft_swap.c			\
 		ft_strcpy.c			\
 		ft_isspace.c		\
-		ft_appendstr.c
+		ft_appendstr.c		\
+		ft_strjoin_free.c	\
+		ft_realloc.c		\
+		ft_ctos.c
 
 SRCS_B	=	ft_lstnew_bonus.c	\
 		ft_lstadd_front_bonus.c	\

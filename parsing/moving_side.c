@@ -12,11 +12,11 @@
 
 #include "../header.h"
 
-int		moving_top(char **number, int *coor, int *fakecoor)
+int		moving_top(char **number, int *coor, int *fakecoor, int *nbcuby)
 {
 	(void)coor;
 	////vscode printf("fakecoor[0] = %d\t\tget_col_nbmin(number, %d) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1]));
-	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1]) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
+	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1], nbcuby) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
 	{
 		////vscode printf("jte plante\n");
 		if (number[fakecoor[0] - 1][fakecoor[1]] == '1')

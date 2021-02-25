@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int		ft_strjoin_free(char **str, char *pre, char *suf, int setnulbyte)
+int		strjoin_free(char **str, char *pre, char *suf, int setnulbyte)
 {
 	char	*tmp;
 
@@ -54,7 +54,7 @@ int		ft_read(int fd, char **next, char *buff, unsigned int *c)
 	if (ft_ischar(*next, '\n'))
 		return (BUFFER_SIZE);
 	valret = 0;
-	if (!(bf = ft_strdup("")))
+	if (!(bf = strdupli("")))
 		return (ft_free(*next, bf, NULL));
 	counter = -1;
 	while (++counter < BUFFER_SIZE + 1)
@@ -64,7 +64,7 @@ int		ft_read(int fd, char **next, char *buff, unsigned int *c)
 	{
 		if (valret == -1)
 			return (ft_free(*next, bf, NULL));
-		if (ft_strjoin_free(&bf, bf, buff, valret) == -1)
+		if (strjoin_free(&bf, bf, buff, valret) == -1)
 			return (ft_free(*next, bf, NULL));
 		(*c)++;
 	}
@@ -83,8 +83,8 @@ int		set_line(int fd, char **str, char **n, unsigned int *i)
 	unsigned int	counter;
 
 	counter = 1;
-	if (!(restofn = ft_strdup(*n)))
-		if (!(restofn = ft_strdup("")))
+	if (!(restofn = strdupli(*n)))
+		if (!(restofn = strdupli("")))
 			return (ft_free(restofn, *n, restofn));
 	if ((valret = ft_read(fd, n, buff, &counter)) == -1)
 		return (ft_free(restofn, NULL, *n));
@@ -93,7 +93,7 @@ int		set_line(int fd, char **str, char **n, unsigned int *i)
 		i[0]++;
 	*str = ft_substr(*n, i[1], i[0] - i[1]);
 	if (!ft_ischar(restofn, '\n'))
-		ft_strjoin_free(str, restofn, *str, -1);
+		strjoin_free(str, restofn, *str, -1);
 	i[0]++;
 	tmp[0] = ft_substr(*n, i[0], BUFFER_SIZE * counter - i[0]);
 	free(*n);

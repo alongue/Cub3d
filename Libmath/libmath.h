@@ -61,6 +61,7 @@ t_normal					get_normal(t_segment s);
 t_point						set_point(double x, double y);
 t_segment					get_segment(t_point p, t_point q);
 t_segment					get_segmenti(double px, double py, double qx, double qy);
+int						is_btwn(int towatch, int a, int b);
 int						is_colinear(t_segment s1, t_segment s2);
 int						is_pair(int a);
 int						is_same_segment(t_segment s1, t_segment s2);

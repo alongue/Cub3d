@@ -33,7 +33,6 @@ t_player		get_player(int x, int z, int c, t_data data)
 {
 	t_player	player;
 
-	player.exist = 0;
 	if (c == 'N')
 		player.angle = to_rad(270.);
 	else if (c == 'S')
@@ -42,8 +41,6 @@ t_player		get_player(int x, int z, int c, t_data data)
 		player.angle = to_rad(0.);
 	else if (c == 'W')
 		player.angle = to_rad(180.);
-	else
-		return (player);
 	player.x = x + HEIGHTPL;
 	player.y = HEIGHTPL;
 	player.z = z + HEIGHTPL;
@@ -56,5 +53,6 @@ t_player		get_player(int x, int z, int c, t_data data)
 	//vscode printf("player.dfoc = %f\tet\tdata.win_width = %d\n", player.dfoc, data.win_width);
 	////vscode sleep(10);
 	player.angleray = create_ray(data, &player.exist, player.dfoc);
+	player.exist = 1;
 	return (player);
 }

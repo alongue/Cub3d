@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_appendstr.c                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 19:27:33 by alongcha          #+#    #+#             */
-/*   Updated: 2019/12/09 22:06:22 by alongcha         ###   ########.fr       */
+/*   Created: 2019/12/02 15:22:34 by alongcha          #+#    #+#             */
+/*   Updated: 2019/12/11 20:30:08 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char    *ft_appendstr(char* s, char c) {
-    int len;
+void		*ft_realloc(void *ptr, size_t size)
+{
+	void			*ptrcop;
+	//size_t			i;
 
-    if (!s)
-        return (NULL);
-    len = ft_strlen(s);
-    s = ft_realloc(s, len + 2);
-    s[len] = c;
-    s[len + 1] = '\0';
-    return (s);
+	//i = -1;
+	if (size == 0)
+		return (NULL);
+	if (!(ptrcop = malloc(size)))
+		return (NULL);
+	if (ptr != NULL)
+		ft_memcpy(ptrcop, ptr, size);
+	free(ptr);
+	return (ptrcop);
 }

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_appendstr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 19:27:33 by alongcha          #+#    #+#             */
-/*   Updated: 2019/12/09 22:06:22 by alongcha         ###   ########.fr       */
+/*   Created: 2019/11/06 15:47:04 by alongcha          #+#    #+#             */
+/*   Updated: 2019/11/11 22:05:26 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char    *ft_appendstr(char* s, char c) {
-    int len;
+char        *ft_strjoin_free(char *pre, char *suf)
+{
+    char    *tmp;
 
-    if (!s)
+    if (!(tmp = ft_strjoin(pre, suf)))
         return (NULL);
-    len = ft_strlen(s);
-    s = ft_realloc(s, len + 2);
-    s[len] = c;
-    s[len + 1] = '\0';
-    return (s);
+    if (pre == suf)
+      free(pre);
+    else
+    {
+      free(pre);
+      free(suf);
+    }
+    return (tmp);
 }

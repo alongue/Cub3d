@@ -91,7 +91,7 @@ int		ft_ischar(char *str, char c)
 	return (0);
 }
 
-char	*ft_strdup(const char *s1)
+char	*strdupli(const char *s1)
 {
 	char	*s2;
 	int		s1len;

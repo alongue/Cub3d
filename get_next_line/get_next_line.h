@@ -23,6 +23,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_ischar(char *str, char c);
-char	*ft_strdup(const char *s1);
+char	*strdupli(const char *s1);
 
 #endif
