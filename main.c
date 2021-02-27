@@ -83,7 +83,7 @@ int		main(int ac, char **av)
 	void		*param[3];
 
 	//map = malloc(sizeof(t_map) * 1);
-	if (create_data(&data, av) == EXIT_FAILURE)
+	if (create_data(&data, av, ac) == EXIT_FAILURE)
 		return (ft_putstrreti_fd("Error\nLa window n'a pas pu etre cree\n", 0, EXIT_FAILURE));
 	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
 		return (EXIT_FAILURE);*/
@@ -118,8 +118,9 @@ int		main(int ac, char **av)
 	renderbsp(&data, *map.tree.rootnode, player);
 	//vscode printf("After rendering bsp\n");
 	renderobjects(&data, player, map);
+	if (data.tosave)
+		bitmap(&data, &map);
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);	// max(wall.leftcl.a.x, 0), max(wall.leftcl.a.y, 0)); // y a des problemes de malloc a l'interieur de mlx_put_image_to_window()
-	
 	//vscode printf("salut c'est moi\n");
 	param[0] = (void *)&data;
 	//vscode printf("param[0]\n");
@@ -127,7 +128,6 @@ int		main(int ac, char **av)
 	//vscode printf("param[1]\n");
 	param[2] = (void *)&player;
 	//vscode printf("param[2]\n");
-	(void)ac;
 	mlx_hook(data.window, 2, (1L << 0), onkeypressed, param); //2 -> keypress, 4 -> mousepress, 6 -> mousemotion
 	mlx_hook(data.window, 33, (1L << 17), onexit, param);
 //	renderbsp(&data, *map.tree.rootnode, player);

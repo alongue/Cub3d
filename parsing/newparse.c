@@ -27,9 +27,9 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 		{
 			if (player->exist)
 				return(ft_putstrreti_fd("Error\nUn seul joueur est accepte sur la map.\n", 0, 0));
-			printf("player->exist = %d\n", player->exist);
+			//vscode printf("player->exist = %d\n", player->exist);
 			*player = get_player(counter * data.cubside, i * data.cubside, map->number[i][counter], data);
-			printf("player->exist = %d\n", player->exist);
+			//vscode printf("player->exist = %d\n", player->exist);
 			map->cub[i][counter].exist = 0;
 		}
 		else
@@ -48,7 +48,7 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	//vscode printf("xmax = %d\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
 		return (0);
-	printf("xmax = %d\tet\tnblin = %d\n", xmax, nblin);
+	//vscode printf("xmax = %d\tet\tnblin = %d\n", xmax, nblin);
 	while (++x < xmax)
 	{
 		y[0] = 0;
@@ -61,9 +61,9 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 			//printf("y[1] = %d\tet\tnblin = %d\n", y[1], nblin);
 		}
 		map->nbcuby[x] = (y[1] - y[0] + 1 < 0) ? 0 : y[1] - y[0] + 1;
-		printf("map->nbcuby[%d] = %d\n", x, map->nbcuby[x]);
+		//vscode printf("map->nbcuby[%d] = %d\n", x, map->nbcuby[x]);
 	}
-	printf("test\n");
+	//vscode printf("test\n");
 	map->nbcuby[xmax] = -1;
 	map->nbxmax = get_nbxmax(map->nbcuby);
 	map->nbymax = get_nbymax(map->nbcuby);
@@ -135,31 +135,34 @@ t_map		create_map(t_data *data, t_player *player)
 	map.objects = NULL;
 	xmax = 0;
 	nblin = 0;
-	//vscode printf("test a\n");
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
-									".cub"))
-		return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
+	".cub"))
+		return (putstrret_fd("Error\nArguments valables : \"map.cub\" [--save]\n", map, 0));
+	//if ()
+	//	return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
 	//vscode printf("Test 1\n");
 	fd = open(data->filename, O_RDONLY);
 	if (!parse_elements(data, fd))
 		return (map);
-	printf("test2\n");
+	//vscode printf("test2\n");
 	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
 		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
 		return (map);
-	printf("test4\n");
+	//vscode printf("test4\n");
 	i = -1;
 	if (!is_surrounded(map))
 		return (putstrret_fd("Error\nLa map n'est pas entoure de murs\n", map, 0));
+	//vscode printf("test5\n");
 	while (++i < nblin)
 		if (!get_cub(&map, player, *data, i))
 			return (map);
+	//vscode printf("test5\n");
 	if (!player->exist)
 		return (putstrret_fd("Error\nLe joueur n'a pas ete mis sur la map.\n", map, 0));
 	if ((data->window = mlx_new_window(data->ptr, data->win_width, data->win_height, "Cub3d")) == NULL)
 		return (map);
 	map.exist = 1;
 
-	printf("test3\n");
+	//vscode printf("test3\n");
 	return (map);
 }

@@ -97,11 +97,11 @@ int		is_rlly_btwn(int y, char **boundx, int max)
 	{
 		while (++i[1] < max)
 		{
-			printf("boundx[%d] = %s\n", i[1], boundx[i[1]]);
+			//vscode printf("boundx[%d] = %s\n", i[1], boundx[i[1]]);
 			if (i[0] != i[1])
 				if (is_btwn(y, get_xtreme_x(boundx[i[0]]), get_xtreme_x(boundx[i[1]])))
 				{
-					printf("ft_atoi(&boundx[i[0]][4]) = %d\n", ft_atoi(&boundx[i[0]][4]));
+					//vscode printf("ft_atoi(&boundx[i[0]][4]) = %d\n", ft_atoi(&boundx[i[0]][4]));
 					if ((ft_atoi(&boundx[i[0]][4]) == LEFT && ft_atoi(&boundx[i[1]][4]) == RIGHT)
 					|| (ft_atoi(&boundx[i[0]][4]) == RIGHT && ft_atoi(&boundx[i[1]][4]) == LEFT))
 						return (1);
@@ -155,7 +155,7 @@ int		is_outside_xboundaries(int y, t_map map)
 	while (x <= get_line_nbmax(map.number, y))
 	{
 		//printf("get_line_nbmax(map.number, y) = %d\n", get_line_nbmax(map.number, y));
-		printf("x=%d;y=%d\t dans is outside x boundaries\tmax = %d\n", x, y, max);
+		//vscode printf("x=%d;y=%d\t dans is outside x boundaries\tmax = %d\n", x, y, max);
 		if (i < max && x == get_xtreme_x(boundy[i]))
 		{
 			if (ft_atoi(&boundy[i][4]) == BLOCKED)
@@ -164,13 +164,13 @@ int		is_outside_xboundaries(int y, t_map map)
 			}
 			else
 			{
-				printf("avant\n");
+				//vscode printf("avant\n");
 				if (i + 1 < max)
 				{
 					x = get_xtreme_x(boundy[i + 1]);
-					printf("get_xtreme_x(boundy[i + 1]) = %d\n", get_xtreme_x(boundy[i + 1]));
+					//vscode printf("get_xtreme_x(boundy[i + 1]) = %d\n", get_xtreme_x(boundy[i + 1]));
 				}
-				printf("apres\n");
+				//vscode printf("apres\n");
 				i += 2;
 			}
 		}
@@ -178,7 +178,7 @@ int		is_outside_xboundaries(int y, t_map map)
 		{
 			if (map.number[y][x] != ' ' && !is_boundaries(x, y))
 			{
-				printf("x=%d;y=%d outside\n", x, y);
+				//vscode printf("x=%d;y=%d outside\n", x, y);
 				return (1);
 			}
 		}
@@ -240,7 +240,7 @@ int		getside(int y, char *xtreme, int oldside)
 	&& !(is_boundaries(x, y - 1) && get_xtreme_location(x, y - 1) != BLOCKED
 	&& is_boundaries(x, y + 1) && get_xtreme_location(x, y + 1) != BLOCKED))
 	{
-		printf("side = %d\tet\tstatic_outside = %d\n", side, static_outside);
+		//vscode printf("side = %d\tet\tstatic_outside = %d\n", side, static_outside);
 		//sleep(1);
 		if (side == BOT)
 		{
@@ -353,19 +353,17 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 	int		isoutside;
 	int		isoutsidecop;
 
-	printf("Rentre dans get_all_boundy\n");
+	//vscode printf("Rentre dans get_all_boundy\n");
 	boundy = malloc(sizeof(char *) * 1);
 	k = 0;
 	i = -1;
 	isoutside = 1;
 	isoutsidecop = 1;
-	while (++i < boundend)
-		printf("xtreme[%i] sorted = %s\n", i, xtreme[i]);
 	//sleep(5);
 	i = -1;
 	while (++i < boundend) // table already sort
 	{
-		printf("isoutside = %d\tet\txtreme[i=%d] = %s\n", isoutside, i, xtreme[i]);
+		//vscode printf("isoutside = %d\tet\txtreme[i=%d] = %s\n", isoutside, i, xtreme[i]);
 		if (ft_atoi(&xtreme[i][4]) == BLOCKED || isoutside != (isoutsidecop = getside(y, xtreme[i], isoutside)))
 		{
 			if (k != 0)
@@ -377,11 +375,8 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 	}
 	sort_table_y(boundy, k);
 	*max = k;
-	printf("k = %d\n", k);
+	//vscode printf("k = %d\n", k);
 	i = -1;
-	while (++i < k)
-		printf("boundy[%i] = %s\n", i, boundy[i]);
-	//sleep(5);
 	return(boundy);
 }
 
@@ -389,20 +384,20 @@ int		check_around(t_map map) // lorsque x se deplace on regarde ymin et ymax du 
 {
 	int		y;
 
-	printf("Rentre dans check around\n");
+	//vscode printf("Rentre dans check around\n");
 	y = 0;
-	printf("avant\n");
-	printf("get_col_nbmax(map.number, y, map.nbcuby) = %d\n", get_col_nbmax(map.number, y, map.nbcuby));
-	printf("apres\n");
+	//vscode printf("avant\n");
+	//vscode printf("get_col_nbmax(map.number, y, map.nbcuby) = %d\n", get_col_nbmax(map.number, y, map.nbcuby));
+	//vscode printf("apres\n");
 	//printf("map.nbymax = %d\n", map.nbymax);
 	while (y < map.nbymax)
 	{
-		printf("y = %d loop\n", y);
+		//vscode printf("y = %d loop\n", y);
 		if (is_outside_xboundaries(y, map))
 			return (0);
 		y++;
 	}
-	printf("test de grossesse\n");
+	//vscode printf("test de grossesse\n");
 	return (1);
 }
 //*/
@@ -434,19 +429,19 @@ int		is_surrounded(t_map map) //int *map.nbcuby --> tableau qui indique le nombr
 	/*
 	while (++coor[1] < map.nbxmax)
 	{
-		printf("coor[1] = %d\tet\tmap.number[%d] = %s\n", coor[1], get_col_nbmin(map.number, coor[1]), map.number[get_col_nbmin(map.number, coor[1])]);
+		//vscode printf("coor[1] = %d\tet\tmap.number[%d] = %s\n", coor[1], get_col_nbmin(map.number, coor[1]), map.number[get_col_nbmin(map.number, coor[1])]);
 		if (map.number[get_col_nbmin(map.number, coor[1])][coor[1]] != '1' ||
 			map.number[get_col_nbmax(map.number, coor[1], map.nbcuby)][coor[1]] != '1')
 		{
 			//vscode printf("map.nbcuby[coor[1]] = %d\n", map.nbcuby[coor[1]]);
 			return (0);
 		}
-		printf("coor[1] = %d\n", coor[1]);
+		//vscode printf("coor[1] = %d\n", coor[1]);
 	}
 	*/
 	ft_memseti(coor, 0, 3);
 	coor[1] = get_line_nbmin(map.number, 0);
-	printf("coor[0] = %d\n", coor[0]);
+	//printf("coor[0] = %d\n", coor[0]);
 	if (searching_around(&map, coor, BLOCKED) == ISFINISH)
 	{
 		if (!check_around(map))

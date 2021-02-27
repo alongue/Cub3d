@@ -49,7 +49,7 @@ int		remind(int x, int y)
 	{
 		if (x == get_xtreme_x(xtreme[i]) && y == get_xtreme_y(xtreme[i]))
 		{
-			printf("remind\n");
+			//vscode printf("remind\n");
 			return (i);
 		}
 	}
@@ -76,7 +76,7 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 		i = remind(coor[1], coor[0]);
 	}
 	
-	printf("coor[0] (y) = %d\tet\tcoor[1] (x) = %d\tet\tlocation = %d\tet\ti = %d\n", coor[0], coor[1], location, i);
+	//vscode printf("coor[0] (y) = %d\tet\tcoor[1] (x) = %d\tet\tlocation = %d\tet\ti = %d\n", coor[0], coor[1], location, i);
 	if (i == 0 && location != BLOCKED)
 		xtreme = malloc(sizeof(char *) * 1);
 	else if (location != BLOCKED)
@@ -90,7 +90,7 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 	if (location == BLOCKED)
 		free(xtreme[i]);
 	xtreme[i] = ft_strjoin_free(temp[0], ft_strjoin_free(temp[1], ft_itoa(location)));
-	printf("xtreme[%i] = %s\n", i, xtreme[i]);
+	//vscode printf("xtreme[%i] = %s\n", i, xtreme[i]);
 	//while () // on verifie si le tableau n'a pas ete cree car on realloc
 	//xtreme[X][coor[1]][MIN * i] = coor[0];
 	return (xtreme);
@@ -567,7 +567,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}
 		}*/
 	}
-	printf("backtrack is coming\n");
+	//vscode printf("backtrack is coming\n");
 	recover_xtreme(coor, &coor[2], BLOCKED);
 	map->backtrackpos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 	//vscode printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (avant de backtrack)\n", fakecoor[0], fakecoor[1]);

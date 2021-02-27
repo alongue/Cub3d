@@ -40,6 +40,7 @@ SRCS	=	$(MAIN)							\
 			player_turn.c					\
 			object.c						\
 			display_ceilfloor.c				\
+			bitmap.c					\
 			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
 			$(PARSE)/init.c					\
@@ -88,6 +89,8 @@ DEBG	=	-fsanitize=address
 
 VSCODE = vscode
 
+SCREENSHOT	=	screen.bmp
+
 all	:	$(NAME)
 
 .c.o	:
@@ -108,6 +111,7 @@ $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	ar -x $(LIBMATHNAME)
 	$(AR) $(NAME) $(OBJS) *.o
 	$(LIB) $(NAME)
+	$(GCC) $(INCLNX) $(NAME) $(LIBLNX)
 
 $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	make -C minilibx-linux
@@ -125,7 +129,6 @@ $(BS)	: $(OBJS_B)
 	$(LIB) $(NAME)
 
 exec	: $(NAME)
-	$(GCC) $(INCLNX) $(NAME) $(LIBLNX)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
 debug	:	$(NAME)
@@ -143,6 +146,7 @@ fclean	:	clean
 	make clean -C $(LIBFT)
 	make clean -C $(LIBMATH)
 	make clean -C minilibx-linux
+	rm $(SCREENSHOT)
 	rm -f $(OBJS) $(OBJS_B)
 	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 

@@ -14,6 +14,22 @@
 
 #define NBELEM 8
 
+int     get_reslen(char *line)
+{
+    int     counter;
+
+    counter = 1;
+    while (*line != '\0' && *line != ' ')
+    {
+        if (counter > 7)
+            return (counter);
+        printf("line = %c\tet\tcounter = %d\n", *line, counter);
+        line++;
+        counter++;
+    }
+    return (counter - 1);
+}
+
 int     set_resolution(t_data *data, char *line, char *c)
 {
     int i;
@@ -27,20 +43,27 @@ int     set_resolution(t_data *data, char *line, char *c)
         return (ft_putstrreti_fd("Error\nMettez au moins un espace (ID et resolution X)\n", 0, 0));
     printf("(avant) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height); // arranger le probleme avec les chiffres plus grands que des int
     max[0] = data->win_width;
-    data->win_width = (ft_atoi(&line[i]) < 1) ? data->win_width : ft_atoi(&line[i]);
-    data->win_width = (data->win_width < max[0]) ? data->win_width : max[0];
-    i += ft_intlen(ft_atoi(&line[i]));
+    if (get_reslen(&line[i]) < 7)
+    {
+        data->win_width = (ft_atoi(&line[i]) < 1) ? data->win_width : ft_atoi(&line[i]);
+        data->win_width = (data->win_width < max[0]) ? data->win_width : max[0];
+    }
+    while (ft_isdigit(line[i]))
+        i++;
     while (line[i] == ' ')
         i++;
-    if (!ft_isdigit(line[i]))
+    if (!ft_isdigit(line[i])) // au cas ou y a une virgule ou autre entre
         return (ft_putstrreti_fd("Error\nMettez au moins un espace (resolution X et resolution Y)\n", 0, 0));
     // peutetre refaire la technique du oldi
     max[1] = data->win_height;
-    printf("ft_atoi(&line[i]) = %d\n", ft_atoi(&line[i]));
-    data->win_height = (ft_atoi(&line[i]) < 1) ? data->win_height : ft_atoi(&line[i]);
-    printf("(apres) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
-    data->win_height = (data->win_height < max[1]) ? data->win_height : max[1];
-    printf("data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
+    if (get_reslen(&line[i]) < 7)
+    {
+        printf("ft_atoi(&line[i]) = %d\n", ft_atoi(&line[i]));
+        data->win_height = (ft_atoi(&line[i]) < 1) ? data->win_height : ft_atoi(&line[i]);
+        printf("(apres) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
+        data->win_height = (data->win_height < max[1]) ? data->win_height : max[1];
+        printf("data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
+    }
 	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
     printf("test\n");
@@ -174,7 +197,7 @@ int     set_color(t_data *data, char *line)
                 return (counter = (!set_data[2](data, line, parameters[inc])) ? 0 : 1);
         }
     }
-    return (ft_putstrreti_fd("Error\nVeuillez verifier le premier caractere de la ligne\n", 0, 0));
+    return (ft_putstrreti_fd("Error\nVeuillez verifier la ligne\n", 0, 0));
     /*
     if (line[i] == 'R' && ++counter < NBELEM) // faut pas que un de tout ca y soit 2 fois
     {

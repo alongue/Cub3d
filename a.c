@@ -13,7 +13,7 @@ int	main() // tester si le malloc a l'interieur de struct est quand meme transfe
 	//vscode printf("str = %s\n", str);
 	a = 1;
 	if (!a)
-		printf("vrai");
+		//vscode printf("vrai");
 	else
-		printf("faux");
+		//vscode printf("faux");
 }

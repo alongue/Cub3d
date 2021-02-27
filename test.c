@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-int		create_data(t_data *data, char **av)
+int		create_dataa(t_data *data, char **av)
 {
 	data->file = av[1];
 	ft_memseti(data->coldone, 0, data->win_width);

@@ -39,10 +39,12 @@
 struct				s_data
 {
 	int			exist;
+	int			ac;
 	void			*ptr;
 	void			*window;
 	void			*img;
 	int				*img_data; // les infos du mur de l'image
+	int				tosave;
 	int				bpp; // blk
 	int				size_line; // blk
 	int				endian; // blk
@@ -214,6 +216,7 @@ struct				s_map
 };
 typedef struct s_map		t_map;
 
+void				bitmap(t_data *data, t_map *map);
 void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
 int				can_draw(t_wall wall, t_data *data, int index);
 int				can_draw_obj(t_object *object, t_data *data, int index);
@@ -224,7 +227,7 @@ int				cond_left(t_map *map, int x, int y);
 int				cond_right(t_map *map, int x, int y);
 int				cond_top(t_map *map, int x, int y);
 unsigned int		convert_color(char *line);
-int					create_data(t_data *data, char **av);
+int					create_data(t_data *data, char **av, int ac);
 t_map				create_map(t_data *data, t_player *player);
 t_polygon			create_polybot(t_map *map, int *coor, t_data data);
 t_polygon			create_polyleft(t_map *map, int *coor, t_data data);

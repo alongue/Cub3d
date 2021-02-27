@@ -12,11 +12,22 @@
 
 #include "header.h"
 
-int		create_data(t_data *data, char **av)
+int		tosave(char **av, int ac)
+{
+	if (ac == 3 && ft_strncmp(av[2], "--save", ft_strlen(av[2])) == 0)
+		return (1);
+	return (0);
+}
+
+int		create_data(t_data *data, char **av, int ac)
 {
 	data->nbcoldone = 0;
 	//vscode printf("(avant ptr)\n");
 	if ((data->ptr = mlx_init()) == NULL)
+		return (EXIT_FAILURE);
+	data->ac = ac;
+	data->tosave = tosave(av, ac);
+	if (ac < 2 || ac > 3 || (ac == 3 && !data->tosave))
 		return (EXIT_FAILURE);
 	//vscode printf("av[1] (avant window) = %s\n", av[1]);
 	mlx_get_screen_size(data->ptr, &data->win_width, &data->win_height);
