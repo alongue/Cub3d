@@ -27,7 +27,8 @@ void			*ft_calloc(size_t count, size_t size);
 char			*ft_convert_basel(const char *nbr,
 const char *base_from, const char *base_to);
 char			*ft_ctos(char c);
-int				ft_free_ret(int myret, ...);
+int				free_ret(int myret, ...);
+int				ft_free_ret(int ret, void *a1, void *a2, void *a3);
 size_t			ft_get_nbchar(const char *str, int c);
 size_t			ft_get_nbprint(const char *str);
 size_t			ft_get_nbspace(const char *str);

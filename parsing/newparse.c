@@ -26,7 +26,7 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 		else if (ft_get_nbchar("SNEW", map->number[i][counter]) == 1)
 		{
 			if (player->exist)
-				return(ft_putstrreti_fd("Error\nUn seul joueur est accepte sur la map.\n", 0, 0));
+				return (ft_putstrreti_fd("Error\nUn seul joueur est accepte sur la map.\n", 0, 0));
 			//vscode printf("player->exist = %d\n", player->exist);
 			*player = get_player(counter * data.cubside, i * data.cubside, map->number[i][counter], data);
 			//vscode printf("player->exist = %d\n", player->exist);
@@ -137,11 +137,11 @@ t_map		create_map(t_data *data, t_player *player)
 	nblin = 0;
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
 	".cub"))
-		return (putstrret_fd("Error\nArguments valables : \"map.cub\" [--save]\n", map, 0));
-	//if ()
-	//	return (putstrret_fd("Error\nVeuillez mettre une map\n", map, 0));
-	//vscode printf("Test 1\n");
-	fd = open(data->filename, O_RDONLY);
+		return (putstrret_fd("Error\nArguments valables : \"map.cub\" [--save]\n", map,
+		free_data_stuff(STDOUT_FILENO, data)));
+	if ((fd = open(data->filename, O_RDONLY)) == -1 && close(fd) == -1)
+		return (putstrret_fd("Error\nLe fichier ne peut pas s'ouvrir\n", map,
+		free_data_stuff(STDOUT_FILENO, data)));
 	if (!parse_elements(data, fd))
 		return (map);
 	//vscode printf("test2\n");

@@ -23,7 +23,7 @@ int     get_reslen(char *line)
     {
         if (counter > 7)
             return (counter);
-        printf("line = %c\tet\tcounter = %d\n", *line, counter);
+      //vscode printf("line = %c\tet\tcounter = %d\n", *line, counter);
         line++;
         counter++;
     }
@@ -40,8 +40,7 @@ int     set_resolution(t_data *data, char *line, char *c)
     while (line[++i] == ' ')
         ;
     if (!ft_isdigit(line[i]) || i == 1)
-        return (ft_putstrreti_fd("Error\nMettez au moins un espace (ID et resolution X)\n", 0, 0));
-    printf("(avant) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height); // arranger le probleme avec les chiffres plus grands que des int
+        return (ft_putstrreti_fd("Error\nMettez au moins un espace (ID et resolution X)\n", 0, STDOUT_FILENO));
     max[0] = data->win_width;
     if (get_reslen(&line[i]) < 7)
     {
@@ -53,20 +52,16 @@ int     set_resolution(t_data *data, char *line, char *c)
     while (line[i] == ' ')
         i++;
     if (!ft_isdigit(line[i])) // au cas ou y a une virgule ou autre entre
-        return (ft_putstrreti_fd("Error\nMettez au moins un espace (resolution X et resolution Y)\n", 0, 0));
-    // peutetre refaire la technique du oldi
+        return (ft_putstrreti_fd("Error\nMettez au moins un espace (resolution X et resolution Y)\n", 0, STDOUT_FILENO)); // peutetre refaire la technique du oldi
     max[1] = data->win_height;
     if (get_reslen(&line[i]) < 7)
     {
-        printf("ft_atoi(&line[i]) = %d\n", ft_atoi(&line[i]));
         data->win_height = (ft_atoi(&line[i]) < 1) ? data->win_height : ft_atoi(&line[i]);
-        printf("(apres) data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
         data->win_height = (data->win_height < max[1]) ? data->win_height : max[1];
-        printf("data->win_width = %d\tet\tdata->win_height = %d\n", data->win_width, data->win_height);
     }
-	data->img = mlx_new_image(data->ptr, data->win_width, data->win_height);
+	if (!(data->img = mlx_new_image(data->ptr, data->win_width, data->win_height)))
+        return (ft_putstrreti_fd("Error\nUn malloc n'a pas marche\n", 0, STDOUT_FILENO));
 	data->img_data = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
-    printf("test\n");
     return (1);
 }
 
@@ -75,23 +70,24 @@ int     set_texture(t_data *data, char *line, char *orientation)
     int i;
     int oldi;
 
-    printf("orientation = %s\n", orientation);
+  //vscode printf("orientation = %s\n", orientation);
     i = 0;
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+  //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     oldi = i;
     while (line[i] != ' ')
         i++;
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+  //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     while (line[i] == ' ')
         i++;
-    printf("line a partir du %de caractere -> %s\n", i, &line[i]);
+  //vscode printf("line a partir du %de caractere -> %s\n", i, &line[i]);
     if (i == oldi + 1)
-        return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, 0));
+        return (ft_putstrreti_fd("Error\nMettez un espace (textures)\n", 0, STDOUT_FILENO));
     if (orientation[0] == 'N')
     {
         if (data->texnorth != NULL)
-            return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, 0));
-        data->texnorth = ft_substr(line, i, INT_MAX); //renvoyer erreur si c'est n'importe quoi
+            return (ft_putstrreti_fd("Error\nnorth texture is written too many times\n", 0, STDOUT_FILENO));
+        if (!(data->texnorth = ft_substr(line, i, INT_MAX))) //renvoyer erreur si c'est n'importe quoi
+            return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0, STDOUT_FILENO));
         //printf("data->texnorth = %s\n", data->texnorth);
         //sleep(1);
     }
@@ -121,7 +117,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
     }
     else if (orientation[0] == 'S')
     {
-        printf("data->sprite = %s\n", data->sprite);
+      //vscode printf("data->sprite = %s\n", data->sprite);
         //sleep(1);
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
@@ -147,7 +143,7 @@ int     set_color_value(t_data *data, char *line, char *letters)
             return (ft_putstrreti_fd("Error\nLa couleur du sol a ete mise plusieurs fois\n", 0, 0));
         if ((data->colfloor = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs du floor, bon format : 255,255,255\n", 0, 0));
-        printf("data->colfloor = %#x\n", data->colfloor);
+      //vscode printf("data->colfloor = %#x\n", data->colfloor);
     }
     else if (letters[0] == 'C')
     {
@@ -155,13 +151,11 @@ int     set_color_value(t_data *data, char *line, char *letters)
             return (ft_putstrreti_fd("Error\nLa couleur du plafond a ete mise plusieurs fois\n", 0, 0));
         if ((data->colceil = convert_color(&line[i])) == (unsigned int)-1)
             return (ft_putstrreti_fd("Error\nVerifiez les couleurs du ceil, bon format : 255,255,255\n", 0, 0));
-        printf("data->colceil = %#x\n", data->colceil);
+      //vscode printf("data->colceil = %#x\n", data->colceil);
         //sleep(2);
     }
     return (1);
 }
-
-
 
 int     set_color(t_data *data, char *line)
 {
@@ -188,7 +182,7 @@ int     set_color(t_data *data, char *line)
         //printf("parameters[inc] = %s\tline[0] = %c\n", parameters[inc], line[0]);
         if (ft_strncmp(begline, parameters[inc], ft_strlen(parameters[inc])) == 0)// && counter < NBELEM + 1)
         {
-            printf("line = %s\tet\tbegline = %s\n", line, begline);
+          //vscode printf("line = %s\tet\tbegline = %s\n", line, begline);
             if (inc == 0)
                 return (counter = (!set_data[0](data, line, parameters[inc])) ? 0 : 1);
             else if (inc < 6)
@@ -245,6 +239,19 @@ int     set_color(t_data *data, char *line)
     */
 }
 
+int     get_next_free(char *line, t_data *data, char *msg, int ret)
+{
+    if (line)
+        free(line);
+    get_next_line(-1, NULL);
+    if (msg)
+        return (ft_putstrreti_fd(msg, ret,
+        free_data_stuff(STDOUT_FILENO, data)));
+    else
+        return (free_data_stuff(ret, data));
+    
+}
+
 int     parse_elements(t_data *data, int fd)
 {
     int     ret;
@@ -252,7 +259,10 @@ int     parse_elements(t_data *data, int fd)
     int     newfd;
     int     counter[3];
 
-    newfd = open(data->filename, O_RDONLY);
+
+	if ((newfd = open(data->filename, O_RDONLY)) == -1 && close(newfd) == -1)
+		return (ft_putstrreti_fd("Error\nLe fichier ne peut pas s'ouvrir\n", 0,
+		free_data_stuff(STDOUT_FILENO, data)));
     ft_memseti(counter, 0, 3);
     while ((ret = get_next_line(newfd, &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
     {
@@ -261,31 +271,32 @@ int     parse_elements(t_data *data, int fd)
             counter[1] = counter[0];
             counter[0] += set_color(data, line);
             if (counter[1] == counter[0])
-                return(0);
-            printf("counter elements = %d\n", counter[0]);
+                return (get_next_free(line, data, NULL, 0));
+          //vscode printf("counter elements = %d\n", counter[0]);
             //counter[2]++;
-            //free(line);
         }
+        free(line);
         counter[2]++;
-        printf("counter[2] = %d\n", counter[2]);
+      //vscode printf("counter[2] = %d\n", counter[2]);
     }
 	if (ret == -1)
-		return (ft_putstrreti_fd("Error\nVeuillez verifiez le fichier\n", 0, 0));
+        return (get_next_free(line, data, "Error\nVeuillez verifier le fichier\n", 0));
     if (counter[0] != NBELEM)
-        return (ft_putstrreti_fd("Error\nVeuillez verifier le nombre de parametres\n", 0, 0));
-    while (ret != 0)
-    {
-        ret = get_next_line(newfd, &line);
-        //free(line);
-    }
-    printf("line = %s\n", line);
+        return (get_next_free(line, data, "Error\nVeuillez verifier le nombre de parametres\n", 0));
+    // while (ret != 0) // essayer de faire get_next_free()
+    // {
+    //     ret = get_next_line(newfd, &line);
+    //     //free(line);
+    // }
+    get_next_free(line, NULL, NULL, 0);
+  //vscode printf("line = %s\n", line);
     while (--counter[2] >= 0)
     {
         get_next_line(fd, &line);
         //printf("line -> %s\n", line);
         //free(line);
     }
-    printf("fd = %d et newfd = %d\n", fd, newfd);
+  //vscode printf("fd = %d et newfd = %d\n", fd, newfd);
     //sleep(2);
     return (1);
 }

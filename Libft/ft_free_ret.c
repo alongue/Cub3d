@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_free_ret(int myret, ...)
+int	free_ret(int myret, ...)
 {
 	va_list	ap;
 	void	*ptr;
@@ -25,4 +25,15 @@ int	ft_free_ret(int myret, ...)
 	}
 	va_end(ap);
 	return (myret);
+}
+
+int	ft_free_ret(int ret, void *a1, void *a2, void *a3)
+{
+	if (a1 != NULL)
+		free(a1);
+	if (a2 != NULL)
+		free(a2);
+	if (a3 != NULL)
+		free(a3);
+	return (ret);
 }

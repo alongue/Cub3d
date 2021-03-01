@@ -93,7 +93,7 @@ int		is_rlly_btwn(int y, char **boundx, int max)
 
 	i[0] = -1;
 	i[1] = -1;
-	while(++i[0] < max)
+	while (++i[0] < max)
 	{
 		while (++i[1] < max)
 		{
@@ -249,12 +249,14 @@ int		getside(int y, char *xtreme, int oldside)
 				b4_xtreme = get_xtreme(x, y + 1);
 				if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 0)
 				{
+					free(b4_xtreme);
 					side = BLOCKED;
 					static_outside = BLOCKED;
 					return (oldside);
 				}
 				else if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 1)
 				{
+					free(b4_xtreme);
 					side = BLOCKED;
 					static_outside = BLOCKED;
 					return (!oldside);
@@ -265,12 +267,14 @@ int		getside(int y, char *xtreme, int oldside)
 				b4_xtreme = get_xtreme(x, y - 1);
 				if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 0) // on fait la meme chose dans les 2 cas mais c pour plus de comprehension
 				{
+					free(b4_xtreme);
 					side = BLOCKED;
 					static_outside = BLOCKED;
 					return (!oldside);
 				}
 				else if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 1)
 				{
+					free(b4_xtreme);
 					side = BLOCKED;
 					static_outside = BLOCKED;
 					return (oldside);
@@ -286,12 +290,14 @@ int		getside(int y, char *xtreme, int oldside)
 				{
 					side = BLOCKED;
 					static_outside = BLOCKED;
+					free(b4_xtreme);
 					return (oldside);
 				}
 				else if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 1)
 				{
 					side = BLOCKED;
 					static_outside = BLOCKED;
+					free(b4_xtreme);
 					return (!oldside);
 				}
 			}
@@ -302,12 +308,14 @@ int		getside(int y, char *xtreme, int oldside)
 				{
 					side = BLOCKED;
 					static_outside = BLOCKED;
+					free(b4_xtreme);
 					return (!oldside);
 				}
 				else if (ft_atoi(&b4_xtreme[4]) != BLOCKED && static_outside == 1)
 				{
 					side = BLOCKED;
 					static_outside = BLOCKED;
+					free(b4_xtreme);
 					return (oldside);
 				}
 			}
@@ -320,6 +328,7 @@ int		getside(int y, char *xtreme, int oldside)
 			{
 				side = TOP;
 				static_outside = oldside;
+				free(b4_xtreme);
 				if (oldside == 1)
 					return (!oldside);
 				else
@@ -333,6 +342,7 @@ int		getside(int y, char *xtreme, int oldside)
 			{
 				side = BOT;
 				static_outside = oldside;
+				free(b4_xtreme);
 				if (oldside == 1)
 					return (!oldside);
 				else
@@ -377,7 +387,7 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 	*max = k;
 	//vscode printf("k = %d\n", k);
 	i = -1;
-	return(boundy);
+	return (boundy);
 }
 
 int		check_around(t_map map) // lorsque x se deplace on regarde ymin et ymax du current x

@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-void	vertical(int fd, t_data *data)
+void	body(int fd, t_data *data)
 {
 	int y;
 	int x;
@@ -32,7 +32,7 @@ void	vertical(int fd, t_data *data)
 	}
 }
 
-void	header_bmp(t_data *data, int fd)
+void	header(t_data *data, int fd)
 {
 	int header_size;
 	int nb_plane;
@@ -69,8 +69,8 @@ void	bitmap(t_data *data, t_map *map)
 	write(fd, &file_size, 4);
 	write(fd, "\0\0\0\0", 4);
 	write(fd, &begin_file, 4);
-	header_bmp(data, fd);
-	vertical(fd, data);
+	header(data, fd);
+	body(fd, data);
 	close(fd);
 	free(filename);
 	//get_next_line(-1, NULL, 0);

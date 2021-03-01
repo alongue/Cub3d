@@ -12,25 +12,19 @@
 
 #include "header.h"
 
-int		tosave(char **av, int ac)
-{
-	if (ac == 3 && ft_strncmp(av[2], "--save", ft_strlen(av[2])) == 0)
-		return (1);
-	return (0);
-}
-
 int		create_data(t_data *data, char **av, int ac)
 {
 	data->nbcoldone = 0;
-	//vscode printf("(avant ptr)\n");
-	if ((data->ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
 	data->ac = ac;
-	data->tosave = tosave(av, ac);
+	data->tosave = (ac == 3 && ft_strncmp(av[2], "--save", ft_strlen(av[2])) == 0) ? 1 : 0;
 	if (ac < 2 || ac > 3 || (ac == 3 && !data->tosave))
 		return (EXIT_FAILURE);
-	//vscode printf("av[1] (avant window) = %s\n", av[1]);
+	if (!(data->ptr = mlx_init()))
+		return (EXIT_FAILURE);
 	mlx_get_screen_size(data->ptr, &data->win_width, &data->win_height);
+	data->window = NULL;
+	data->img = NULL;
+	data->img_data = NULL;
 	data->colceil = (unsigned int)-1; //avec les 3 valeurs max on attendra jamais unsigned int max
 	data->colfloor = (unsigned int)-1;
 	data->texnorth = NULL;
@@ -38,15 +32,32 @@ int		create_data(t_data *data, char **av, int ac)
 	data->texeast = NULL;
 	data->texwest = NULL;
 	data->sprite = NULL;
-	if (!(data->coldone = malloc(sizeof(int) * data->win_width)))
+	if (data_malloc(data, av) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
-		return (EXIT_FAILURE);
-	data->filename = ft_strdup(av[1]);
-	////vscode printf("data->coldone = %p\tet\tdata->heightcol = %p\n", &data->coldone, &data->heightcol);
-	////vscode printf("data->win_width = %p\tet\tdata->win_height = %p\n", &data->win_width, &data->win_height);
-	////vscode printf("data = %p\tet\tdata->window = %p\tet\tdata->ptr = %p\n", &data, &data->window, &data->ptr);
 	data->cubside = 64;
+	return (EXIT_SUCCESS);
+}
+
+int		data_malloc(t_data *data, char **av)
+{
+	if (!(data->coldone = malloc(sizeof(int) * data->win_width)))
+	{
+		mlx_destroy_display(data->ptr);
+		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
+		data->ptr, NULL, NULL));
+	}
+	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
+	{
+		mlx_destroy_display(data->ptr);
+		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
+		data->ptr, data->coldone, NULL));
+	}
+	if (!(data->filename = ft_strdup(av[1])))
+	{
+		mlx_destroy_display(data->ptr);
+		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
+		data->ptr, data->coldone, data->heightcol));
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -69,10 +80,30 @@ void	reset_data(t_data *data)
 	display_ceilfloor(data);
 }
 
-int		free_elements(t_data data, t_tree tree, t_map map)
+int		free_data_stuff(int ret, t_data *data)
 {
-	(void)data;
-	(void)tree;
-	(void)map;
-	return (0);
+	if (!data)
+		return (ret);
+	ft_free_ret(ret, data->filename, data->window, data->texeast);
+	if (data->img)
+		mlx_destroy_image(data->ptr, data->img);
+	mlx_destroy_display(data->ptr);
+	ft_free_ret(ret, data->texnorth, data->texsouth, data->texwest);
+	ft_free_ret(ret, data->sprite, data->coldone, data->heightcol);
+	ft_free_ret(ret, data->ptr, NULL, NULL);
+	return (ret);
+}
+
+int		free_map_stuff(int ret, t_map *map) // OU free all
+{
+	int		i;
+
+	i = -2;
+	while (++i < map->nbymax + 1)
+	{
+		free(map->cub[i]);
+	}
+	free(map->cub);
+	free(map);
+	return (ret);
 }

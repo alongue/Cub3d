@@ -17,6 +17,7 @@
 # include "Libmath/libmath.h"
 # include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx.h"
+# include <unistd.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
@@ -235,6 +236,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data);
 t_polygon			create_polytop(t_map *map, int *coor, t_data data);
 int					create_tree_node(t_map *map, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
+int					data_malloc(t_data *data, char **av);
 int					display_ceilfloor(t_data *data);
 int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
@@ -242,7 +244,7 @@ int				do_display_poly(t_polygon *polygon, t_data data, t_player player);
 int				do_display_obj(t_object *object, t_data data, t_player player);
 t_polygon			get_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
-int					free_elements(t_data data, t_tree tree, t_map map);
+int					free_data_stuff(int ret, t_data *data);
 int					get_col_nbmax(char **number, int lin, int *nbcuby);
 int					get_col_nbmin(char **number, int lin, int *nbcuby);
 int					get_line_nbmax(char **number, int col);

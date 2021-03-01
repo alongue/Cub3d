@@ -19,5 +19,5 @@ char	*ft_ctos(char c)
 	temp = malloc(sizeof(char) * (1 + 1));
 	temp[0] = c;
 	temp[1] = 0;
-	return(temp);
+	return (temp);
 }

@@ -24,7 +24,10 @@ int		onexit(void **p)
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
 	(void)player;
-	ret = free_elements(*data, map->tree, *map);
+	//ret = free_elements(data, map);
+	ret = 0;
+	(void)data;
+	(void)map;
 	exit(ret);
 	return (ret);
 }
@@ -82,25 +85,12 @@ int		main(int ac, char **av)
 	t_map		map;
 	void		*param[3];
 
-	//map = malloc(sizeof(t_map) * 1);
 	if (create_data(&data, av, ac) == EXIT_FAILURE)
-		return (ft_putstrreti_fd("Error\nLa window n'a pas pu etre cree\n", 0, EXIT_FAILURE));
-	/*if ((data.window = mlx_new_window(data.ptr, WIDTH, HEIGHT, "Hello World")) == NULL)
-		return (EXIT_FAILURE);*/
-	//vscode printf("data.window (main) = %p\n", &data.window);
-
-	//TO REMOVE
-	data.img = mlx_new_image(data.ptr, data.win_width, data.win_height);
-	data.img_data = (int *)mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endian);
-
+		return (EXIT_FAILURE);
 	map = create_map(&data, &player);
-	//int a = 3000;
-	////vscode printf("Sieste de %dsec\n", a / 1000);
-	////vscode sleep(a);
-	reset_data(&data);
-
 	if (!map.exist)
-		return (3);
+		return (EXIT_FAILURE);
+	reset_data(&data);
 	if (!create_tree_node(&map, data))
 		return (4);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);

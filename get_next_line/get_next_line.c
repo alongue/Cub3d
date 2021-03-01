@@ -112,7 +112,14 @@ int		get_next_line(int fd, char **line)
 	i[1] = 0;
 	valret = 0;
 	if (!line || fd <= -1)
+	{
+		if (next)
+		{
+			free(next);
+			next = NULL;
+		}
 		return (-1);
+	}
 	if (BUFFER_SIZE > 0)
 		valret = set_line(fd, line, &next, i);
 	else

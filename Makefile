@@ -124,10 +124,6 @@ $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	$(LIB) $(NAME)
 	$(GCC) -g $(INCLNX) $(NAME) $(LIBLNX)
 
-$(BS)	: $(OBJS_B)
-	$(AR) $(NAME) $(OBJS_B)
-	$(LIB) $(NAME)
-
 exec	: $(NAME)
 	./a.out $(filter-out $@, $(MAKECMDGOALS))
 
@@ -146,7 +142,7 @@ fclean	:	clean
 	make clean -C $(LIBFT)
 	make clean -C $(LIBMATH)
 	make clean -C minilibx-linux
-	rm $(SCREENSHOT)
+	rm -f $(SCREENSHOT)
 	rm -f $(OBJS) $(OBJS_B)
 	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 
