@@ -94,16 +94,21 @@ int		free_data_stuff(int ret, t_data *data)
 	return (ret);
 }
 
-int		free_map_stuff(int ret, t_map *map) // OU free all
+int		free_all_stuff(int ret, t_map *map, t_data *data) // OU free all
 {
 	int		i;
 
-	i = -2;
-	while (++i < map->nbymax + 1)
+	if (map != NULL)
 	{
-		free(map->cub[i]);
+		i = -2;
+		while (++i < map->nbymax + 1)
+		{
+			free(map->cub[i]);
+		}
+		free(map->cub);
+		free(map);
 	}
-	free(map->cub);
-	free(map);
+	if (data != NULL)
+		free_data_stuff(ret, data);
 	return (ret);
 }

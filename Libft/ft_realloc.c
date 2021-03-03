@@ -12,18 +12,26 @@
 
 #include "libft.h"
 
-void		*ft_realloc(void *ptr, size_t size)
+void		*ft_realloc(void *ptr, size_t size, size_t oldsize, int dofree)
 {
 	void			*ptrcop;
-	//size_t			i;
-
-	//i = -1;
 	if (size == 0)
+	{
+		if (dofree)
+			free(ptr);
 		return (NULL);
+	}
 	if (!(ptrcop = malloc(size)))
+	{
+		if (dofree)
+			free(ptr);
 		return (NULL);
+	}
 	if (ptr != NULL)
-		ft_memcpy(ptrcop, ptr, size);
+		ft_memcpy(ptrcop, ptr, oldsize);
+	else
+		return (NULL);
 	free(ptr);
+	ptr = ptrcop;
 	return (ptrcop);
 }

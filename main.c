@@ -92,7 +92,7 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	reset_data(&data);
 	if (!create_tree_node(&map, data))
-		return (4);
+		return (EXIT_FAILURE);
 	build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data);
 	////vscode printf("map.tree.rootnode->splitter.wall.color (main) = %x\n", map.tree.rootnode->splitter.wall.color);
 	//vscode printf("map.tree.rootnode.exist : %d\n", map.tree.rootnode->exist);

@@ -95,13 +95,12 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 		max = ((int)ft_strlen(map->number[i])) > max ? (int)ft_strlen(map->number[i]) : max;
 		i++;
 		//vscode printf("je m'apprete a realloc\n");
-		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1))))
+		//map->number[i] = NULL;
+		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1), sizeof(char *) * i, 0)))
 			return (0); // regrouper ces malloc peut etre
 	}
 	if (ret == -1)
 		return (ft_putstrreti_fd("Error\nVeuillez verifier le fichier\n", 0, 0));
-	if (!verify_end(fd))
-		return (ft_putstrreti_fd("Error\nLa map doit etre le dernier element\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
 	//vscode printf("max = %d\n", max);
@@ -110,16 +109,26 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 	i = -1;
 	while (++i < *nblin)
 	{
-		////vscode printf("map->number[%d] = %s\n", i, map->number[i]);
+		printf("(avant) map->number[%d] = %s\n", i, map->number[i]);
 		max1 = ft_strlen(map->number[i]) - 1;
-		//vscode printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
-		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1)))
+		printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
+		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1, max1 + 1, 1)))
 			return (0);
 		while (++max1 < *xmax)
 			map->number[i][max1] = ' ';
 		map->number[i][*xmax] = '\0';
+		printf("(apres) map->number[%d] = %s\n", i, map->number[i]);
 	}
 	return (1);
+}
+
+void		initmap(t_map *map)
+{
+	map->objects = NULL;
+	map->nbcuby = NULL;
+	map->number = NULL;
+	map->cub = NULL;
+	map->tree.rootnode = NULL;
 }
 
 t_map		create_map(t_data *data, t_player *player)
@@ -131,8 +140,8 @@ t_map		create_map(t_data *data, t_player *player)
 	int		i;
 
 	map.exist = 0;
+	initmap(&map);
 	player->exist = 0;
-	map.objects = NULL;
 	xmax = 0;
 	nblin = 0;
 	if (!data->filename || !ft_strstrpart(data->filename, ft_strlen(data->filename) - 4,
@@ -145,8 +154,8 @@ t_map		create_map(t_data *data, t_player *player)
 	if (!parse_elements(data, fd))
 		return (map);
 	//vscode printf("test2\n");
-	if (!get_number(&map, fd, &nblin, &xmax) || !get_nbcuby(&map, xmax, nblin)
-		|| !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
+	if (!get_number(&map, fd, &nblin, &xmax) || !verify_end(fd, data, &map)
+	|| !get_nbcuby(&map, xmax, nblin) || !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
 		return (map);
 	//vscode printf("test4\n");
 	i = -1;
@@ -158,7 +167,7 @@ t_map		create_map(t_data *data, t_player *player)
 			return (map);
 	//vscode printf("test5\n");
 	if (!player->exist)
-		return (putstrret_fd("Error\nLe joueur n'a pas ete mis sur la map.\n", map, 0));
+		return (putstrret_fd("Error\nLe joueur n'a pas ete mis sur la map\n", map, 0));
 	if ((data->window = mlx_new_window(data->ptr, data->win_width, data->win_height, "Cub3d")) == NULL)
 		return (map);
 	map.exist = 1;

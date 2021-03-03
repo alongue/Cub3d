@@ -207,10 +207,10 @@ struct				s_map
 	int			nbymax;
 	//t_polygon	*set;
 	int			height;
-	int			*parsepos;
-	int			*backtrackpos;
+	//int			*parsepos;
+	//int			*backtrackpos;
 	t_cub		**cub; // tous les cub de la map
-	int			*lastchar;
+	//int			*lastchar;
 	t_object	*objects; // tous les objets de la map
 	//int		nbobjects;
 	t_tree		tree; // l'arbre de la map
@@ -242,8 +242,10 @@ int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
 int				do_display_poly(t_polygon *polygon, t_data data, t_player player);
 int				do_display_obj(t_object *object, t_data data, t_player player);
+int					get_next_free(char *line, t_data *data, char *msg, int *ret);
 t_polygon			get_polygon(t_polygon polygon);
 t_wall				dup_wall(t_wall wall);
+int					free_all_stuff(int ret, t_map *map, t_data *data);
 int					free_data_stuff(int ret, t_data *data);
 int					get_col_nbmax(char **number, int lin, int *nbcuby);
 int					get_col_nbmin(char **number, int lin, int *nbcuby);
@@ -256,6 +258,7 @@ t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
+void				initmap(t_map *map);
 int				is_boundaries(int x, int y);
 int				is_rlly_btwn(int y, char **boundx, int max);
 char				**get_all_boundy(int y, int *max, char **xtreme, int boundend);
@@ -311,6 +314,6 @@ t_polygon *frontset, t_polygon *backset);
 int					try_moving_top(char **number, int *nbcuby, int *col, int *lin);
 void				turn_left(t_player *player);
 void				turn_right(t_player *player);
-int					verify_end(int fd);
+int					verify_end(int fd, t_data *data, t_map *map);
 
 #endif

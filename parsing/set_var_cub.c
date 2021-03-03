@@ -77,7 +77,9 @@ int		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc
 {
 	map->nbobjects++;
 	//vscode printf("map->nbobjects = %d\n", map->nbobjects);
-	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects)))
+	if (map->nbobjects == 1 && !(map->objects = malloc(sizeof(t_object) * map->nbobjects)))
+		return ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0);
+	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects, sizeof(t_object) * map->nbobjects - 1, 1)))
 		return ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0);
 	//vscode printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = 0;

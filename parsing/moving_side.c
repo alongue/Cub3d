@@ -15,7 +15,7 @@
 int		moving_top(char **number, int *coor, int *fakecoor, int *nbcuby)
 {
 	(void)coor;
-	////vscode printf("fakecoor[0] = %d\t\tget_col_nbmin(number, %d) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1]));
+	printf("fakecoor[0] = %d\tet\tget_col_nbmin(number, %d, nbcuby) = %d\n", fakecoor[0], fakecoor[1], get_col_nbmin(number, fakecoor[1], nbcuby));
 	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1], nbcuby) && number[fakecoor[0] - 1][fakecoor[1]] != ' ')
 	{
 		////vscode printf("jte plante\n");
@@ -38,6 +38,7 @@ int		moving_top(char **number, int *coor, int *fakecoor, int *nbcuby)
 int		moving_right(char **number, int *coor, int *fakecoor)
 {
 	(void)coor;
+	printf("fakecoor[1] = %d\tet\tget_line_nbmax(number, fakecoor[0]) = %d\n", fakecoor[1], get_line_nbmax(number, fakecoor[0]));
 	if (fakecoor[1] != get_line_nbmax(number, fakecoor[0]) && number[fakecoor[0]][fakecoor[1] + 1] != ' ')
 		if (number[fakecoor[0]][fakecoor[1] + 1] == '1')
 		{

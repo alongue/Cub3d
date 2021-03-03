@@ -129,13 +129,15 @@ char	**xtreme_sorted_y(int y, int *max)
 		if (y == get_xtreme_y(xtreme[i]))
 		{
 			if (k != 0)
-				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1));
+				if (!(boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
+					return (0);
 			boundy[k] = ft_strdup(xtreme[i]);
 			k++;
 		}
 	}
 	*max = k;
 	sort_table_y(boundy, k);
+	//printf("test de ouf\n");
 	return (boundy);
 }
 
@@ -377,7 +379,8 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 		if (ft_atoi(&xtreme[i][4]) == BLOCKED || isoutside != (isoutsidecop = getside(y, xtreme[i], isoutside)))
 		{
 			if (k != 0)
-				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1));
+				if (!(boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
+					return (0);
 			boundy[k] = ft_strdup(xtreme[i]);
 			k++;
 		}
@@ -424,17 +427,11 @@ int		is_surrounded(t_map map) //int *map.nbcuby --> tableau qui indique le nombr
 	{
 		strcop = ft_strtrim(map.number[coor[0]], " ");
 		coor[1] += ft_strlen(map.number[coor[0]]);
-		////vscode printf("map.number[%d] = %s\n", coor[0], map.number[coor[0]]);
+		//vscode printf("map.number[%d] = %s\n", coor[0], map.number[coor[0]]);
 		//vscode printf("strcop = %s\n", strcop);
 		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
 			return (0);
 	}
-	if (!(map.parsepos = malloc(sizeof(int) * coor[1])))
-		return (3);
-	if (!(map.backtrackpos = malloc(sizeof(int) * coor[1])))
-		return (3);
-	map.parsepos = ft_memseti(map.parsepos, 0, coor[1]);
-	map.backtrackpos = ft_memseti(map.parsepos, 0, coor[1]);
 	coor[1] = -1;
 	/*
 	while (++coor[1] < map.nbxmax)
@@ -456,6 +453,7 @@ int		is_surrounded(t_map map) //int *map.nbcuby --> tableau qui indique le nombr
 	{
 		if (!check_around(map))
 			return (0);
+		//printf("le boss de la ville\n");
 		return (1);
 	}
 	else
