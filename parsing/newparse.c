@@ -47,7 +47,8 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	x = -1;
 	//vscode printf("xmax = %d\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
-		return (free_all_stuff(0, map, NULL, 0));
+		return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0,
+		free_all_stuff(STDOUT_FILENO, map, NULL, 0)));
 	//vscode printf("xmax = %d\tet\tnblin = %d\n", xmax, nblin);
 	while (++x < xmax)
 	{
@@ -97,13 +98,20 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 		i++;
 		//vscode printf("je m'apprete a realloc\n");
 		//map->number[i] = NULL;
-		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1), sizeof(char *) * i, 0)))
-			return (0); // regrouper ces malloc peut etre
+		if (!(map->number = ft_realloc((void **)&map->number, sizeof(char *) * (i + 1), sizeof(char *) * i, 0)))
+		{
+			free_all_stuff(0, map, NULL, 0); // creer get_next_free_all
+			return (get_next_free(NULL, NULL, "Error\nUn des caracteres n'est pas valide\n", &fd)); // mettre ces 2 if dans une fonction d'erreur
+		}// regrouper ces malloc peut etre
 	}
-	free(map->number[i]);
-	map->number[i] = NULL; // je sais pas si j'ai le droit de faire ca
+	if (map->number[i])
+		free(map->number[i]);
+	map->number[i] = NULL; // il est mis a null 1 fois ou 2 fois selon si malloc fail
 	if (ret == -1)
-		return (ft_putstrreti_fd("Error\nUne erreur est survenue lors de la lecture du fichier\n", 0, 0));
+	{
+		free_all_stuff(0, map, NULL, 0); // creer get_next_free_all
+		return (get_next_free(NULL, NULL, "Error\nUne erreur est survenue lors de la lecture du fichier\n", &fd)); // mettre ces 2 if dans une fonction d'erreur
+	}
 	*nblin = i;
 	*xmax = max;
 	//vscode printf("max = %d\n", max);
@@ -115,8 +123,11 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 		printf("(avant) map->number[%d] = %s\n", i, map->number[i]);
 		max1 = ft_strlen(map->number[i]) - 1;
 		printf("ligne -> %d\tmax1 = %d\tet\t*xmax = %d\n", i, max1, *xmax);
-		if (!(map->number[i] = ft_realloc(map->number[i], sizeof(char) * *xmax + 1, max1 + 1, 1)))
-			return (0);
+		if (!(map->number[i] = ft_realloc((void **)&map->number[i], sizeof(char) * *xmax + 1, max1 + 1, 1)))
+		{
+			free_all_stuff(0, map, NULL, 0); // creer get_next_free_all
+			return (get_next_free(NULL, NULL, "Error\nUn malloc n'a pas fonctionne\n", &fd)); // mettre ces 2 if dans une fonction d'erreur
+		}
 		while (++max1 < *xmax)
 			map->number[i][max1] = ' ';
 		map->number[i][*xmax] = '\0';
@@ -169,7 +180,10 @@ t_map		create_map(t_data *data, t_player *player)
 	//vscode printf("test4\n");
 	i = -1;
 	if (!is_surrounded(map))
+	{
+		free_all_stuff(free_data_stuff(0, data), &map, NULL, 1);
 		return (putstrret_fd("Error\nLa map n'est pas entoure de murs\n", map, 0));
+	}
 	//vscode printf("test5\n");
 	while (++i < nblin)
 		if (!get_cub(&map, player, *data, i))

@@ -18,7 +18,7 @@ char    *ft_appendstr(char *s, char c) {
     if (!s)
         return (NULL);
     len = ft_strlen(s);
-    s = ft_realloc(s, sizeof(char) * (len + 2), sizeof(char) * (len + 1), 1);
+    s = ft_realloc((void **)&s, sizeof(char) * (len + 2), sizeof(char) * (len + 1), 1);
     s[len] = c;
     s[len + 1] = '\0';
     return (s);

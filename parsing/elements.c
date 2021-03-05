@@ -274,7 +274,7 @@ int     parse_elements(t_data *data, int fd)
 		return (ft_putstrreti_fd("Error\nLe fichier ne peut pas s'ouvrir\n", 0,
 		free_data_stuff(STDOUT_FILENO, data)));
     ft_memseti(counter, 0, 3);
-    while ((ret[2] = get_next_line(ret[1], &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
+    while ((ret[2] = get_next_line(ret[0], &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
     {
         if (ft_strncmp(line, "", 1) != 0)
         {
@@ -321,6 +321,7 @@ int     verify_end(int fd, t_data *data, t_map *map)
         if (ret[2] == 0)
         {
             printf("ret[2] = %d\n", ret[2]);
+            get_next_free(NULL, NULL, NULL, ret);
             return (1);
         }
     }

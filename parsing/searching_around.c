@@ -80,7 +80,7 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 	if (i == 0 && location != BLOCKED)
 		xtreme = malloc(sizeof(char *) * 1);
 	else if (location != BLOCKED)
-		xtreme = ft_realloc(xtreme, sizeof(char *) * (i + 1), sizeof(char *) * i, 0);
+		xtreme = ft_realloc((void **)&xtreme, sizeof(char *) * (i + 1), sizeof(char *) * i, 0);
 	temp[0] = ft_itoa(coor[1]);
 	if (coor[1] <= 9)
 		temp[0] = ft_strjoin_free(ft_strdup("0"), temp[0]);

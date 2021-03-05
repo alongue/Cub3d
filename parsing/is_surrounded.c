@@ -129,7 +129,7 @@ char	**xtreme_sorted_y(int y, int *max)
 		if (y == get_xtreme_y(xtreme[i]))
 		{
 			if (k != 0)
-				if (!(boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
+				if (!(boundy = ft_realloc((void **)&boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
 					return (0);
 			boundy[k] = ft_strdup(xtreme[i]);
 			k++;
@@ -379,7 +379,7 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 		if (ft_atoi(&xtreme[i][4]) == BLOCKED || isoutside != (isoutsidecop = getside(y, xtreme[i], isoutside)))
 		{
 			if (k != 0)
-				if (!(boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
+				if (!(boundy = ft_realloc((void **)&boundy, sizeof(char *) * (k + 1), sizeof(char *) * k, 0)))
 					return (0);
 			boundy[k] = ft_strdup(xtreme[i]);
 			k++;

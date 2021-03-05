@@ -44,18 +44,14 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	//vscode printf("nblin avant malloc = %d\n", nblin);
 	//vscode sleep(1);
 	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
-	{
-		ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
-		return (0);
-	}
+		return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0,
+		free_all_stuff(STDOUT_FILENO, map, NULL, 0)));
 	i = -1;
 	//vscode printf("xmax avant malloc = %d\n", xmax);
 	while (++i < nblin + 2 + 1)
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
-		{
-			ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
-			return (0);
-		}
+			return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0,
+			free_all_stuff(STDOUT_FILENO, map, NULL, 0)));
 	map->cub[i] = NULL;
 	i = -1; // on remplit tout comme ca, y a moins de ligne puis on ecrasera les donnees plus tard
 	counter = -1;
@@ -80,7 +76,7 @@ int		set_obj(t_data data, t_map *map, int i, int counter) //s'occuper des malloc
 	//vscode printf("map->nbobjects = %d\n", map->nbobjects);
 	if (map->nbobjects == 1 && !(map->objects = malloc(sizeof(t_object) * map->nbobjects)))
 		return ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0);
-	if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) * map->nbobjects, sizeof(t_object) * map->nbobjects - 1, 1)))
+	if (!(map->objects = ft_realloc((void **)&map->objects, sizeof(t_object) * map->nbobjects, sizeof(t_object) * map->nbobjects - 1, 1)))
 		return ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0);
 	//vscode printf("&map->objects = %p\n", &map->objects);
 	map->cub[i][counter].exist = 0;
