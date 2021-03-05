@@ -243,24 +243,24 @@ int     set_color(t_data *data, char *line)
     */
 }
 
-int     get_next_free(char *line, t_data *data, char *msg, int *ret)
+int     get_next_free(char *line, t_data *data, char *msg, int *fd)
 {
     if (line)
         free(line);
     get_next_line(-1, NULL);
-    printf("fd = %d\tet\tnewfd = %d dans gnf\n", ret[2], ret[1]);
-    close(ret[1]);
-    if (data != NULL)
-        close(ret[2]);
-    printf("apres 2e close\n");
-    ret[0] = 0;
-    printf("ret[0] = %d\tet\t", ret[0]);
-    printf("msg = %s\n", msg);
+    if (fd)
+    {
+        printf("fd = %d\tet\tnewfd = %d dans gnf\n", fd[0], fd[1]);
+        close(fd[0]);
+    }
+    printf("apres 1e close\n");
+    if (data && fd)
+        close(fd[1]);
     if (msg)
-        return (ft_putstrreti_fd(msg, ret[0],
+        return (ft_putstrreti_fd(msg, 0,
         free_data_stuff(STDOUT_FILENO, data))); // return 0 par defaut
     else
-        return (free_data_stuff(ret[0], data)); // return 0 par defaut
+        return (free_data_stuff(0, data)); // return 0 par defaut
 }
 
 int     parse_elements(t_data *data, int fd)
@@ -269,13 +269,12 @@ int     parse_elements(t_data *data, int fd)
     char    *line;
     int     counter[3];
 
-    ret[2] = fd;
-	if ((ret[1] = open(data->filename, O_RDONLY)) == -1 && close(ret[1]) == -1)
+    ret[1] = fd;
+	if ((ret[0] = open(data->filename, O_RDONLY)) == -1 && close(ret[0]) == -1)
 		return (ft_putstrreti_fd("Error\nLe fichier ne peut pas s'ouvrir\n", 0,
 		free_data_stuff(STDOUT_FILENO, data)));
-    printf("fd = %d\tet\tnewfd = %d\n", fd, ret[1]);
     ft_memseti(counter, 0, 3);
-    while ((ret[0] = get_next_line(ret[1], &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
+    while ((ret[2] = get_next_line(ret[1], &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
     {
         if (ft_strncmp(line, "", 1) != 0)
         {
@@ -288,13 +287,15 @@ int     parse_elements(t_data *data, int fd)
         counter[2]++;
       //vscode printf("counter[2] = %d\n", counter[2]);
     }
-	if (ret[0] == -1)
-        return (get_next_free(line, data, "Error\nVeuillez verifier le fichier\n", ret));
+	if (ret[2] == -1)
+        return (get_next_free(line, data, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
     if (counter[0] != NBELEM)
         return (get_next_free(line, data, "Error\nVeuillez verifier le nombre de parametres\n", ret));
     get_next_free(line, NULL, NULL, ret);
-    while (--counter[2] >= 0)
-        get_next_line(fd, &line);
+    while (--counter[2] >= 0 && (ret[2] = get_next_line(fd, &line)) != -1)
+        free(line);
+    if (ret[2] == -1)
+        return (get_next_free(line, data, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
     return (1);
 }
 
@@ -304,7 +305,7 @@ int     verify_end(int fd, t_data *data, t_map *map)
     int     ret[3];
 
     ft_memseti(ret, 0, 3);
-    ret[1] = fd;
+    ret[0] = fd;
     printf("ret[1] = %d\n", ret[1]);
     while ((ret[2] = get_next_line(fd, &line)) != -1)
     {
@@ -312,7 +313,7 @@ int     verify_end(int fd, t_data *data, t_map *map)
         if (!ft_isonlychar(line, " "))
         {
             printf("line = %s\n", line);
-            free_all_stuff(0, map, data);
+            free_all_stuff(0, map, data, 0);
             return (get_next_free(line, NULL, "Error\nLa map doit etre le dernier element\n", ret));
         }
         free(line);
@@ -323,5 +324,6 @@ int     verify_end(int fd, t_data *data, t_map *map)
             return (1);
         }
     }
-    return (get_next_free(line, data, "Error\nVeuillez verifier le fichier\n", ret));
+    free_all_stuff(0, map, data, 0);
+    return (get_next_free(line, NULL, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
 }

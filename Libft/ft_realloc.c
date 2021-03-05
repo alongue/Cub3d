@@ -18,13 +18,19 @@ void		*ft_realloc(void *ptr, size_t size, size_t oldsize, int dofree)
 	if (size == 0)
 	{
 		if (dofree)
+		{
 			free(ptr);
+			ptr = NULL;
+		}
 		return (NULL);
 	}
 	if (!(ptrcop = malloc(size)))
 	{
 		if (dofree)
+		{
 			free(ptr);
+			ptr = NULL;
+		}
 		return (NULL);
 	}
 	if (ptr != NULL)
@@ -32,6 +38,5 @@ void		*ft_realloc(void *ptr, size_t size, size_t oldsize, int dofree)
 	else
 		return (NULL);
 	free(ptr);
-	ptr = ptrcop;
 	return (ptrcop);
 }

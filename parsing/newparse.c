@@ -47,7 +47,7 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	x = -1;
 	//vscode printf("xmax = %d\n", xmax);
 	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
-		return (0);
+		return (free_all_stuff(0, map, NULL, 0));
 	//vscode printf("xmax = %d\tet\tnblin = %d\n", xmax, nblin);
 	while (++x < xmax)
 	{
@@ -81,14 +81,15 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 	max = 0;
 	map->nbobjects = 0;
 	if (!(map->number = malloc(sizeof(char *) * (i + 1))))
-		return (0);
+		return (free_all_stuff(0, map, NULL, 0));
 	while ((ret = get_next_line(fd, &map->number[i])) != -1 &&
 	!ft_isonlychar(map->number[i], " "))
 	{
 		if (!ft_isonlychar(map->number[i], "012SNEW "))
 		{
-			//vscode printf("map->number[%d] = %s\n", i, map->number[i]);
-			return (ft_putstrreti_fd("Error\nUn des caracteres n'est pas valide\n", 0, 0)); // mettre ces 2 if dans une fonction d'erreur
+			printf("map->number[%d] = %s\n", i, map->number[i]);
+			free_all_stuff(0, map, NULL, 0);
+			return (get_next_free(NULL, NULL, "Error\nUn des caracteres n'est pas valide\n", &fd)); // mettre ces 2 if dans une fonction d'erreur
 		}
 		//vscode printf("map->number[i] = %s\n", map->number[i]);
 		//vscode printf("i = %d\n", i);
@@ -99,8 +100,10 @@ int			get_number(t_map *map, int fd, int *nblin, int *xmax)
 		if (!(map->number = ft_realloc(map->number, sizeof(char *) * (i + 1), sizeof(char *) * i, 0)))
 			return (0); // regrouper ces malloc peut etre
 	}
+	free(map->number[i]);
+	map->number[i] = NULL; // je sais pas si j'ai le droit de faire ca
 	if (ret == -1)
-		return (ft_putstrreti_fd("Error\nVeuillez verifier le fichier\n", 0, 0));
+		return (ft_putstrreti_fd("Error\nUne erreur est survenue lors de la lecture du fichier\n", 0, 0));
 	*nblin = i;
 	*xmax = max;
 	//vscode printf("max = %d\n", max);
@@ -129,6 +132,8 @@ void		initmap(t_map *map)
 	map->number = NULL;
 	map->cub = NULL;
 	map->tree.rootnode = NULL;
+	map->nbxmax = -1;
+	map->nbymax = -1;
 }
 
 t_map		create_map(t_data *data, t_player *player)
@@ -151,12 +156,16 @@ t_map		create_map(t_data *data, t_player *player)
 	if ((fd = open(data->filename, O_RDONLY)) == -1 && close(fd) == -1)
 		return (putstrret_fd("Error\nLe fichier ne peut pas s'ouvrir\n", map,
 		free_data_stuff(STDOUT_FILENO, data)));
+	//vscode printf("test ta grand mere\n");
 	if (!parse_elements(data, fd))
 		return (map);
 	//vscode printf("test2\n");
 	if (!get_number(&map, fd, &nblin, &xmax) || !verify_end(fd, data, &map)
 	|| !get_nbcuby(&map, xmax, nblin) || !offset_ptrcub(&map, nblin, xmax)) // on lui passe le fd car gnl va etre utilise pour arriver jusqu'a la map
+	{
+		get_next_free(NULL, data, NULL, NULL);
 		return (map);
+	}
 	//vscode printf("test4\n");
 	i = -1;
 	if (!is_surrounded(map))

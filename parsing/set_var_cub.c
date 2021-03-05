@@ -50,12 +50,13 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	}
 	i = -1;
 	//vscode printf("xmax avant malloc = %d\n", xmax);
-	while (++i < nblin + 2)
+	while (++i < nblin + 2 + 1)
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
 		{
 			ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
 			return (0);
 		}
+	map->cub[i] = NULL;
 	i = -1; // on remplit tout comme ca, y a moins de ligne puis on ecrasera les donnees plus tard
 	counter = -1;
 	while (++i < nblin + 2) // '<' car il part de 0 donc

@@ -44,19 +44,19 @@ int		data_malloc(t_data *data, char **av)
 	{
 		mlx_destroy_display(data->ptr);
 		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
-		data->ptr, NULL, NULL));
+		(void **)&data->ptr, NULL, NULL));
 	}
 	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
 	{
 		mlx_destroy_display(data->ptr);
 		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
-		data->ptr, data->coldone, NULL));
+		(void **)&data->ptr, (void **)&data->coldone, NULL));
 	}
 	if (!(data->filename = ft_strdup(av[1])))
 	{
 		mlx_destroy_display(data->ptr);
 		return (ft_free_ret(ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", EXIT_FAILURE, STDOUT_FILENO),
-		data->ptr, data->coldone, data->heightcol));
+		(void **)&data->ptr, (void **)&data->coldone, (void **)&data->heightcol));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -84,31 +84,38 @@ int		free_data_stuff(int ret, t_data *data)
 {
 	if (!data)
 		return (ret);
-	ft_free_ret(ret, data->filename, data->window, data->texeast);
+	ft_free_ret(ret, (void **)&data->filename, (void **)&data->window, (void **)&data->texeast);
 	if (data->img)
+	{
 		mlx_destroy_image(data->ptr, data->img);
-	mlx_destroy_display(data->ptr);
-	ft_free_ret(ret, data->texnorth, data->texsouth, data->texwest);
-	ft_free_ret(ret, data->sprite, data->coldone, data->heightcol);
-	ft_free_ret(ret, data->ptr, NULL, NULL);
+		data->img = NULL;
+	}
+	if (data->ptr)
+		mlx_destroy_display(data->ptr);
+	ft_free_ret(ret, (void **)&data->texnorth, (void **)&data->texsouth, (void **)&data->texwest);
+	ft_free_ret(ret, (void **)&data->sprite, (void **)&data->coldone, (void **)&data->heightcol);
+	ft_free_ret(ret, (void **)&data->ptr, NULL, NULL);
 	return (ret);
 }
 
-int		free_all_stuff(int ret, t_map *map, t_data *data) // OU free all
+int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse) // OU free all
 {
 	int		i;
 
-	if (map != NULL)
+	if (map)
 	{
-		i = -2;
-		while (++i < map->nbymax + 1)
-		{
-			free(map->cub[i]);
-		}
-		free(map->cub);
-		free(map);
+		i = -1;
+		if (map->number)
+			while (map->number[++i])
+				ft_free_ret(0, (void **)&map->number[i], NULL, NULL);
+		i = (aftercubparse) ? -2 : -1;
+		if (map->cub)
+			while (map->cub[++i])
+				ft_free_ret(0, (void **)&map->cub[i], NULL, NULL);
+		printf("i = %d\n", i);
+		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby, (void **)&map->objects);
+		ft_free_ret(ret, (void **)&map->number, NULL, NULL);
 	}
-	if (data != NULL)
-		free_data_stuff(ret, data);
+	free_data_stuff(ret, data);
 	return (ret);
 }
