@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 19:48:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 20:58:43 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int display_ceilfloor(t_data *data)
     int y;
 
     y = -1;
-    //vscode printf("data->colceil = %#x\tet\tdata->colfloor = %#x\n", data->colceil, data->colfloor);
-    //vscode sleep(2);
 	while (++y < data->win_height)
 	{
         x = -1;

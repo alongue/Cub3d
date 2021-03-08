@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 15:25:22 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 19:42:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 21:03:43 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,92 +15,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-# define ZMIN 1 // derriere zmin, c'est derriere le joueur (on prend 1 pour ne laisser aucun point egale a 0 sinon div by 0)
-
-//Ce fichier va me premettre de creer des murs et d'ajouter des attributs a ces murs
-
-/*void			set_dim_north_wall(t_wall *wall, int width, int height) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
-{
-	//t_wall	wall;
-
-	wall->width = width;
-	wall->height = height;
-	wall->color = 0xCECECE; //gris
-	//return (wall);
-}*/
-
-
-// ------- !!! DEPRECATED !!! ------- 
-
-/*void			set_north_wall(t_wall *wall, t_segment left, t_segment right, unsigned int color) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
-{
-	//t_wall	wall;
-
-	wall->left = dup_segment(left);
-	wall->right = dup_segment(right);
-	wall->color = color; //gris
-	//return (wall);
-}*/
-
-
-// ------- !!! DEPRECATED !!! ------- 
-
-/*int			display_wall_def(t_data *data, t_wall wall) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
-{
-	int	x;
-	int	y;
-
-	x = wall.width;
-	y = wall.height;
-	while (x > 0)
-	{
-		y = wall.height;
-		while (y > 0)
-		{
-			mlx_pixel_put(data->ptr, data->window, wall.x + x, wall.y + y, wall.color);
-			y--;
-		}
-		mlx_pixel_put(data->ptr, data->window, wall.x + x, wall.y, wall.color);
-		x--;
-	}
-	return (EXIT_SUCCESS);
-}*/
-
-
-// ------- !!! DEPRECATED !!! ------- 
-
-/*int				display_wall(t_data *data, t_wall wall)
-{
-	int	bpp;
-	int	size_line;
-	int	endian;
-	int	x;
-	int	y;
-
-	wall.img = mlx_new_image(data->ptr, wall.width, wall.height);
-	wall.img_data = (int *)mlx_get_data_addr(wall.img, &bpp, &size_line, &endian);
-	x = -1;
-	y = -1;
-	while (++x < wall.width)
-	{
-		y = -1;
-		while (++y < wall.height)
-			wall.img_data[wall.height * y + x] = wall.color;
-	}
-	mlx_put_image_to_window(data->ptr, data->window, wall.img, wall.x, wall.y);
-	return (EXIT_SUCCESS);
-}*/
+#define ZMIN 1
 
 void			replace_poly(t_polygon *polygon, t_player player)
 {
 	t_point	a;
 	t_point	b;
-//	t_point	tmp;
 
 	get_extremity(polygon->segment, &a, &b);
-	translate_point(&a, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	translate_point(&b, -player.x, -player.z);// on prend ce segment qu'on va ensuite clipper
-	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", a.y, b.y, a.x, b.x);
+	translate_point(&a, -player.x, -player.z);
+	translate_point(&b, -player.x, -player.z);
 	polygon->newsegment = get_segmenti(a.x * cos(-player.angle)
 									- a.y * sin(-player.angle),
 									a.y * cos(-player.angle)
@@ -109,22 +33,6 @@ void			replace_poly(t_polygon *polygon, t_player player)
 									 - b.y * sin(-player.angle),
 									b.y * cos(-player.angle)
 									+ b.x * sin(-player.angle));
-	/*//vscode printf("(dans replace_poly) polygon->segment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->segment.a.y, polygon->segment.b.y, polygon->segment.a.x, polygon->segment.b.x);
-	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);
-	if (((player.angle > 3 * M_PI / 2 && player.angle <= 2 * M_PI) || (player.angle >= 0 && player.angle < M_PI / 2)) && ((polygon->newsegment.a.y > polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x) ||
-		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0) &&
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0))))) ||
-		(((player.angle >= M_PI / 2 && player.angle < 3 * M_PI / 2) && ((polygon->newsegment.a.y < polygon->newsegment.b.y && polygon->newsegment.a.x == polygon->newsegment.b.x)||
-		(polygon->newsegment.a.y == polygon->newsegment.b.y && (
-																!(polygon->newsegment.a.x > polygon->newsegment.b.x && polygon->newsegment.a.y > 0) &&
-																!(polygon->newsegment.a.x < polygon->newsegment.b.x && polygon->newsegment.a.y < 0)))))))
-	{
-		tmp = dup_point(polygon->newsegment.b);
-		polygon->newsegment.b = dup_point(polygon->newsegment.a);
-		polygon->newsegment.a = dup_point(tmp);
-	}
-	//vscode printf("(dans replace_poly) polygon->newsegment.a.y = %f\tet\tb.y = %f\na.x = %f\tet\tb.x = %f\n", polygon->newsegment.a.y, polygon->newsegment.b.y, polygon->newsegment.a.x, polygon->newsegment.b.x);*/
 }
 
 int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
@@ -134,9 +42,7 @@ int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 
 	if (polygon->newsegment.a.x < ZMIN && polygon->newsegment.b.x < ZMIN)
 		return ((polygon->dodisplay = 0));
-	//vscode printf("test dup_segment avant\n");
 	segmentcop = dup_segment(polygon->newsegment);
-	//vscode printf("test dup_segment avant\n");
 	if (polygon->newsegment.a.x < ZMIN)
 	{
 		tanpoly = (polygon->newsegment.a.x - polygon->newsegment.b.x != 0) ?
@@ -160,7 +66,6 @@ int			do_display_poly(t_polygon *polygon, t_data data, t_player player)
 	polygon->dodisplay = raycastx(&polygon->wall, polygon, data, &segmentcop);
 	if (!raycastx_img(player, polygon, segmentcop))
 		return (0);
-	//vscode printf("polygon->dodisplay = %d\n", polygon->dodisplay);
 	return (polygon->dodisplay);
 }
 
@@ -168,7 +73,6 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 {
 	t_wall	wall;
 
-	//vscode printf("poly.wall.left.a.x = %f (dans create_wall)\n", poly.wall.left.a.x);
 	wall.left = get_segmenti(poly.wall.left.a.x, 0,
 							 poly.wall.left.a.x, data.cubside); //on met left.b.x = left.a.x
 	wall.right = get_segmenti(poly.wall.right.a.x, 0,
@@ -179,7 +83,6 @@ t_wall			create_wall(t_polygon poly, t_player player, t_data data)
 		translate_segment(&wall.right, 0, -player.y);
 	}
 	raycastfps(&wall, player, poly, data);
-	//vscode printf("wall.left.a.y (apres la translation) = %f\t\tet\t\tb.y = %f\n", wall.left.b.y, wall.left.a.y);
 	set_delta(&wall);
 	return (wall);
 }
@@ -219,77 +122,36 @@ int				display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player playe
 	int		i;
 	int		ptraddr[2];
 	double	tanindex;
-//	double	cumul;
-//	double	anglewallpl;
 	int		index;
-	//int		rest;
-	//int		cumul;
 	double	incr[2];
 
-	////vscode sleep(5);
-//	//vscode printf("--- JE SUIS DANS LE DISPL WALL ---\n");
 	initbe4display(&wall, &i, data);
 	ft_memseti(ptraddr, 0, 2);
 	ft_memseti(incr, 0, 2);
-	//cumul = 0;
-	//rest = 0;
-	////vscode printf("wall->leftcl.a.x = %f\t\tet\t\twall->rightcl.a.x = %f\n", wall.leftcl.a.x, wall.rightcl.a.x);
 	while (++i <= (int)round(wall.rightcl.a.x))
 	{
-		////vscode printf("i = %d\n", i);
 		if (can_draw(wall, data, i))
 		{
 			wall.topcl = fmax(wall.top, 0.);
 			wall.botcl = fmin(wall.bot, data->win_height);
 			tanindex = -polygon.newangle - to_rad(90) + player.angleray[i];
-			//index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * (wall.imgwidth / data->cubside)) - (wall.imgwidth * cumul) - rest;
 			index = (int)((polygon.pdist * tan(tanindex) + polygon.btobp) * ((wall.imgwidth) / data->cubside)) % (wall.imgwidth);
-			////vscode printf("index = %d\n", index);
-			/*if (index > (cumul + 1) * wall.imgwidth)
-			{
-				rest = index % (wall.imgwidth * (cumul + 1));
-				//vscode printf("rest = %d\n", rest);
-				////vscode sleep(5);
-				cumul++;
-			}*/
-			////vscode printf("wall.imgwidth / data->cubside = %i\n", wall.imgwidth / data->cubside);
-			////vscode printf("index = %d\n", index);
 			index = (index < 0) ? 0 : index;
 			incr[0] = (wall.imgheight - 1) / (wall.bot - wall.top);
 			incr[1] = (wall.topcl - wall.top) * incr[0];
 			incr[1] = (incr[1] < 0) ? 0 : incr[1];
 			ptraddr[0] = (int)(round(wall.topcl) * data->win_width + i);
 			ptraddr[1] = (int)(round(wall.botcl) * data->win_width + i);
-//			//vscode printf("topcl = %f\tet\tbotcl = %f\n", wall.topcl, wall.botcl);
-//			//vscode printf("(avant la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			while (ptraddr[0] < ptraddr[1])
 			{
-				//get(index, incr[1]);
-//				//vscode printf("(pdt la boucle) incr[1] = %f\tet\tindex = %d\n", incr[1], index);
-				////vscode printf("wall.imgwidth = %d\tet\twall.imgheight = %d\n", wall.imgwidth, wall.imgheight);
-				////vscode printf("avant\n");
 				wall.img_data[ptraddr[0]] = wall.data_file[(int)(round(incr[1]) * wall.imgwidth + index)];
-				//wall.img_data[ptraddr[0]] = (unsigned int)0xfff;
-				//if (ptraddr[0] > ((data->win_width * data->win_height) - 1)) // 2 073 599 pour 1920 et 1080
-				//	//vscode printf("ptraddr[0] = %d qui est superieur win * height (- 1) (= %d)\n", ptraddr[0], (data->win_width * data->win_height) - 1);
-				////vscode printf("pdist = %f\n", polygon.pdist);
-				////vscode printf("apres\n");
 				incr[1] += incr[0];
 				ptraddr[0] += data->win_width;
 			}
-			////vscode printf("(apres la boucle) ptraddr[0] = %d\tet\tptraddr[1] = %d\n", ptraddr[0], ptraddr[1]);
 			data->coldone[i] = 1;
 		}
 		wall.top += wall.deltatop;
 		wall.bot += wall.deltabot;
 	}
-	////vscode printf("Je suis sorti\n");
 	return (EXIT_SUCCESS);
 }
-
-
-/*
-**		*(img.data + (x * 4 + 2) + (img.size * y)) = (unsigned)color.r;
-**		*(img.data + (x * 4 + 1) + (img.size * y)) = (unsigned)color.g;
-**		*(img.data + (x * 4 + 0) + (img.size * y)) = (unsigned)color.b;
-*/

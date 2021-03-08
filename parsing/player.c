@@ -6,13 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:03 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 19:47:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 20:28:52 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-# define HEIGHTPL 32
+#define HEIGHTPL 32
 
 static double	*create_ray(t_data data, int *do_exist, double dfoc)
 {
@@ -50,9 +50,8 @@ t_player		get_player(int x, int z, int c, t_data data)
 	player.fieldvis = to_rad(90.);
 	player.exist = 1;
 	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
-	//vscode printf("player.dfoc = %f\tet\tdata.win_width = %d\n", player.dfoc, data.win_width);
-	////vscode sleep(10);
-	player.angleray = create_ray(data, &player.exist, player.dfoc);
+	player.angleray = create_ray(data,
+	&player.exist, player.dfoc);
 	player.exist = 1;
 	return (player);
 }

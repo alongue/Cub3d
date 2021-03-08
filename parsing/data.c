@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 14:21:47 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 19:47:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 20:12:13 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int		data_malloc(t_data *data, char **av)
 	if (!(data->filename = ft_strdup(av[1])))
 	{
 		mlx_destroy_display(data->ptr);
-		return (ft_free_ret(ft_putstrreti_fd(MALLOC, EXIT_FAILURE, STDOUT_FILENO),
-		(void **)&data->ptr, (void **)&data->coldone, (void **)&data->heightcol));
+		return (ft_free_ret(ft_putstrreti_fd(MALLOC,
+		EXIT_FAILURE, STDOUT_FILENO),
+		(void **)&data->ptr, (void **)&data->coldone,
+		(void **)&data->heightcol));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -75,7 +77,8 @@ int		free_data_stuff(int ret, t_data *data)
 {
 	if (!data)
 		return (ret);
-	ft_free_ret(ret, (void **)&data->filename, (void **)&data->window, (void **)&data->texeast);
+	ft_free_ret(ret, (void **)&data->filename,
+	(void **)&data->window, (void **)&data->texeast);
 	if (data->img)
 	{
 		mlx_destroy_image(data->ptr, data->img);
@@ -86,12 +89,14 @@ int		free_data_stuff(int ret, t_data *data)
 		mlx_destroy_display(data->ptr);
 		data->ptr = NULL;
 	}
-	ft_free_ret(ret, (void **)&data->texnorth, (void **)&data->texsouth, (void **)&data->texwest);
-	ft_free_ret(ret, (void **)&data->sprite, (void **)&data->coldone, (void **)&data->heightcol);
+	ft_free_ret(ret, (void **)&data->texnorth, (void **)&data->texsouth,
+	(void **)&data->texwest);
+	ft_free_ret(ret, (void **)&data->sprite, (void **)&data->coldone,
+	(void **)&data->heightcol);
 	return (ret);
 }
 
-int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse) // OU free all
+int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 {
 	int		i;
 
@@ -106,7 +111,8 @@ int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse) // OU 
 			while (map->cub[++i])
 				ft_free_ret(0, (void **)&map->cub[i], NULL, NULL);
 		printf("i = %d\n", i);
-		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby, (void **)&map->objects);
+		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby,
+		(void **)&map->objects);
 		ft_free_ret(ret, (void **)&map->number, NULL, NULL);
 	}
 	free_data_stuff(ret, data);

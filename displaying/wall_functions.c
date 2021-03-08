@@ -6,37 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:16:53 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/06 13:04:31 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:00:49 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-/* il est logiquement necessaire de mettre a jour les coordonnees verticales des extr􏰀emites du mur. Mais comme nous avons dit que nous conservions particulierement les coordonnees verticales seulement du debut du mur􏰋les coordonnees verticales des tranches suivantes etant calculees incrementalement grace aux deltas que nous avons calcul􏰀es ci􏰂dessus􏰋 nous n'aurons a nous soucier que de mettre􏰐a jour les coordonnees verticales du debut du mur */
-
-
-/*void			set_dim_north_wall(t_wall *wall, int width, int height) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
-{
-	//t_wall	wall;
-
-	wall->width = width;
-	wall->height = height;
-	wall->color = 0xCECECE; //gris
-	//return (wall);
-}*/
-
-
-// ------- !!! DEPRECATED !!! ------- 
-
-/*void			set_north_wall(t_wall *wall, t_segment left, t_segment right, unsigned int color) //la valeur x et y du wall precise l'endroit du coin en haut a gauche du wall
-{
-	//t_wall	wall;
-
-	wall->left = dup_segment(left);
-	wall->right = dup_segment(right);
-	wall->color = color; //gris
-	//return (wall);
-}*/
 
 void	clip(t_wall *wall)
 {
@@ -52,7 +26,8 @@ void	clip(t_wall *wall)
 void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
 	wall->img = mlx_new_image(data->ptr, wall->realside, wall->realside);
-	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp, &wall->size_line, &wall->endian);
+	wall->img_data = (int *)mlx_get_data_addr(wall->img, &wall->bpp,
+	&wall->size_line, &wall->endian);
 	clip(wall);
 	*countcol = wall->rightcl.a.x - 1;
 	wall->nbcoldone = 0;
@@ -60,6 +35,8 @@ void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 
 void	set_delta(t_wall *wall)
 {
-	wall->deltatop = (wall->newright.a.y - wall->newleft.a.y) / (wall->newright.a.x - wall->newleft.a.x);
-	wall->deltatop = (wall->newright.b.y - wall->newleft.b.y) / (wall->newright.a.x - wall->newleft.a.x);
+	wall->deltatop = (wall->newright.a.y - wall->newleft.a.y) /
+	(wall->newright.a.x - wall->newleft.a.x);
+	wall->deltatop = (wall->newright.b.y - wall->newleft.b.y) /
+	(wall->newright.a.x - wall->newleft.a.x);
 }

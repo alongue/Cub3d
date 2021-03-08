@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 13:13:33 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:01:35 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 	int				imgheight;
 	void			*img;
 
-	//vscode printf("wall.imgwidth = %d\tet\twall.imgheight = %d (truc)\n", polygon->wall.imgwidth, polygon->wall.imgheight);
 	replace_poly(polygon, player);
-	//vscode printf("test de ouf\n");
-	////vscode sleep(2);
 	color = polygon->wall.color;
 	imgwidth = polygon->wall.imgwidth;
 	imgheight = polygon->wall.imgheight;
@@ -32,7 +29,6 @@ void	reset_polygons(t_polygon *polygon, t_player player, t_data data)
 	polygon->wall.img = img;
 	polygon->wall.imgwidth = imgwidth;
 	polygon->wall.imgheight = imgheight;
-	//vscode printf("polygon->len = %f\n", polygon->len);
 	polygon->wall.color = color;
 }
 
@@ -40,31 +36,19 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 {
 	int	counter;
 
-	////vscode printf("!!! DISPL POLY !!!\n");
-	////vscode sleep(3);
-	//counter = polysetlen(node.set);
 	counter = -1;
-	////vscode printf("node.set[counter].exist = %d\n", node.set[counter + 1].exist);
-	//(void)player;
 	while (node.set[++counter].exist)
 	{
 		reset_polygons(&node.set[counter], player, *data);
-//		//vscode printf("node.set[counter].wall.leftcl.a.x = %f\ta.y = %f\nrightcl.b.x = %f\tb.y = %f\n", node.set[counter].wall.leftcl.a.x, node.set[counter].wall.leftcl.a.y, node.set[counter].wall.rightcl.b.x, node.set[counter].wall.rightcl.b.y);
-		//vscode printf("node.set[counter].dodisplay = %d\n", node.set[counter].dodisplay);
 		if (node.set[counter].dodisplay)
 			display_wall(data, node.set[counter].wall, node.set[counter], player);
 	}
-//	//vscode printf("\nLes poly du node sont passes\n");
-	////vscode sleep(4);
 }
 
 void	renderbsp(t_data *data, t_node current, t_player player)
 {
 	int		result;
 
-	//vscode printf("HOLA !!\n");
-//	if (data->nbcoldone >= data->win_width) //retirer a la correction si c pas qu point (tant pis pour l'overdrawing)
-//		return ;
 	if (current.isleaf)
 	{
 		display_polygons(data, current, player);
@@ -73,17 +57,13 @@ void	renderbsp(t_data *data, t_node current, t_player player)
 	result = classify_point(current.splitter, player.pos);
 	if (result == FRONT || result == COINCIDING)
 	{
-		//if (current.backchild->exist)
-			renderbsp(data, *current.frontchild, player);
-		//if (current.frontchild->exist)
-			renderbsp(data, *current.backchild, player);
+		renderbsp(data, *current.frontchild, player);
+		renderbsp(data, *current.backchild, player);
 	}
 	else if (result == BACK)
 	{
-		//if (current.frontchild->exist)
-			renderbsp(data, *current.backchild, player);
-		//if (current.backchild->exist)
-			renderbsp(data, *current.frontchild, player);
+		renderbsp(data, *current.backchild, player);
+		renderbsp(data, *current.frontchild, player);
 	}
 }
 

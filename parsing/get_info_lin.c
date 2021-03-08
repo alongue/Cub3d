@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:59:52 by alongcha          #+#    #+#             */
-/*   Updated: 2020/02/17 16:01:25 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:29:19 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		get_col_nbmin(char **number, int lin, int *nbcuby)
 	i = 0;
 	if (nbcuby[lin] == 0)
 		return (0);
-	////vscode printf("number[%d][%d] = %c\n", i, col, number[i][col]);
 	while (number[i][lin] == ' ')
 		i++;
 	return (i);

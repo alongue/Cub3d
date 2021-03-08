@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:44:56 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 19:49:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 19:57:02 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	bitmap(t_data *data, t_map *map)
 	int		begin_file;
 	char	*filename;
 
-    (void)map;
+	(void)map;
 	filename = ft_strdup("screen.bmp");
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	file_size = 58 + (data->win_width * data->win_height) * 4;
@@ -73,6 +73,5 @@ void	bitmap(t_data *data, t_map *map)
 	body(fd, data);
 	close(fd);
 	free(filename);
-	//get_next_line(-1, NULL, 0);
 	exit(0);
 }
