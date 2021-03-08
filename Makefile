@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2020/03/11 19:34:40 by alongcha         ###   ########.fr        #
+#    Updated: 2021/03/08 17:09:16 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,13 @@ LIBFTNAME	=	libft.a
 
 LIBMATHNAME	=	libmath.a
 
+BITMAP	=	bitmap
+
 PARSE	=	parsing
 
 BSP		=	bsp
+
+PLAYER	=	player
 
 GNL		=	get_next_line
 
@@ -31,19 +35,19 @@ MAIN	=	main.c
 BS	=	bonus
 
 SRCS	=	$(MAIN)							\
-			data.c							\
-			wall.c							\
-			raycast.c						\
-			player.c						\
-			wall_functions.c				\
-			player_move.c					\
-			player_turn.c					\
-			object.c						\
-			display_ceilfloor.c				\
-			bitmap.c					\
+			$(PARSE)/data.c					\
+			$(BSP)/wall.c					\
+			$(BSP)/raycast.c				\
+			$(PARSE)/player.c				\
+			$(BSP)/wall_functions.c			\
+			$(PLAYER)/player_move.c			\
+			$(PLAYER)/player_turn.c			\
+			$(BSP)/object.c					\
+			$(BSP)/display_ceilfloor.c		\
+			$(BITMAP)/bitmap.c				\
+			$(PARSE)/initmap.c				\
 			$(PARSE)/newparse.c				\
 			$(PARSE)/set_var_cub.c			\
-			$(PARSE)/init.c					\
 			$(PARSE)/is_surrounded.c		\
 			$(PARSE)/moving_side.c			\
 			$(PARSE)/searching_around.c		\

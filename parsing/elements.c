@@ -95,8 +95,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
     {
         if (data->texsouth != NULL)
             return (ft_putstrreti_fd("Error\nsouth texture is written too many times\n", 0, 0));
-        if (!(data->texsouth = ft_substr(line, i, INT_MAX)))
-            return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0, STDOUT_FILENO));
+        data->texsouth = ft_substr(line, i, INT_MAX);
         //printf("data->texsouth = %s\n", data->texsouth);
         //sleep(1);
     }
@@ -104,8 +103,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
     {
         if (data->texwest != NULL)
             return (ft_putstrreti_fd("Error\nwest texture is written too many times\n", 0, 0));
-        if (!(data->texwest = ft_substr(line, i, INT_MAX)))
-            return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0, STDOUT_FILENO));
+        data->texwest = ft_substr(line, i, INT_MAX);
         //printf("data->texwest = %s\n", data->texwest);
         //sleep(1);
     }
@@ -113,8 +111,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
     {
         if (data->texeast != NULL)
             return (ft_putstrreti_fd("Error\neast texture is written too many times\n", 0, 0));
-        if (!(data->texeast = ft_substr(line, i, INT_MAX)))
-            return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0, STDOUT_FILENO));
+        data->texeast = ft_substr(line, i, INT_MAX);
         //printf("data->texeast = %s\n", data->texeast);
         //sleep(1);
     }
@@ -124,8 +121,7 @@ int     set_texture(t_data *data, char *line, char *orientation)
         //sleep(1);
         if (data->sprite != NULL)
             return (ft_putstrreti_fd("Error\nsprite texture is written too many times\n", 0, 0));
-        if (!(data->sprite = ft_substr(line, i, ft_strlen(line))))
-            return (ft_putstrreti_fd("Error\nUn malloc n'a pas fonctionne\n", 0, STDOUT_FILENO));
+        data->sprite = ft_substr(line, i, ft_strlen(line));
         //printf("data->sprite = %s\n", data->sprite);
         //sleep(1);
     }
@@ -243,88 +239,79 @@ int     set_color(t_data *data, char *line)
     */
 }
 
-int     get_next_free(char *line, t_data *data, char *msg, int *fd)
+int     get_next_free(char *line, t_data *data, char *msg, int ret)
 {
     if (line)
         free(line);
     get_next_line(-1, NULL);
-    if (fd)
-    {
-        printf("fd = %d\tet\tnewfd = %d dans gnf\n", fd[0], fd[1]);
-        close(fd[0]);
-    }
-    printf("apres 1e close\n");
-    if (data && fd)
-        close(fd[1]);
     if (msg)
-        return (ft_putstrreti_fd(msg, 0,
-        free_data_stuff(STDOUT_FILENO, data))); // return 0 par defaut
+        return (ft_putstrreti_fd(msg, ret,
+        free_data_stuff(STDOUT_FILENO, data)));
     else
-        return (free_data_stuff(0, data)); // return 0 par defaut
+        return (free_data_stuff(ret, data));
+    
 }
 
 int     parse_elements(t_data *data, int fd)
 {
-    int     ret[3];
+    int     ret;
     char    *line;
+    int     newfd;
     int     counter[3];
 
-    ret[1] = fd;
-	if ((ret[0] = open(data->filename, O_RDONLY)) == -1 && close(ret[0]) == -1)
+
+	if ((newfd = open(data->filename, O_RDONLY)) == -1 && close(newfd) == -1)
 		return (ft_putstrreti_fd("Error\nLe fichier ne peut pas s'ouvrir\n", 0,
 		free_data_stuff(STDOUT_FILENO, data)));
     ft_memseti(counter, 0, 3);
-    while ((ret[2] = get_next_line(ret[0], &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
+    while ((ret = get_next_line(newfd, &line)) == 1 && (counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
     {
         if (ft_strncmp(line, "", 1) != 0)
         {
             counter[1] = counter[0];
             counter[0] += set_color(data, line);
             if (counter[1] == counter[0])
-                return (get_next_free(line, data, NULL, ret));
+                return (get_next_free(line, data, NULL, 0));
+          //vscode printf("counter elements = %d\n", counter[0]);
+            //counter[2]++;
         }
         free(line);
         counter[2]++;
       //vscode printf("counter[2] = %d\n", counter[2]);
     }
-	if (ret[2] == -1)
-        return (get_next_free(line, data, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
+	if (ret == -1)
+        return (get_next_free(line, data, "Error\nVeuillez verifier le fichier\n", 0));
     if (counter[0] != NBELEM)
-        return (get_next_free(line, data, "Error\nVeuillez verifier le nombre de parametres\n", ret));
-    get_next_free(line, NULL, NULL, ret);
-    while (--counter[2] >= 0 && (ret[2] = get_next_line(fd, &line)) != -1)
-        free(line);
-    if (ret[2] == -1)
-        return (get_next_free(line, data, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
+        return (get_next_free(line, data, "Error\nVeuillez verifier le nombre de parametres\n", 0));
+    // while (ret != 0) // essayer de faire get_next_free()
+    // {
+    //     ret = get_next_line(newfd, &line);
+    //     //free(line);
+    // }
+    get_next_free(line, NULL, NULL, 0);
+  //vscode printf("line = %s\n", line);
+    while (--counter[2] >= 0)
+    {
+        get_next_line(fd, &line);
+        //printf("line -> %s\n", line);
+        //free(line);
+    }
+  //vscode printf("fd = %d et newfd = %d\n", fd, newfd);
+    //sleep(2);
     return (1);
 }
 
-int     verify_end(int fd, t_data *data, t_map *map)
+int     verify_end(int fd)
 {
     char    *line;
-    int     ret[3];
+    int     ret;
 
-    ft_memseti(ret, 0, 3);
-    ret[0] = fd;
-    printf("ret[1] = %d\n", ret[1]);
-    while ((ret[2] = get_next_line(fd, &line)) != -1)
+    while ((ret = get_next_line(fd, &line)) != -1)
     {
-        //line[0] = 'c';
         if (!ft_isonlychar(line, " "))
-        {
-            printf("line = %s\n", line);
-            free_all_stuff(0, map, data, 0);
-            return (get_next_free(line, NULL, "Error\nLa map doit etre le dernier element\n", ret));
-        }
-        free(line);
-        printf("ret[2] = %d\n", ret[2]);
-        if (ret[2] == 0)
-        {
-            printf("ret[2] = %d\n", ret[2]);
-            get_next_free(NULL, NULL, NULL, ret);
+            return (0);
+        if (ret == 0)
             return (1);
-        }
     }
-    free_all_stuff(0, map, data, 0);
-    return (get_next_free(line, NULL, "Error\nUne erreur est survenue lors de la lecture du fichier\n", ret));
+    return (0);
 }

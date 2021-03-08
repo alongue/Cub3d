@@ -80,7 +80,7 @@ char	**recover_xtreme(int *coor, int *end, int location) // modification de max 
 	if (i == 0 && location != BLOCKED)
 		xtreme = malloc(sizeof(char *) * 1);
 	else if (location != BLOCKED)
-		xtreme = ft_realloc((void **)&xtreme, sizeof(char *) * (i + 1), sizeof(char *) * i, 0);
+		xtreme = ft_realloc(xtreme, sizeof(char *) * (i + 1));
 	temp[0] = ft_itoa(coor[1]);
 	if (coor[1] <= 9)
 		temp[0] = ft_strjoin_free(ft_strdup("0"), temp[0]);
@@ -121,8 +121,8 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	if (remind(coor[1], coor[0]) != -1)
 		return (BLOCKED);
 	recover_xtreme(coor, &coor[2], location);
-	printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);
-	printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
+	//vscode printf("location = %d\tet\toldlocation = %d\n", location, oldlocation);
+	//vscode printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 	////vscode sleep(1);
 	if (location == TOP)
 	{
@@ -189,13 +189,12 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			//vscode printf("Je m'en blk de toi !!!!!!!!!!!\n");
 			if (moving_side != BOT) //laisser le code tel quel dans une autre fonction (ca va surement marcher en fait)
 			{
-				printf("Je rentre dans (top) top\n");
+				//vscode printf("Je rentre dans (top) top\n");
 				if ((ret[0] = moving_top(map->number, coor, fakecoor, map->nbcuby)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
-					printf("ret[0] != BLOCKED\n");
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -207,12 +206,12 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}
 			if (moving_side != LEFT)
 			{
-				printf("Je rentre dans (top) right\n");
+				//vscode printf("Je rentre dans (top) right\n");
 				if ((ret[0] = moving_right(map->number, coor, fakecoor)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -225,12 +224,12 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			//vscode printf("map->parsepos[(fakecoor[0] + 1) * map->nbxmax + fakecoor[1] (avant bot) = %d\n", map->parsepos[(fakecoor[0] + 1) * map->nbxmax + fakecoor[1]]);
 			if (moving_side != TOP)
 			{
-				printf("Je rentre dans (top) bot\n");
+				//vscode printf("Je rentre dans (top) bot\n");
 				if ((ret[0] = moving_bot(map->number, coor, fakecoor, map->nbcuby)) == STOP)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -269,7 +268,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					//vscode printf("(right) right location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -295,7 +294,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					//vscode printf("(right) bot location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -320,7 +319,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			//vscode printf("(left) (apres) coor[0] = %d\tet\tcoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				//vscode printf("(right) left location = %d\tet\toldlocation = %d\n", location, oldlocation);
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
@@ -436,7 +435,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -456,7 +455,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -476,7 +475,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 					return (STOP);
 				if (ret[0] != BLOCKED)
 				{
-					//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+					map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 					oldlocation = location;
 					if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 						return ((ret[0] = ISFINISH));
@@ -510,7 +509,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -526,7 +525,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -543,7 +542,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 				return (STOP);
 			if (ret[0] != BLOCKED)
 			{
-				//map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+				map->parsepos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 				oldlocation = location;
 				if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 					return ((ret[0] = ISFINISH));
@@ -568,9 +567,9 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 			}
 		}*/
 	}
-	printf("backtrack is coming\n");
+	//vscode printf("backtrack is coming\n");
 	recover_xtreme(coor, &coor[2], BLOCKED);
-	//map->backtrackpos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
+	map->backtrackpos[fakecoor[0] * map->nbxmax + fakecoor[1]] = 1;
 	//vscode printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d (avant de backtrack)\n", fakecoor[0], fakecoor[1]);
 	//vscode printf("location = %d\tet\tTOP = %d\n", location, TOP);
 	//vscode sleep(2);

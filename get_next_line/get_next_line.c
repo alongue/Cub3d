@@ -120,12 +120,14 @@ int		get_next_line(int fd, char **line)
 		}
 		return (-1);
 	}
-	valret = (BUFFER_SIZE > 0) ? set_line(fd, line, &next, i) : -1;
+	if (BUFFER_SIZE > 0)
+		valret = set_line(fd, line, &next, i);
+	else
+		valret = -1;
 	if (next != NULL && valret == 0)
 	{
 		free(next);
 		next = NULL;
 	}
-	*line = (valret == -1) ? NULL : *line;
 	return (valret);
 }

@@ -17,8 +17,6 @@ int		ft_isonlychar(const char *main_str, const char *str)
 	int	i;
 
 	i = -1;
-	if (!main_str)
-		return (0);
 	while (main_str[++i])
 	{
 		if (ft_get_nbchar(str, main_str[i]) == 0)

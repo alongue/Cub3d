@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:03 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 17:39:25 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 19:51:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 void			move_forward(t_player *player)
 {

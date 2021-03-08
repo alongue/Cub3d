@@ -28,7 +28,7 @@ char			*ft_convert_basel(const char *nbr,
 const char *base_from, const char *base_to);
 char			*ft_ctos(char c);
 int				free_ret(int myret, ...);
-int				ft_free_ret(int ret, void **a1, void **a2, void **a3);
+int				ft_free_ret(int ret, void *a1, void *a2, void *a3);
 size_t			ft_get_nbchar(const char *str, int c);
 size_t			ft_get_nbprint(const char *str);
 size_t			ft_get_nbspace(const char *str);
@@ -61,7 +61,7 @@ void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			*ft_putstrret_fd(char *s, void *ret, int fd);
 int				ft_putstrreti_fd(char *s, int ret, int fd);
-void			*ft_realloc(void **ptr, size_t size, size_t oldsize, int dofree);
+void			*ft_realloc(void *ptr, size_t size);
 char			*ft_rmchar(const char *str, int c);
 double			ft_round(double nb);
 char			**ft_split(char const *s, char c);

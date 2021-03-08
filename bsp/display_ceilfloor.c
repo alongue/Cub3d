@@ -6,11 +6,11 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:02:24 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/12 13:13:33 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 19:48:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 int display_ceilfloor(t_data *data)
 {
