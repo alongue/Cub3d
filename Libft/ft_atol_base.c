@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:02:02 by alongcha          #+#    #+#             */
-/*   Updated: 2019/12/09 22:06:52 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:58:36 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ long		ft_atol_base(const char *str, const char *base)
 	i[0] = 0;
 	i[1] = 0;
 	i[2] = get_first_nb(str, base);
-	while (i[2] >= ft_abs(ft_offset(str)) && ft_get_nbchar(base, str[i[2]]) == 1)
+	while (i[2] >= ft_abs(ft_offset(str)) &&
+	ft_get_nbchar(base, str[i[2]]) == 1)
 	{
-		//i[2] = get_first_nb(str, base) - i[0]++;
 		result += ft_getpos(base, str[i[2]], 1) * ft_pow(size[0], i[1]++);
 		i[2] -= 1;
 	}

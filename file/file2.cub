@@ -13,7 +13,7 @@ NO textures/mur-3.xpm
 EA textures/mur-2.xpm
 WE textures/mur-4.xpm
 
-R 850 715
+R -1865           -715
 
     11111111111111111     1
    1100000000000000011111111
@@ -31,7 +31,7 @@ R 850 715
 
 
 
-
+ 
 
 
 

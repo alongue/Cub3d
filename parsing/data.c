@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 14:21:47 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 20:12:13 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:12:13 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		data_malloc(t_data *data, char **av)
 	if (!(data->coldone = malloc(sizeof(int) * data->win_width)))
 	{
 		mlx_destroy_display(data->ptr);
-		return (free_data_stuff(ft_putstrreti_fd(MALLOC, EXIT_FAILURE,
+		return (free_data(ft_putstrreti_fd(MALLOC, EXIT_FAILURE,
 		STDOUT_FILENO), data));
 	}
 	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
@@ -73,7 +73,7 @@ void	reset_data(t_data *data)
 	display_ceilfloor(data);
 }
 
-int		free_data_stuff(int ret, t_data *data)
+int		free_data(int ret, t_data *data)
 {
 	if (!data)
 		return (ret);
@@ -115,6 +115,6 @@ int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 		(void **)&map->objects);
 		ft_free_ret(ret, (void **)&map->number, NULL, NULL);
 	}
-	free_data_stuff(ret, data);
+	free_data(ret, data);
 	return (ret);
 }

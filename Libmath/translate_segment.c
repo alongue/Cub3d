@@ -6,13 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 14:44:25 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 15:45:19 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:57:37 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-int	translate_segment(t_segment *segment, double x, double y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
+int	translate_segment(t_segment *segment, double x, double y)
 {
 	int	ret;
 

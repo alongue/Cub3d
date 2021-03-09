@@ -6,16 +6,16 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 11:22:54 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/11 15:45:36 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:01:02 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-int	translate_point(t_point *point, double x, double y) // si le point en x ou en y fais faire un overflow on renvoie un chiffre d'erreur
+int	translate_point(t_point *point, double x, double y)
 {
 	int		ret;
-	int	ispos[2];
+	int		ispos[2];
 
 	ispos[0] = (point->x >= 0) ? 1 : 0;
 	ispos[1] = (point->y >= 0) ? 1 : 0;

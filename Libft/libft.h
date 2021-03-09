@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:21:36 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 12:21:25 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:19:48 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char			*ft_convert_basel(const char *nbr,
 const char *base_from, const char *base_to);
 char			*ft_ctos(char c);
 int				free_ret(int myret, ...);
-int				ft_free_ret(int ret, void *a1, void *a2, void *a3);
+int				ft_free_ret(int ret, void **a1, void **a2, void **a3);
 size_t			ft_get_nbchar(const char *str, int c);
 size_t			ft_get_nbprint(const char *str);
 size_t			ft_get_nbspace(const char *str);

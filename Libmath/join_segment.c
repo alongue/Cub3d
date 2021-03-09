@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 16:33:01 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/09 15:33:46 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:55:54 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,23 @@ t_segment	get_first_point(t_segment s1, t_segment s2)
 {
 	if (s1.a.x < s1.b.x)
 	{
-		if (s1.a.x < s2.a.x)
-			return (get_segment(s1.a, s2.b));
- 		else
-			return (get_segment(s2.a, s1.b));
+		return ((s1.a.x < s2.a.x) ? get_segment(s1.a, s2.b)
+		: get_segment(s2.a, s1.b));
 	}
 	else if (s1.a.x > s1.b.x)
 	{
-		if (s1.a.x > s2.a.x)
-			return (get_segment(s1.a, s2.b));
-		else
-			return (get_segment(s2.a, s1.b));
+		return ((s1.a.x > s2.a.x) ? get_segment(s1.a, s2.b)
+		: get_segment(s2.a, s1.b));
 	}
 	else if (s1.a.y < s1.b.y)
 	{
-		if (s1.a.y < s2.a.y)
-			return (get_segment(s1.a, s2.b));
- 		else
-			return (get_segment(s2.a, s1.b));
+		return ((s1.a.y < s2.a.y) ? get_segment(s1.a, s2.b)
+		: get_segment(s2.a, s1.b));
 	}
 	else if (s1.a.y > s1.b.y)
 	{
-		if (s1.a.y > s2.a.y)
-			return (get_segment(s1.a, s2.b));
-		else
-			return (get_segment(s2.a, s1.b));
+		return ((s1.a.y > s2.a.y) ? get_segment(s1.a, s2.b)
+		: get_segment(s2.a, s1.b));
 	}
 	return (get_segment(s1.a, s2.b));
 }

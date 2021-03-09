@@ -27,13 +27,25 @@ int	free_ret(int myret, ...)
 	return (myret);
 }
 
-int	ft_free_ret(int ret, void *a1, void *a2, void *a3)
+int	ft_free_ret(int ret, void **a1, void **a2, void **a3)
 {
-	if (a1 != NULL)
-		free(a1);
-	if (a2 != NULL)
-		free(a2);
-	if (a3 != NULL)
-		free(a3);
+	if (a1)
+		if (*a1)
+		{
+			free(*a1);
+			*a1 = NULL;
+		}
+	if (a2)
+		if (*a2)
+		{
+			free(*a2);
+			*a2 = NULL;
+		}
+	if (a3)
+		if (*a3)
+		{
+			free(*a3);
+			*a3 = NULL;
+		}
 	return (ret);
 }

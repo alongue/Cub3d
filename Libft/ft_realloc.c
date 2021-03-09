@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:22:34 by alongcha          #+#    #+#             */
-/*   Updated: 2019/12/11 20:30:08 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:17:28 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void		*ft_realloc(void *ptr, size_t size)
 {
-	void			*ptrcop;
-	//size_t			i;
+	void	*ptrcop;
 
-	//i = -1;
 	if (size == 0)
 		return (NULL);
 	if (!(ptrcop = malloc(size)))

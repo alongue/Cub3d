@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2021/03/08 17:09:16 by user42           ###   ########.fr        #
+#    Updated: 2021/03/09 20:19:09 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,10 @@ SRCS	=	$(MAIN)							\
 			$(PARSE)/utils_nbmax.c			\
 			$(PARSE)/get_info_lin.c			\
 			$(PARSE)/elements.c				\
+			$(PARSE)/mapcub.c				\
+			$(PARSE)/resolution.c			\
+			$(PARSE)/set_texture.c			\
+			$(PARSE)/set_color_value.c		\
 			$(BSP)/render_bsp.c				\
 			$(BSP)/functions_tree.c			\
 			$(BSP)/build_tree.c				\
@@ -64,6 +68,7 @@ SRCS	=	$(MAIN)							\
 			$(BSP)/malloc_set_child.c		\
 			$(BSP)/split_polygon_func.c		\
 			$(BSP)/set_best_poly_func.c		\
+			$(BSP)/choose_poly.c			\
 			$(GNL)/get_next_line.c			\
 			$(GNL)/get_next_line_utils.c
 
@@ -143,8 +148,8 @@ clean	:
 	rm -f *.o
 
 fclean	:	clean
-	make clean -C $(LIBFT)
-	make clean -C $(LIBMATH)
+	make fclean -C $(LIBFT)
+	make fclean -C $(LIBMATH)
 	make clean -C minilibx-linux
 	rm -f $(SCREENSHOT)
 	rm -f $(OBJS) $(OBJS_B)

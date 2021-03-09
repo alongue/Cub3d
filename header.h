@@ -38,6 +38,10 @@
 # define BLOCKED -1
 # define ARGUMENTS "Error\nArguments valables : \"map\".cub [--save]\n"
 # define MALLOC "Error\nUn malloc n'a pas fonctionne\n"
+# define WALL "Error\nLa map n'est pas entoure de murs\n"
+# define PLAYER "Error\nLe joueur n'a pas ete mis sur la map.\n"
+# define ERRFILE "Error\nVeuillez verifier le fichier\n"
+
 
 struct				s_data
 {
@@ -220,18 +224,22 @@ struct				s_map
 typedef struct s_map		t_map;
 
 void				bitmap(t_data *data, t_map *map);
-void				build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
-int				can_draw(t_wall wall, t_data *data, int index);
-int				can_draw_obj(t_object *object, t_data *data, int index);
+int					build_again(t_node *node, t_player player, t_data data, int *i);
+int					build_tree(t_node *node, t_polygon *set, t_player player, t_data data);
+int					can_draw(t_wall wall, t_data *data, int index);
+int					can_draw_obj(t_object *object, t_data *data, int index);
+int					check_first_part(char *line, int *i, t_data *data);
+t_polygon			choose_div_polygon(t_polygon *set);
 int					classify_point(t_polygon polygon, t_point point);
 void				clip(t_wall *wall, t_data data);
-int				cond_bot(t_map *map, int x, int y);
-int				cond_left(t_map *map, int x, int y);
-int				cond_right(t_map *map, int x, int y);
-int				cond_top(t_map *map, int x, int y);
+int					cond_bot(t_map *map, int x, int y);
+int					cond_left(t_map *map, int x, int y);
+int					cond_right(t_map *map, int x, int y);
+int					cond_top(t_map *map, int x, int y);
 unsigned int		convert_color(char *line);
 int					create_data(t_data *data, char **av, int ac);
 t_map				create_map(t_data *data, t_player *player);
+int					create_mlx_img(t_data *data);
 t_polygon			create_polybot(t_map *map, int *coor, t_data data);
 t_polygon			create_polyleft(t_map *map, int *coor, t_data data);
 t_polygon			create_polyright(t_map *map, int *coor, t_data data);
@@ -242,15 +250,18 @@ int					data_malloc(t_data *data, char **av);
 int					display_ceilfloor(t_data *data);
 int					display_object(t_data *data, t_object object, t_player player);
 int					display_wall(t_data *data, t_wall wall, t_polygon polygon, t_player player);
-int				do_display_poly(t_polygon *polygon, t_data data, t_player player);
-int				do_display_obj(t_object *object, t_data data, t_player player);
-t_polygon			get_polygon(t_polygon polygon);
+int					do_display_poly(t_polygon *polygon, t_data data, t_player player);
+int					do_display_obj(t_object *object, t_data data, t_player player);
 t_wall				dup_wall(t_wall wall);
-int					free_data_stuff(int ret, t_data *data);
+int					free_data(int ret, t_data *data);
 int					get_col_nbmax(char **number, int lin, int *nbcuby);
 int					get_col_nbmin(char **number, int lin, int *nbcuby);
+int					get_cub(t_map *map, t_player *player, t_data data, int i);
 int					get_line_nbmax(char **number, int col);
 int					get_line_nbmin(char **number, int col);
+int					get_nbcuby(t_map *map, int xmax, int nblin);
+t_polygon			get_polygon(t_polygon polygon);
+int					get_reslen(char *line);
 int					get_xtreme_location(int x, int y);
 int					get_nbxmax(int *nbcuby);
 int					get_nbymax(int *nbcuby);
@@ -258,14 +269,14 @@ t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
 void				initbe4display(t_wall *wall, int *countcol, t_data *data);
-t_map			   initmap(t_data *data, t_player *player, char **av, int ac);
-int				is_boundaries(int x, int y);
-int				is_rlly_btwn(int y, char **boundx, int max);
+t_map				initmap(t_data *data, t_player *player, char **av, int ac);
+int					is_boundaries(int x, int y);
+int					is_rlly_btwn(int y, char **boundx, int max);
 char				**get_all_boundy(int y, int *max, char **xtreme, int boundend);
 char				*get_xtreme(int x, int y);
-int				get_xtreme_x(char *xtreme);
-int				get_xtreme_y(char *xtreme);
-int				is_convex_set(t_polygon *set, t_node *node);
+int					get_xtreme_x(char *xtreme);
+int					get_xtreme_y(char *xtreme);
+int					is_convex_set(t_polygon *set, t_node *node);
 int					is_surrounded(t_map map);
 t_polygon			*malloc_backset_child(t_polygon *nodeset, t_polygon splitter);
 t_polygon			*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter);
@@ -288,9 +299,9 @@ int					polysetlen(t_polygon *set);
 t_map				putstrret_fd(char *str, t_map map, int fd);
 int					raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data);
 int					raycastfpsobj(t_object *object, t_player player, t_data data);
-int				raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
-int				raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
-int				raycastxobj(t_object *object, t_data data, t_player player);//, t_segment *segment);
+int					raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment);
+int					raycastx_img(t_player player, t_polygon *polygon, t_segment segment);
+int					raycastxobj(t_object *object, t_data data, t_player player);//, t_segment *segment);
 char				**recover_xtreme(int *coor, int *end, int location);
 void				renderbsp(t_data *data, t_node current, t_player player);
 void				renderobjects(t_data *data, t_player player, t_map map);
@@ -298,13 +309,19 @@ void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
 int					searching_around(t_map *map, int *coor, int moving_side); // je vais devoir faire un malloc sur coor
+//void				set_best_poly(t_polygon *poly, t_polygon *set,
+//float minrelation, int *leastsplits);
+int					set_color_value(t_data *data, char *line, char *letters);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 int					set_obj(t_data data, t_map *map, int i, int counter);
 void				set_delta(t_wall *wall);
-void				set_used_poly(t_polygon *set, t_polygon *current);
+void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
 void				set_player_angle(t_player *player, double angle);
 void				set_player_pos(t_player *player, double x, double z);
-void				set_north_wall(t_wall *wall, t_segment left, t_segment right);
+//void				set_ratio(int *nb, float *relation,
+int					set_resolution(t_data *data, char *line, char *c);
+int					set_texture(t_data *data, char *line, char *orientation);
+void				set_used_poly(t_polygon *set, t_polygon *current);
 void				sort_table_y(char **table, int max);
 char				**xtreme_sorted_y(int y, int *max);
 void				split_polygon(t_polygon poly, t_polygon splitter,

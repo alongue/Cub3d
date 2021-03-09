@@ -6,7 +6,7 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:16:17 by alongcha          #+#    #+#             */
-/*   Updated: 2020/03/10 15:34:55 by alongcha         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:35:35 by alongcha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void	get_prev_point(t_segment segment, t_point *point, double iterator)
 		point->y += iterator;
 		set_point_on_segy(segment, point);
 	}
-	else if (point->x >= segment.a.x && point->x <= segment.b.x && segment.a.x < segment.b.x)
+	else if (point->x >= segment.a.x &&
+	point->x <= segment.b.x && segment.a.x < segment.b.x)
 	{
 		point->x -= iterator;
 		set_point_on_segx(segment, point);
 	}
-	else if (point->x <= segment.a.x && point->x >= segment.b.x && segment.a.x > segment.b.x)
+	else if (point->x <= segment.a.x &&
+	point->x >= segment.b.x && segment.a.x > segment.b.x)
 	{
 		point->x += iterator;
 		set_point_on_segx(segment, point);

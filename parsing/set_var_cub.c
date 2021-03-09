@@ -6,11 +6,13 @@
 /*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:42:34 by alongcha          #+#    #+#             */
-/*   Updated: 2021/03/08 20:10:56 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:10:56 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
+
+#define SPRITE_NOT_LOADED "Error\nL'image ne s'est pas charge (sprite)\n"
 
 void	set_cub(t_data data, t_cub *cub, int i, int counter)
 {
@@ -41,17 +43,11 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	int	counter;
 
 	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
-	{
-		ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
-		return (0);
-	}
+		return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 	i = -1;
 	while (++i < nblin + 2)
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
-		{
-			ft_putstr_fd("Error\nLe malloc n'a pas marche\n", 0);
-			return (0);
-		}
+			return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 	i = -1;
 	counter = -1;
 	while (++i < nblin + 2)
@@ -70,15 +66,12 @@ int		set_obj(t_data data, t_map *map, int i, int counter)
 	map->nbobjects++;
 	if (!(map->objects = ft_realloc(map->objects,
 	sizeof(t_object) * map->nbobjects)))
-		return (ft_putstrreti_fd("Error\nLe malloc n'a pas marche\n", 0, 0));
+		return (ft_putstrreti_fd(MALLOC, 0, 0));
 	map->cub[i][counter].exist = 0;
 	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr,
 	data.sprite, &map->objects[map->nbobjects - 1].width,
 	&map->objects[map->nbobjects - 1].height)))
-	{
-		return (ft_putstrreti_fd(
-		"Error\nL'image ne s'est pas charge (sprite)\n", 0, 0));
-	}
+		return (ft_putstrreti_fd(SPRITE_NOT_LOADED, 0, 0));
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(
 	data.img, &map->objects[map->nbobjects - 1].bpp,
 	&map->objects[map->nbobjects - 1].size_line,
