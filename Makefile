@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2021/03/09 20:19:09 by user42           ###   ########.fr        #
+#    Updated: 2021/03/12 15:57:56 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,42 +34,55 @@ MAIN	=	main.c
 
 BS	=	bonus
 
-SRCS	=	$(MAIN)							\
-			$(PARSE)/data.c					\
-			$(BSP)/wall.c					\
-			$(BSP)/raycast.c				\
-			$(PARSE)/player.c				\
-			$(BSP)/wall_functions.c			\
-			$(PLAYER)/player_move.c			\
-			$(PLAYER)/player_turn.c			\
-			$(BSP)/object.c					\
-			$(BSP)/display_ceilfloor.c		\
-			$(BITMAP)/bitmap.c				\
-			$(PARSE)/initmap.c				\
-			$(PARSE)/newparse.c				\
-			$(PARSE)/set_var_cub.c			\
-			$(PARSE)/is_surrounded.c		\
-			$(PARSE)/moving_side.c			\
-			$(PARSE)/searching_around.c		\
-			$(PARSE)/utils.c				\
-			$(PARSE)/utils_nbmax.c			\
-			$(PARSE)/get_info_lin.c			\
-			$(PARSE)/elements.c				\
-			$(PARSE)/mapcub.c				\
-			$(PARSE)/resolution.c			\
-			$(PARSE)/set_texture.c			\
-			$(PARSE)/set_color_value.c		\
-			$(BSP)/render_bsp.c				\
-			$(BSP)/functions_tree.c			\
-			$(BSP)/build_tree.c				\
-			$(BSP)/parse_poly.c				\
-			$(BSP)/create_poly.c			\
-			$(BSP)/cond_to_create.c			\
-			$(BSP)/malloc_set_child.c		\
-			$(BSP)/split_polygon_func.c		\
-			$(BSP)/set_best_poly_func.c		\
-			$(BSP)/choose_poly.c			\
-			$(GNL)/get_next_line.c			\
+SRCS	=	$(MAIN)								\
+			$(PARSE)/data.c						\
+			$(PARSE)/player.c					\
+			$(PARSE)/initmap.c					\
+			$(PARSE)/newparse.c					\
+			$(PARSE)/set_var_cub.c				\
+			$(PARSE)/is_surrounded.c			\
+			$(PARSE)/moving_side.c				\
+			$(PARSE)/searching_around.c			\
+			$(PARSE)/utils.c					\
+			$(PARSE)/utils_nbmax.c				\
+			$(PARSE)/get_info_lin.c				\
+			$(PARSE)/elements.c					\
+			$(PARSE)/mapcub.c					\
+			$(PARSE)/resolution.c				\
+			$(PARSE)/set_texture.c				\
+			$(PARSE)/set_color_value.c			\
+			$(PARSE)/getside.c					\
+			$(PARSE)/getside2.c					\
+			$(PARSE)/sort_table_y.c				\
+			$(PARSE)/get_all_boundy.c			\
+			$(PARSE)/get_xtreme.c				\
+			$(PARSE)/xtreme_sorted.c			\
+			$(PARSE)/boundaries.c				\
+			$(PARSE)/outside_x.c				\
+			$(PARSE)/searching_around_utils.c	\
+			$(PARSE)/location_top.c				\
+			$(PARSE)/location_right.c			\
+			$(PARSE)/location_bot.c				\
+			$(PARSE)/location_left.c			\
+			$(PLAYER)/player_move.c				\
+			$(PLAYER)/player_turn.c				\
+			$(BITMAP)/bitmap.c					\
+			$(BSP)/wall.c						\
+			$(BSP)/raycast.c					\
+			$(BSP)/wall_functions.c				\
+			$(BSP)/object.c						\
+			$(BSP)/display_ceilfloor.c			\
+			$(BSP)/render_bsp.c					\
+			$(BSP)/functions_tree.c				\
+			$(BSP)/build_tree.c					\
+			$(BSP)/parse_poly.c					\
+			$(BSP)/create_poly.c				\
+			$(BSP)/cond_to_create.c				\
+			$(BSP)/malloc_set_child.c			\
+			$(BSP)/split_polygon_func.c			\
+			$(BSP)/set_best_poly_func.c			\
+			$(BSP)/choose_poly.c				\
+			$(GNL)/get_next_line.c				\
 			$(GNL)/get_next_line_utils.c
 
 OBJS	=	$(SRCS:.c=.o)

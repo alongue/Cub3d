@@ -21,7 +21,6 @@ int	free_ret(int myret, ...)
 	while ((ptr = va_arg(ap, void *)) != NULL)
 	{
 		free(ptr);
-		ptr = NULL;
 	}
 	va_end(ap);
 	return (myret);
