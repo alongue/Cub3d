@@ -58,7 +58,7 @@ int		ft_read(int fd, char **next, char *buff, unsigned int *c)
 		return (BUFFER_SIZE);
 	valret = 0;
 	if (!(bf = strdupli("")))
-		return (ft_free((void **)&next, (void **)&bf, NULL));
+		return (ft_free((void **)next, (void **)&bf, NULL));
 	counter = -1;
 	while (++counter < BUFFER_SIZE + 1)
 		buff[counter] = '\0';
@@ -66,9 +66,9 @@ int		ft_read(int fd, char **next, char *buff, unsigned int *c)
 	(valret = read(fd, buff, BUFFER_SIZE)) != 0)
 	{
 		if (valret == -1)
-			return (ft_free((void **)&next, (void **)&bf, NULL));
-		if (strjoin_free(&bf, bf, buff, valret) == -1)
-			return (ft_free((void **)&next, (void **)&bf, NULL));
+			return (ft_free((void **)next, (void **)&bf, NULL));
+		if (!strjoin_free(&bf, bf, buff, valret))
+			return (ft_free((void **)next, (void **)&bf, NULL));
 		(*c)++;
 	}
 	(*c)--;
@@ -88,20 +88,21 @@ int		set_line(int fd, char **str, char **n, unsigned int *i)
 	counter = 1;
 	if (!(restofn = strdupli(*n)))
 		if (!(restofn = strdupli("")))
-			return (ft_free((void **)&restofn, (void **)&n, (void **)&restofn));
+			return (ft_free((void **)&restofn, (void **)n, (void **)&restofn));
 	if ((valret = ft_read(fd, n, buff, &counter)) == -1)
-		return (ft_free((void **)&restofn, (void **)&n, NULL));
+		return (ft_free((void **)&restofn, (void **)n, NULL));
 	tmp[1] = *n;
 	while (tmp[1][i[0]] != '\n' && tmp[1][i[0]] != '\0')
 		i[0]++;
-	*str = ft_substr(*n, i[1], i[0] - i[1]);
-	if (!ft_ischar(restofn, '\n'))
-		strjoin_free(str, restofn, *str, -1);
+	if (!(*str = ft_substr(*n, i[1], i[0] - i[1])))
+		return (ft_free((void **)&restofn, (void **)n, NULL));
+	if (!ft_ischar(restofn, '\n') && !strjoin_free(str, restofn, *str, -1))
+		return (ft_free((void **)&restofn, (void **)n, NULL));
 	i[0]++;
-	tmp[0] = ft_substr(*n, i[0], BUFFER_SIZE * counter - i[0]);
-	free(*n);
+	if (!(tmp[0] = ft_substr(*n, i[0], BUFFER_SIZE * counter - i[0])))
+		return (ft_free((void **)n, (void **)&restofn, NULL));
+	ft_free((void **)n, (void **)&restofn, NULL);
 	*n = tmp[0];
-	free(restofn);
 	return (valret != 0);
 }
 
@@ -120,10 +121,7 @@ int		get_next_line(int fd, char **line)
 		valret = set_line(fd, line, &next, i);
 	else
 		valret = -1;
-	if (next != NULL && valret == 0)
-	{
-		free(next);
-		next = NULL;
-	}
+	if (valret == -1 || valret == 0)
+		ft_free((void **)&next, NULL, NULL);
 	return (valret);
 }

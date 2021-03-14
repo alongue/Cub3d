@@ -27,16 +27,16 @@ int			search_polyverti(t_map *map, t_data data)
 {
 	static int	i = 0;
 
-	if (cond_top(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+	if (cond_top(map, data.currentcubindex[0], data.currentcubindex[1]))
 		if ((i = do_cond_top(map, i, &data)) == -1)
 			return (i);
-	if (cond_bot(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+	if (cond_bot(map, data.currentcubindex[0], data.currentcubindex[1]))
 		if ((i = do_cond_bot(map, i, &data)) == -1)
 			return (i);
-	if (cond_right(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+	if (cond_right(map, data.currentcubindex[0], data.currentcubindex[1]))
 		if ((i = do_cond_right(map, i, &data)) == -1)
 			return (i);
-	if (cond_left(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+	if (cond_left(map, data.currentcubindex[0], data.currentcubindex[1]))
 		if ((i = do_cond_left(map, i, &data)) == -1)
 			return (i);
 	return (i);
@@ -85,12 +85,12 @@ int			parse_poly(t_map *map, t_data data)
 	int			realpolynb;
 
 	map->tree.rootnode->set = get_malloc(map, &realpolynb);
-	data.currentCubIndex[0] = -1;
-	data.currentCubIndex[1] = -1;
-	while (++data.currentCubIndex[1] < map->nbymax)
+	data.currentcubindex[0] = -1;
+	data.currentcubindex[1] = -1;
+	while (++data.currentcubindex[1] < map->nbymax)
 	{
-		data.currentCubIndex[0] = -1;
-		while (++data.currentCubIndex[0] < map->nbxmax)
+		data.currentcubindex[0] = -1;
+		while (++data.currentcubindex[0] < map->nbxmax)
 		{
 			realpolynb = search_polyverti(map, data);
 			if (iserror(map->tree.rootnode->set, realpolynb))
