@@ -64,7 +64,8 @@ int moving_side, int oldlocation)
 		oldlocation : get_location(moving_side);
 	if (remind(coor[1], coor[0]) != -1)
 		return (BLOCKED);
-	recover_xtreme(coor, &coor[2], location);
+	if (!recover_xtreme(coor, &coor[2], location))
+		return (BLOCKED);
 	return (location);
 }
 
@@ -90,6 +91,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 		ret[2] = do_location_left(params, fakecoor, coor, ret);
 	if (ret[2] == ISFINISH || ret[2] == STOP)
 		return (ret[2]);
-	recover_xtreme(coor, &coor[2], BLOCKED);
+	if (!recover_xtreme(coor, &coor[2], BLOCKED))
+		return (BLOCKED);
 	return (BLOCKED);
 }

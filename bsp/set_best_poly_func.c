@@ -12,8 +12,6 @@
 
 #include "../header.h"
 
-//tout se joue ici je crois
-
 void	set_used_poly(t_polygon *set, t_polygon *current)
 {
 	int		i;
@@ -21,7 +19,7 @@ void	set_used_poly(t_polygon *set, t_polygon *current)
 	i = 0;
 	while (set[i].exist)
 	{
-			set[i].isused = 0;
+		set[i].isused = 0;
 		if (is_same_segment(set[i].segment, current->segment))
 		{
 			set[i].isused = 1;

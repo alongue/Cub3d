@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   searching_around_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 18:11:42 by user42            #+#    #+#             */
-/*   Updated: 2021/03/12 18:11:55 by user42           ###   ########.fr       */
+/*   Created: 2021/03/12 18:11:42 by alongcha          #+#    #+#             */
+/*   Updated: 2021/03/12 18:11:55 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		remind(int x, int y)
 	int		boundend;
 	int		i;
 
-	xtreme = recover_xtreme(NULL, &boundend, 0);
+	if (!(xtreme = recover_xtreme(NULL, &boundend, 0)))
+		return (BLOCKED);
 	i = -1;
 	while (++i < boundend)
 	{

@@ -12,19 +12,16 @@
 
 #include "../header.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #define ZMIN 1
 
-void			replace_obj(t_object *object, t_player player)
+void		replace_obj(t_object *object, t_player player)
 {
 	object->newpos = dup_point(object->pos);
 	translate_point(&object->newpos, -player.x, -player.z);
 	object->newpos = set_point(object->newpos.x * cos(-player.angle)
-									- object->newpos.y * sin(-player.angle),
-									object->newpos.y * cos(-player.angle)
-							 		+ object->newpos.x * sin(-player.angle));
+								- object->newpos.y * sin(-player.angle),
+								object->newpos.y * cos(-player.angle)
+								+ object->newpos.x * sin(-player.angle));
 }
 
 int			do_display_obj(t_object *object, t_data data, t_player player)
@@ -40,7 +37,7 @@ int			do_display_obj(t_object *object, t_data data, t_player player)
 	return (object->dodisplay);
 }
 
-int	can_draw_obj(t_object *object, t_data *data, int index)
+int			can_draw_obj(t_object *object, t_data *data, int index)
 {
 	if ((!data->coldone[index] ||
 		object->fakebot - object->faketop > data->heightcol[index]))
@@ -55,23 +52,27 @@ int	can_draw_obj(t_object *object, t_data *data, int index)
 		return (0);
 }
 
-int				display_object(t_data *data, t_object object, t_player player)
+void		init_dspl_object(t_object *object, t_data *data, int *i)
+{
+	object->xiter = (object->width - 1) / (object->xendcl - object->xstart);
+	object->yiter = (object->height - 1) / (object->bot - object->top);
+	if (object->xendcl > data->win_width - 1)
+		object->xendcl = data->win_width - 1;
+	if (object->xstartcl < 0)
+		object->xstartcl = 0;
+	object->topcl = max(object->top, 0);
+	object->botcl = min(object->bot, data->win_height);
+	*i = object->xstartcl - 1;
+}
+
+int			display_object(t_data *data, t_object object)
 {
 	int		i;
 	int		ptraddr[2];
 	float	hindex;
 	float	vindex;
 
-	(void)player;
-	object.xiter = (object.width - 1) / (object.xendcl - object.xstart);
-	object.yiter = (object.height - 1) / (object.bot - object.top);
-	if (object.xendcl > data->win_width - 1)
-		object.xendcl = data->win_width - 1;
-	if (object.xstartcl < 0)
-		object.xstartcl = 0;
-	object.topcl = max(object.top, 0);
-	object.botcl = min(object.bot, data->win_height);
-	i = object.xstartcl - 1;
+	init_dspl_object(&object, data, &i);
 	while (++i < object.xendcl)
 	{
 		if (can_draw_obj(&object, data, i))
@@ -82,7 +83,8 @@ int				display_object(t_data *data, t_object object, t_player player)
 			ptraddr[1] = (int)object.botcl * data->win_width + i;
 			while (ptraddr[0] < ptraddr[1])
 			{
-				object.img_data[ptraddr[0]] = object.data_file[(int)(round(vindex) * object.width + round(hindex))];
+				object.img_data[ptraddr[0]] = object.data_file[(int)
+				(round(vindex) * object.width + round(hindex))];
 				ptraddr[0] += data->win_width;
 				vindex += object.yiter;
 			}

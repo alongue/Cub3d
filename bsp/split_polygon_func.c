@@ -23,7 +23,6 @@ t_polygon	get_polygon(t_polygon polygon)
 	poly.normal = dup_normal(polygon.normal);
 	poly.isused = polygon.isused;
 	poly.dodisplay = polygon.dodisplay;
-	poly.nbwall = polygon.nbwall;
 	poly.angle = polygon.angle;
 	poly.wall = dup_wall(polygon.wall);
 	return (poly);
@@ -36,7 +35,8 @@ void		partition_frontset(t_polygon *frontset, t_polygon *backset,
 	*backset = get_polygon(poly);
 	frontset->isused = 0;
 	backset->isused = 0;
-	split_segment_inc(poly.segment, p, &(frontset->segment), &(backset->segment));
+	split_segment_inc(poly.segment, p,
+	&(frontset->segment), &(backset->segment));
 	frontset->len = get_length(frontset->segment);
 	backset->len = get_length(backset->segment);
 }
@@ -48,7 +48,8 @@ void		partition_backset(t_polygon *frontset, t_polygon *backset,
 	*backset = get_polygon(poly);
 	frontset->isused = 0;
 	backset->isused = 0;
-	split_segment_inc(poly.segment, p, &(backset->segment), &(frontset->segment));
+	split_segment_inc(poly.segment, p,
+	&(backset->segment), &(frontset->segment));
 	frontset->len = get_length(frontset->segment);
 	backset->len = get_length(backset->segment);
 }

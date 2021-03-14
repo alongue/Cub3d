@@ -29,19 +29,23 @@ void	clip(t_wall *wall, t_data data)
 
 void	set_delta(t_wall *wall)
 {
-	wall->deltatop = (wall->rightcl.a.y - wall->leftcl.a.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
-	wall->deltabot = (wall->rightcl.b.y - wall->leftcl.b.y) / (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltatop = (wall->rightcl.a.y - wall->leftcl.a.y)
+	/ (wall->rightcl.a.x - wall->leftcl.a.x);
+	wall->deltabot = (wall->rightcl.b.y - wall->leftcl.b.y)
+	/ (wall->rightcl.a.x - wall->leftcl.a.x);
 }
 
 void	initbe4display(t_wall *wall, int *countcol, t_data *data)
 {
 	clip(wall, *data);
-	wall->img_data = (int *)mlx_get_data_addr(data->img, &wall->bpp, &wall->size_line, &wall->endian);
-	wall->data_file = (int *)mlx_get_data_addr(wall->img, &wall->bppimg, &wall->size_lineimg, &wall->endianimg);
+	wall->img_data = (int *)mlx_get_data_addr(data->img,
+	&wall->bpp, &wall->size_line, &wall->endian);
+	wall->data_file = (int *)mlx_get_data_addr(wall->img,
+	&wall->bppimg, &wall->size_lineimg, &wall->endianimg);
 	*countcol = (int)round(wall->leftcl.a.x) - 1;
 }
 
-int	can_draw(t_wall wall, t_data *data, int index)
+int		can_draw(t_wall wall, t_data *data, int index)
 {
 	if ((!data->coldone[index] ||
 		wall.bot - wall.top > data->heightcol[index]))

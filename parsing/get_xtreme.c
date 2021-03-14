@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_xtreme.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 17:44:27 by user42            #+#    #+#             */
-/*   Updated: 2021/03/12 17:44:41 by user42           ###   ########.fr       */
+/*   Created: 2021/03/12 17:44:27 by alongcha          #+#    #+#             */
+/*   Updated: 2021/03/12 17:44:41 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,8 @@ char	**recover_xtreme(int *coor, int *end, int location)
 	*end = i + 1;
 	if (!coor)
 		return (xtreme);
-	if (location != BLOCKED)
-	{
-		icop++;
-		i = icop;
-	}
-	else
-		i = remind(coor[1], coor[0]);
-	if (i == 0 && location != BLOCKED)
-		xtreme = malloc(sizeof(char *) * 1);
-	else if (location != BLOCKED)
-		xtreme = ft_realloc(xtreme, sizeof(char *) * (i + 1));
+	if ((i = init_recover_xtreme(&xtreme, &icop, coor, location)) == -1)
+		return (NULL);
 	temp[0] = ft_itoa(coor[1]);
 	if (coor[1] <= 9)
 		temp[0] = ft_strjoin_free(ft_strdup("0"), temp[0]);

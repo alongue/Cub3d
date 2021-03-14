@@ -12,7 +12,7 @@
 
 #include "../header.h"
 
-int		iserror(t_polygon *polygon, int counter)
+int			iserror(t_polygon *polygon, int counter)
 {
 	int	i;
 
@@ -23,63 +23,35 @@ int		iserror(t_polygon *polygon, int counter)
 	return (0);
 }
 
-int		search_polyverti(t_map *map, t_data data)
+int			search_polyverti(t_map *map, t_data data)
 {
 	static int	i = 0;
-	int			*x;
-	int			*y;
 
-	x = &data.currentCubIndex[0];
-	y = &data.currentCubIndex[1];
-	if (cond_top(map, *x, *y))
-	{
-		map->tree.rootnode->set[i++] = create_polytop(map, data.currentCubIndex, data);
-		map->tree.rootnode->set[i - 1].isused = 0;
-		if (iserror(map->tree.rootnode->set, i))
+	if (cond_top(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+		if ((i = do_cond_top(map, i, &data)) == -1)
 			return (i);
-	}
-	if (cond_bot(map, *x, *y))
-	{
-		map->tree.rootnode->set[i++] = create_polybot(map, data.currentCubIndex, data);
-		map->tree.rootnode->set[i - 1].isused = 0;
-		if (iserror(map->tree.rootnode->set, i))
+	if (cond_bot(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+		if ((i = do_cond_bot(map, i, &data)) == -1)
 			return (i);
-	}
-	if (cond_right(map, *x, *y))
-	{
-		map->tree.rootnode->set[i++] = create_polyright(map, data.currentCubIndex, data);
-		map->tree.rootnode->set[i - 1].isused = 0;
-		if (iserror(map->tree.rootnode->set, i))
+	if (cond_right(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+		if ((i = do_cond_right(map, i, &data)) == -1)
 			return (i);
-	}
-	if (cond_left(map, *x, *y))
-	{
-		map->tree.rootnode->set[i++] = create_polyleft(map, data.currentCubIndex, data);
-		map->tree.rootnode->set[i - 1].isused = 0;
-		if (iserror(map->tree.rootnode->set, i))
+	if (cond_left(map, data.currentCubIndex[0], data.currentCubIndex[1]))
+		if ((i = do_cond_left(map, i, &data)) == -1)
 			return (i);
-	}
 	return (i);
 }
 
 int			count(t_map *map, int x, int y, int *c)
 {
 	if (cond_top(map, x, y))
-	{
 		(*c)++;
-	}
 	if (cond_bot(map, x, y))
-	{
 		(*c)++;
-	}
 	if (cond_right(map, x, y))
-	{
 		(*c)++;
-	}
 	if (cond_left(map, x, y))
-	{
 		(*c)++;
-	}
 	return (1);
 }
 

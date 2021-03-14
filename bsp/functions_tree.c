@@ -30,7 +30,8 @@ int			classify_point(t_polygon polygon, t_point point)
 	double	realres;
 
 	testvalue = polygon.normal.xlen * point.x + polygon.normal.ylen * point.y;
-	realres = polygon.normal.xlen * polygon.segment.a.x + polygon.normal.ylen * polygon.segment.a.y;
+	realres = polygon.normal.xlen * polygon.segment.a.x +
+	polygon.normal.ylen * polygon.segment.a.y;
 	if (testvalue == realres)
 		return (COINCIDING);
 	else if (testvalue > realres)
@@ -52,15 +53,15 @@ int			get_side(t_polygon poly1, t_polygon poly2)
 		&& classify_point(poly1, b) == FRONT)
 		return (FRONT);
 	else if (classify_point(poly1, a) == BACK
-			 && classify_point(poly1, b) == BACK)
+			&& classify_point(poly1, b) == BACK)
 		return (BACK);
 	else if (classify_point(poly1, a) == COINCIDING
-			 && classify_point(poly1, b) == COINCIDING)
+			&& classify_point(poly1, b) == COINCIDING)
 		return (COINCIDING);
 	return (SPANNING);
 }
 
-int		is_convex_set(t_polygon *set, t_node *node)
+int			is_convex_set(t_polygon *set, t_node *node)
 {
 	int		i;
 	int		j;
@@ -75,10 +76,9 @@ int		is_convex_set(t_polygon *set, t_node *node)
 	{
 		j = -1;
 		while (set[++j].exist)
-			if (i != j && (side = get_side(set[i], set[j])) != FRONT && side != COINCIDING)
-			{
+			if (i != j && (side = get_side(set[i], set[j])) != FRONT
+			&& side != COINCIDING)
 				return (0);
-			}
 	}
 	if (!node)
 		return (1);
@@ -102,10 +102,10 @@ t_polygon *frontset, t_polygon *backset)
 	while ((side = classify_point(splitter, p)) == oldside)
 	{
 		oldside = side;
-			get_next_point(poly.segment, &p, 64);
+		get_next_point(poly.segment, &p, 64);
 	}
 	if (oldside == FRONT)
 		partition_frontset(frontset, backset, p, poly);
 	else if (oldside == BACK)
-		partition_backset(frontset, backset, p, poly); 
+		partition_backset(frontset, backset, p, poly);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   outside_x.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: alongcha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 17:50:59 by user42            #+#    #+#             */
-/*   Updated: 2021/03/12 17:51:14 by user42           ###   ########.fr       */
+/*   Created: 2021/03/12 17:50:59 by alongcha          #+#    #+#             */
+/*   Updated: 2021/03/12 17:51:14 by alongcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	check_outside(int *x, int y, int *i, char *map_number)
+int		check_outside(int *x, int y, int *i, char *map_number)
 {
 	int		boundend;
 	int		max;

@@ -12,15 +12,16 @@
 
 #include "../header.h"
 
-#define ZMIN 1
-
-int		raycastx(t_wall *wall, t_polygon *polygon, t_data data, t_segment *segment)
+int		raycastx(t_wall *wall, t_polygon *polygon,
+t_data data, t_segment *segment)
 {
 	t_point		tmp;
 	t_segment	tmpsegment;
 
-	wall->left.a.x = data.win_width / 2 + polygon->newsegment.a.y * data.win_width / 2 / polygon->newsegment.a.x;
-	wall->right.a.x = data.win_width / 2 + polygon->newsegment.b.y * data.win_width / 2 / polygon->newsegment.b.x;
+	wall->left.a.x = data.win_width / 2 + polygon->newsegment.a.y
+	* data.win_width / 2 / polygon->newsegment.a.x;
+	wall->right.a.x = data.win_width / 2 + polygon->newsegment.b.y
+	* data.win_width / 2 / polygon->newsegment.b.x;
 	if (wall->left.a.x > wall->right.a.x)
 	{
 		tmpsegment = dup_segment(wall->left);
@@ -45,17 +46,18 @@ int		raycastx_img(t_player player, t_polygon *polygon, t_segment segment)
 
 	polygon->newangle = polygon->angle + player.angle;
 	polygon->r = (-segment.a.x * (segment.b.x - segment.a.x)
-		 + (-segment.a.y * (segment.b.y - segment.a.y)))
+		+ (-segment.a.y * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->btobp = polygon->r * polygon->len;
 	s = (segment.a.y * (segment.b.x - segment.a.x)
-		 - (segment.a.x * (segment.b.y - segment.a.y)))
+		- (segment.a.x * (segment.b.y - segment.a.y)))
 		/ (polygon->len * polygon->len);
 	polygon->pdist = s * polygon->len;
 	return (1);
 }
 
-int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
+int		raycastfps(t_wall *wall, t_player player,
+t_polygon polygon, t_data data)
 {
 	int		ret;
 	double	res;
@@ -64,20 +66,25 @@ int			raycastfps(t_wall *wall, t_player player, t_polygon polygon, t_data data)
 	wall->leftcl = dup_segment(wall->left);
 	wall->rightcl = dup_segment(wall->right);
 	(void)res;
-	wall->leftcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.a.x;
+	wall->leftcl.b.y = player.dfoc * (data.cubside / 2)
+	/ polygon.newsegment.a.x;
 	wall->leftcl.a.y = -wall->leftcl.b.y;
 	ret = translate_segment(&wall->leftcl, 0, data.win_height / 2);
-	wall->rightcl.b.y = player.dfoc * (data.cubside / 2) / polygon.newsegment.b.x;
+	wall->rightcl.b.y = player.dfoc * (data.cubside / 2)
+	/ polygon.newsegment.b.x;
 	wall->rightcl.a.y = -wall->rightcl.b.y;
 	ret = translate_segment(&wall->rightcl, 0, data.win_height / 2);
 	return (ret);
 }
 
-int				raycastxobj(t_object *object, t_data data, t_player player)
+int		raycastxobj(t_object *object, t_data data, t_player player)
 {
-	object->xstartcl = data.win_width / 2 + ((object->newpos.y - object->width / 2) * player.dfoc) / object->newpos.x;
-	object->xmiddlecl = data.win_width / 2 + (object->newpos.y * player.dfoc) / object->newpos.x;
-	object->xendcl = data.win_width / 2 + ((object->newpos.y + object->width / 2) * player.dfoc) / object->newpos.x;
+	object->xstartcl = data.win_width / 2 +
+	((object->newpos.y - object->width / 2) * player.dfoc) / object->newpos.x;
+	object->xmiddlecl = data.win_width / 2 +
+	(object->newpos.y * player.dfoc) / object->newpos.x;
+	object->xendcl = data.win_width / 2 +
+	((object->newpos.y + object->width / 2) * player.dfoc) / object->newpos.x;
 	object->xstart = object->xstartcl;
 	if (object->xstartcl == object->xendcl ||
 		object->xendcl < 0 || object->xstartcl > data.win_width)
@@ -85,13 +92,17 @@ int				raycastxobj(t_object *object, t_data data, t_player player)
 	return (1);
 }
 
-int					raycastfpsobj(t_object *object, t_player player, t_data data)
+int		raycastfpsobj(t_object *object, t_player player, t_data data)
 {
-	object->fakebot = data.win_height / 2 + (player.dfoc * (data.cubside / 2) / object->newpos.x);
-	object->bot = data.win_height / 2 + (player.dfoc * (object->height / 2) / object->newpos.x);
+	object->fakebot = data.win_height / 2 +
+	(player.dfoc * (data.cubside / 2) / object->newpos.x);
+	object->bot = data.win_height / 2 +
+	(player.dfoc * (object->height / 2) / object->newpos.x);
 	object->bot += object->fakebot - object->bot;
-	object->faketop = data.win_height / 2 + (player.dfoc * (-data.cubside / 2) / object->newpos.x);
-	object->top = data.win_height / 2 + (player.dfoc * (-object->height / 2) / object->newpos.x);
+	object->faketop = data.win_height / 2 +
+	(player.dfoc * (-data.cubside / 2) / object->newpos.x);
+	object->top = data.win_height / 2 +
+	(player.dfoc * (-object->height / 2) / object->newpos.x);
 	object->top += object->top - object->faketop;
 	if (object->top == object->bot)
 		return (-1);

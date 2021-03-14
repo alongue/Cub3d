@@ -12,21 +12,21 @@
 
 #include "../header.h"
 
-int display_ceilfloor(t_data *data)
+int		display_ceilfloor(t_data *data)
 {
-    int x;
-    int y;
+	int x;
+	int y;
 
-    y = -1;
+	y = -1;
 	while (++y < data->win_height)
 	{
-        x = -1;
-        if (y < data->win_height / 2)
-            while (++x < data->win_width)
-                data->img_data[y * data->win_width + x] = data->colceil;
-        else
-            while (++x < data->win_width)
-                data->img_data[y * data->win_width + x] = data->colfloor;
+		x = -1;
+		if (y < data->win_height / 2)
+			while (++x < data->win_width)
+				data->img_data[y * data->win_width + x] = data->colceil;
+		else
+			while (++x < data->win_width)
+				data->img_data[y * data->win_width + x] = data->colfloor;
 	}
-    return (1);
+	return (1);
 }

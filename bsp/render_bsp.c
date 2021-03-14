@@ -41,7 +41,7 @@ void	display_polygons(t_data *data, t_node node, t_player player)
 	{
 		reset_polygons(&node.set[counter], player, *data);
 		if (node.set[counter].dodisplay)
-			display_wall(data, node.set[counter].wall, node.set[counter], player);
+			display_wall(data, node.set[counter], player);
 	}
 }
 
@@ -76,6 +76,6 @@ void	renderobjects(t_data *data, t_player player, t_map map)
 	{
 		replace_obj(&map.objects[i], player);
 		if (do_display_obj(&map.objects[i], *data, player))
-			display_object(data, map.objects[i], player);
+			display_object(data, map.objects[i]);
 	}
 }

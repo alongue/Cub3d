@@ -25,14 +25,9 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 	{
 		side = get_side(splitter, nodeset[i]);
 		if (side == FRONT || side == COINCIDING)
-		{
 			counter++;
-		}
 		else if (side == SPANNING)
-
-		{
 			counter++;
-		}
 	}
 	if (!(frontset = malloc(sizeof(t_polygon) * counter + 1)))
 		return (ft_putstrret_fd(MALLOC, NULL, STDOUT_FILENO));
@@ -55,13 +50,9 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 	{
 		side = get_side(splitter, nodeset[i]);
 		if (side == BACK)
-		{
 			counter++;
-		}
 		else if (side == SPANNING)
-		{
 			counter++;
-		}
 	}
 	if (!(backset = malloc(sizeof(t_polygon) * counter + 1)))
 		return (ft_putstrret_fd(MALLOC, NULL, STDOUT_FILENO));

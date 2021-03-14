@@ -6,7 +6,7 @@
 #    By: alongcha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/08 13:18:48 by alongcha          #+#    #+#              #
-#    Updated: 2021/03/12 15:57:56 by user42           ###   ########.fr        #
+#    Updated: 2021/03/12 15:57:56 by alongcha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS	=	$(MAIN)								\
 			$(PARSE)/location_right.c			\
 			$(PARSE)/location_bot.c				\
 			$(PARSE)/location_left.c			\
+			$(PARSE)/recover_xtreme_utils.c		\
 			$(PLAYER)/player_move.c				\
 			$(PLAYER)/player_turn.c				\
 			$(BITMAP)/bitmap.c					\
@@ -82,6 +83,8 @@ SRCS	=	$(MAIN)								\
 			$(BSP)/split_polygon_func.c			\
 			$(BSP)/set_best_poly_func.c			\
 			$(BSP)/choose_poly.c				\
+			$(BSP)/do_cond.c					\
+			$(BSP)/do_dspl_poly_utils.c			\
 			$(GNL)/get_next_line.c				\
 			$(GNL)/get_next_line_utils.c
 
