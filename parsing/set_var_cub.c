@@ -42,31 +42,51 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	int	i;
 	int	counter;
 
-	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2))))
+	if (!(map->cub = malloc(sizeof(t_cub *) * (nblin + 2 + 1))))
 		return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 	i = -1;
 	while (++i < nblin + 2)
+	{
 		if (!(map->cub[i] = malloc(sizeof(t_cub) * (xmax + 2))))
 			return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
+		map->cub[i + 1] = NULL;
+	}
 	i = -1;
 	counter = -1;
 	while (++i < nblin + 2)
 	{
 		counter = -1;
 		while (++counter < xmax + 2)
+		{
 			map->cub[i][counter].exist = 0;
+			map->cub[i][counter].x = -18;
+		}
 		map->cub[i]++;
 	}
 	map->cub++;
 	return (1);
 }
 
+int		malloc_obj(t_map *map)
+{
+	if (++map->nbobjects == 1)
+	{
+		if (!(map->objects = malloc(sizeof(t_object) * map->nbobjects)))
+			return (ft_putstrreti_fd(MALLOC, 0, 0));
+	}
+	else
+	{
+		if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) *
+		map->nbobjects, sizeof(t_object) * map->nbobjects - 1)))
+			return (ft_putstrreti_fd(MALLOC, 0, 0));
+	}
+	return (1);
+}
+
 int		set_obj(t_data data, t_map *map, int i, int counter)
 {
-	map->nbobjects++;
-	if (!(map->objects = ft_realloc(map->objects,
-	sizeof(t_object) * map->nbobjects)))
-		return (ft_putstrreti_fd(MALLOC, 0, 0));
+	if (!malloc_obj(map))
+		return (0);
 	map->cub[i][counter].exist = 0;
 	if (!(map->objects[map->nbobjects - 1].img = mlx_xpm_file_to_image(data.ptr,
 	data.sprite, &map->objects[map->nbobjects - 1].width,

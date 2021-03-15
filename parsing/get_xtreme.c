@@ -82,15 +82,15 @@ char	**recover_xtreme(int *coor, int *end, int location)
 		return (xtreme);
 	if ((i = init_recover_xtreme(&xtreme, &icop, coor, location)) == -1)
 		return (NULL);
-	temp[0] = ft_itoa(coor[1]);
-	if (coor[1] <= 9)
-		temp[0] = ft_strjoin_free(ft_strdup("0"), temp[0]);
-	temp[1] = ft_itoa(coor[0]);
-	if (coor[0] <= 9)
-		temp[1] = ft_strjoin_free(ft_strdup("0"), temp[1]);
-	if (location == BLOCKED)
-		free(xtreme[i]);
-	xtreme[i] = ft_strjoin_free(temp[0],
-	ft_strjoin_free(temp[1], ft_itoa(location)));
+	if (!(temp[0] = ft_itoa(coor[1])))
+		return (free_msg_nl(NULL, MALLOC, (void **)&xtreme, NULL));
+	if (coor[1] <= 9 && !(temp[0] = ft_strjoin_free(ft_strdup("0"), temp[0])))
+		return (free_msg_nl(NULL, MALLOC, (void **)&xtreme, NULL));
+	if (!(temp[1] = ft_itoa(coor[0])))
+		return (free_msg_nl(NULL, MALLOC, (void **)&xtreme, (void **)&temp[0]));
+	if (coor[0] <= 9 && !(temp[1] = ft_strjoin_free(ft_strdup("0"), temp[1])))
+		return (free_msg_nl(NULL, MALLOC, (void **)&xtreme, (void **)&temp[0]));
+	if (!finish_recover(location, &xtreme, temp, i))
+		return (NULL);
 	return (xtreme);
 }

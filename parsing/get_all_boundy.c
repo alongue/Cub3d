@@ -31,7 +31,7 @@ char	**get_all_boundy(int y, int *max, char **xtreme, int boundend)
 		!= (isoutsidecop = getside(y, xtreme[i], isoutside)))
 		{
 			if (k != 0)
-				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1));
+				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k);
 			boundy[k++] = ft_strdup(xtreme[i]);
 		}
 		isoutside = isoutsidecop;

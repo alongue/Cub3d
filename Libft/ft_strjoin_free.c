@@ -17,7 +17,16 @@ char	*ft_strjoin_free(char *pre, char *suf)
 	char	*tmp;
 
 	if (!(tmp = ft_strjoin(pre, suf)))
+	{
+		if (pre == suf)
+			free(pre);
+		else
+		{
+			free(pre);
+			free(suf);
+		}
 		return (NULL);
+	}
 	if (pre == suf)
 		free(pre);
 	else

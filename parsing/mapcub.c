@@ -47,8 +47,8 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	int		y[2];
 
 	x = -1;
-	if (!(map->nbcuby = malloc(sizeof(int) * xmax + 1)))
-		return (0);
+	if (!(map->nbcuby = malloc(sizeof(int) * (xmax + 1))))
+		return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 	while (++x < xmax)
 	{
 		y[0] = 0;
@@ -56,9 +56,7 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 			y[0]++;
 		y[1] = nblin - 1;
 		while (map->number[y[1]][x] == ' ' && y[1] > 0)
-		{
 			y[1]--;
-		}
 		map->nbcuby[x] = (y[1] - y[0] + 1 < 0) ? 0 : y[1] - y[0] + 1;
 	}
 	map->nbcuby[xmax] = -1;

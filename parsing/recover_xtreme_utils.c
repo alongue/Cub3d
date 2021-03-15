@@ -12,9 +12,35 @@
 
 #include "../header.h"
 
+int		free_msg_once(int ret, char *msg, void **to_free, void **to_free2)
+{
+	static int	isprinted = 0;
+
+	if (!isprinted)
+	{
+		ft_putstr_fd(msg, STDOUT_FILENO);
+		isprinted = 1;
+	}
+	return (ft_free_ret(ret, to_free, to_free2, NULL));
+}
+
+void	*free_msg_nl(void *ret, char *msg, void **to_free, void **to_free2)
+{
+	static int	isprinted = 0;
+
+	if (!isprinted)
+	{
+		ft_putstr_fd(msg, STDOUT_FILENO);
+		isprinted = 1;
+	}
+	ft_free_ret(0, to_free, to_free2, NULL);
+	return (ret);
+}
+
 int		init_recover_xtreme(char ***xtreme, int *icop, int *coor, int location)
 {
 	int		i;
+	char	**testxtreme;
 
 	if (location != BLOCKED)
 	{
@@ -25,13 +51,34 @@ int		init_recover_xtreme(char ***xtreme, int *icop, int *coor, int location)
 		return (-1);
 	if (i == 0 && location != BLOCKED)
 	{
-		if (!(*xtreme = malloc(sizeof(char *) * 1)))
-			return (-1);
+		if (!(testxtreme = malloc(sizeof(char *) * 1)))
+			return (ft_putstrreti_fd(MALLOC, -1, STDOUT_FILENO));
+		*xtreme = testxtreme;
 	}
 	else if (location != BLOCKED)
 	{
-		if (!(*xtreme = ft_realloc(*xtreme, sizeof(char *) * (i + 1))))
-			return (-1);
+		if (!(testxtreme = ft_realloc(*xtreme, sizeof(char *) * (i + 1),
+		sizeof(char *) * i)))
+			return (free_msg_once(-1, MALLOC, (void **)xtreme, NULL));
+		*xtreme = testxtreme;
 	}
 	return (i);
+}
+
+int		finish_recover(int location, char ***xtreme, char **temp, int i)
+{
+	int		counter;
+
+	counter = -1;
+	if (location == BLOCKED)
+		free((*xtreme)[i]);
+	if (!((*xtreme)[i] = ft_strjoin_free(temp[0],
+	ft_strjoin_free(temp[1], ft_itoa(location)))))
+	{
+		while (++counter < i)
+			ft_free_ret(0, (void **)&(*xtreme)[counter], NULL, NULL);
+		ft_free_ret(0, (void **)xtreme, NULL, NULL);
+		return (free_msg_once(0, MALLOC, NULL, NULL));
+	}
+	return (1);
 }

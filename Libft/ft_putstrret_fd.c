@@ -14,6 +14,7 @@
 
 void	*ft_putstrret_fd(char *s, void *ret, int fd)
 {
-	ft_putstr_fd(s, fd);
+	if (s)
+		ft_putstr_fd(s, fd);
 	return (ret);
 }

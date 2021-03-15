@@ -42,6 +42,8 @@
 # define WALL "Error\nLa map n'est pas entoure de murs\n"
 # define PLAYER "Error\nLe joueur n'a pas ete mis sur la map.\n"
 # define ERRFILE "Error\nUne erreur est survenue lors de la lecture du file\n"
+# define CHAR "Error\nUn des caracteres n'est pas valide\n"
+# define LASTELEM "Error\nLa map doit etre le dernier element\n"
 
 struct				s_data
 {
@@ -206,6 +208,7 @@ struct				s_map
 	int			exist;
 	int			*nbcuby;
 	char		**number;
+	char		**testnumber;
 	int			nbobjects;
 	int			nbxmax;
 	int			nbymax;
@@ -277,7 +280,16 @@ int moving_result, int *ret);
 int					do_moving_top(t_map *map, int *fakecoor,
 int moving_result, int *ret);
 t_wall				dup_wall(t_wall wall);
+int					finish_recover(int location, char ***xtreme,
+char **temp, int i);
+int					free_all_stuff(int ret, t_map *map, t_data *data,
+int aftercubparse);
 int					free_data(int ret, t_data *data);
+int					free_msg_once(int ret, char *msg, void **to_free,
+void **to_free2);
+void				*free_msg_nl(void *ret, char *msg, void **to_free,
+void **to_free2);
+void				*free_xtreme(void *ret, char *msg);
 int					getside(int y, char *xtreme, int oldside);
 char				**get_all_boundy(int y, int *max,
 char **xtreme, int boundend);
@@ -288,6 +300,7 @@ int					get_line_nbmax(char **number, int col);
 int					get_line_nbmin(char **number, int col);
 int					get_location(int moving_side);
 int					get_nbcuby(t_map *map, int xmax, int nblin);
+int					get_next_free(char *line, t_data *data, char *msg, int ret);
 t_polygon			get_polygon(t_polygon polygon);
 int					get_reslen(char *line);
 char				*get_xtreme(int x, int y);

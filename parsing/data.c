@@ -22,7 +22,7 @@ int		create_data(t_data *data, char **av, int ac)
 	if (ac < 2 || ac > 3 || (ac == 3 && !data->tosave))
 		return (ft_putstrreti_fd(ARGUMENTS, EXIT_FAILURE, STDOUT_FILENO));
 	if (!(data->ptr = mlx_init()))
-		return (EXIT_FAILURE);
+		return (ft_putstrreti_fd(MALLOC, EXIT_FAILURE, STDOUT_FILENO));
 	mlx_get_screen_size(data->ptr, &data->win_width, &data->win_height);
 	data->window = NULL;
 	data->img = NULL;
@@ -42,25 +42,23 @@ int		create_data(t_data *data, char **av, int ac)
 
 int		data_malloc(t_data *data, char **av)
 {
+	data->coldone = NULL;
+	data->heightcol = NULL;
+	data->filename = NULL;
 	if (!(data->coldone = malloc(sizeof(int) * data->win_width)))
 	{
-		mlx_destroy_display(data->ptr);
 		return (free_data(ft_putstrreti_fd(MALLOC, EXIT_FAILURE,
 		STDOUT_FILENO), data));
 	}
 	if (!(data->heightcol = malloc(sizeof(double) * data->win_width)))
 	{
-		mlx_destroy_display(data->ptr);
-		return (ft_free_ret(ft_putstrreti_fd(MALLOC, EXIT_FAILURE,
-		STDOUT_FILENO), (void **)&data->ptr, (void **)&data->coldone, NULL));
+		return (free_data(ft_putstrreti_fd(MALLOC, EXIT_FAILURE,
+		STDOUT_FILENO), data));
 	}
 	if (!(data->filename = ft_strdup(av[1])))
 	{
-		mlx_destroy_display(data->ptr);
-		return (ft_free_ret(ft_putstrreti_fd(MALLOC,
-		EXIT_FAILURE, STDOUT_FILENO),
-		(void **)&data->ptr, (void **)&data->coldone,
-		(void **)&data->heightcol));
+		return (free_data(ft_putstrreti_fd(MALLOC,
+		EXIT_FAILURE, STDOUT_FILENO), data));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -85,10 +83,8 @@ int		free_data(int ret, t_data *data)
 		data->img = NULL;
 	}
 	if (data->ptr)
-	{
 		mlx_destroy_display(data->ptr);
-		data->ptr = NULL;
-	}
+	ft_free_ret(ret, (void **)&data->ptr, NULL, NULL);
 	ft_free_ret(ret, (void **)&data->texnorth, (void **)&data->texsouth,
 	(void **)&data->texwest);
 	ft_free_ret(ret, (void **)&data->sprite, (void **)&data->coldone,
@@ -106,15 +102,21 @@ int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 		if (map->number)
 			while (map->number[++i])
 				ft_free_ret(0, (void **)&map->number[i], NULL, NULL);
-		i = (aftercubparse) ? -2 : -1;
+		i = -1;
 		if (map->cub)
+		{
+			if (aftercubparse)
+				map->cub--;
 			while (map->cub[++i])
+			{
+				if (aftercubparse)
+					map->cub[i]--;
 				ft_free_ret(0, (void **)&map->cub[i], NULL, NULL);
-		printf("i = %d\n", i);
+			}
+		}
 		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby,
 		(void **)&map->objects);
 		ft_free_ret(ret, (void **)&map->number, NULL, NULL);
 	}
-	free_data(ret, data);
-	return (ret);
+	return (free_data(ret, data));
 }

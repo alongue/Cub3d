@@ -41,3 +41,18 @@ int		remind(int x, int y)
 	}
 	return (-1);
 }
+
+void	*free_xtreme(void *ret, char *msg)
+{
+	char	**xtreme;
+	int		boundend;
+	int		counter;
+
+	xtreme = recover_xtreme(NULL, &boundend, 0);
+	counter = -1;
+	while (++counter < boundend)
+		free(xtreme[counter]);
+	free_msg_once(0, msg, NULL, NULL);
+	ft_free_ret(0, (void **)&xtreme, NULL, NULL);
+	return (ret);
+}

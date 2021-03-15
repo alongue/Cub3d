@@ -29,7 +29,7 @@ char	**xtreme_sorted_y(int y, int *max)
 		if (y == get_xtreme_y(xtreme[i]))
 		{
 			if (k != 0)
-				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1));
+				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k);
 			boundy[k] = ft_strdup(xtreme[i]);
 			k++;
 		}

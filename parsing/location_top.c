@@ -37,6 +37,9 @@ int		do_location_top(void **params, int *fakecoor, int *coor, int *ret)
 	int		moving_side;
 	t_map	*map;
 
+	location = 0;
+	oldlocation = 0;
+	moving_side = 0;
 	map = deref_params(params, &location, &oldlocation, &moving_side);
 	if (moving_side != BOT)
 		if ((ret[2] = do_moving_top(map, fakecoor, set_oldlocation(&oldlocation,

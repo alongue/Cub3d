@@ -35,10 +35,13 @@ int		is_surrounded(t_map map)
 	coor[1] = 0;
 	while (++coor[0] < map.nbymax)
 	{
-		strcop = ft_strtrim(map.number[coor[0]], " ");
+		if (!(strcop = ft_strtrim(map.number[coor[0]], " ")))
+			return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 		coor[1] += ft_strlen(map.number[coor[0]]);
 		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
-			return (0);
+			return (ft_putstrreti_fd(WALL, 0,
+			ft_free_ret(STDOUT_FILENO, (void **)&strcop, NULL, NULL)));
+		free(strcop);
 	}
 	ft_memseti(coor, 0, 3);
 	coor[1] = get_line_nbmin(map.number, 0);

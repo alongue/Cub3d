@@ -39,7 +39,6 @@ int		do_bot(int *coor, int *side, int *static_outside, int oldside)
 {
 	char		*b4_xtreme;
 
-	printf("coor[0] = %d\tet\tcoor[1] = %d (bot)\n", coor[0], coor[1]);
 	if (is_boundaries(coor[0], coor[1] + 1))
 	{
 		b4_xtreme = get_xtreme(coor[0], coor[1] + 1);
@@ -66,7 +65,6 @@ int		do_top(int *coor, int *side, int *static_outside, int oldside)
 {
 	char		*b4_xtreme;
 
-	printf("coor[0] = %d\tet\tcoor[1] = %d (top)\n", coor[0], coor[1]);
 	if (is_boundaries(coor[0], coor[1] - 1))
 	{
 		b4_xtreme = get_xtreme(coor[0], coor[1] - 1);

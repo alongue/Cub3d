@@ -65,6 +65,7 @@ int		check_error_elem(int fd, char *line, t_data *data, int *counter)
 	while (--counter[2] >= 0)
 	{
 		get_next_line(fd, &line);
+		free(line);
 	}
 	return (1);
 }
@@ -79,6 +80,7 @@ int		parse_elements(t_data *data, int fd)
 	ft_memseti(counter, 0, 3);
 	if ((newfd = open(data->filename, O_RDONLY)) == -1 && close(newfd) == -1)
 		return (ft_putstrreti_fd(ERRFILE, 0, free_data(STDOUT_FILENO, data)));
+	line = NULL;
 	while ((ret = get_next_line(newfd, &line)) == 1 &&
 	(counter[0] < NBELEM || ft_strncmp(line, "", 1) == 0))
 	{
@@ -105,9 +107,12 @@ int		verify_end(int fd)
 	while ((ret = get_next_line(fd, &line)) != -1)
 	{
 		if (!ft_isonlychar(line, " "))
-			return (0);
+			return (get_next_free(line, NULL, LASTELEM, 0));
 		if (ret == 0)
-			return (1);
+			return (get_next_free(line, NULL, NULL, 1));
+		ft_free_ret(0, (void **)&line, NULL, NULL);
 	}
+	if (ret == -1)
+		return (get_next_free(line, NULL, ERRFILE, 0));
 	return (0);
 }
