@@ -12,7 +12,7 @@
 
 #include "../header.h"
 
-int		get_nbxmax(int *nbcuby)
+int		get_nbxcharmax(int *nbcuby)
 {
 	int	counter;
 
@@ -20,6 +20,24 @@ int		get_nbxmax(int *nbcuby)
 	while (nbcuby[counter] != -1)
 		counter++;
 	return (counter);
+}
+
+int		get_nbxmax(char **number)
+{
+	unsigned int	max;
+	int				y;
+	char			*str;
+
+	y = -1;
+	max = 0;
+	while (number[++y])
+	{
+		str = ft_strtrim(number[y], " ");
+		if (max < ft_strlen(str))
+			max = ft_strlen(str);
+		free(str);
+	}
+	return (max);
 }
 
 int		get_nbymax(int *nbcuby)

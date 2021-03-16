@@ -68,7 +68,7 @@ t_polygon	*get_malloc(t_map *map, int *counter)
 	while (++y < map->nbymax)
 	{
 		x = -1;
-		while (++x < map->nbxmax)
+		while (++x < map->nbxcharmax)
 			count(map, x, y, counter);
 	}
 	if (!(p = malloc(sizeof(t_polygon) * *counter + 1)))
@@ -90,7 +90,7 @@ int			parse_poly(t_map *map, t_data data)
 	while (++data.currentcubindex[1] < map->nbymax)
 	{
 		data.currentcubindex[0] = -1;
-		while (++data.currentcubindex[0] < map->nbxmax)
+		while (++data.currentcubindex[0] < map->nbxcharmax)
 		{
 			realpolynb = search_polyverti(map, data);
 			if (iserror(map->tree.rootnode->set, realpolynb))

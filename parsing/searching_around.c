@@ -45,7 +45,7 @@ int *moving_side, t_map *map)
 	void	**params;
 
 	if (!(params = malloc(sizeof(void *) * 4)))
-		return (free_xtreme(NULL, MALLOC));
+		return (free_xtreme(NULL, MALLOC, 1));
 	params[0] = (void *)location;
 	params[1] = (void *)oldlocation;
 	params[2] = (void *)moving_side;
@@ -98,7 +98,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	|| !recover_xtreme(coor, &coor[2], BLOCKED)))
 	{
 		return (ft_free_ret(ret[2], (void **)&params,
-		(free_xtreme(NULL, MALLOC)), NULL));
+		(free_xtreme(NULL, WALL, (ret[2] != ISFINISH))), NULL));
 	}
-	return (BLOCKED);
+	return (ft_free_ret(BLOCKED, (void **)&params, NULL, NULL));
 }

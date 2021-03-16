@@ -36,6 +36,9 @@ int			get_number(t_map *map, int *maxlin, int *maxcol, int fd)
 	ft_free_ret(0, (void **)&map->number[*maxlin], NULL, NULL);
 	if (ret == -1)
 		return (get_next_free(NULL, NULL, ERRFILE, 0));
+	if (*maxlin < 3)
+		return (get_next_free(NULL, NULL, MAP, 0));
+	
 	return (1);
 }
 
@@ -73,7 +76,10 @@ int			verify_map(t_map *map, t_player *player, t_data *data, int nblin)
 		if (!get_cub(map, player, *data, i))
 			return (0);
 	if (!player->exist)
-		return (ft_putstrreti_fd(PLAYER, 0, 0));
+	{
+		return (ft_putstrreti_fd(PLAYER, 0,
+		free_all_stuff(0, map, data, 1)));
+	}
 	if ((data->window = mlx_new_window(data->ptr, data->win_width,
 	data->win_height, "Cub3d")) == NULL)
 		return (0);
@@ -90,7 +96,7 @@ void		init(t_map *map, t_player *player, int *xmax, int *nblin)
 	map->testnumber = NULL;
 	map->cub = NULL;
 	map->tree.rootnode = NULL;
-	map->nbxmax = -1;
+	map->nbxcharmax = -1;
 	map->nbymax = -1;
 	player->exist = 0;
 	*xmax = 0;

@@ -52,15 +52,23 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	while (++x < xmax)
 	{
 		y[0] = 0;
-		while (map->number[y[0]][x] == ' ' && y[0] < nblin)
+		printf("x = %d\n", x);
+		while (y[0] < nblin && map->number[y[0]][x] == ' ')
+		{
+			printf("map->number[%d][x] = %d\tet\tnblin = %d\n", y[0], map->number[y[0]][x], nblin);
 			y[0]++;
+		}
 		y[1] = nblin - 1;
-		while (map->number[y[1]][x] == ' ' && y[1] > 0)
+		while (y[1] > 0 && map->number[y[1]][x] == ' ')
 			y[1]--;
 		map->nbcuby[x] = (y[1] - y[0] + 1 < 0) ? 0 : y[1] - y[0] + 1;
 	}
 	map->nbcuby[xmax] = -1;
-	map->nbxmax = get_nbxmax(map->nbcuby);
+	map->nbxcharmax = get_nbxcharmax(map->nbcuby);
+	map->nbxmax = get_nbxmax(map->number);
 	map->nbymax = get_nbymax(map->nbcuby);
+	printf("map->nbxmax = %d\tet\tmap->nbymax = %d\tet\tmap->nbcuby[%d] = %d\n", map->nbxmax, map->nbymax, 4, map->nbcuby[4]);
+	if (map->nbxmax < 3)
+		return (ft_putstrreti_fd(MAP, 0, STDOUT_FILENO));
 	return (1);
 }

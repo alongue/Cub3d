@@ -40,6 +40,7 @@
 # define ARGUMENTS "Error\nArguments valables : \"map\".cub [--save]\n"
 # define MALLOC "Error\nUn malloc n'a pas fonctionne\n"
 # define WALL "Error\nLa map n'est pas entoure de murs\n"
+# define MAP "Error\nVeuillez verifier la map\n"
 # define PLAYER "Error\nLe joueur n'a pas ete mis sur la map.\n"
 # define ERRFILE "Error\nUne erreur est survenue lors de la lecture du file\n"
 # define CHAR "Error\nUn des caracteres n'est pas valide\n"
@@ -210,11 +211,11 @@ struct				s_map
 	char		**number;
 	char		**testnumber;
 	int			nbobjects;
+	int			nbxcharmax;
 	int			nbxmax;
 	int			nbymax;
 	int			height;
 	t_cub		**cub;
-	int			*lastchar;
 	t_object	*objects;
 	t_tree		tree;
 };
@@ -284,13 +285,13 @@ int					finish_recover(int location, char ***xtreme,
 char **temp, int i);
 int					free_all_stuff(int ret, t_map *map, t_data *data,
 int aftercubparse);
+int					free_boundy(int ret, char **boundy, int max, char *msg);
 int					free_data(int ret, t_data *data);
 int					free_msg_once(int ret, char *msg, void **to_free,
 void **to_free2);
 void				*free_msg_nl(void *ret, char *msg, void **to_free,
 void **to_free2);
-void				*free_xtreme(void *ret, char *msg);
-int					getside(int y, char *xtreme, int oldside);
+void				*free_xtreme(void *ret, char *msg, int can_do);
 char				**get_all_boundy(int y, int *max,
 char **xtreme, int boundend);
 int					get_col_nbmax(char **number, int lin, int *nbcuby);
@@ -307,11 +308,13 @@ char				*get_xtreme(int x, int y);
 int					get_xtreme_location(int x, int y);
 int					get_xtreme_x(char *xtreme);
 int					get_xtreme_y(char *xtreme);
-int					get_nbxmax(int *nbcuby);
+int					get_nbxcharmax(int *nbcuby);
+int					get_nbxmax(char **number);
 int					get_nbymax(int *nbcuby);
 t_player			get_player(int x, int z, int c, t_data data);
 int					get_side(t_polygon poly1, t_polygon poly2);
 void				grow_wall(t_data *data, t_wall *wall);
+int					getside(int y, char *xtreme, int oldside);
 int					init4drawing(t_data *data, t_player player,
 t_polygon *polygon, int i);
 void				initbe4display(t_wall *wall, int *countcol,
@@ -368,6 +371,7 @@ void				replace_poly(t_polygon *polygon, t_player player);
 void				replace_obj(t_object *object, t_player player);
 void				reset_data(t_data *data);
 int					searching_around(t_map *map, int *coor, int moving_side);
+char				**set_boundy(char **boundy, int *k, char **xtreme, int i);
 int					set_color_value(t_data *data, char *line, char *letters);
 void				set_cub(t_data data, t_cub *cub, int i, int counter);
 int					set_obj(t_data data, t_map *map, int i, int counter);

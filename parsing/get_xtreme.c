@@ -78,7 +78,6 @@ char	**recover_xtreme(int *coor, int *end, int location)
 	char		*temp[2];
 
 	*end = icop + 1;
-	printf("icop = %d\n", icop);
 	xtreme_addr(&xtreme, end);
 	if (!coor)
 		return (xtreme);

@@ -30,8 +30,10 @@ int		is_boundaries_to_count(int x, int y)
 int		clean(char *b4_xtreme, int *side, int *static_outside, int ret)
 {
 	free(b4_xtreme);
-	*side = BLOCKED;
-	*static_outside = BLOCKED;
+	if (side)
+		*side = BLOCKED;
+	if (static_outside)
+		*static_outside = BLOCKED;
 	return (ret);
 }
 
@@ -58,7 +60,7 @@ int		do_bot(int *coor, int *side, int *static_outside, int oldside)
 		BLOCKED && *static_outside == 1)
 			return (clean(b4_xtreme, side, static_outside, oldside));
 	}
-	return (-1);
+	return (clean(b4_xtreme, NULL, NULL, -1));
 }
 
 int		do_top(int *coor, int *side, int *static_outside, int oldside)
@@ -85,7 +87,7 @@ int		do_top(int *coor, int *side, int *static_outside, int oldside)
 		*static_outside == 1)
 			return (clean(b4_xtreme, side, static_outside, oldside));
 	}
-	return (-1);
+	return (clean(b4_xtreme, NULL, NULL, -1));
 }
 
 int		getside(int y, char *xtreme, int oldside)

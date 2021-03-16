@@ -23,16 +23,13 @@ char	**xtreme_sorted_y(int y, int *max)
 	xtreme = recover_xtreme(NULL, &boundend, 0);
 	i = -1;
 	k = 0;
-	boundy = malloc(sizeof(char *) * (k + 1));
+	if (!(boundy = malloc(sizeof(char *) * (k + 1))))
+		return (NULL);
 	while (++i < boundend)
 	{
 		if (y == get_xtreme_y(xtreme[i]))
-		{
-			if (k != 0)
-				boundy = ft_realloc(boundy, sizeof(char *) * (k + 1), sizeof(char *) * k);
-			boundy[k] = ft_strdup(xtreme[i]);
-			k++;
-		}
+			if (!(boundy = set_boundy(boundy, &k, xtreme, i)))
+				return (NULL);
 	}
 	*max = k;
 	sort_table_y(boundy, k);

@@ -14,12 +14,18 @@
 
 char	*ft_appendstr(char *s, char c)
 {
-	int	len;
+	int		len;
+	char	*test;
 
 	if (!s)
 		return (NULL);
 	len = ft_strlen(s);
-	s = ft_realloc(s, len + 2, len + 1);
+	if (!(test = ft_realloc(s, len + 2, len + 1)))
+	{
+		free(s);
+		return (NULL);
+	}
+	s = test;
 	s[len] = c;
 	s[len + 1] = '\0';
 	return (s);

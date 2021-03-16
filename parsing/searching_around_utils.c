@@ -34,20 +34,15 @@ int		remind(int x, int y)
 	if (!(xtreme = recover_xtreme(NULL, &boundend, 0)))
 		return (BLOCKED);
 	i = -1;
-	printf("boundend = %d\n", boundend);
 	while (++i < boundend)
 	{
-		printf("remind xtreme[%d] = %s\n", i, xtreme[i]);
 		if (x == get_xtreme_x(xtreme[i]) && y == get_xtreme_y(xtreme[i]))
-		{
-			printf("x=%d et y=%d ont ete trouves : xtreme[%d] = %s\n", x, y, i, xtreme[i]);
 			return (i);
-		}
 	}
 	return (-1);
 }
 
-void	*free_xtreme(void *ret, char *msg)
+void	*free_xtreme(void *ret, char *msg, int can_do)
 {
 	char	***xtreme;
 	int		boundend;
@@ -55,13 +50,20 @@ void	*free_xtreme(void *ret, char *msg)
 
 	xtreme = xtreme_addr(NULL, &boundend);
 	counter = -1;
-	if (*xtreme)
+	if (*xtreme && (can_do || can_do == 2))
+	{
+		if (can_do == 2)
+			boundend--;
 		while (++counter <= boundend)
 		{
 			printf("xtreme[%d] = %s\n", counter, (*xtreme)[counter]);
 			free((*xtreme)[counter]);
 		}
-	free_msg_once(0, msg, NULL, NULL);
-	ft_free_ret(0, (void **)xtreme, NULL, NULL);
+	}
+	if (can_do)
+	{
+		free_msg_once(0, msg, NULL, NULL);
+		ft_free_ret(0, (void **)xtreme, NULL, NULL);
+	}
 	return (ret);
 }

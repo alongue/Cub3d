@@ -19,8 +19,9 @@ int		check_outside(int *x, int y, int *i, char *map_number)
 	char	**xtreme;
 	char	**boundy;
 
-	xtreme = xtreme_sorted_y(y, &boundend);
-	boundy = get_all_boundy(y, &max, xtreme, boundend);
+	if (!(xtreme = xtreme_sorted_y(y, &boundend)) ||
+	!(boundy = get_all_boundy(y, &max, xtreme, boundend)))
+		return (ft_putstrreti_fd(MALLOC, 1, STDOUT_FILENO));
 	if (*i < max && *x == get_xtreme_x(boundy[*i]))
 	{
 		if (ft_atoi(&boundy[*i][4]) == BLOCKED)
@@ -35,9 +36,9 @@ int		check_outside(int *x, int y, int *i, char *map_number)
 	else
 	{
 		if (map_number[*x] != ' ' && !is_boundaries(*x, y))
-			return (1);
+			return (free_boundy(1, boundy, max, WALL));
 	}
-	return (0);
+	return (free_boundy(0, boundy, max, NULL));
 }
 
 int		is_outside_xboundaries(int y, t_map map)
@@ -49,6 +50,9 @@ int		is_outside_xboundaries(int y, t_map map)
 	i = 0;
 	while (++x <= get_line_nbmax(map.number, y))
 		if (check_outside(&x, y, &i, map.number[y]))
+		{
+			free_xtreme(NULL, NULL, 2);
 			return (1);
+		}
 	return (0);
 }

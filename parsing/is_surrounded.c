@@ -20,9 +20,13 @@ int		check_around(t_map map)
 	while (y < map.nbymax)
 	{
 		if (is_outside_xboundaries(y, map))
+		{
+			free_xtreme(NULL, NULL, 2);
 			return (0);
+		}
 		y++;
 	}
+	free_xtreme(NULL, NULL, 2);
 	return (1);
 }
 
@@ -39,18 +43,16 @@ int		is_surrounded(t_map map)
 			return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
 		coor[1] += ft_strlen(map.number[coor[0]]);
 		if (strcop[0] != '1' || strcop[ft_strlen(strcop) - 1] != '1')
+		{
 			return (ft_putstrreti_fd(WALL, 0,
 			ft_free_ret(STDOUT_FILENO, (void **)&strcop, NULL, NULL)));
+		}
 		free(strcop);
 	}
 	ft_memseti(coor, 0, 3);
 	coor[1] = get_line_nbmin(map.number, 0);
-	if (searching_around(&map, coor, BLOCKED) == ISFINISH)
-	{
-		if (!check_around(map))
-			return (0);
+	if (searching_around(&map, coor, BLOCKED) == ISFINISH && check_around(map))
 		return (1);
-	}
 	else
 		return (0);
 }

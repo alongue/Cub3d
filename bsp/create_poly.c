@@ -33,7 +33,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data)
 	p.normal = get_normal(cub[y][x].stop);
 	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y - 1][x].exist && !cub[y - 1][x - 1].exist)
-		&& x < map->nbxmax && y < map->nbymax)
+		&& x < map->nbxcharmax && y < map->nbymax)
 		p.segment = join_segment(p.segment, cub[y][x].stop);
 	p.len = get_length(p.segment);
 	p.wall.color = 0xFF0000;
@@ -59,7 +59,7 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data)
 	p.normal = get_normal(cub[y][x].sbot);
 	while ((cub[y][++x].exist && cub[y][x - 1].exist
 		&& !cub[y + 1][x].exist && !cub[y + 1][x - 1].exist)
-		&& x < map->nbxmax && y < map->nbymax)
+		&& x < map->nbxcharmax && y < map->nbymax)
 		p.segment = join_segment(p.segment, cub[y][x].sbot);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
@@ -85,7 +85,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data)
 	p.normal = get_normal(cub[y][x].sright);
 	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x + 1].exist && !cub[y][x + 1].exist)
-		&& x < map->nbxmax && y < map->nbymax)
+		&& x < map->nbxcharmax && y < map->nbymax)
 		p.segment = join_segment(p.segment, cub[y][x].sright);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texeast,
@@ -111,7 +111,7 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data)
 	p.normal = get_normal(cub[y][x].sleft);
 	while ((cub[++y][x].exist && cub[y - 1][x].exist
 		&& !cub[y - 1][x - 1].exist && !cub[y][x - 1].exist)
-		&& x < map->nbxmax && y < map->nbymax)
+		&& x < map->nbxcharmax && y < map->nbymax)
 		p.segment = join_segment(p.segment, cub[y][x].sleft);
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr,
