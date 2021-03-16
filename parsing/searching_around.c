@@ -89,10 +89,12 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 		ret[2] = do_location_bot(params, fakecoor, coor, ret);
 	else if (location == LEFT)
 		ret[2] = do_location_left(params, fakecoor, coor, ret);
-	if (ret[2] == ISFINISH || ret[2] == STOP)
+	if ((ret[2] == ISFINISH || ret[2] == BLOCKED || ret[2] == STOP
+	|| !recover_xtreme(coor, &coor[2], BLOCKED)))
+	{
+		printf("test\n");
 		return (ft_free_ret(ret[2], (void **)&params,
 		(free_xtreme(NULL, MALLOC)), NULL));
-	if (!recover_xtreme(coor, &coor[2], BLOCKED))
-		return (BLOCKED);
+	}
 	return (BLOCKED);
 }

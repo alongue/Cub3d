@@ -37,6 +37,21 @@ void	*free_msg_nl(void *ret, char *msg, void **to_free, void **to_free2)
 	return (ret);
 }
 
+char	***xtreme_addr(char ***xtreme, int *end)
+{
+	static char		***xtremecop;
+	static int		endcop;
+
+	if (xtreme)
+	{
+		xtremecop = xtreme;
+		endcop = *end;
+	}
+	else
+		*end = endcop;
+	return (xtremecop);
+}
+
 int		init_recover_xtreme(char ***xtreme, int *icop, int *coor, int location)
 {
 	int		i;

@@ -386,7 +386,6 @@ int *static_outside, int oldside);
 int					start_from_up(int *coor, int *side,
 int *static_outside, int oldside);
 void				sort_table_y(char **table, int max);
-char				**xtreme_sorted_y(int y, int *max);
 void				split_polygon(t_polygon poly, t_polygon splitter,
 t_polygon *frontset, t_polygon *backset);
 int					try_moving_top(char **number, int *nbcuby,
@@ -394,5 +393,7 @@ int *col, int *lin);
 void				turn_left(t_player *player);
 void				turn_right(t_player *player);
 int					verify_end(int fd);
+char				***xtreme_addr(char ***xtreme, int *end);
+char				**xtreme_sorted_y(int y, int *max);
 
 #endif

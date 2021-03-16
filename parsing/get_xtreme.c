@@ -78,6 +78,7 @@ char	**recover_xtreme(int *coor, int *end, int location)
 	char		*temp[2];
 
 	*end = i + 1;
+	xtreme_addr(&xtreme, end);
 	if (!coor)
 		return (xtreme);
 	if ((i = init_recover_xtreme(&xtreme, &icop, coor, location)) == -1)
