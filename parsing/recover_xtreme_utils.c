@@ -62,8 +62,12 @@ int		init_recover_xtreme(char ***xtreme, int *icop, int *coor, int location)
 		(*icop)++;
 		i = *icop;
 	}
-	else if ((i = remind(coor[1], coor[0])) == -1)
-		return (-1);
+	else
+	{
+		printf("est cense s'en rappeler car location = BLOCKED donc backtrack interne\n");
+		if ((i = remind(coor[1], coor[0])) == -1)
+			return (-1);
+	}
 	if (i == 0 && location != BLOCKED)
 	{
 		if (!(testxtreme = malloc(sizeof(char *) * 1)))

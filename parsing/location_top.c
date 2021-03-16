@@ -32,29 +32,38 @@ int		do_moving_top(t_map *map, int *fakecoor, int moving_result, int *ret)
 
 int		do_location_top(void **params, int *fakecoor, int *coor, int *ret)
 {
-	int		location;
-	int		oldlocation;
-	int		moving_side;
+	int		*location;
+	int		*oldlocation;
+	int		*moving_side;
 	t_map	*map;
+	int		*test;
 
-	location = 0;
-	oldlocation = 0;
-	moving_side = 0;
+	location = NULL;
+	oldlocation = NULL;
+	moving_side = NULL;
 	map = deref_params(params, &location, &oldlocation, &moving_side);
-	if (moving_side != BOT)
-		if ((ret[2] = do_moving_top(map, fakecoor, set_oldlocation(&oldlocation,
-		location, moving_top(map->number, coor, fakecoor, map->nbcuby)),
+	test = params[2];
+	printf("avant\n");
+	printf("params[2] = %d (dans do_location_top) alors que moving_side = %d\n", *test, *moving_side);
+	printf("apres\n");
+	if (*moving_side != BOT)
+		if ((ret[2] = do_moving_top(map, fakecoor, set_oldlocation(oldlocation,
+		*location, moving_top(map->number, coor, fakecoor, map->nbcuby)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != LEFT)
+	printf("moving_side = %d\n", *moving_side);
+	printf("did not move up\n");
+	if (*moving_side != LEFT)
 		if ((ret[2] = do_moving_right(map, fakecoor, set_oldlocation(
-		&oldlocation, location, moving_right(map->number, coor, fakecoor)),
+		oldlocation, *location, moving_right(map->number, coor, fakecoor)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != TOP)
-		if ((ret[2] = do_moving_bot(map, fakecoor, set_oldlocation(&oldlocation,
-		location, moving_bot(map->number, coor, fakecoor, map->nbcuby)),
+	printf("did not move right\n");
+	if (*moving_side != TOP)
+		if ((ret[2] = do_moving_bot(map, fakecoor, set_oldlocation(oldlocation,
+		*location, moving_bot(map->number, coor, fakecoor, map->nbcuby)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
+	printf("did not move down\n");
 	return (BLOCKED);
 }

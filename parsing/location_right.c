@@ -14,12 +14,14 @@
 
 int		do_moving_right(t_map *map, int *fakecoor, int moving_result, int *ret)
 {
+	printf("moving_result = %d (dans right)\n", moving_result);
 	if ((ret[0] = moving_result) == STOP)
 		return (STOP);
 	if (ret[0] != BLOCKED)
 	{
 		if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 			return ((ret[0] = ISFINISH));
+		printf("ret[0] = %d (dans right)\n", ret[0]);
 		if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH
 		|| ret[1] == STOP)
 			return (ret[1]);
@@ -31,25 +33,28 @@ int		do_moving_right(t_map *map, int *fakecoor, int moving_result, int *ret)
 
 int		do_location_right(void **params, int *fakecoor, int *coor, int *ret)
 {
-	int		location;
-	int		oldlocation;
-	int		moving_side;
+	int		*location;
+	int		*oldlocation;
+	int		*moving_side;
 	t_map	*map;
 
+	location = NULL;
+	oldlocation = NULL;
+	moving_side = NULL;
 	map = deref_params(params, &location, &oldlocation, &moving_side);
-	if (moving_side != LEFT)
+	if (*moving_side != LEFT)
 		if ((ret[2] = do_moving_right(map, fakecoor, set_oldlocation(
-		&oldlocation, location, moving_right(map->number, coor, fakecoor)),
+		oldlocation, *location, moving_right(map->number, coor, fakecoor)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != TOP)
-		if ((ret[2] = do_moving_bot(map, fakecoor, set_oldlocation(&oldlocation,
-		location, moving_bot(map->number, coor, fakecoor, map->nbcuby)),
+	if (*moving_side != TOP)
+		if ((ret[2] = do_moving_bot(map, fakecoor, set_oldlocation(oldlocation,
+		*location, moving_bot(map->number, coor, fakecoor, map->nbcuby)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != RIGHT)
+	if (*moving_side != RIGHT)
 		if ((ret[2] = do_moving_left(map, fakecoor,
-		set_oldlocation(&oldlocation, location,
+		set_oldlocation(oldlocation, *location,
 		moving_left(map->number, coor, fakecoor)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);

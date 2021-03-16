@@ -249,8 +249,8 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data);
 int					create_tree_node(t_map *map, t_data data);
 t_wall				create_wall(t_polygon poly, t_player player, t_data data);
 int					data_malloc(t_data *data, char **av);
-t_map				*deref_params(void **params, int *location,
-int *oldlocation, int *moving_side);
+t_map				*deref_params(void **params, int **location,
+int **oldlocation, int **moving_side);
 int					display_ceilfloor(t_data *data);
 int					display_object(t_data *data, t_object object);
 int					display_wall(t_data *data, t_polygon polygon,

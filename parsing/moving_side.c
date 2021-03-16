@@ -15,6 +15,9 @@
 int		moving_top(char **number, int *coor, int *fakecoor, int *nbcuby)
 {
 	(void)coor;
+	//if (fakecoor[0] != get_col_nbmin(number, fakecoor[1], nbcuby))
+	//	printf("number[fakecoor[0] - 1 = %d][fakecoor[1] = %d] = %c\tet\tget_col_nbmin(number, fakecoor[1], nbcuby) = %d\n",
+	//	fakecoor[0] - 1, fakecoor[1], number[fakecoor[0] - 1][fakecoor[1]], get_col_nbmin(number, fakecoor[1], nbcuby));
 	if (fakecoor[0] != get_col_nbmin(number, fakecoor[1], nbcuby)
 	&& number[fakecoor[0] - 1][fakecoor[1]] != ' ')
 	{
@@ -62,6 +65,7 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 		}
 		else
 		{
+			printf("STOPPP\n");
 			return (STOP);
 		}
 	else

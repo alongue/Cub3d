@@ -34,10 +34,15 @@ int		remind(int x, int y)
 	if (!(xtreme = recover_xtreme(NULL, &boundend, 0)))
 		return (BLOCKED);
 	i = -1;
+	printf("boundend = %d\n", boundend);
 	while (++i < boundend)
 	{
+		printf("remind xtreme[%d] = %s\n", i, xtreme[i]);
 		if (x == get_xtreme_x(xtreme[i]) && y == get_xtreme_y(xtreme[i]))
+		{
+			printf("x=%d et y=%d ont ete trouves : xtreme[%d] = %s\n", x, y, i, xtreme[i]);
 			return (i);
+		}
 	}
 	return (-1);
 }

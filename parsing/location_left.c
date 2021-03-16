@@ -33,25 +33,28 @@ int		do_moving_left(t_map *map, int *fakecoor, int moving_result, int *ret)
 
 int		do_location_left(void **params, int *fakecoor, int *coor, int *ret)
 {
-	int		location;
-	int		oldlocation;
-	int		moving_side;
+	int		*location;
+	int		*oldlocation;
+	int		*moving_side;
 	t_map	*map;
 
+	location = NULL;
+	oldlocation = NULL;
+	moving_side = NULL;
 	map = deref_params(params, &location, &oldlocation, &moving_side);
-	if (moving_side != RIGHT)
+	if (*moving_side != RIGHT)
 		if ((ret[2] = do_moving_left(map, fakecoor,
-		set_oldlocation(&oldlocation, location, moving_left(map->number,
+		set_oldlocation(oldlocation, *location, moving_left(map->number,
 		coor, fakecoor)), ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != BOT)
-		if ((ret[2] = do_moving_top(map, fakecoor, set_oldlocation(&oldlocation,
-		location, moving_top(map->number, coor, fakecoor, map->nbcuby)),
+	if (*moving_side != BOT)
+		if ((ret[2] = do_moving_top(map, fakecoor, set_oldlocation(oldlocation,
+		*location, moving_top(map->number, coor, fakecoor, map->nbcuby)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
-	if (moving_side != LEFT)
+	if (*moving_side != LEFT)
 		if ((ret[2] = do_moving_right(map, fakecoor, set_oldlocation(
-		&oldlocation, location, moving_right(map->number, coor, fakecoor)),
+		oldlocation, *location, moving_right(map->number, coor, fakecoor)),
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
 	return (BLOCKED);

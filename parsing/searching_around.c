@@ -24,14 +24,14 @@ int		set_oldlocation(int *oldlocation, int location, int condition)
 	return (condition);
 }
 
-t_map	*deref_params(void **params, int *location,
-int *oldlocation, int *moving_side)
+t_map	*deref_params(void **params, int **location,
+int **oldlocation, int **moving_side)
 {
 	t_map	*map;
 
-	location = (int *)params[0];
-	oldlocation = (int *)params[1];
-	moving_side = (int *)params[2];
+	*location = (int *)params[0];
+	*oldlocation = (int *)params[1];
+	*moving_side = (int *)params[2];
 	map = (t_map *)params[3];
 	(void)location;
 	(void)oldlocation;
@@ -62,6 +62,7 @@ int moving_side, int oldlocation)
 	fakecoor[1] = coor[1];
 	location = (get_location(moving_side) == BLOCKED) ?
 		oldlocation : get_location(moving_side);
+	printf("n'est pas cense etre trouve car l'avancement continue\n");
 	if (remind(coor[1], coor[0]) != -1)
 		return (BLOCKED);
 	if (!recover_xtreme(coor, &coor[2], location))
@@ -75,12 +76,15 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	static int	oldlocation = TOP;
 	int			fakecoor[2];
 	int			ret[3];
+	int			*test;
 	void		**params;
 
 	if ((location = init_searching_around(fakecoor,
 	coor, moving_side, oldlocation)) == BLOCKED || !(params =
 	get_params(&location, &oldlocation, &moving_side, map)))
 		return (BLOCKED);
+	test = params[2];
+	printf("moving_side (juste apres) = %d soit params[2] = %d\n", moving_side, *test);
 	if (location == TOP)
 		ret[2] = do_location_top(params, fakecoor, coor, ret);
 	else if (location == RIGHT)
@@ -89,10 +93,10 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 		ret[2] = do_location_bot(params, fakecoor, coor, ret);
 	else if (location == LEFT)
 		ret[2] = do_location_left(params, fakecoor, coor, ret);
-	if ((ret[2] == ISFINISH || ret[2] == BLOCKED || ret[2] == STOP
+	printf("ret[2] = %d\n", ret[2]);
+	if ((ret[2] == ISFINISH || ret[2] == STOP
 	|| !recover_xtreme(coor, &coor[2], BLOCKED)))
 	{
-		printf("test\n");
 		return (ft_free_ret(ret[2], (void **)&params,
 		(free_xtreme(NULL, MALLOC)), NULL));
 	}
