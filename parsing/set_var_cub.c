@@ -57,10 +57,7 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 	{
 		counter = -1;
 		while (++counter < xmax + 2)
-		{
 			map->cub[i][counter].exist = 0;
-			map->cub[i][counter].x = -18;
-		}
 		map->cub[i]++;
 	}
 	map->cub++;
@@ -69,6 +66,9 @@ int		offset_ptrcub(t_map *map, int nblin, int xmax)
 
 int		malloc_obj(t_map *map)
 {
+	t_object		*testobjects;
+
+	testobjects = NULL;
 	if (++map->nbobjects == 1)
 	{
 		if (!(map->objects = malloc(sizeof(t_object) * map->nbobjects)))
@@ -76,9 +76,10 @@ int		malloc_obj(t_map *map)
 	}
 	else
 	{
-		if (!(map->objects = ft_realloc(map->objects, sizeof(t_object) *
-		map->nbobjects, sizeof(t_object) * map->nbobjects - 1)))
+		if (!(testobjects = ft_realloc(map->objects, sizeof(t_object) *
+		map->nbobjects, sizeof(t_object) * (map->nbobjects - 1))))
 			return (ft_putstrreti_fd(MALLOC, 0, 0));
+		map->objects = testobjects;
 	}
 	return (1);
 }

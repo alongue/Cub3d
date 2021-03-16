@@ -74,15 +74,18 @@ int			verify_map(t_map *map, t_player *player, t_data *data, int nblin)
 		return (free_all_stuff(0, map, data, 1));
 	while (++i < nblin)
 		if (!get_cub(map, player, *data, i))
-			return (0);
+			return (free_all_stuff(0, map, data, 1));
 	if (!player->exist)
 	{
-		return (ft_putstrreti_fd(PLAYER, 0,
-		free_all_stuff(0, map, data, 1)));
+		return (free_all_stuff(0, map, data,
+		free_player(1, player, PLAYER)));
 	}
 	if ((data->window = mlx_new_window(data->ptr, data->win_width,
 	data->win_height, "Cub3d")) == NULL)
-		return (0);
+	{	
+		return (free_all_stuff(0, map, data,
+		free_player(1, player, MALLOC)));
+	}
 	map->exist = 1;
 	return (1);
 }

@@ -92,6 +92,27 @@ int		free_data(int ret, t_data *data)
 	return (ret);
 }
 
+int		free_map_objects(int ret, t_map *map, t_data *data)
+{
+	int		i;
+
+	i = -1;
+	if (map->objects)
+	{
+		while (++i < map->nbobjects)
+		{
+			if (map->objects[i].img)
+			{
+				printf("test\n");
+				mlx_destroy_image(data->ptr, map->objects[i].img);
+				map->objects[i].img = NULL;
+			}
+		}
+	}
+	ft_free_ret(0, (void **)&map->objects, NULL, NULL);
+	return (ret);
+}
+
 int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 {
 	int		i;
@@ -102,7 +123,7 @@ int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 		if (map->number)
 			while (map->number[++i])
 				ft_free_ret(0, (void **)&map->number[i], NULL, NULL);
-		i = -1;
+		i = free_map_objects(-1, map, data);
 		if (map->cub)
 		{
 			if (aftercubparse)
@@ -114,8 +135,7 @@ int		free_all_stuff(int ret, t_map *map, t_data *data, int aftercubparse)
 				ft_free_ret(0, (void **)&map->cub[i], NULL, NULL);
 			}
 		}
-		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby,
-		(void **)&map->objects);
+		ft_free_ret(ret, (void **)&map->cub, (void **)&map->nbcuby, NULL);
 		ft_free_ret(ret, (void **)&map->number, NULL, NULL);
 	}
 	return (free_data(ret, data));

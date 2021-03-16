@@ -21,7 +21,7 @@ static double	*create_ray(t_data data, int *do_exist, double dfoc)
 
 	*do_exist = 0;
 	if (!(angle = malloc(sizeof(double) * data.win_width)))
-		return (ft_putstrret_fd("Error\nLe malloc n'a pas marche\n", 0, 0));
+		return (ft_putstrret_fd(MALLOC, NULL, 0));
 	i = -1;
 	while (++i < data.win_width)
 		angle[i] = atan(((data.win_width / 2) - (double)i) / dfoc);
@@ -33,6 +33,7 @@ t_player		get_player(int x, int z, int c, t_data data)
 {
 	t_player	player;
 
+	player.exist = 0;
 	if (c == 'N')
 		player.angle = to_rad(270.);
 	else if (c == 'S')
@@ -48,10 +49,18 @@ t_player		get_player(int x, int z, int c, t_data data)
 	player.speed = 200;
 	player.sensi = 200;
 	player.fieldvis = to_rad(90.);
-	player.exist = 1;
 	player.dfoc = data.win_width / 2 / tan(player.fieldvis / 2);
-	player.angleray = create_ray(data,
-	&player.exist, player.dfoc);
+	if (!(player.angleray = create_ray(data,
+	&player.exist, player.dfoc)))
+		return (player);
 	player.exist = 1;
 	return (player);
+}
+
+int				free_player(int ret, t_player *player, char *msg)
+{
+	ft_putstr_fd(msg, STDOUT_FILENO);
+	if (player->exist)
+		return (ft_free_ret(ret, (void **)&player->angleray, NULL, NULL));
+	return (ret);
 }

@@ -23,16 +23,15 @@ int			get_cub(t_map *map, t_player *player, t_data data, int i)
 			set_cub(data, &map->cub[i][counter], i, counter);
 		else if (map->number[i][counter] == '2' &&
 		!set_obj(data, map, i, counter))
-			return (0);
+			return (free_player(0, player, NULL));
 		else if (ft_get_nbchar("SNEW", map->number[i][counter]) == 1)
 		{
 			if (player->exist)
-			{
-				return (ft_putstrreti_fd(
-				"Error\nUn seul joueur est accepte sur la map.\n", 0, 0));
-			}
+				return (free_player(0, player, PLAYERS));
 			*player = get_player(counter * data.cubside, i *
 			data.cubside, map->number[i][counter], data);
+			if (!player->exist)
+				return (free_player(0, player, NULL));
 			map->cub[i][counter].exist = 0;
 		}
 		else
@@ -52,12 +51,8 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	while (++x < xmax)
 	{
 		y[0] = 0;
-		printf("x = %d\n", x);
 		while (y[0] < nblin && map->number[y[0]][x] == ' ')
-		{
-			printf("map->number[%d][x] = %d\tet\tnblin = %d\n", y[0], map->number[y[0]][x], nblin);
 			y[0]++;
-		}
 		y[1] = nblin - 1;
 		while (y[1] > 0 && map->number[y[1]][x] == ' ')
 			y[1]--;

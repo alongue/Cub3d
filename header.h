@@ -42,6 +42,7 @@
 # define WALL "Error\nLa map n'est pas entoure de murs\n"
 # define MAP "Error\nVeuillez verifier la map\n"
 # define PLAYER "Error\nLe joueur n'a pas ete mis sur la map.\n"
+# define PLAYERS "Error\nUn seul joueur est accepte sur la map.\n"
 # define ERRFILE "Error\nUne erreur est survenue lors de la lecture du file\n"
 # define CHAR "Error\nUn des caracteres n'est pas valide\n"
 # define LASTELEM "Error\nLa map doit etre le dernier element\n"
@@ -291,6 +292,7 @@ int					free_msg_once(int ret, char *msg, void **to_free,
 void **to_free2);
 void				*free_msg_nl(void *ret, char *msg, void **to_free,
 void **to_free2);
+int					free_player(int ret, t_player *player, char *msg);
 void				*free_xtreme(void *ret, char *msg, int can_do);
 char				**get_all_boundy(int y, int *max,
 char **xtreme, int boundend);
