@@ -87,8 +87,8 @@ int		main(int ac, char **av)
 		return (free_all_stuff(EXIT_FAILURE, &map, &data, 1));
 	renderbsp(&data, *map.tree.rootnode, player);
 	renderobjects(&data, player, map);
-	if (data.tosave && !bitmap(&data, &player))
-		return (free_all_stuff(EXIT_FAILURE, &map, &data, 1));
+	if (data.tosave)
+		return (free_all_stuff(bitmap(&data, &player), &map, &data, 1));
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);
 	params[0] = (void *)&data;
 	params[1] = (void *)&map;

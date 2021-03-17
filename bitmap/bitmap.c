@@ -62,11 +62,10 @@ int		bitmap(t_data *data, t_player *player)
 
 	if (!(filename = ft_strdup("screen.bmp")))
 		return (free_player(0, player, MALLOC));
-	if ((fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644) == -1)
-	&& close(fd) == -1)
+	if ((fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644)) == -1)
 	{
 		free(filename);
-		return (free_player(0, player, ERRFILE));
+		return (free_player(EXIT_FAILURE, player, ERRFILE));
 	}
 	file_size = 58 + (data->win_width * data->win_height) * 4;
 	begin_file = 58;
@@ -78,5 +77,5 @@ int		bitmap(t_data *data, t_player *player)
 	body(fd, data);
 	close(fd);
 	free(filename);
-	return (1);
+	return (free_player(EXIT_SUCCESS, player, NULL));
 }
