@@ -14,12 +14,10 @@
 
 int		do_moving_bot(t_map *map, int *fakecoor, int moving_result, int *ret)
 {
-	printf("moving_result = %d (dans bot)\n", moving_result);
 	if ((ret[0] = moving_result) == STOP)
 		return (STOP);
 	if (ret[0] != BLOCKED)
 	{
-		printf("fakecoor[0] = %d\tet\tfakecoor[1] = %d\n", fakecoor[0], fakecoor[1]);
 		if ((fakecoor[0] == 0 && fakecoor[1] == get_line_nbmin(map->number, 0)))
 			return ((ret[0] = ISFINISH));
 		if ((ret[1] = searching_around(map, fakecoor, ret[0])) == ISFINISH
@@ -48,9 +46,8 @@ int		do_location_bot(void **params, int *fakecoor, int *coor, int *ret)
 		ret)) == ISFINISH || ret[2] == STOP)
 			return (ret[2]);
 	if (*moving_side != RIGHT)
-		if ((ret[2] = do_moving_left(map, fakecoor,
-		set_oldlocation(oldlocation, *location,
-		moving_left(map->number, coor, fakecoor)), ret))
+		if ((ret[2] = do_moving_left(map, fakecoor, set_oldlocation(oldlocation,
+		*location, moving_left(map->number, coor, fakecoor)), ret))
 		== ISFINISH || ret[2] == STOP)
 			return (ret[2]);
 	if (*moving_side != BOT)

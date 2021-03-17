@@ -222,7 +222,7 @@ struct				s_map
 };
 typedef struct s_map		t_map;
 
-void				bitmap(t_data *data, t_map *map);
+int					bitmap(t_data *data, t_player *player);
 int					build_again(t_node *node,
 t_player player, t_data data, int *i);
 int					build_tree(t_node *node,
@@ -243,7 +243,7 @@ int					cond_top(t_map *map, int x, int y);
 unsigned int		convert_color(char *line);
 int					create_data(t_data *data, char **av, int ac);
 t_map				create_map(t_data *data, t_player *player);
-int					create_mlx_img(t_data *data);
+int					create_mlx_img(t_data *data, char *line, int end);
 t_polygon			create_polybot(t_map *map, int *coor, t_data data);
 t_polygon			create_polyleft(t_map *map, int *coor, t_data data);
 t_polygon			create_polyright(t_map *map, int *coor, t_data data);
@@ -293,6 +293,7 @@ void **to_free2);
 void				*free_msg_nl(void *ret, char *msg, void **to_free,
 void **to_free2);
 int					free_player(int ret, t_player *player, char *msg);
+void				free_treenode(t_node **node, t_data *data);
 void				*free_xtreme(void *ret, char *msg, int can_do);
 char				**get_all_boundy(int y, int *max,
 char **xtreme, int boundend);

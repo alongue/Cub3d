@@ -63,6 +63,7 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data)
 		p.segment = join_segment(p.segment, cub[y][x].sbot);
 	p.len = get_length(p.segment);
 	p.wall.color = 0x00FF00;
+	(void)data;
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texsouth,
 	&p.wall.imgwidth, &p.wall.imgheight)))
 		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (bot)\n"));

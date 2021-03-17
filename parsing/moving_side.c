@@ -62,7 +62,6 @@ int		moving_bot(char **number, int *coor, int *fakecoor, int *nbcuby)
 		}
 		else
 		{
-			printf("STOPPP\n");
 			return (STOP);
 		}
 	else

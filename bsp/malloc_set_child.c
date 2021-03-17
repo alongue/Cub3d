@@ -29,11 +29,15 @@ t_polygon	*malloc_frontset_child(t_polygon *nodeset, t_polygon splitter)
 		else if (side == SPANNING)
 			counter++;
 	}
-	if (!(frontset = malloc(sizeof(t_polygon) * counter + 1)))
-		return (ft_putstrret_fd(MALLOC, NULL, STDOUT_FILENO));
+	if (!(frontset = malloc(sizeof(t_polygon) * (counter + 1))))
+		return (NULL);
 	frontset[counter].exist = 0;
+	frontset[counter].wall.img = NULL;
 	while (--counter >= 0)
+	{
 		frontset[counter].exist = 1;
+		frontset[counter].wall.img = NULL;
+	}
 	return (frontset);
 }
 
@@ -54,10 +58,14 @@ t_polygon	*malloc_backset_child(t_polygon *nodeset, t_polygon splitter)
 		else if (side == SPANNING)
 			counter++;
 	}
-	if (!(backset = malloc(sizeof(t_polygon) * counter + 1)))
-		return (ft_putstrret_fd(MALLOC, NULL, STDOUT_FILENO));
+	if (!(backset = malloc(sizeof(t_polygon) * (counter + 1))))
+		return (NULL);
 	backset[counter].exist = 0;
+	backset[counter].wall.img = NULL;
 	while (--counter >= 0)
+	{
 		backset[counter].exist = 1;
+		backset[counter].wall.img = NULL;
+	}
 	return (backset);
 }

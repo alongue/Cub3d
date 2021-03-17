@@ -14,7 +14,6 @@
 
 int		onexit(void **p)
 {
-	int			ret;
 	t_data		*data;
 	t_map		*map;
 	t_player	*player;
@@ -22,12 +21,8 @@ int		onexit(void **p)
 	data = (t_data *)p[0];
 	map = (t_map *)p[1];
 	player = (t_player *)p[2];
-	(void)player;
-	ret = 0;
-	(void)data;
-	(void)map;
-	exit(ret);
-	return (ret);
+	exit(free_all_stuff(free_player(0, player, NULL),
+	map, data, 1));
 }
 
 int		onkeypressed(int key, void **p)
@@ -59,30 +54,47 @@ int		onkeypressed(int key, void **p)
 	return (0);
 }
 
+void	**get_params_main(t_data *data, t_player *player, t_map *map)
+{
+	void	**params;
+
+	if (!(params = malloc(sizeof(void *) * 3)))
+	{
+		free_all_stuff(0, map, data, 1);
+		free_player(0, player, MALLOC);
+		return (NULL);
+	}
+	params[0] = (void *)data;
+	params[1] = (void *)player;
+	params[2] = (void *)map;
+	return (params);
+}
+
 int		main(int ac, char **av)
 {
 	t_data		data;
 	t_player	player;
 	t_map		map;
-	void		*param[3];
+	void		*params[3];
 
 	map = initmap(&data, &player, av, ac);
 	if (!map.exist)
 		return (EXIT_FAILURE);
 	if (!create_tree_node(&map, data))
-		return (EXIT_FAILURE);
-	if (!build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data))
-		return (EXIT_FAILURE);
+		return (free_player(EXIT_FAILURE, &player, NULL));
+	if (!build_tree(map.tree.rootnode, map.tree.rootnode->set, player, data)
+	&& free_player(1, &player, NULL))
+		return (free_all_stuff(EXIT_FAILURE, &map, &data, 1));
 	renderbsp(&data, *map.tree.rootnode, player);
 	renderobjects(&data, player, map);
-	if (data.tosave)
-		bitmap(&data, &map);
+	if (data.tosave && !bitmap(&data, &player))
+		return (free_all_stuff(EXIT_FAILURE, &map, &data, 1));
 	mlx_put_image_to_window(data.ptr, data.window, data.img, 0, 0);
-	param[0] = (void *)&data;
-	param[1] = (void *)&map;
-	param[2] = (void *)&player;
-	mlx_hook(data.window, 2, (1L << 0), onkeypressed, param);
-	mlx_hook(data.window, 33, (1L << 17), onexit, param);
+	params[0] = (void *)&data;
+	params[1] = (void *)&map;
+	params[2] = (void *)&player;
+	mlx_hook(data.window, 2, (1L << 0), onkeypressed, params);
+	mlx_hook(data.window, 33, (1L << 17), onexit, params);
 	mlx_loop(data.ptr);
 	return (EXIT_SUCCESS);
 }

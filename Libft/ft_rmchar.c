@@ -24,7 +24,7 @@ char		*ft_rmchar(const char *str, int c)
 	nb = ft_get_nbchar(str, c);
 	if (str == NULL || nb == 0)
 		return (ft_strdup(str));
-	if (!(s = (char *)malloc(sizeof(char) * ft_strlen(str) - nb + 1)))
+	if (!(s = (char *)malloc(sizeof(char) * (ft_strlen(str) - nb + 1))))
 		return (ft_strdup(str));
 	while (str[++counter])
 	{

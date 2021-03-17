@@ -56,7 +56,6 @@ void	*free_xtreme(void *ret, char *msg, int can_do)
 			boundend--;
 		while (++counter <= boundend)
 		{
-			printf("xtreme[%d] = %s\n", counter, (*xtreme)[counter]);
 			free((*xtreme)[counter]);
 		}
 	}

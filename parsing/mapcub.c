@@ -62,7 +62,6 @@ int			get_nbcuby(t_map *map, int xmax, int nblin)
 	map->nbxcharmax = get_nbxcharmax(map->nbcuby);
 	map->nbxmax = get_nbxmax(map->number);
 	map->nbymax = get_nbymax(map->nbcuby);
-	printf("map->nbxmax = %d\tet\tmap->nbymax = %d\tet\tmap->nbcuby[%d] = %d\n", map->nbxmax, map->nbymax, 4, map->nbcuby[4]);
 	if (map->nbxmax < 3)
 		return (ft_putstrreti_fd(MAP, 0, STDOUT_FILENO));
 	return (1);

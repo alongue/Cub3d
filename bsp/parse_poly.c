@@ -71,12 +71,13 @@ t_polygon	*get_malloc(t_map *map, int *counter)
 		while (++x < map->nbxcharmax)
 			count(map, x, y, counter);
 	}
-	if (!(p = malloc(sizeof(t_polygon) * *counter + 1)))
-		return (NULL);
+	if (!(p = malloc(sizeof(t_polygon) * (*counter + 1))))
+		return (ft_putstrret_fd(MALLOC, NULL, STDOUT_FILENO));
 	i = -1;
 	while (++i < *counter)
 		p[i].exist = 0;
 	p[*counter].exist = 0;
+	p[*counter].wall.img = NULL;
 	return (p);
 }
 
@@ -84,7 +85,8 @@ int			parse_poly(t_map *map, t_data data)
 {
 	int			realpolynb;
 
-	map->tree.rootnode->set = get_malloc(map, &realpolynb);
+	if (!(map->tree.rootnode->set = get_malloc(map, &realpolynb)))
+		return (0);
 	data.currentcubindex[0] = -1;
 	data.currentcubindex[1] = -1;
 	while (++data.currentcubindex[1] < map->nbymax)
@@ -92,8 +94,7 @@ int			parse_poly(t_map *map, t_data data)
 		data.currentcubindex[0] = -1;
 		while (++data.currentcubindex[0] < map->nbxcharmax)
 		{
-			realpolynb = search_polyverti(map, data);
-			if (iserror(map->tree.rootnode->set, realpolynb))
+			if ((realpolynb = search_polyverti(map, data)) == -1)
 				return (0);
 		}
 	}

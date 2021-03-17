@@ -27,18 +27,17 @@ int			get_number(t_map *map, int *maxlin, int *maxcol, int fd)
 			return (get_next_free(NULL, NULL, CHAR, 0));
 		*maxcol = ((int)ft_strlen(map->number[*maxlin])) > *maxcol ?
 		(int)ft_strlen(map->number[*maxlin]) : *maxcol;
-		(*maxlin)++; // admettons *maxlin = 2
+		(*maxlin)++;
 		if (!(map->testnumber = ft_realloc(map->number,
-		sizeof(char *) * (*maxlin + 1), sizeof(char *) * *maxlin)))
-			return (get_next_free(NULL, NULL, MALLOC,
-			ft_free_ret(0, (void **)&map->number[*maxlin - 1], NULL, NULL))); // on a un malloc de 1 pr map->number
+		sizeof(char *) * (*maxlin + 1), sizeof(char *) * *maxlin))
+		&& ft_free_ret(1, (void **)&map->number[*maxlin - 1], NULL, NULL))
+			return (get_next_free(NULL, NULL, MALLOC, 0));
 	}
 	ft_free_ret(0, (void **)&map->number[*maxlin], NULL, NULL);
 	if (ret == -1)
 		return (get_next_free(NULL, NULL, ERRFILE, 0));
 	if (*maxlin < 3)
 		return (get_next_free(NULL, NULL, MAP, 0));
-	
 	return (1);
 }
 
@@ -82,7 +81,7 @@ int			verify_map(t_map *map, t_player *player, t_data *data, int nblin)
 	}
 	if ((data->window = mlx_new_window(data->ptr, data->win_width,
 	data->win_height, "Cub3d")) == NULL)
-	{	
+	{
 		return (free_all_stuff(0, map, data,
 		free_player(1, player, MALLOC)));
 	}

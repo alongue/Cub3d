@@ -53,16 +53,21 @@ void	header(t_data *data, int fd)
 	}
 }
 
-void	bitmap(t_data *data, t_map *map)
+int		bitmap(t_data *data, t_player *player)
 {
 	int		fd;
 	int		file_size;
 	int		begin_file;
 	char	*filename;
 
-	(void)map;
-	filename = ft_strdup("screen.bmp");
-	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (!(filename = ft_strdup("screen.bmp")))
+		return (free_player(0, player, MALLOC));
+	if ((fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644) == -1)
+	&& close(fd) == -1)
+	{
+		free(filename);
+		return (free_player(0, player, ERRFILE));
+	}
 	file_size = 58 + (data->win_width * data->win_height) * 4;
 	begin_file = 58;
 	write(fd, "BM", 2);
@@ -73,5 +78,5 @@ void	bitmap(t_data *data, t_map *map)
 	body(fd, data);
 	close(fd);
 	free(filename);
-	exit(0);
+	return (1);
 }

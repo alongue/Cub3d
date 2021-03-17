@@ -32,7 +32,7 @@ static char		*ft_nbchar(int n)
 		nbchar++;
 	}
 	nbchar++;
-	if (!(itoa = (char *)malloc(sizeof(char) * nbchar + 1)))
+	if (!(itoa = (char *)malloc(sizeof(char) * (nbchar + 1))))
 		return (0);
 	return (itoa);
 }

@@ -14,6 +14,7 @@
 
 #define SPACEIDX "Error\nMettez au moins un espace (ID et res X)\n"
 #define RESNUM "Error\nVeuillez verifier les nombres de la resolution\n"
+#define RES "Error\nVeuillez verifier la resolution\n"
 #define SPACEXY "Error\nMettez au moins un espace (res X et res Y)\n"
 
 int		get_reslen(char *line)
@@ -60,6 +61,7 @@ int		set_resolution(t_data *data, char *line, char *c)
 {
 	int i;
 	int max;
+	int	end;
 
 	(void)c;
 	i = 0;
@@ -72,18 +74,21 @@ int		set_resolution(t_data *data, char *line, char *c)
 	if (line[i] == '-' && !ft_isdigit(line[i + 1]))
 		return (ft_putstrreti_fd(RESNUM, 0, STDOUT_FILENO));
 	max = data->win_height;
-	if (get_reslen(&line[i]) < 7)
+	end = i;
+	if ((end += get_reslen(&line[i])) < 7)
 	{
 		if ((ft_atoi(&line[i]) >= 1))
 			data->win_height = ft_atoi(&line[i]);
 		if (data->win_height >= max)
 			data->win_height = max;
 	}
-	return (create_mlx_img(data));
+	return (create_mlx_img(data, line, end));
 }
 
-int		create_mlx_img(t_data *data)
+int		create_mlx_img(t_data *data, char *line, int end)
 {
+	if (line[end] != '\0')
+		return (ft_putstrreti_fd(RES, 0, STDOUT_FILENO));
 	if (!(data->img = mlx_new_image(data->ptr,
 	data->win_width, data->win_height)))
 		return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));

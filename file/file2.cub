@@ -10,9 +10,9 @@ S      textures/test-sprite.xpm
 SO       textures/mur-1.xpm
 NO textures/mur-3.xpm
 EA textures/mur-2.xpm
-WE textures/mur-4.xpm
 
-R -1865           -715
+WE textures/mur-4.xpm
+R -186500000000000000000000000000000000000000000 00000000
 
     11111111111111111     1
    1100000000000000011111111

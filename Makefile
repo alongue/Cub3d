@@ -65,6 +65,7 @@ SRCS	=	$(MAIN)								\
 			$(PARSE)/location_bot.c				\
 			$(PARSE)/location_left.c			\
 			$(PARSE)/recover_xtreme_utils.c		\
+			$(PARSE)/free_stuff.c				\
 			$(PLAYER)/player_move.c				\
 			$(PLAYER)/player_turn.c				\
 			$(BITMAP)/bitmap.c					\

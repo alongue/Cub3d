@@ -15,22 +15,42 @@
 int			create_tree_node(t_map *map, t_data data)
 {
 	if (!(map->tree.rootnode = malloc(sizeof(t_node) * 1)))
-		return (ft_putstrreti_fd(MALLOC, 0, STDOUT_FILENO));
-	return (parse_poly(map, data));
+	{
+		map->tree.rootnode->frontchild = NULL;
+		map->tree.rootnode->backchild = NULL;
+		map->tree.rootnode->set = NULL;
+		return (ft_putstrreti_fd(MALLOC, 0,
+		free_all_stuff(STDOUT_FILENO, map, &data, 1)));
+	}
+	map->tree.rootnode->frontchild = NULL;
+	map->tree.rootnode->backchild = NULL;
+	if (!parse_poly(map, data))
+		return (free_all_stuff(0, map, &data, 1));
+	return (1);
 }
 
 int			init_node(t_node *node, t_polygon *set)
 {
 	node->exist = 0;
+	node->frontchild = NULL;
+	node->backchild = NULL;
 	if (!(node->frontchild = malloc(sizeof(t_node) * 1)))
-		return (0);
+		return (free_msg_once(0, MALLOC, NULL, NULL));
+	node->frontchild->frontchild = NULL;
+	node->frontchild->backchild = NULL;
+	node->frontchild->set = NULL;
 	if (!(node->backchild = malloc(sizeof(t_node) * 1)))
-		return (0);
+		return (free_msg_once(0, MALLOC, NULL, NULL));
+	node->backchild->frontchild = NULL;
+	node->backchild->backchild = NULL;
+	node->backchild->set = NULL;
 	if (is_convex_set(set, node))
 		return (2);
 	node->splitter = choose_div_polygon(set);
-	node->frontchild->set = malloc_frontset_child(set, node->splitter);
-	node->backchild->set = malloc_backset_child(set, node->splitter);
+	if (!(node->frontchild->set = malloc_frontset_child(set, node->splitter)))
+		return (free_msg_once(0, MALLOC, NULL, NULL));
+	if (!(node->backchild->set = malloc_backset_child(set, node->splitter)))
+		return (free_msg_once(0, MALLOC, NULL, NULL));
 	return (1);
 }
 

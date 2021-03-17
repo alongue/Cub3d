@@ -34,7 +34,7 @@ static char		*ft_nbchar(long n, const char *base)
 		nbchar++;
 	}
 	nbchar++;
-	if (!(itoa = (char *)malloc(sizeof(char) * nbchar + 1)))
+	if (!(itoa = (char *)malloc(sizeof(char) * (nbchar + 1))))
 		return (0);
 	return (itoa);
 }

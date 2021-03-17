@@ -16,11 +16,12 @@ int		free_msg_once(int ret, char *msg, void **to_free, void **to_free2)
 {
 	static int	isprinted = 0;
 
-	if (!isprinted)
-	{
-		ft_putstr_fd(msg, STDOUT_FILENO);
-		isprinted = 1;
-	}
+	if (msg)
+		if (!isprinted)
+		{
+			ft_putstr_fd(msg, STDOUT_FILENO);
+			isprinted = 1;
+		}
 	return (ft_free_ret(ret, to_free, to_free2, NULL));
 }
 
@@ -58,13 +59,9 @@ int		init_recover_xtreme(char ***xtreme, int *icop, int *coor, int location)
 	char	**testxtreme;
 
 	if (location != BLOCKED)
-	{
-		(*icop)++;
-		i = *icop;
-	}
+		i = ++(*icop);
 	else
 	{
-		printf("est cense s'en rappeler car location = BLOCKED donc backtrack interne\n");
 		if ((i = remind(coor[1], coor[0])) == -1)
 			return (-1);
 	}
