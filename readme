@@ -1,0 +1,7 @@
+makefile appeler programme cub3D: done
+
+revoir affichage des textures (taille plus ou moins grande)
+revoir affichage des sprites qui depasse taille des murs (afficher en haut mais pas mur)
+revoir resolution (surtout en y)
+espaces avant element = FALSE mais espaces a la fin de la ligne = COMME ON VEUT
+revoir lettre non autorise dans map  -->  espaces dans map = FALSE mais espaces dehors de map = OK

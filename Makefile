@@ -10,7 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	libcub.a
+NAME	=	cub3D
+
+LIBNAME	=	libcub.a
 
 LIBFT	=	Libft
 
@@ -135,9 +137,9 @@ $(NAME)	: $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	cp $(GNL)/*.o .
 	ar -x $(LIBFTNAME)
 	ar -x $(LIBMATHNAME)
-	$(AR) $(NAME) $(OBJS) *.o
-	$(LIB) $(NAME)
-	$(GCC) $(INCLNX) $(NAME) $(LIBLNX)
+	$(AR) $(LIBNAME) $(OBJS) *.o
+	$(LIB) $(LIBNAME)
+	$(GCC) $(INCLNX) $(LIBNAME) $(LIBLNX) -o $(NAME)
 
 $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	make -C minilibx-linux
@@ -146,16 +148,16 @@ $(VSCODE) : $(OBJS) $(LIBFT)/.c.o $(LIBMATH)/.c.o
 	cp $(GNL)/*.o .
 	ar -x $(LIBFTNAME)
 	ar -x $(LIBMATHNAME)
-	$(AR) $(NAME) $(OBJS) *.o
-	$(LIB) $(NAME)
-	$(GCC) -g $(INCLNX) $(NAME) $(LIBLNX)
+	$(AR) $(LIBNAME) $(OBJS) *.o
+	$(LIB) $(LIBNAME)
+	$(GCC) -g $(INCLNX) $(LIBNAME) $(LIBLNX) -o $(NAME)
 
 exec	: $(NAME)
-	./a.out $(filter-out $@, $(MAKECMDGOALS))
+	./$(NAME) $(filter-out $@, $(MAKECMDGOALS))
 
 debug	:	$(NAME)
-	$(GCC) $(INC) $(LIBFL) $(DEBG) $(NAME) $(MAIN)
-	./a.out $(filter-out $@, $(MAKECMDGOALS))
+	$(GCC) $(INC) $(LIBFL) $(DEBG) $(LIBNAME) $(MAIN)
+	./$(NAME) $(filter-out $@, $(MAKECMDGOALS))
 
 clean	:
 	make clean -C $(LIBFT)
@@ -169,12 +171,12 @@ fclean	:	clean
 	make fclean -C $(LIBMATH)
 	make clean -C minilibx-linux
 	rm -f $(SCREENSHOT)
-	rm -f $(OBJS) $(OBJS_B)
-	rm -f $(NAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
+	rm -f $(OBJS) $(OBJS_B) $(NAME)
+	rm -f $(LIBNAME) $(LIBFTNAME) $(LIBMATHNAME) $(BS)
 
 fcleanmax	:	fclean
 	rm -rf __.SYMDEF\ SORTED $(LIBFT)/__.SYMDEF\ SORTED __.SYMDEF
-	rm -rf a.out *.dSYM prog
+	rm -rf *.dSYM prog
 	rm -rf .vscode */.vscode
 	rm -rf .*.swp */.*.swp
 	rm -rf .DS_Store */.DS_Store

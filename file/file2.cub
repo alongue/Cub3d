@@ -6,10 +6,10 @@ C 255,255,255
 F   255,115,115
 
 
-S      textures/test-sprite.xpm
-SO       textures/mur-1.xpm
-NO textures/mur-3.xpm
-EA textures/mur-2.xpm
+S      ../erlajoua/textures/floor.xpm
+SO       textures/cercles.xpm
+NO textures/test-sprite.xpm
+EA ../erlajoua/textures/ceiling.xpm
 
 WE textures/mur-4.xpm
 R -186500000000000000000000000000000000000000000 00000000
