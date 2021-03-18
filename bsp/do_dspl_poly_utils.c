@@ -39,9 +39,9 @@ int		init4drawing(t_data *data, t_player player, t_polygon *polygon, int i)
 
 	polygon->wall.topcl = fmax(polygon->wall.top, 0.);
 	polygon->wall.botcl = fmin(polygon->wall.bot, data->win_height);
-	tanindex = -polygon->newangle - to_rad(90) + player.angleray[i];
+	tanindex = -(polygon->newangle + to_rad(90) - player.angleray[i]);
 	index = (int)((polygon->pdist * tan(tanindex) + polygon->btobp)
-	* ((polygon->wall.imgwidth) / data->cubside)) % (polygon->wall.imgwidth - 1);
+	) % (polygon->wall.imgwidth);
 	index = (index < 0) ? 0 : index;
 	polygon->wall.incr[0] = (polygon->wall.imgheight - 1)
 	/ (polygon->wall.bot - polygon->wall.top);

@@ -46,7 +46,7 @@ t_data data, t_player player)
 	polygon->newsegment.a.x = min(9999, polygon->newsegment.a.x);
 	polygon->newsegment.b.x = min(9999, polygon->newsegment.b.x);
 	polygon->dodisplay = raycastx(&polygon->wall, polygon, data, &segmentcop);
-	if (!raycastx_img(player, polygon, segmentcop))
+	if (!raycastx_img(player, polygon, segmentcop, data))
 		return (0);
 	return (polygon->dodisplay);
 }

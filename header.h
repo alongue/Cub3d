@@ -364,7 +364,7 @@ t_player player, t_data data);
 int					raycastx(t_wall *wall, t_polygon *polygon,
 t_data data, t_segment *segment);
 int					raycastx_img(t_player player, t_polygon *polygon,
-t_segment segment);
+t_segment segment, t_data data);
 int					raycastxobj(t_object *object, t_data data, t_player player);
 char				**recover_xtreme(int *coor, int *end, int location);
 int					remind(int x, int y);
