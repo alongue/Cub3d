@@ -50,16 +50,16 @@ void	*free_xtreme(void *ret, char *msg, int can_do)
 
 	xtreme = xtreme_addr(NULL, &boundend);
 	counter = -1;
-	if (*xtreme && (can_do || can_do == 2))
+	if (*xtreme && (can_do == 1 || can_do == 2 || can_do == STOP))
 	{
-		if (can_do == 2)
+		if (can_do == 2 || can_do == STOP)
 			boundend--;
 		while (++counter <= boundend)
 		{
 			free((*xtreme)[counter]);
 		}
 	}
-	if (can_do)
+	if (can_do == 1 || can_do == 2 || can_do == STOP)
 	{
 		free_msg_once(0, msg, NULL, NULL);
 		ft_free_ret(0, (void **)xtreme, NULL, NULL);

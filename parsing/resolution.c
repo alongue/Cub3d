@@ -24,8 +24,6 @@ int		get_reslen(char *line)
 	counter = 1;
 	while (*line != '\0' && *line != ' ')
 	{
-		if (counter > 7)
-			return (counter);
 		line++;
 		counter++;
 	}
@@ -74,8 +72,8 @@ int		set_resolution(t_data *data, char *line, char *c)
 	if (line[i] == '-' && !ft_isdigit(line[i + 1]))
 		return (ft_putstrreti_fd(RESNUM, 0, STDOUT_FILENO));
 	max = data->win_height;
-	end = i;
-	if ((end += get_reslen(&line[i])) < 7)
+	end = get_reslen(&line[i]) + i;
+	if ((get_reslen(&line[i])) < 7)
 	{
 		if ((ft_atoi(&line[i]) >= 1))
 			data->win_height = ft_atoi(&line[i]);

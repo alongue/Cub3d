@@ -93,7 +93,7 @@ int		searching_around(t_map *map, int *coor, int moving_side)
 	|| !recover_xtreme(coor, &coor[2], BLOCKED)))
 	{
 		return (ft_free_ret(ret[2], (void **)&params,
-		(free_xtreme(NULL, WALL, (ret[2] != ISFINISH))), NULL));
+		(free_xtreme(NULL, WALL, ret[2])), NULL));
 	}
 	return (ft_free_ret(BLOCKED, (void **)&params, NULL, NULL));
 }

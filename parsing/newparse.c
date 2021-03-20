@@ -31,7 +31,7 @@ int			get_number(t_map *map, int *maxlin, int *maxcol, int fd)
 		if (!(map->testnumber = ft_realloc(map->number,
 		sizeof(char *) * (*maxlin + 1), sizeof(char *) * *maxlin))
 		&& ft_free_ret(1, (void **)&map->number[*maxlin - 1], NULL, NULL))
-			return (get_next_free(NULL, NULL, MALLOC, 0));
+			return (get_next_free(NULL, NULL, MALLOC, -1));
 	}
 	ft_free_ret(0, (void **)&map->number[*maxlin], NULL, NULL);
 	if (ret == -1)
@@ -45,8 +45,11 @@ int			adjust_number(t_map *map, int fd, int *nblin, int *xmax)
 {
 	int		max1;
 	int		i;
+	int		ret;
 
-	if (!get_number(map, nblin, xmax, fd))
+	if (!(ret = get_number(map, nblin, xmax, fd)))
+		return (ft_free_ret(0, (void **)&map->number[*nblin], NULL, NULL));
+	if (ret == -1)
 		return (0);
 	if (!verify_end(fd))
 		return (0);

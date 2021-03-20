@@ -93,6 +93,9 @@ int		set_obj(t_data data, t_map *map, int i, int counter)
 	data.sprite, &map->objects[map->nbobjects - 1].width,
 	&map->objects[map->nbobjects - 1].height)))
 		return (ft_putstrreti_fd(SPRITE_NOT_LOADED, 0, 0));
+	map->objects[map->nbobjects - 1].height = (map->objects[map->nbobjects - 1].
+	height > data.cubside) ? data.cubside :
+	map->objects[map->nbobjects - 1].height;
 	map->objects[map->nbobjects - 1].img_data = (int *)mlx_get_data_addr(
 	data.img, &map->objects[map->nbobjects - 1].bpp,
 	&map->objects[map->nbobjects - 1].size_line,

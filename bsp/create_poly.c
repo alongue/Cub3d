@@ -39,7 +39,7 @@ t_polygon			create_polytop(t_map *map, int *coor, t_data data)
 	p.wall.color = 0xFF0000;
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texnorth,
 	&p.wall.imgwidth, &p.wall.imgheight)))
-		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (top)\n"));
+		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (north)\n"));
 	p.angle = to_rad(0);
 	p.exist = 1;
 	return (p);
@@ -66,7 +66,7 @@ t_polygon			create_polybot(t_map *map, int *coor, t_data data)
 	(void)data;
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texsouth,
 	&p.wall.imgwidth, &p.wall.imgheight)))
-		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (bot)\n"));
+		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (south)\n"));
 	p.angle = to_rad(0);
 	p.exist = 1;
 	return (p);
@@ -91,7 +91,7 @@ t_polygon			create_polyright(t_map *map, int *coor, t_data data)
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr, data.texeast,
 	&p.wall.imgwidth, &p.wall.imgheight)))
-		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (right)\n"));
+		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (east)\n"));
 	p.wall.color = 0x0000FF;
 	p.angle = to_rad(90);
 	p.exist = 1;
@@ -117,7 +117,7 @@ t_polygon			create_polyleft(t_map *map, int *coor, t_data data)
 	p.len = get_length(p.segment);
 	if (!(p.wall.img = mlx_xpm_file_to_image(data.ptr,
 	data.texwest, &p.wall.imgwidth, &p.wall.imgheight)))
-		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (left)\n"));
+		return (stop_fctn(&p, "Error\nL'image ne s'est pas charge (west)\n"));
 	p.wall.color = 0xFFFFFF;
 	p.angle = to_rad(90);
 	p.exist = 1;

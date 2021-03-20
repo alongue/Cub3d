@@ -40,12 +40,14 @@ t_data data, t_segment *segment)
 	return (1);
 }
 
-int		raycastx_img(t_player player, t_polygon *polygon, t_segment segment, t_data data)
+int		raycastx_img(t_player player, t_polygon *polygon,
+t_segment segment, t_data data)
 {
 	double	s;
 	double	len;
 
-	len = polygon->len * ((double)data.cubside / (double)polygon->wall.imgwidth);
+	len = polygon->len * ((double)data.cubside /
+	(double)polygon->wall.imgwidth);
 	polygon->newangle = polygon->angle + player.angle;
 	polygon->r = (-segment.a.x * (segment.b.x - segment.a.x)
 		+ (-segment.a.y * (segment.b.y - segment.a.y)))

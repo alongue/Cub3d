@@ -12,6 +12,17 @@
 
 #include "../header.h"
 
+int		check_inside(char *map_number, int x, char **boundy, int i)
+{
+	while (x < get_xtreme_x(boundy[i + 1]))
+	{
+		if (ft_isspace(map_number[x]))
+			return (ft_putstrreti_fd(CHAR, -1, STDOUT_FILENO));
+		x++;
+	}
+	return (x);
+}
+
 int		check_outside(int *x, int y, int *i, char *map_number)
 {
 	int		boundend;
@@ -29,7 +40,7 @@ int		check_outside(int *x, int y, int *i, char *map_number)
 		else
 		{
 			if (*i + 1 < max)
-				*x = get_xtreme_x(boundy[*i + 1]);
+				*x = check_inside(map_number, *x, boundy, *i);
 			*i += 2;
 		}
 	}
@@ -38,7 +49,7 @@ int		check_outside(int *x, int y, int *i, char *map_number)
 		if (map_number[*x] != ' ' && !is_boundaries(*x, y))
 			return (free_boundy(1, boundy, max, WALL));
 	}
-	return (free_boundy(0, boundy, max, NULL));
+	return (free_boundy((*x == -1), boundy, max, NULL));
 }
 
 int		is_outside_xboundaries(int y, t_map map)
