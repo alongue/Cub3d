@@ -54,20 +54,27 @@ int		onkeypressed(int key, void **p)
 	return (0);
 }
 
-void	**get_params_main(t_data *data, t_player *player, t_map *map)
+int		render_all(void **p)
 {
-	void	**params;
+	t_data		*data;
+	t_map		*map;
+	t_player	*player;
 
-	if (!(params = malloc(sizeof(void *) * 3)))
-	{
-		free_all_stuff(0, map, data, 1);
-		free_player(0, player, MALLOC);
-		return (NULL);
-	}
-	params[0] = (void *)data;
-	params[1] = (void *)player;
-	params[2] = (void *)map;
-	return (params);
+	map = (t_map *)p[1];
+	player = (t_player *)p[2];
+	reset_data((data = (t_data *)p[0]));
+	renderbsp(data, *map->tree.rootnode, *player);
+	renderobjects(data, *player, *map);
+	mlx_put_image_to_window(data->ptr, data->window, data->img, 0, 0);
+	return (0);
+}
+
+void	loop_main(t_data *data, void **params)
+{
+	mlx_hook(data->window, 2, (1L << 0), onkeypressed, params);
+	mlx_hook(data->window, 9, (1L << 21), render_all, params);
+	mlx_hook(data->window, 33, (1L << 17), onexit, params);
+	mlx_loop(data->ptr);
 }
 
 int		main(int ac, char **av)
@@ -93,8 +100,6 @@ int		main(int ac, char **av)
 	params[0] = (void *)&data;
 	params[1] = (void *)&map;
 	params[2] = (void *)&player;
-	mlx_hook(data.window, 2, (1L << 0), onkeypressed, params);
-	mlx_hook(data.window, 33, (1L << 17), onexit, params);
-	mlx_loop(data.ptr);
+	loop_main(&data, params);
 	return (EXIT_SUCCESS);
 }

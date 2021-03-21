@@ -6,8 +6,8 @@ C 2,255,255
 F   2,100,0
 
 
-S       textures/mur-1.xpm
-SO      textures/test-sprite.xpm
+S      textures/test-sprite.xpm
+SO       textures/mur-1.xpm
 NO textures/mur-2.xpm
 EA textures/mur-4.xpm
 
