@@ -46,8 +46,9 @@ int		set_texture(t_data *data, char *line, char *orientation)
 		return (1);
 	else if (orientation[0] == 'E' && set_chartex(&data->texeast, line, i))
 		return (1);
-	else if (orientation[0] == 'S' && orientation[1] == 0
+	else if (orientation[0] == 'S' && orientation[1] == 0 && line[1] == ' '
 	&& set_chartex(&data->sprite, line, i))
 		return (1);
-	return (0);
+	return (ft_putstrreti_fd("Error\nVeuillez verifier la ligne des textures\n",
+	0, STDOUT_FILENO));
 }

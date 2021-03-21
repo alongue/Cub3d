@@ -24,7 +24,6 @@ unsigned int	convert_color(char *line)
 	unsigned int	res;
 	int				i;
 	int				counter;
-	char			*color;
 
 	counter = -1;
 	ret = 0;
@@ -32,9 +31,9 @@ unsigned int	convert_color(char *line)
 	while (++counter < 3)
 	{
 		ret *= 256;
-		color = ft_convert_basel(&line[i], "0123456789", "0123456789abcdef");
-		res = (unsigned int)ft_atol_base(color, "0123456789abcdef");
-		free(color);
+		if (!ft_isdigit(line[i]))
+			return ((unsigned int)-1);
+		res = (unsigned int)ft_atoi(&line[i]);
 		i += ft_intlen(ft_atoi(&line[i]));
 		if ((counter < 2 && line[i++] != ',') || res > 255)
 			return ((unsigned int)-1);

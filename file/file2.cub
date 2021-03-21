@@ -1,13 +1,13 @@
 
 
-C 255,255,255
+C 2,255,255
 
 
-F   255,115,115
+F   2,100,0
 
 
-S      textures/test-sprite.xpm
-SO       textures/mur-1.xpm
+S       textures/mur-1.xpm
+SO      textures/test-sprite.xpm
 NO textures/mur-2.xpm
 EA textures/mur-4.xpm
 
